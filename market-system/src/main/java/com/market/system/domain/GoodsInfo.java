@@ -36,6 +36,12 @@ public class GoodsInfo extends BaseEntity {
     private String goodsName;
 
     /**
+     * 所属分类
+     */
+    @Excel(name = "所属分类")
+    private String goodsCategory;
+
+    /**
      * 商品类型
      */
     @Excel(name = "商品类型")
@@ -215,12 +221,21 @@ public class GoodsInfo extends BaseEntity {
         return delFlag;
     }
 
+    public String getGoodsCategory() {
+        return goodsCategory;
+    }
+
+    public void setGoodsCategory(String goodsCategory) {
+        this.goodsCategory = goodsCategory;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("goodsCode", getGoodsCode())
                 .append("goodsName", getGoodsName())
+                .append("goodsCategory", getGoodsCategory())
                 .append("goodsType", getGoodsType())
                 .append("goodsSupplier", getGoodsSupplier())
                 .append("goodsNumber", getGoodsNumber())

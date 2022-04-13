@@ -7,6 +7,7 @@
         <result property="id" column="id"/>
         <result property="goodsCode" column="goods_code"/>
         <result property="goodsName" column="goods_name"/>
+        <result property="goodsCategory" column="goods_category"/>
         <result property="goodsType" column="goods_type"/>
         <result property="goodsSupplier" column="goods_supplier"/>
         <result property="goodsNumber" column="goods_number"/>
@@ -29,6 +30,7 @@
         select id,
                goods_code,
                goods_name,
+               goods_category,
                goods_type,
                goods_supplier,
                goods_number,
@@ -56,6 +58,9 @@
             </if>
             <if test="goodsName != null  and goodsName != ''">
                 and goods_name like concat('%', #{goodsName}, '%')
+            </if>
+            <if test="goodsCategory != null and goodsCategory != ''">
+                and goods_category = #{goodsCategory},
             </if>
             <if test="goodsType != null  and goodsType != ''">
                 and goods_type = #{goodsType}
@@ -103,6 +108,9 @@
             </if>
             <if test="goodsName != null and goodsName != ''">
                 goods_name,
+            </if>
+            <if test="goodsCategory != null and goodsCategory != ''">
+                goods_category,
             </if>
             <if test="goodsType != null and goodsType != ''">
                 goods_type,
@@ -159,6 +167,9 @@
             </if>
             <if test="goodsName != null and goodsName != ''">
                 #{goodsName},
+            </if>
+            <if test="goodsCategory != null and goodsCategory != ''">
+                #{goodsCategory},
             </if>
             <if test="goodsType != null and goodsType != ''">
                 #{goodsType},
@@ -219,6 +230,9 @@
             </if>
             <if test="goodsName != null and goodsName != ''">
                 goods_name = #{goodsName},
+            </if>
+            <if test="goodsCategory != null and goodsCategory != ''">
+                goods_category = #{goodsCategory},
             </if>
             <if test="goodsType != null and goodsType != ''">
                 goods_type = #{goodsType},
