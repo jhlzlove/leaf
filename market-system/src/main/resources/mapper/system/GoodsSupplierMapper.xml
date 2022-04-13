@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.system.mapper.GoodsSupplierMapper">
+    <resultMap type="GoodsSupplier" id="TGoodsSupplierResult">
+        <result property="id" column="id"/>
+        <result property="supplierCode" column="supplier_code"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="supplierAddress" column="supplier_address"/>
+        <result property="linkMan" column="link_man"/>
+        <result property="supplierMobile" column="supplier_mobile"/>
+        <result property="supplierLicenseFont" column="supplier_license_font"/>
+        <result property="supplierLicenseBack" column="supplier_license_back"/>
+        <result property="supplierLeader" column="supplier_leader"/>
+        <result property="leaderPhone" column="leader_phone"/>
+        <result property="listingDate" column="listing_date"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectTGoodsSupplierVo">
+        select id,
+               supplier_code,
+               supplier_name,
+               supplier_address,
+               link_man,
+               supplier_mobile,
+               supplier_license_font,
+               supplier_license_back,
+               supplier_leader,
+               leader_phone,
+               listing_date,
+               del_flag,
+               status,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from t_goods_supplier
+    </sql>
+
+    <select id="selectTGoodsSupplierList" parameterType="GoodsSupplier" resultMap="TGoodsSupplierResult">
+        <include refid="selectTGoodsSupplierVo"/>
+        <where>
+            <if test="supplierCode != null  and supplierCode != ''">
+                and supplier_code = #{supplierCode}
+            </if>
+            <if test="supplierName != null  and supplierName != ''">
+                and supplier_name like concat('%', #{supplierName}, '%')
+            </if>
+            <if test="supplierAddress != null  and supplierAddress != ''">
+                and supplier_address = #{supplierAddress}
+            </if>
+            <if test="linkMan != null  and linkMan != ''">
+                and link_man = #{linkMan}
+            </if>
+            <if test="supplierMobile != null  and supplierMobile != ''">
+                and supplier_mobile = #{supplierMobile}
+            </if>
+            <if test="supplierLicenseFont != null  and supplierLicenseFont != ''">
+                and supplier_license_font = #{supplierLicenseFont}
+            </if>
+            <if test="supplierLicenseBack != null  and supplierLicenseBack != ''">
+                and supplier_license_back = #{supplierLicenseBack}
+            </if>
+            <if test="supplierLeader != null  and supplierLeader != ''">
+                and supplier_leader = #{supplierLeader}
+            </if>
+            <if test="leaderPhone != null  and leaderPhone != ''">
+                and leader_phone = #{leaderPhone}
+            </if>
+            <if test="listingDate != null  and listingDate != ''">
+                and listing_date = #{listingDate}
+            </if>
+            <if test="status != null  and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTGoodsSupplierById" parameterType="Long" resultMap="TGoodsSupplierResult">
+        <include refid="selectTGoodsSupplierVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTGoodsSupplier" parameterType="GoodsSupplier" useGeneratedKeys="true" keyProperty="id">
+        insert into t_goods_supplier
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplierCode != null">
+                supplier_code,
+            </if>
+            <if test="supplierName != null and supplierName != ''">
+                supplier_name,
+            </if>
+            <if test="supplierAddress != null">
+                supplier_address,
+            </if>
+            <if test="linkMan != null">
+                link_man,
+            </if>
+            <if test="supplierMobile != null">
+                supplier_mobile,
+            </if>
+            <if test="supplierLicenseFont != null">
+                supplier_license_font,
+            </if>
+            <if test="supplierLicenseBack != null">
+                supplier_license_back,
+            </if>
+            <if test="supplierLeader != null">
+                supplier_leader,
+            </if>
+            <if test="leaderPhone != null">
+                leader_phone,
+            </if>
+            <if test="listingDate != null">
+                listing_date,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplierCode != null">
+                #{supplierCode},
+            </if>
+            <if test="supplierName != null and supplierName != ''">
+                #{supplierName},
+            </if>
+            <if test="supplierAddress != null">
+                #{supplierAddress},
+            </if>
+            <if test="linkMan != null">
+                #{linkMan},
+            </if>
+            <if test="supplierMobile != null">
+                #{supplierMobile},
+            </if>
+            <if test="supplierLicenseFont != null">
+                #{supplierLicenseFont},
+            </if>
+            <if test="supplierLicenseBack != null">
+                #{supplierLicenseBack},
+            </if>
+            <if test="supplierLeader != null">
+                #{supplierLeader},
+            </if>
+            <if test="leaderPhone != null">
+                #{leaderPhone},
+            </if>
+            <if test="listingDate != null">
+                #{listingDate},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTGoodsSupplier" parameterType="GoodsSupplier">
+        update t_goods_supplier
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierCode != null">
+                supplier_code = #{supplierCode},
+            </if>
+            <if test="supplierName != null and supplierName != ''">
+                supplier_name = #{supplierName},
+            </if>
+            <if test="supplierAddress != null">
+                supplier_address = #{supplierAddress},
+            </if>
+            <if test="linkMan != null">
+                link_man = #{linkMan},
+            </if>
+            <if test="supplierMobile != null">
+                supplier_mobile = #{supplierMobile},
+            </if>
+            <if test="supplierLicenseFont != null">
+                supplier_license_font = #{supplierLicenseFont},
+            </if>
+            <if test="supplierLicenseBack != null">
+                supplier_license_back = #{supplierLicenseBack},
+            </if>
+            <if test="supplierLeader != null">
+                supplier_leader = #{supplierLeader},
+            </if>
+            <if test="leaderPhone != null">
+                leader_phone = #{leaderPhone},
+            </if>
+            <if test="listingDate != null">
+                listing_date = #{listingDate},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTGoodsSupplierById" parameterType="Long">
+        delete
+        from t_goods_supplier
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTGoodsSupplierByIds" parameterType="String">
+        delete from t_goods_supplier where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

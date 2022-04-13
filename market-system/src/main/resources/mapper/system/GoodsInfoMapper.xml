@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.system.mapper.GoodsInfoMapper">
+    <resultMap type="GoodsInfo" id="TGoodsInfoResult">
+        <result property="id" column="id"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsType" column="goods_type"/>
+        <result property="goodsSupplier" column="goods_supplier"/>
+        <result property="goodsNumber" column="goods_number"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsDiscount" column="goods_discount"/>
+        <result property="goodsPreferential" column="goods_preferential"/>
+        <result property="manufacturingDate" column="manufacturing_date"/>
+        <result property="saveDate" column="save_date"/>
+        <result property="meteringWay" column="metering_way"/>
+        <result property="status" column="status"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectTGoodsInfoVo">
+        select id,
+               goods_code,
+               goods_name,
+               goods_type,
+               goods_supplier,
+               goods_number,
+               goods_price,
+               goods_discount,
+               goods_preferential,
+               manufacturing_date,
+               save_date,
+               metering_way,
+               status,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark
+        from t_goods_info
+    </sql>
+
+    <select id="selectTGoodsInfoList" parameterType="GoodsInfo" resultMap="TGoodsInfoResult">
+        <include refid="selectTGoodsInfoVo"/>
+        <where>
+            <if test="goodsCode != null  and goodsCode != ''">
+                and goods_code = #{goodsCode}
+            </if>
+            <if test="goodsName != null  and goodsName != ''">
+                and goods_name like concat('%', #{goodsName}, '%')
+            </if>
+            <if test="goodsType != null  and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsSupplier != null  and goodsSupplier != ''">
+                and goods_supplier = #{goodsSupplier}
+            </if>
+            <if test="goodsNumber != null ">
+                and goods_number = #{goodsNumber}
+            </if>
+            <if test="goodsPrice != null ">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="goodsDiscount != null  and goodsDiscount != ''">
+                and goods_discount = #{goodsDiscount}
+            </if>
+            <if test="goodsPreferential != null ">
+                and goods_preferential = #{goodsPreferential}
+            </if>
+            <if test="manufacturingDate != null ">
+                and manufacturing_date = #{manufacturingDate}
+            </if>
+            <if test="saveDate != null and saveDate != ''">
+                and save_date = #{saveDate}
+            </if>
+            <if test="meteringWay != null  and meteringWay != ''">
+                and metering_way = #{meteringWay}
+            </if>
+            <if test="status != null  and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTGoodsInfoById" parameterType="Long" resultMap="TGoodsInfoResult">
+        <include refid="selectTGoodsInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTGoodsInfo" parameterType="GoodsInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_goods_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsCode != null and goodsCode != ''">
+                goods_code,
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name,
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                goods_type,
+            </if>
+            <if test="goodsSupplier != null and goodsSupplier != ''">
+                goods_supplier,
+            </if>
+            <if test="goodsNumber != null">
+                goods_number,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+            <if test="goodsDiscount != null">
+                goods_discount,
+            </if>
+            <if test="goodsPreferential != null">
+                goods_preferential,
+            </if>
+            <if test="manufacturingDate != null">
+                manufacturing_date,
+            </if>
+            <if test="saveDate != null and saveDate != ''">
+                save_date,
+            </if>
+            <if test="meteringWay != null">
+                metering_way,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsCode != null and goodsCode != ''">
+                #{goodsCode},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                #{goodsName},
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                #{goodsType},
+            </if>
+            <if test="goodsSupplier != null and goodsSupplier != ''">
+                #{goodsSupplier},
+            </if>
+            <if test="goodsNumber != null">
+                #{goodsNumber},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice},
+            </if>
+            <if test="goodsDiscount != null">
+                #{goodsDiscount},
+            </if>
+            <if test="goodsPreferential != null">
+                #{goodsPreferential},
+            </if>
+            <if test="manufacturingDate != null">
+                #{manufacturingDate},
+            </if>
+            <if test="saveDate != null">
+                #{saveDate},
+            </if>
+            <if test="meteringWay != null">
+                #{meteringWay},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTGoodsInfo" parameterType="GoodsInfo">
+        update t_goods_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsCode != null and goodsCode != ''">
+                goods_code = #{goodsCode},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                goods_type = #{goodsType},
+            </if>
+            <if test="goodsSupplier != null and goodsSupplier != ''">
+                goods_supplier = #{goodsSupplier},
+            </if>
+            <if test="goodsNumber != null">
+                goods_number = #{goodsNumber},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice},
+            </if>
+            <if test="goodsDiscount != null">
+                goods_discount = #{goodsDiscount},
+            </if>
+            <if test="goodsPreferential != null">
+                goods_preferential = #{goodsPreferential},
+            </if>
+            <if test="manufacturingDate != null">
+                manufacturing_date = #{manufacturingDate},
+            </if>
+            <if test="saveDate != null and saveDate != ''">
+                save_date = #{saveDate},
+            </if>
+            <if test="meteringWay != null">
+                metering_way = #{meteringWay},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTGoodsInfoById" parameterType="Long">
+        delete
+        from t_goods_info
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTGoodsInfoByIds" parameterType="String">
+        delete from t_goods_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
