@@ -136,7 +136,7 @@
 
     <el-table v-loading="loading" :data="saleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="商品编码" align="center" prop="goodsCode" />
       <el-table-column label="商品名称" align="center" prop="goodsName" />
       <el-table-column label="商品类型" align="center" prop="goodsType" />

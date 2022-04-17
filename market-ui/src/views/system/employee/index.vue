@@ -145,7 +145,7 @@
 
     <el-table v-loading="loading" :data="infoList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="员工编号" align="center" prop="employeeCode" />
       <el-table-column label="员工名称" align="center" prop="employeeName" />
       <el-table-column label="员工性别" align="center" prop="employeeSex" />
@@ -238,7 +238,7 @@
 import { listInfo, getInfo, delInfo, addInfo, updateInfo } from "@/api/system/employee";
 
 export default {
-  name: "Info",
+  name: "Employee",
   data() {
     return {
       // 遮罩层
@@ -396,7 +396,7 @@ export default {
     handleExport() {
       this.download('system/employee/export', {
         ...this.queryParams
-      }, `info_${new Date().getTime()}.xlsx`)
+      }, `employee_${new Date().getTime()}.xlsx`)
     }
   }
 };

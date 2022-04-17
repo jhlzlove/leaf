@@ -98,11 +98,9 @@ public class GoodsInfo extends BaseEntity {
 
     /**
      * 供应状态（0正常 1下架）
-     * 供应状态（0正常 1下架）
-     * 供应状态（0正常 1下架）
      */
     @Excel(name = "供应状态", readConverterExp = "0=正常,1=下架")
-    private String status;
+    private Integer status;
 
     /**
      * 删除标志（Y代表存在 N代表删除）
@@ -205,11 +203,11 @@ public class GoodsInfo extends BaseEntity {
         return meteringWay;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 

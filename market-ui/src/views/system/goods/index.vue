@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <!-- 
+      模糊搜索
+     -->
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="商品编码" prop="goodsCode">
         <el-input
@@ -73,12 +76,13 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="保质期" prop="saveDate">
-        <el-date-picker clearable size="small"
+        <el-input
           v-model="queryParams.saveDate"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="选择保质期">
-        </el-date-picker>
+          placeholder="请输入保质期"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="计量方式" prop="meteringWay">
         <el-input
@@ -143,9 +147,10 @@
 
     <el-table v-loading="loading" :data="infoList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="商品编码" align="center" prop="goodsCode" />
       <el-table-column label="商品名称" align="center" prop="goodsName" />
+      <el-table-column label="所属分类" align="center" prop="goodsCategory" />
       <el-table-column label="商品类型" align="center" prop="goodsType" />
       <el-table-column label="商品供货商编码" align="center" prop="goodsSupplier" />
       <el-table-column label="商品数量" align="center" prop="goodsNumber" />
@@ -157,13 +162,17 @@
           <span>{{ parseTime(scope.row.manufacturingDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="保质期" align="center" prop="saveDate" width="180">
-        <template slot-scope="scope">
+      <el-table-column label="保质期" align="center" prop="saveDate" >
+        <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.saveDate, '{y}-{m}-{d}') }}</span>
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column label="计量方式" align="center" prop="meteringWay" />
-      <el-table-column label="供应状态" align="center" prop="status" />
+      <el-table-column label="供应状态" align="center" prop="status" >
+        <template slot-scope="scope">
+            {{scope.row.type === 0 ? "正常" : "下架"}}
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -201,6 +210,9 @@
         </el-form-item>
         <el-form-item label="商品名称" prop="goodsName">
           <el-input v-model="form.goodsName" placeholder="请输入商品名称" />
+        </el-form-item>
+        <el-form-item label="商品分类" prop="goodsCategory">
+          <el-input v-model="form.goodsName" placeholder="请输入商品分类" />
         </el-form-item>
         <el-form-item label="商品类型" prop="goodsType">
           <el-input v-model="form.goodsType" placeholder="请输入商品类型" />
@@ -253,7 +265,7 @@
 import { listInfo, getInfo, delInfo, addInfo, updateInfo } from "@/api/system/goods";
 
 export default {
-  name: "Info",
+  name: "Goods",
   data() {
     return {
       // 遮罩层
@@ -280,6 +292,7 @@ export default {
         pageSize: 10,
         goodsCode: null,
         goodsName: null,
+        goodsCategoy: null,
         goodsType: null,
         goodsSupplier: null,
         goodsNumber: null,
@@ -300,6 +313,9 @@ export default {
         ],
         goodsName: [
           { required: true, message: "商品名称不能为空", trigger: "blur" }
+        ],
+        goodsCategoy: [
+          { required: true, message: "商品分类不能为空", trigger: "change" }
         ],
         goodsType: [
           { required: true, message: "商品类型不能为空", trigger: "change" }
@@ -346,6 +362,7 @@ export default {
         id: null,
         goodsCode: null,
         goodsName: null,
+        goodsCategoy: null,
         goodsType: null,
         goodsSupplier: null,
         goodsNumber: null,
@@ -355,7 +372,7 @@ export default {
         manufacturingDate: null,
         saveDate: null,
         meteringWay: null,
-        status: "0",
+        status: 0,
         delFlag: null,
         createBy: null,
         createTime: null,
@@ -431,7 +448,7 @@ export default {
     handleExport() {
       this.download('system/goods/export', {
         ...this.queryParams
-      }, `info_${new Date().getTime()}.xlsx`)
+      }, `goodsinfo_${new Date().getTime()}.xlsx`)
     }
   }
 };
