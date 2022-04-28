@@ -1,6 +1,6 @@
 package com.market.web.controller.system;
 
-import com.market.common.config.RuoYiConfig;
+import com.market.common.config.AppConfig;
 import com.market.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ public class SysIndexController {
      * 系统基础配置
      */
     @Autowired
-    private RuoYiConfig ruoyiConfig;
+    private AppConfig ruoyiConfig;
 
     /**
      * 访问首页，提示语

@@ -7,8 +7,8 @@ spring:
       # 主库数据源
       master:
         url: jdbc:mysql://101.34.224.56:3306/market?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: root
-        password: root
+        username: dev
+        password: dev123!@.
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
@@ -43,7 +43,7 @@ spring:
         allow:
         url-pattern: /druid/*
         # 控制台管理用户名和密码
-        login-username: ruoyi
+        login-username: market
         login-password: 123456
       filter:
         stat:
