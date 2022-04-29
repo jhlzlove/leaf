@@ -111,7 +111,7 @@ public class SwaggerConfig {
                 // 设置标题
                 .title("标题：若依管理系统_接口文档")
                 // 描述
-                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
+                .description("描述：胡乱编造的项目，主要用于学习")
                 // 作者信息
                 .contact(new Contact(marketConfig.getName(), null, null))
                 // 版本

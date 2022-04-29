@@ -1,82 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="商品编码" prop="goodsCode">
+      <el-form-item label="商品编码" prop="saleCode">
         <el-input
-          v-model="queryParams.goodsCode"
-          placeholder="请输入商品编码"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品名称" prop="goodsName">
-        <el-input
-          v-model="queryParams.goodsName"
-          placeholder="请输入商品名称"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="售出数量" prop="goodsSaleNum">
-        <el-input
-          v-model="queryParams.goodsSaleNum"
-          placeholder="请输入售出数量"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="计量方式" prop="meteringWay">
-        <el-input
-          v-model="queryParams.meteringWay"
-          placeholder="请输入计量方式"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="应付金额" prop="amountPayable">
-        <el-input
-          v-model="queryParams.amountPayable"
-          placeholder="请输入应付金额"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="实付金额" prop="amountActual">
-        <el-input
-          v-model="queryParams.amountActual"
-          placeholder="请输入实付金额"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="找零" prop="change">
-        <el-input
-          v-model="queryParams.change"
-          placeholder="请输入找零"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="顶部信息" prop="topDesc">
-        <el-input
-          v-model="queryParams.topDesc"
-          placeholder="请输入顶部信息"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="底部信息" prop="bottomDesc">
-        <el-input
-          v-model="queryParams.bottomDesc"
-          placeholder="请输入底部信息"
+          v-model="queryParams.saleCode"
+          placeholder="请输入出售编码"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -247,16 +175,7 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        goodsCode: null,
-        goodsName: null,
-        goodsType: null,
-        goodsSaleNum: null,
-        meteringWay: null,
-        amountPayable: null,
-        amountActual: null,
-        change: null,
-        topDesc: null,
-        bottomDesc: null,
+        saleCode: null,
       },
       // 表单参数
       form: {},

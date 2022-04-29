@@ -22,72 +22,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="商品供货商编码" prop="goodsSupplier">
-        <el-input
-          v-model="queryParams.goodsSupplier"
-          placeholder="请输入商品供货商编码"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品数量" prop="goodsNumber">
-        <el-input
-          v-model="queryParams.goodsNumber"
-          placeholder="请输入商品数量"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品定价" prop="goodsPrice">
-        <el-input
-          v-model="queryParams.goodsPrice"
-          placeholder="请输入商品定价"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="折扣" prop="goodsDiscount">
-        <el-input
-          v-model="queryParams.goodsDiscount"
-          placeholder="请输入折扣"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="优惠价格" prop="goodsPreferential">
-        <el-input
-          v-model="queryParams.goodsPreferential"
-          placeholder="请输入优惠价格"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="生产日期" prop="manufacturingDate">
-        <el-date-picker clearable size="small"
-          v-model="queryParams.manufacturingDate"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="选择生产日期">
-        </el-date-picker>
-      </el-form-item>
       <el-form-item label="保质期" prop="saveDate">
         <el-input
           v-model="queryParams.saveDate"
           placeholder="请输入保质期"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="计量方式" prop="meteringWay">
-        <el-input
-          v-model="queryParams.meteringWay"
-          placeholder="请输入计量方式"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"

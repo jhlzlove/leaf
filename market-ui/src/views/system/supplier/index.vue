@@ -19,73 +19,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="地址" prop="supplierAddress">
-        <el-input
-          v-model="queryParams.supplierAddress"
-          placeholder="请输入地址"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="联系人" prop="linkMan">
         <el-input
           v-model="queryParams.linkMan"
           placeholder="请输入联系人"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="联系方式" prop="supplierMobile">
-        <el-input
-          v-model="queryParams.supplierMobile"
-          placeholder="请输入联系方式"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="经营执照" prop="supplierLicenseFont">
-        <el-input
-          v-model="queryParams.supplierLicenseFont"
-          placeholder="请输入经营执照"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="经营执照" prop="supplierLicenseBack">
-        <el-input
-          v-model="queryParams.supplierLicenseBack"
-          placeholder="请输入经营执照"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="公司老板" prop="supplierLeader">
-        <el-input
-          v-model="queryParams.supplierLeader"
-          placeholder="请输入公司老板"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="联系方式" prop="leaderPhone">
-        <el-input
-          v-model="queryParams.leaderPhone"
-          placeholder="请输入联系方式"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="上市日期" prop="listingDate">
-        <el-input
-          v-model="queryParams.listingDate"
-          placeholder="请输入上市日期"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -267,13 +204,6 @@ export default {
         supplierName: null,
         supplierAddress: null,
         linkMan: null,
-        supplierMobile: null,
-        supplierLicenseFont: null,
-        supplierLicenseBack: null,
-        supplierLeader: null,
-        leaderPhone: null,
-        listingDate: null,
-        status: null,
       },
       // 表单参数
       form: {},

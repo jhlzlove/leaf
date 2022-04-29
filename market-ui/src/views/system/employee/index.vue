@@ -28,64 +28,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="住址" prop="employeeAddress">
-        <el-input
-          v-model="queryParams.employeeAddress"
-          placeholder="请输入住址"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="联系电话" prop="employeePhone">
         <el-input
           v-model="queryParams.employeePhone"
           placeholder="请输入联系电话"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="身份证号" prop="employeeCard">
-        <el-input
-          v-model="queryParams.employeeCard"
-          placeholder="请输入身份证号"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="照片地址" prop="employeePhoto">
-        <el-input
-          v-model="queryParams.employeePhoto"
-          placeholder="请输入照片地址"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="所在省" prop="province">
-        <el-input
-          v-model="queryParams.province"
-          placeholder="请输入所在省"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="所在市" prop="city">
-        <el-input
-          v-model="queryParams.city"
-          placeholder="请输入所在市"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="乡镇/街道" prop="town">
-        <el-input
-          v-model="queryParams.town"
-          placeholder="请输入乡镇/街道"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -265,15 +211,8 @@ export default {
         pageSize: 10,
         employeeCode: null,
         employeeName: null,
-        employeeSex: null,
         employeeDept: null,
-        employeeAddress: null,
         employeePhone: null,
-        employeeCard: null,
-        employeePhoto: null,
-        province: null,
-        city: null,
-        town: null,
       },
       // 表单参数
       form: {},

@@ -1,24 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="商品编码" prop="goodsCode">
-        <el-input
-          v-model="queryParams.goodsCode"
-          placeholder="请输入商品编码"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品名称" prop="goodsName">
-        <el-input
-          v-model="queryParams.goodsName"
-          placeholder="请输入商品名称"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="订单编号" prop="recordCode">
         <el-input
           v-model="queryParams.recordCode"
@@ -27,6 +9,18 @@
           size="small"
           @keyup.enter.native="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="创建时间">
+            <el-date-picker
+              v-model="dateRange"
+              size="small"
+              style="width: 240px"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="-"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            ></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -168,9 +162,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        goodsCode: null,
-        goodsName: null,
-        recordCode: null,
+        saleCode: null,
+        dateRange: [],
       },
       // 表单参数
       form: {},
@@ -201,6 +194,7 @@ export default {
     reset() {
       this.form = {
         id: null,
+        saleCode: null,
         goodsCode: null,
         goodsName: null,
         recordCode: null,
@@ -208,7 +202,8 @@ export default {
         createBy: null,
         updateTime: null,
         updateBy: null,
-        remark: null
+        remark: null,
+        dataRange: null,
       };
       this.resetForm("form");
     },

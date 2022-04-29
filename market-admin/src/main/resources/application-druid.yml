@@ -55,3 +55,9 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+  data:
+    mongodb:
+      database: test_market
+      host: localhost
+      port: 27017

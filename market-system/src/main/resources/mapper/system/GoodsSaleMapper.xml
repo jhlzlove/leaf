@@ -5,6 +5,7 @@
 <mapper namespace="com.market.system.mapper.GoodsSaleMapper">
     <resultMap type="GoodsSale" id="TGoodsSaleResult">
         <result property="id" column="id"/>
+        <result property="saleCode" column="sale_code"/>
         <result property="goodsCode" column="goods_code"/>
         <result property="goodsName" column="goods_name"/>
         <result property="goodsType" column="goods_type"/>
@@ -24,6 +25,7 @@
 
     <sql id="selectTGoodsSaleVo">
         select id,
+               sale_code,
                goods_code,
                goods_name,
                goods_type,
@@ -45,6 +47,9 @@
     <select id="selectTGoodsSaleList" parameterType="GoodsSale" resultMap="TGoodsSaleResult">
         <include refid="selectTGoodsSaleVo"/>
         <where>
+            <if test="saleCode != null  and saleCode != ''">
+                and sale_code = #{saleCode}
+            </if>
             <if test="goodsCode != null  and goodsCode != ''">
                 and goods_code = #{goodsCode}
             </if>
@@ -54,19 +59,19 @@
             <if test="goodsType != null  and goodsType != ''">
                 and goods_type = #{goodsType}
             </if>
-            <if test="goodsSaleNum != null ">
+            <if test="goodsSaleNum != null">
                 and goods_sale_num = #{goodsSaleNum}
             </if>
             <if test="meteringWay != null  and meteringWay != ''">
                 and metering_way = #{meteringWay}
             </if>
-            <if test="amountPayable != null ">
+            <if test="amountPayable != null">
                 and amount_payable = #{amountPayable}
             </if>
-            <if test="amountActual != null ">
+            <if test="amountActual != null">
                 and amount_actual = #{amountActual}
             </if>
-            <if test="change != null ">
+            <if test="change != null">
                 and change = #{change}
             </if>
             <if test="topDesc != null  and topDesc != ''">
@@ -86,6 +91,9 @@
     <insert id="insertTGoodsSale" parameterType="GoodsSale" useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_sale
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="saleCode != null">
+                sale_code,
+            </if>
             <if test="goodsCode != null">
                 goods_code,
             </if>
@@ -133,6 +141,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="saleCode != null">
+                #{saleCode},
+            </if>
             <if test="goodsCode != null">
                 #{goodsCode},
             </if>
@@ -184,6 +195,9 @@
     <update id="updateTGoodsSale" parameterType="GoodsSale">
         update t_goods_sale
         <trim prefix="SET" suffixOverrides=",">
+            <if test="saleCode != null">
+                sale_code = #{saleCode},
+            </if>
             <if test="goodsCode != null">
                 goods_code = #{goodsCode},
             </if>

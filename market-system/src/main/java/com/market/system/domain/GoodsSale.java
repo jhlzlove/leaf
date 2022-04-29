@@ -22,6 +22,11 @@ public class GoodsSale extends BaseEntity {
     private Long id;
 
     /**
+     * 商品售出单号
+     */
+    @Excel(name = "售出编码")
+    private String saleCode;
+    /**
      * 商品编码
      */
     @Excel(name = "商品编码")
@@ -80,6 +85,14 @@ public class GoodsSale extends BaseEntity {
      */
     @Excel(name = "底部信息")
     private String bottomDesc;
+
+    public String getSaleCode() {
+        return saleCode;
+    }
+
+    public void setSaleCode(String saleCode) {
+        this.saleCode = saleCode;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -173,6 +186,7 @@ public class GoodsSale extends BaseEntity {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
+                .append("saleCode", getSaleCode())
                 .append("goodsCode", getGoodsCode())
                 .append("goodsName", getGoodsName())
                 .append("goodsType", getGoodsType())
