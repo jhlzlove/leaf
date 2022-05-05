@@ -37,7 +37,7 @@
 
 后端部署
 
-1. 确保Java运行环境 JDK 存在并能正常运行
+1. 确保Java运行的相关环境： JDK、MySQL、Redis服务存在并正常运行
 2. 运行数据库文件，导入相关数据
 3. 修改 market-admin 模块 resources 目录下的 application.yml 的相关配置
 4. 修改 logback.xml 的日志存放目录
