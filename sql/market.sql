@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 101.34.224.56
+ Source Server         : 101.34.224.56_3306
  Source Server Type    : MySQL
- Source Server Version : 80020
+ Source Server Version : 80028
  Source Host           : 101.34.224.56:3306
  Source Schema         : market
 
  Target Server Type    : MySQL
- Target Server Version : 80020
+ Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 17/04/2022 13:24:08
+ Date: 29/04/2022 18:06:10
 */
 
 SET NAMES utf8mb4;
@@ -609,7 +609,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -622,6 +622,7 @@ INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-13 01:32:07');
 INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-17 01:34:08');
 INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Firefox 9', 'Windows 10', '0', '登录成功', '2022-04-17 02:35:46');
+INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-29 17:01:18');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -654,8 +655,9 @@ CREATE TABLE `sys_menu`  (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2022-03-31 15:49:57', '', NULL, '系统管理目录');
-INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2022-03-31 15:49:57', '', NULL, '系统监控目录');
+INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 8, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2022-03-31 15:49:57', 'admin', '2022-04-29 17:07:40', '系统监控目录');
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, 'tool', NULL, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2022-03-31 15:49:57', '', NULL, '系统工具目录');
+INSERT INTO `sys_menu` VALUES (4, '基本功能', 0, 4, 'base', NULL, NULL, 1, 0, 'M', '0', '0', '', 'list', 'admin', '2022-04-29 17:03:15', 'admin', '2022-04-29 17:07:11', '基础功能目录');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2022-03-31 15:49:57', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2022-03-31 15:49:57', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2022-03-31 15:49:57', '', NULL, '菜单管理菜单');
@@ -735,31 +737,31 @@ INSERT INTO `sys_menu` VALUES (1057, '生成删除', 115, 3, '#', '', '', 1, 0, 
 INSERT INTO `sys_menu` VALUES (1058, '导入代码', 115, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1059, '预览代码', 115, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1060, '生成代码', 115, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1061, '员工管理', 1, 1, 'employee', 'system/employee/index', NULL, 1, 0, 'C', '0', '0', 'system:info:list', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '员工信息菜单');
+INSERT INTO `sys_menu` VALUES (1061, '客户管理', 4, 1, 'employee', 'system/employee/index', NULL, 1, 1, 'C', '0', '0', 'system:info:list', 'user', 'admin', '2022-04-13 02:01:36', 'admin', '2022-04-29 17:11:34', '员工信息菜单');
 INSERT INTO `sys_menu` VALUES (1062, '员工信息查询', 1061, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:query', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1063, '员工信息新增', 1061, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:add', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1064, '员工信息修改', 1061, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:edit', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1065, '员工信息删除', 1061, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:remove', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1066, '员工信息导出', 1061, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:export', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1067, '记录管理', 1, 1, 'record', 'system/record/index', NULL, 1, 0, 'C', '0', '0', 'system:record:list', '#', 'admin', '2022-04-13 02:01:49', '', NULL, '记录菜单');
+INSERT INTO `sys_menu` VALUES (1067, '记录管理', 4, 1, 'record', 'system/record/index', NULL, 1, 1, 'C', '0', '0', 'system:record:list', 'documentation', 'admin', '2022-04-13 02:01:49', 'admin', '2022-04-29 17:12:19', '记录菜单');
 INSERT INTO `sys_menu` VALUES (1068, '记录查询', 1067, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:query', '#', 'admin', '2022-04-13 02:01:49', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1069, '记录新增', 1067, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:add', '#', 'admin', '2022-04-13 02:01:49', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1070, '记录修改', 1067, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:edit', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1071, '记录删除', 1067, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:remove', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1072, '记录导出', 1067, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:export', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1073, '销售管理', 1, 1, 'sale', 'system/sale/index', NULL, 1, 0, 'C', '0', '0', 'system:sale:list', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '商品销售菜单');
+INSERT INTO `sys_menu` VALUES (1073, '销售管理', 4, 1, 'sale', 'system/sale/index', NULL, 1, 1, 'C', '0', '0', 'system:sale:list', 'shopping', 'admin', '2022-04-13 02:01:58', 'admin', '2022-04-29 17:13:06', '商品销售菜单');
 INSERT INTO `sys_menu` VALUES (1074, '商品销售查询', 1073, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:query', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1075, '商品销售新增', 1073, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:add', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1076, '商品销售修改', 1073, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:edit', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1077, '商品销售删除', 1073, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:remove', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1078, '商品销售导出', 1073, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:export', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1079, '供货商信息管理', 1, 1, 'supplier', 'system/supplier/index', NULL, 1, 0, 'C', '0', '0', 'system:supplier:list', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '供货商信息菜单');
+INSERT INTO `sys_menu` VALUES (1079, '供货商信息管理', 4, 1, 'supplier', 'system/supplier/index', NULL, 1, 1, 'C', '0', '0', 'system:supplier:list', 'phone', 'admin', '2022-04-13 02:02:06', 'admin', '2022-04-29 17:14:30', '供货商信息菜单');
 INSERT INTO `sys_menu` VALUES (1080, '供货商信息查询', 1079, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:query', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1081, '供货商信息新增', 1079, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:add', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1082, '供货商信息修改', 1079, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:edit', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1083, '供货商信息删除', 1079, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:remove', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1084, '供货商信息导出', 1079, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:export', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1085, '商品管理', 1, 1, 'goods', 'system/goods/index', NULL, 1, 0, 'C', '0', '0', 'system:goods:list', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '商品信息菜单');
+INSERT INTO `sys_menu` VALUES (1085, '商品管理', 4, 1, 'goods', 'system/goods/index', NULL, 1, 1, 'C', '0', '0', 'system:goods:list', 'table', 'admin', '2022-04-13 02:02:18', 'admin', '2022-04-29 17:14:35', '商品信息菜单');
 INSERT INTO `sys_menu` VALUES (1086, '商品信息查询', 1085, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:query', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1087, '商品信息新增', 1085, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:add', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1088, '商品信息修改', 1085, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:edit', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
@@ -812,7 +814,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -831,6 +833,16 @@ INSERT INTO `sys_oper_log` VALUES (110, '商品信息', 1, 'com.market.web.contr
 INSERT INTO `sys_oper_log` VALUES (111, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":20,\"saveDate\":\"无限期\",\"remark\":\"传说级宝甲\",\"params\":{},\"goodsSupplier\":\"仙剑问情\",\"goodsDiscount\":\"8\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160041588,\"goodsNumber\":2,\"goodsPrice\":800,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":3,\"goodsName\":\"南明离火服\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:47:27');
 INSERT INTO `sys_oper_log` VALUES (112, '商品信息', 2, 'com.market.web.controller.system.GoodsInfoController.edit()', 'PUT', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":10,\"saveDate\":\"无限期\",\"remark\":\"nice\",\"updateTime\":1650160201695,\"params\":{},\"goodsSupplier\":\"仙剑奇侠传\",\"goodsDiscount\":\"9\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160036000,\"goodsNumber\":1,\"goodsPrice\":1200,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":2,\"goodsName\":\"广绣流仙裙\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:50:14');
 INSERT INTO `sys_oper_log` VALUES (113, '商品信息', 2, 'com.market.web.controller.system.GoodsInfoController.edit()', 'PUT', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":10,\"saveDate\":\"无限期\",\"remark\":\"nice\",\"updateTime\":1650160213366,\"params\":{},\"goodsSupplier\":\"仙剑奇侠传\",\"goodsDiscount\":\"9\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160036000,\"goodsNumber\":1,\"goodsPrice\":1200,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":2,\"goodsName\":\"广绣流仙裙\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:50:14');
+INSERT INTO `sys_oper_log` VALUES (114, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"list\",\"orderNum\":\"4\",\"menuName\":\"基本功能\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"base\",\"children\":[],\"createTime\":1651222995000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":4,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:07:12');
+INSERT INTO `sys_oper_log` VALUES (115, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"monitor\",\"orderNum\":\"8\",\"menuName\":\"系统监控\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"monitor\",\"children\":[],\"createTime\":1648712997000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:07:40');
+INSERT INTO `sys_oper_log` VALUES (116, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"#\",\"orderNum\":\"1\",\"menuName\":\"客户管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"employee\",\"component\":\"system/employee/index\",\"children\":[],\"createTime\":1649786496000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1061,\"menuType\":\"C\",\"perms\":\"system:info:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:10:40');
+INSERT INTO `sys_oper_log` VALUES (117, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"#\",\"orderNum\":\"1\",\"menuName\":\"记录管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"record\",\"component\":\"system/record/index\",\"children\":[],\"createTime\":1649786509000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1067,\"menuType\":\"C\",\"perms\":\"system:record:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:10:56');
+INSERT INTO `sys_oper_log` VALUES (118, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"user\",\"orderNum\":\"1\",\"menuName\":\"客户管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"employee\",\"component\":\"system/employee/index\",\"children\":[],\"createTime\":1649786496000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1061,\"menuType\":\"C\",\"perms\":\"system:info:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:11:34');
+INSERT INTO `sys_oper_log` VALUES (119, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"documentation\",\"orderNum\":\"1\",\"menuName\":\"记录管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"record\",\"component\":\"system/record/index\",\"children\":[],\"createTime\":1649786509000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1067,\"menuType\":\"C\",\"perms\":\"system:record:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:12:19');
+INSERT INTO `sys_oper_log` VALUES (120, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"shopping\",\"orderNum\":\"1\",\"menuName\":\"销售管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"sale\",\"component\":\"system/sale/index\",\"children\":[],\"createTime\":1649786518000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1073,\"menuType\":\"C\",\"perms\":\"system:sale:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:13:06');
+INSERT INTO `sys_oper_log` VALUES (121, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:13:51');
+INSERT INTO `sys_oper_log` VALUES (122, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"phone\",\"orderNum\":\"1\",\"menuName\":\"供货商信息管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"supplier\",\"component\":\"system/supplier/index\",\"children\":[],\"createTime\":1649786526000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1079,\"menuType\":\"C\",\"perms\":\"system:supplier:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:30');
+INSERT INTO `sys_oper_log` VALUES (123, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:35');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1031,7 +1043,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-04-17 10:35:46', 'admin', '2022-03-31 15:49:56', '', '2022-04-17 02:35:46', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-04-29 17:01:11', 'admin', '2022-03-31 15:49:56', '', '2022-04-29 17:01:18', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-03-31 15:49:56', 'admin', '2022-03-31 15:49:56', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1122,7 +1134,7 @@ CREATE TABLE `t_goods_info`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '信息更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_info
@@ -1158,6 +1170,7 @@ CREATE TABLE `t_goods_record`  (
 DROP TABLE IF EXISTS `t_goods_sale`;
 CREATE TABLE `t_goods_sale`  (
   `id` int NOT NULL AUTO_INCREMENT,
+  `sale_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '出售编码',
   `goods_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品编码',
   `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品名称',
   `goods_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品类型',

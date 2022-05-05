@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="供应商社会统一信用码" prop="supplierCode">
+      <el-form-item label="企业统一信用码" prop="supplierCode">
         <el-input
           v-model="queryParams.supplierCode"
-          placeholder="请输入供应商社会统一信用码"
+          placeholder="企业统一信用码"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="供应商名称" prop="supplierName">
+      <el-form-item label="企业名称" prop="supplierName">
         <el-input
           v-model="queryParams.supplierName"
           placeholder="请输入供应商名称"

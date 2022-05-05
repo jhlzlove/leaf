@@ -1,10 +1,12 @@
 ## 开发
 
+请确保后端服务成功启动后再启动前端项目。
+
 ```bash
 # 克隆项目
 git clone https://github.com/jhlzlove/market.git
 
-# 进入项目目录
+# 进入前端项目目录
 cd market-ui
 
 # 安装依赖
@@ -17,7 +19,7 @@ npm install --registry=https://registry.npm.taobao.org
 npm run dev
 ```
 
-浏览器访问 http://localhost:80
+如果设置的有默认浏览器，程序启动成功后会直接使用默认的浏览器打开相关页面。如果没有可以使用浏览器访问 http://localhost:80
 
 ## 发布
 
