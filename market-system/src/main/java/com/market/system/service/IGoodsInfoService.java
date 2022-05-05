@@ -1,8 +1,8 @@
 package com.market.system.service;
 
-import java.util.List;
-
 import com.market.system.domain.GoodsInfo;
+
+import java.util.List;
 
 /**
  * 商品信息Service接口
@@ -33,7 +33,7 @@ public interface IGoodsInfoService {
      * @param tGoodsInfo 商品信息
      * @return 结果
      */
-    public int insertTGoodsInfo(GoodsInfo tGoodsInfo);
+    public int insertTGoodsInfo(GoodsInfo goodsInfo);
 
     /**
      * 修改商品信息

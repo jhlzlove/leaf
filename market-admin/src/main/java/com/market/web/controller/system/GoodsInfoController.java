@@ -65,8 +65,8 @@ public class GoodsInfoController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:goods:add')")
     @Log(title = "商品信息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody GoodsInfo tGoodsInfo) {
-        return toAjax(tGoodsInfoService.insertTGoodsInfo(tGoodsInfo));
+    public AjaxResult add(@RequestBody GoodsInfo goodsInfo) {
+        return toAjax(tGoodsInfoService.insertTGoodsInfo(goodsInfo));
     }
 
     /**

@@ -135,9 +135,7 @@
     <!-- 添加或修改员工信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="员工编号" prop="employeeCode">
-          <el-input v-model="form.employeeCode" placeholder="请输入员工编号" />
-        </el-form-item>
+        
         <el-form-item label="员工名称" prop="employeeName">
           <el-input v-model="form.employeeName" placeholder="请输入员工名称" />
         </el-form-item>
@@ -164,9 +162,6 @@
         </el-form-item>
         <el-form-item label="乡镇/街道" prop="town">
           <el-input v-model="form.town" placeholder="请输入乡镇/街道" />
-        </el-form-item>
-        <el-form-item label="删除标志(0:存在;2:删除)" prop="delFlag">
-          <el-input v-model="form.delFlag" placeholder="请输入删除标志(0:存在;2:删除)" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
@@ -218,9 +213,6 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        employeeCode: [
-          { required: true, message: "员工编号不能为空", trigger: "blur" }
-        ],
         employeeName: [
           { required: true, message: "员工名称不能为空", trigger: "blur" }
         ],

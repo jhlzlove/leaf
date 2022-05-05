@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="企业统一信用码" prop="supplierCode">
+      <el-form-item label="统一信用码" prop="supplierCode">
         <el-input
           v-model="queryParams.supplierCode"
-          placeholder="企业统一信用码"
+          placeholder="统一信用码"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -83,7 +83,7 @@
     <el-table v-loading="loading" :data="supplierList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="id" />
-      <el-table-column label="供应商社会统一信用码" align="center" prop="supplierCode" />
+      <el-table-column label="统一信用码" align="center" prop="supplierCode" />
       <el-table-column label="供应商名称" align="center" prop="supplierName" />
       <el-table-column label="地址" align="center" prop="supplierAddress" />
       <el-table-column label="联系人" align="center" prop="linkMan" />
@@ -126,7 +126,7 @@
     <!-- 添加或修改供货商信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="供应商社会统一信用码" prop="supplierCode">
+        <el-form-item label="统一信用码" prop="supplierCode">
           <el-input v-model="form.supplierCode" placeholder="请输入供应商社会统一信用码" />
         </el-form-item>
         <el-form-item label="供应商名称" prop="supplierName">
@@ -155,9 +155,6 @@
         </el-form-item>
         <el-form-item label="上市日期" prop="listingDate">
           <el-input v-model="form.listingDate" placeholder="请输入上市日期" />
-        </el-form-item>
-        <el-form-item label="删除标志" prop="delFlag">
-          <el-input v-model="form.delFlag" placeholder="请输入删除标志" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />

@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 29/04/2022 18:06:10
+ Date: 05/05/2022 17:33:52
 */
 
 SET NAMES utf8mb4;
@@ -588,7 +588,7 @@ CREATE TABLE `sys_job_log`  (
   `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '异常信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -609,7 +609,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -623,6 +623,7 @@ INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-17 01:34:08');
 INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Firefox 9', 'Windows 10', '0', '登录成功', '2022-04-17 02:35:46');
 INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-29 17:01:18');
+INSERT INTO `sys_logininfor` VALUES (109, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-05-05 16:22:03');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -814,7 +815,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -843,6 +844,10 @@ INSERT INTO `sys_oper_log` VALUES (120, '菜单管理', 2, 'com.market.web.contr
 INSERT INTO `sys_oper_log` VALUES (121, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:13:51');
 INSERT INTO `sys_oper_log` VALUES (122, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"phone\",\"orderNum\":\"1\",\"menuName\":\"供货商信息管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"supplier\",\"component\":\"system/supplier/index\",\"children\":[],\"createTime\":1649786526000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1079,\"menuType\":\"C\",\"perms\":\"system:supplier:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:30');
 INSERT INTO `sys_oper_log` VALUES (123, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:35');
+INSERT INTO `sys_oper_log` VALUES (124, '商品信息', 5, 'com.market.web.controller.system.GoodsInfoController.export()', 'POST', 1, 'admin', NULL, '/system/goods/export', '127.0.0.1', '内网IP', '{\"params\":{}}', NULL, 0, NULL, '2022-05-05 16:58:25');
+INSERT INTO `sys_oper_log` VALUES (125, '商品信息', 5, 'com.market.web.controller.system.GoodsInfoController.export()', 'POST', 1, 'admin', NULL, '/system/goods/export', '127.0.0.1', '内网IP', '{\"params\":{}}', NULL, 0, NULL, '2022-05-05 16:58:35');
+INSERT INTO `sys_oper_log` VALUES (126, '供货商信息', 1, 'com.market.web.controller.system.GoodsSupplierController.add()', 'POST', 1, 'admin', NULL, '/system/supplier', '127.0.0.1', '内网IP', '{\"supplierName\":\"大宇科技\",\"supplierAddress\":\"北京市朝阳区\",\"listingDate\":\"1980-01-1\",\"supplierLicenseBack\":\"\",\"leaderPhone\":\"12312312312\",\"supplierCode\":\"EHI652HDJ718GHB7I0\",\"params\":{},\"linkMan\":\"大宇\",\"supplierMobile\":\"12345678901\",\"supplierLeader\":\"楚凛風\",\"createTime\":1651741937996,\"id\":1,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:12:20');
+INSERT INTO `sys_oper_log` VALUES (127, '员工信息', 1, 'com.market.web.controller.system.EmployeeInfoController.add()', 'POST', 1, 'admin', NULL, '/system/employee', '127.0.0.1', '内网IP', '{\"employeePhone\":\"17838265601\",\"employeeName\":\"李逍遥\",\"params\":{},\"employeeAddress\":\"浙江省余杭区\",\"employeeCard\":\"211985177711111234\",\"employeeCode\":\"1651743155\",\"createTime\":1651743155882,\"id\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:32:45');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1043,7 +1048,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-04-29 17:01:11', 'admin', '2022-03-31 15:49:56', '', '2022-04-29 17:01:18', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-05-05 16:22:02', 'admin', '2022-03-31 15:49:56', '', '2022-05-05 16:22:03', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-03-31 15:49:56', 'admin', '2022-03-31 15:49:56', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1102,11 +1107,12 @@ CREATE TABLE `t_employee_info`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_employee_info
 -- ----------------------------
+INSERT INTO `t_employee_info` VALUES (1, '1651743155', '李逍遥', NULL, NULL, '浙江省余杭区', '17838265601', '211985177711111234', NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-05 17:32:36', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_info
@@ -1217,10 +1223,11 @@ CREATE TABLE `t_goods_supplier`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '供货商信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '供货商信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_supplier
 -- ----------------------------
+INSERT INTO `t_goods_supplier` VALUES (1, 'EHI652HDJ718GHB7I0', '大宇科技', '北京市朝阳区', '大宇', '12345678901', NULL, '', '楚凛風', '12312312312', '1980-01-1', NULL, '0', NULL, '2022-05-05 17:12:18', NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

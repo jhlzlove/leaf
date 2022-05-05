@@ -143,9 +143,6 @@
     <!-- 添加或修改商品信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="商品编码" prop="goodsCode">
-          <el-input v-model="form.goodsCode" placeholder="请输入商品编码" />
-        </el-form-item>
         <el-form-item label="商品名称" prop="goodsName">
           <el-input v-model="form.goodsName" placeholder="请输入商品名称" />
         </el-form-item>
@@ -183,9 +180,6 @@
         </el-form-item>
         <el-form-item label="计量方式" prop="meteringWay">
           <el-input v-model="form.meteringWay" placeholder="请输入计量方式" />
-        </el-form-item>
-        <el-form-item label="删除标志" prop="delFlag">
-          <el-input v-model="form.delFlag" placeholder="请输入删除标志" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
