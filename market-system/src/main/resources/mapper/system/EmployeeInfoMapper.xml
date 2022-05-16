@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.system.mapper.EmployeeInfoMapper">
+    <resultMap type="EmployeeInfo" id="TEmployeeInfoResult">
+        <result property="id" column="id"/>
+        <result property="employeeCode" column="employee_code"/>
+        <result property="employeeName" column="employee_name"/>
+        <result property="employeeSex" column="employee_sex"/>
+        <result property="employeeDept" column="employee_dept"/>
+        <result property="employeeAddress" column="employee_address"/>
+        <result property="employeePhone" column="employee_phone"/>
+        <result property="employeeCard" column="employee_card"/>
+        <result property="employeePhoto" column="employee_photo"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="town" column="town"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectTEmployeeInfoVo">
+        select id,
+               employee_code,
+               employee_name,
+               employee_sex,
+               employee_dept,
+               employee_address,
+               employee_phone,
+               employee_card,
+               employee_photo,
+               province,
+               city,
+               town,
+               del_flag,
+               create_by,
+               create_time,
+               update_time,
+               update_by,
+               remark
+        from t_employee_info
+    </sql>
+
+    <select id="selectTEmployeeInfoList" parameterType="EmployeeInfo" resultMap="TEmployeeInfoResult">
+        <include refid="selectTEmployeeInfoVo"/>
+        <where>
+            <if test="employeeCode != null  and employeeCode != ''">
+                and employee_code = #{employeeCode}
+            </if>
+            <if test="employeeName != null  and employeeName != ''">
+                and employee_name like concat('%', #{employeeName}, '%')
+            </if>
+            <if test="employeeSex != null  and employeeSex != ''">
+                and employee_sex = #{employeeSex}
+            </if>
+            <if test="employeeDept != null ">
+                and employee_dept = #{employeeDept}
+            </if>
+            <if test="employeeAddress != null  and employeeAddress != ''">
+                and employee_address = #{employeeAddress}
+            </if>
+            <if test="employeePhone != null  and employeePhone != ''">
+                and employee_phone = #{employeePhone}
+            </if>
+            <if test="employeeCard != null  and employeeCard != ''">
+                and employee_card = #{employeeCard}
+            </if>
+            <if test="employeePhoto != null  and employeePhoto != ''">
+                and employee_photo = #{employeePhoto}
+            </if>
+            <if test="province != null  and province != ''">
+                and province = #{province}
+            </if>
+            <if test="city != null  and city != ''">
+                and city = #{city}
+            </if>
+            <if test="town != null  and town != ''">
+                and town = #{town}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTEmployeeInfoById" parameterType="Long" resultMap="TEmployeeInfoResult">
+        <include refid="selectTEmployeeInfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTEmployeeInfo" parameterType="EmployeeInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_employee_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="employeeCode != null and employeeCode != ''">
+                employee_code,
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                employee_name,
+            </if>
+            <if test="employeeSex != null">
+                employee_sex,
+            </if>
+            <if test="employeeDept != null">
+                employee_dept,
+            </if>
+            <if test="employeeAddress != null">
+                employee_address,
+            </if>
+            <if test="employeePhone != null">
+                employee_phone,
+            </if>
+            <if test="employeeCard != null">
+                employee_card,
+            </if>
+            <if test="employeePhoto != null">
+                employee_photo,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="town != null">
+                town,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="employeeCode != null and employeeCode != ''">
+                #{employeeCode},
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                #{employeeName},
+            </if>
+            <if test="employeeSex != null">
+                #{employeeSex},
+            </if>
+            <if test="employeeDept != null">
+                #{employeeDept},
+            </if>
+            <if test="employeeAddress != null">
+                #{employeeAddress},
+            </if>
+            <if test="employeePhone != null">
+                #{employeePhone},
+            </if>
+            <if test="employeeCard != null">
+                #{employeeCard},
+            </if>
+            <if test="employeePhoto != null">
+                #{employeePhoto},
+            </if>
+            <if test="province != null">
+                #{province},
+            </if>
+            <if test="city != null">
+                #{city},
+            </if>
+            <if test="town != null">
+                #{town},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTEmployeeInfo" parameterType="EmployeeInfo">
+        update t_employee_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="employeeCode != null and employeeCode != ''">
+                employee_code = #{employeeCode},
+            </if>
+            <if test="employeeName != null and employeeName != ''">
+                employee_name = #{employeeName},
+            </if>
+            <if test="employeeSex != null">
+                employee_sex = #{employeeSex},
+            </if>
+            <if test="employeeDept != null">
+                employee_dept = #{employeeDept},
+            </if>
+            <if test="employeeAddress != null">
+                employee_address = #{employeeAddress},
+            </if>
+            <if test="employeePhone != null">
+                employee_phone = #{employeePhone},
+            </if>
+            <if test="employeeCard != null">
+                employee_card = #{employeeCard},
+            </if>
+            <if test="employeePhoto != null">
+                employee_photo = #{employeePhoto},
+            </if>
+            <if test="province != null">
+                province = #{province},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="town != null">
+                town = #{town},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTEmployeeInfoById" parameterType="Long">
+        delete
+        from t_employee_info
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTEmployeeInfoByIds" parameterType="String">
+        delete from t_employee_info where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

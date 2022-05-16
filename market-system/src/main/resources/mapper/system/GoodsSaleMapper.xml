@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.system.mapper.GoodsSaleMapper">
+    <resultMap type="GoodsSale" id="TGoodsSaleResult">
+        <result property="id" column="id"/>
+        <result property="saleCode" column="sale_code"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsType" column="goods_type"/>
+        <result property="goodsSaleNum" column="goods_sale_num"/>
+        <result property="meteringWay" column="metering_way"/>
+        <result property="amountPayable" column="amount_payable"/>
+        <result property="amountActual" column="amount_actual"/>
+        <result property="change" column="change"/>
+        <result property="topDesc" column="top_desc"/>
+        <result property="bottomDesc" column="bottom_desc"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectTGoodsSaleVo">
+        select id,
+               sale_code,
+               goods_code,
+               goods_name,
+               goods_type,
+               goods_sale_num,
+               metering_way,
+               amount_payable,
+               amount_actual,
+               change,
+               top_desc,
+               bottom_desc,
+               create_time,
+               update_time,
+               create_by,
+               update_by,
+               remark
+        from t_goods_sale
+    </sql>
+
+    <select id="selectTGoodsSaleList" parameterType="GoodsSale" resultMap="TGoodsSaleResult">
+        <include refid="selectTGoodsSaleVo"/>
+        <where>
+            <if test="saleCode != null  and saleCode != ''">
+                and sale_code = #{saleCode}
+            </if>
+            <if test="goodsCode != null  and goodsCode != ''">
+                and goods_code = #{goodsCode}
+            </if>
+            <if test="goodsName != null  and goodsName != ''">
+                and goods_name like concat('%', #{goodsName}, '%')
+            </if>
+            <if test="goodsType != null  and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsSaleNum != null">
+                and goods_sale_num = #{goodsSaleNum}
+            </if>
+            <if test="meteringWay != null  and meteringWay != ''">
+                and metering_way = #{meteringWay}
+            </if>
+            <if test="amountPayable != null">
+                and amount_payable = #{amountPayable}
+            </if>
+            <if test="amountActual != null">
+                and amount_actual = #{amountActual}
+            </if>
+            <if test="change != null">
+                and change = #{change}
+            </if>
+            <if test="topDesc != null  and topDesc != ''">
+                and top_desc = #{topDesc}
+            </if>
+            <if test="bottomDesc != null  and bottomDesc != ''">
+                and bottom_desc = #{bottomDesc}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTGoodsSaleById" parameterType="Long" resultMap="TGoodsSaleResult">
+        <include refid="selectTGoodsSaleVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTGoodsSale" parameterType="GoodsSale" useGeneratedKeys="true" keyProperty="id">
+        insert into t_goods_sale
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="saleCode != null">
+                sale_code,
+            </if>
+            <if test="goodsCode != null">
+                goods_code,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsType != null">
+                goods_type,
+            </if>
+            <if test="goodsSaleNum != null">
+                goods_sale_num,
+            </if>
+            <if test="meteringWay != null">
+                metering_way,
+            </if>
+            <if test="amountPayable != null">
+                amount_payable,
+            </if>
+            <if test="amountActual != null">
+                amount_actual,
+            </if>
+            <if test="change != null">
+                change,
+            </if>
+            <if test="topDesc != null">
+                top_desc,
+            </if>
+            <if test="bottomDesc != null">
+                bottom_desc,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="saleCode != null">
+                #{saleCode},
+            </if>
+            <if test="goodsCode != null">
+                #{goodsCode},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="goodsType != null">
+                #{goodsType},
+            </if>
+            <if test="goodsSaleNum != null">
+                #{goodsSaleNum},
+            </if>
+            <if test="meteringWay != null">
+                #{meteringWay},
+            </if>
+            <if test="amountPayable != null">
+                #{amountPayable},
+            </if>
+            <if test="amountActual != null">
+                #{amountActual},
+            </if>
+            <if test="change != null">
+                #{change},
+            </if>
+            <if test="topDesc != null">
+                #{topDesc},
+            </if>
+            <if test="bottomDesc != null">
+                #{bottomDesc},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTGoodsSale" parameterType="GoodsSale">
+        update t_goods_sale
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="saleCode != null">
+                sale_code = #{saleCode},
+            </if>
+            <if test="goodsCode != null">
+                goods_code = #{goodsCode},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsType != null">
+                goods_type = #{goodsType},
+            </if>
+            <if test="goodsSaleNum != null">
+                goods_sale_num = #{goodsSaleNum},
+            </if>
+            <if test="meteringWay != null">
+                metering_way = #{meteringWay},
+            </if>
+            <if test="amountPayable != null">
+                amount_payable = #{amountPayable},
+            </if>
+            <if test="amountActual != null">
+                amount_actual = #{amountActual},
+            </if>
+            <if test="change != null">
+                change = #{change},
+            </if>
+            <if test="topDesc != null">
+                top_desc = #{topDesc},
+            </if>
+            <if test="bottomDesc != null">
+                bottom_desc = #{bottomDesc},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTGoodsSaleById" parameterType="Long">
+        delete
+        from t_goods_sale
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTGoodsSaleByIds" parameterType="String">
+        delete from t_goods_sale where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

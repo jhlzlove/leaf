@@ -1,7 +1,7 @@
 package com.market.web.controller.common;
 
 import com.google.code.kaptcha.Producer;
-import com.market.common.config.RuoYiConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.constant.Constants;
 import com.market.common.core.domain.AjaxResult;
 import com.market.common.core.redis.RedisCache;
@@ -59,7 +59,7 @@ public class CaptchaController {
         BufferedImage image = null;
 
         // 生成验证码
-        String captchaType = RuoYiConfig.getCaptchaType();
+        String captchaType = MarketConfig.getCaptchaType();
         if ("math".equals(captchaType)) {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));

@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "market",
   "version": "3.8.1",
-  "description": "若依管理系统",
-  "author": "若依",
+  "description": "超市管理系统",
+  "author": "jhlz",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": "https://github.com/jhlzlove/market.git"
   },
   "dependencies": {
     "@riophae/vue-treeselect": "0.4.0",

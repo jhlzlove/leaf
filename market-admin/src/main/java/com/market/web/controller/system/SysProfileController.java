@@ -2,7 +2,7 @@ package com.market.web.controller.system;
 
 
 import com.market.common.annotation.Log;
-import com.market.common.config.RuoYiConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.constant.UserConstants;
 import com.market.common.core.controller.BaseController;
 import com.market.common.core.domain.AjaxResult;
@@ -110,7 +110,7 @@ public class SysProfileController extends BaseController {
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             LoginUser loginUser = getLoginUser();
-            String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file);
+            String avatar = FileUploadUtils.upload(MarketConfig.getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", avatar);

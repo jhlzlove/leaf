@@ -178,13 +178,6 @@
                 <version>${kaptcha.version}</version>
             </dependency>
 
-            <!-- 定时任务-->
-            <dependency>
-                <groupId>com.market</groupId>
-                <artifactId>market-quartz</artifactId>
-                <version>${market.version}</version>
-            </dependency>
-
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.market</groupId>

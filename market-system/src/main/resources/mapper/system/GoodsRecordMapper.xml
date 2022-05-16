@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.system.mapper.GoodsRecordMapper">
+    <resultMap type="GoodsRecord" id="TGoodsRecordResult">
+        <result property="id" column="id"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="recordCode" column="record_code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectTGoodsRecordVo">
+        select id,
+               goods_code,
+               goods_name,
+               record_code,
+               create_time,
+               create_by,
+               update_time,
+               update_by,
+               remark
+        from t_goods_record
+    </sql>
+
+    <select id="selectTGoodsRecordList" parameterType="GoodsRecord" resultMap="TGoodsRecordResult">
+        <include refid="selectTGoodsRecordVo"/>
+        <where>
+            <if test="goodsCode != null  and goodsCode != ''">
+                and goods_code = #{goodsCode}
+            </if>
+            <if test="goodsName != null  and goodsName != ''">
+                and goods_name like concat('%', #{goodsName}, '%')
+            </if>
+            <if test="recordCode != null  and recordCode != ''">
+                and record_code = #{recordCode}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                <!-- 开始时间检索 -->
+                AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                <!-- 结束时间检索 -->
+                AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectTGoodsRecordById" parameterType="Long" resultMap="TGoodsRecordResult">
+        <include refid="selectTGoodsRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTGoodsRecord" parameterType="GoodsRecord">
+        insert into t_goods_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsCode != null">
+                goods_code,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="recordCode != null">
+                record_code,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="goodsCode != null">
+                #{goodsCode},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="recordCode != null">
+                #{recordCode},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateTGoodsRecord" parameterType="GoodsRecord">
+        update t_goods_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsCode != null">
+                goods_code = #{goodsCode},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName},
+            </if>
+            <if test="recordCode != null">
+                record_code = #{recordCode},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTGoodsRecordById" parameterType="Long">
+        delete
+        from t_goods_record
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteTGoodsRecordByIds" parameterType="String">
+        delete from t_goods_record where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
