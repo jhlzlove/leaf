@@ -1,6 +1,6 @@
 package com.market.framework.config;
 
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.constant.Constants;
 import com.market.framework.interceptor.RepeatSubmitInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class ResourcesConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /** 本地文件上传路径 */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
-                .addResourceLocations("file:" + AppConfig.getProfile() + "/");
+                .addResourceLocations("file:" + MarketConfig.getProfile() + "/");
 
         /** swagger配置 */
-        registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+        // registry.addResourceHandler("/swagger-ui/**")
+        //         .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
 
     /**

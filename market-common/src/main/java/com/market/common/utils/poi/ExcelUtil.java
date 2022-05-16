@@ -4,7 +4,7 @@ import com.market.common.annotation.Excel;
 import com.market.common.annotation.Excel.ColumnType;
 import com.market.common.annotation.Excel.Type;
 import com.market.common.annotation.Excels;
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.core.domain.AjaxResult;
 import com.market.common.core.text.Convert;
 import com.market.common.exception.UtilException;
@@ -885,7 +885,7 @@ public class ExcelUtil<T> {
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename) {
-        String downloadPath = AppConfig.getDownloadPath() + filename;
+        String downloadPath = MarketConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists()) {
             desc.getParentFile().mkdirs();

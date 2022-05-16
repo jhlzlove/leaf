@@ -1,6 +1,6 @@
 package com.market.common.utils.file;
 
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.constant.Constants;
 import com.market.common.utils.StringUtils;
 import org.apache.poi.util.IOUtils;
@@ -66,7 +66,7 @@ public class ImageUtils {
                 in = urlConnection.getInputStream();
             } else {
                 // 本机地址
-                String localPath = AppConfig.getProfile();
+                String localPath = MarketConfig.getProfile();
                 String downloadPath = localPath + StringUtils.substringAfter(url, Constants.RESOURCE_PREFIX);
                 in = new FileInputStream(downloadPath);
             }

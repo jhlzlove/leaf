@@ -1,6 +1,6 @@
 package com.market.common.utils.file;
 
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.utils.DateUtils;
 import com.market.common.utils.StringUtils;
 import com.market.common.utils.uuid.IdUtils;
@@ -57,7 +57,7 @@ public class FileUtils {
      * @throws IOException IO异常
      */
     public static String writeImportBytes(byte[] data) throws IOException {
-        return writeBytes(data, AppConfig.getImportPath());
+        return writeBytes(data, MarketConfig.getImportPath());
     }
 
     /**

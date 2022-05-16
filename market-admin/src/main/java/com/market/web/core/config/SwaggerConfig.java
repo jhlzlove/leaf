@@ -1,6 +1,6 @@
 package com.market.web.core.config;
 
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SwaggerConfig {
      * 系统基础配置
      */
     @Autowired
-    private AppConfig marketConfig;
+    private MarketConfig marketConfig;
 
     /**
      * 是否开启swagger

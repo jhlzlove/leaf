@@ -1,7 +1,7 @@
 package com.market.common.utils.ip;
 
 import com.alibaba.fastjson.JSONObject;
-import com.market.common.config.AppConfig;
+import com.market.common.config.MarketConfig;
 import com.market.common.constant.Constants;
 import com.market.common.utils.StringUtils;
 import com.market.common.utils.http.HttpUtils;
@@ -28,7 +28,7 @@ public class AddressUtils {
         if (IpUtils.internalIp(ip)) {
             return "内网IP";
         }
-        if (AppConfig.isAddressEnabled()) {
+        if (MarketConfig.isAddressEnabled()) {
             try {
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
                 if (StringUtils.isEmpty(rspStr)) {

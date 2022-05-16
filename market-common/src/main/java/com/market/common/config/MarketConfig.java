@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "market")
-public class AppConfig {
+public class MarketConfig {
     /**
      * 项目名称
      */
@@ -83,7 +83,7 @@ public class AppConfig {
     }
 
     public void setProfile(String profile) {
-        AppConfig.profile = profile;
+        MarketConfig.profile = profile;
     }
 
     public static boolean isAddressEnabled() {
@@ -91,7 +91,7 @@ public class AppConfig {
     }
 
     public void setAddressEnabled(boolean addressEnabled) {
-        AppConfig.addressEnabled = addressEnabled;
+        MarketConfig.addressEnabled = addressEnabled;
     }
 
     public static String getCaptchaType() {
@@ -99,7 +99,7 @@ public class AppConfig {
     }
 
     public void setCaptchaType(String captchaType) {
-        AppConfig.captchaType = captchaType;
+        MarketConfig.captchaType = captchaType;
     }
 
     /**
