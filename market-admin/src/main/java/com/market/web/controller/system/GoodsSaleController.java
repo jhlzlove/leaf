@@ -25,16 +25,16 @@ import java.util.List;
 @RequestMapping("/system/sale")
 public class GoodsSaleController extends BaseController {
     @Autowired
-    private IGoodsSaleService tGoodsSaleService;
+    private IGoodsSaleService goodsSaleService;
 
     /**
      * 查询商品销售列表
      */
     @PreAuthorize("@ss.hasPermi('system:sale:list')")
     @GetMapping("/list")
-    public TableDataInfo list(GoodsSale tGoodsSale) {
+    public TableDataInfo list(GoodsSale goodsSale) {
         startPage();
-        List<GoodsSale> list = tGoodsSaleService.selectTGoodsSaleList(tGoodsSale);
+        List<GoodsSale> list = goodsSaleService.selectTGoodsSaleList(goodsSale);
         return getDataTable(list);
     }
 
@@ -45,7 +45,7 @@ public class GoodsSaleController extends BaseController {
     @Log(title = "商品销售", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, GoodsSale tGoodsSale) {
-        List<GoodsSale> list = tGoodsSaleService.selectTGoodsSaleList(tGoodsSale);
+        List<GoodsSale> list = goodsSaleService.selectTGoodsSaleList(tGoodsSale);
         ExcelUtil<GoodsSale> util = new ExcelUtil<GoodsSale>(GoodsSale.class);
         util.exportExcel(response, list, "商品销售数据");
     }
@@ -56,7 +56,7 @@ public class GoodsSaleController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:sale:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return AjaxResult.success(tGoodsSaleService.selectTGoodsSaleById(id));
+        return AjaxResult.success(goodsSaleService.selectTGoodsSaleById(id));
     }
 
     /**
@@ -66,7 +66,7 @@ public class GoodsSaleController extends BaseController {
     @Log(title = "商品销售", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody GoodsSale tGoodsSale) {
-        return toAjax(tGoodsSaleService.insertTGoodsSale(tGoodsSale));
+        return toAjax(goodsSaleService.insertTGoodsSale(tGoodsSale));
     }
 
     /**
@@ -76,7 +76,7 @@ public class GoodsSaleController extends BaseController {
     @Log(title = "商品销售", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody GoodsSale tGoodsSale) {
-        return toAjax(tGoodsSaleService.updateTGoodsSale(tGoodsSale));
+        return toAjax(goodsSaleService.updateTGoodsSale(tGoodsSale));
     }
 
     /**
@@ -86,6 +86,6 @@ public class GoodsSaleController extends BaseController {
     @Log(title = "商品销售", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(tGoodsSaleService.deleteTGoodsSaleByIds(ids));
+        return toAjax(goodsSaleService.deleteTGoodsSaleByIds(ids));
     }
 }

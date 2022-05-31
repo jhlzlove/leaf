@@ -30,8 +30,8 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:" + MarketConfig.getProfile() + "/");
 
         /** swagger配置 */
-        // registry.addResourceHandler("/swagger-ui/**")
-        //         .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
 
     /**

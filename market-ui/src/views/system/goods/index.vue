@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import { listInfo, getInfo, delInfo, addInfo, updateInfo } from "@/api/system/goods";
+import { listInfo, getInfo, delInfo, addInfo, updateInfo, typeListInfo } from "@/api/system/goods";
 
 export default {
   name: "Goods",
@@ -214,6 +214,7 @@ export default {
       total: 0,
       // 商品信息表格数据
       infoList: [],
+      typeList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -279,6 +280,14 @@ export default {
       this.loading = true;
       listInfo(this.queryParams).then(response => {
         this.infoList = response.rows;
+        this.total = response.total;
+        this.loading = false;
+      });
+    },
+    getTypeList() {
+      this.loading = true;
+      typeListInfo(this.queryParams).then(response => {
+        this.typeList = response.rows;
         this.total = response.total;
         this.loading = false;
       });

@@ -1,5 +1,6 @@
 package com.market;
 
+import com.market.common.utils.ip.IpUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -23,6 +24,7 @@ public class MarketApplication {
                 "| (_ o _) |  |.'   _    ||  |\\ \\  |  ||  |\\ \\  |  |'  \\   .---.   (_I_)    \n" +
                 "|  (_,_)  |  ||  _( )_  ||  | \\ `'   /|  | \\ `'   / \\  `-'    /  (_(=)_)   \n" +
                 "|  |      |  |\\ (_ o _) /|  |  \\    / |  |  \\    /   \\       /    (_I_)    \n" +
-                "'--'      '--' '.(_,_).' ''-'   `'-'  `--'   `'-'     `'-..-'     '---'    \n");
+                "'--'      '--' '.(_,_).' ''-'   `'-'  `--'   `'-'     `'-..-'     '---'    \n" +
+                "swagger接口地址：http://" + IpUtils.getHostIp() + ":8889/swagger-ui/index.html");
     }
 }

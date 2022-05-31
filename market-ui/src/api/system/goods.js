@@ -42,3 +42,12 @@ export function delInfo(id) {
     method: 'delete'
   })
 }
+
+// 商品类型信息列表
+export function typeListInfo(query) {
+  return request({
+    url: '/system/goods/type/list',
+    method: 'get',
+    params: query
+  })
+}

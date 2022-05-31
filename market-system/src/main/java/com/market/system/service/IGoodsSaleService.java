@@ -1,8 +1,8 @@
 package com.market.system.service;
 
-import java.util.List;
-
 import com.market.system.domain.GoodsSale;
+
+import java.util.List;
 
 /**
  * 商品销售Service接口
@@ -22,10 +22,10 @@ public interface IGoodsSaleService {
     /**
      * 查询商品销售列表
      *
-     * @param tGoodsSale 商品销售
+     * @param goodsSale 商品销售
      * @return 商品销售集合
      */
-    public List<GoodsSale> selectTGoodsSaleList(GoodsSale tGoodsSale);
+    public List<GoodsSale> selectTGoodsSaleList(GoodsSale goodsSale);
 
     /**
      * 新增商品销售
