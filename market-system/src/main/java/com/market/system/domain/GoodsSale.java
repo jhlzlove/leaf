@@ -72,7 +72,7 @@ public class GoodsSale extends BaseEntity {
      * 找零
      */
     @Excel(name = "找零")
-    private BigDecimal change;
+    private BigDecimal amountChange;
 
     /**
      * 顶部信息
@@ -158,12 +158,12 @@ public class GoodsSale extends BaseEntity {
         return amountActual;
     }
 
-    public void setChange(BigDecimal change) {
-        this.change = change;
+    public void setAmountChange(BigDecimal amountChange) {
+        this.amountChange = amountChange;
     }
 
-    public BigDecimal getChange() {
-        return change;
+    public BigDecimal getAmountChange() {
+        return amountChange;
     }
 
     public void setTopDesc(String topDesc) {
@@ -194,7 +194,7 @@ public class GoodsSale extends BaseEntity {
                 .append("meteringWay", getMeteringWay())
                 .append("amountPayable", getAmountPayable())
                 .append("amountActual", getAmountActual())
-                .append("change", getChange())
+                .append("change", getAmountChange())
                 .append("topDesc", getTopDesc())
                 .append("bottomDesc", getBottomDesc())
                 .append("createTime", getCreateTime())

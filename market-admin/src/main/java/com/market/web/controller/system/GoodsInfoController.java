@@ -7,6 +7,7 @@ import com.market.common.core.page.TableDataInfo;
 import com.market.common.enums.BusinessType;
 import com.market.common.utils.poi.ExcelUtil;
 import com.market.system.domain.GoodsInfo;
+import com.market.system.mapper.GoodsTypeMapper;
 import com.market.system.service.IGoodsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +26,9 @@ import java.util.List;
 @RequestMapping("/system/goods")
 public class GoodsInfoController extends BaseController {
     @Autowired
-    private IGoodsInfoService tGoodsInfoService;
+    private IGoodsInfoService goodsInfoService;
+    @Autowired
+    private GoodsTypeMapper goodsTypeMapper;
 
     /**
      * 查询商品信息列表
@@ -34,7 +37,7 @@ public class GoodsInfoController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(GoodsInfo tGoodsInfo) {
         startPage();
-        List<GoodsInfo> list = tGoodsInfoService.selectTGoodsInfoList(tGoodsInfo);
+        List<GoodsInfo> list = goodsInfoService.selectTGoodsInfoList(tGoodsInfo);
         return getDataTable(list);
     }
 
@@ -45,7 +48,7 @@ public class GoodsInfoController extends BaseController {
     @Log(title = "商品信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, GoodsInfo tGoodsInfo) {
-        List<GoodsInfo> list = tGoodsInfoService.selectTGoodsInfoList(tGoodsInfo);
+        List<GoodsInfo> list = goodsInfoService.selectTGoodsInfoList(tGoodsInfo);
         ExcelUtil<GoodsInfo> util = new ExcelUtil<GoodsInfo>(GoodsInfo.class);
         util.exportExcel(response, list, "商品信息数据");
     }
@@ -56,7 +59,7 @@ public class GoodsInfoController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:goods:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return AjaxResult.success(tGoodsInfoService.selectTGoodsInfoById(id));
+        return AjaxResult.success(goodsInfoService.selectTGoodsInfoById(id));
     }
 
     /**
@@ -66,7 +69,7 @@ public class GoodsInfoController extends BaseController {
     @Log(title = "商品信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody GoodsInfo goodsInfo) {
-        return toAjax(tGoodsInfoService.insertTGoodsInfo(goodsInfo));
+        return toAjax(goodsInfoService.insertTGoodsInfo(goodsInfo));
     }
 
     /**
@@ -75,8 +78,8 @@ public class GoodsInfoController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:goods:edit')")
     @Log(title = "商品信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody GoodsInfo tGoodsInfo) {
-        return toAjax(tGoodsInfoService.updateTGoodsInfo(tGoodsInfo));
+    public AjaxResult edit(@RequestBody GoodsInfo goodsInfo) {
+        return toAjax(goodsInfoService.updateTGoodsInfo(goodsInfo));
     }
 
     /**
@@ -86,6 +89,15 @@ public class GoodsInfoController extends BaseController {
     @Log(title = "商品信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(tGoodsInfoService.deleteTGoodsInfoByIds(ids));
+        return toAjax(goodsInfoService.deleteTGoodsInfoByIds(ids));
+    }
+
+    /**
+     * 查询商品类型
+     */
+    @PreAuthorize("@ss.hasPermi('system:goods:type:list')")
+    @GetMapping("/type/list")
+    public AjaxResult getType() {
+        return AjaxResult.success(goodsTypeMapper.list());
     }
 }

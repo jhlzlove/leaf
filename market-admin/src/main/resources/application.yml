@@ -46,7 +46,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles:
-    active: druid
+    active: dev
   # 文件上传
   servlet:
     multipart:
@@ -62,7 +62,7 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: localhost
+    host: 101.34.224.56
     # 端口，默认为6379
     port: 6379
     # 数据库索引
@@ -118,6 +118,6 @@ xss:
   # 过滤开关
   enabled: true
   # 排除链接（多个用逗号分隔）
-  excludes: /system/notice
+  excludes: /system/notice,
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*

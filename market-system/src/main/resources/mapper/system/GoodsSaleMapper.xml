@@ -13,7 +13,7 @@
         <result property="meteringWay" column="metering_way"/>
         <result property="amountPayable" column="amount_payable"/>
         <result property="amountActual" column="amount_actual"/>
-        <result property="change" column="change"/>
+        <result property="amountChange" column="amount_change"/>
         <result property="topDesc" column="top_desc"/>
         <result property="bottomDesc" column="bottom_desc"/>
         <result property="createTime" column="create_time"/>
@@ -33,7 +33,7 @@
                metering_way,
                amount_payable,
                amount_actual,
-               change,
+               amount_change,
                top_desc,
                bottom_desc,
                create_time,
@@ -44,12 +44,9 @@
         from t_goods_sale
     </sql>
 
-    <select id="selectTGoodsSaleList" parameterType="GoodsSale" resultMap="TGoodsSaleResult">
+    <select id="selectTGoodsSaleList" parameterType="com.market.system.domain.GoodsSale" resultMap="TGoodsSaleResult">
         <include refid="selectTGoodsSaleVo"/>
         <where>
-            <if test="saleCode != null  and saleCode != ''">
-                and sale_code = #{saleCode}
-            </if>
             <if test="goodsCode != null  and goodsCode != ''">
                 and goods_code = #{goodsCode}
             </if>
@@ -70,15 +67,6 @@
             </if>
             <if test="amountActual != null">
                 and amount_actual = #{amountActual}
-            </if>
-            <if test="change != null">
-                and change = #{change}
-            </if>
-            <if test="topDesc != null  and topDesc != ''">
-                and top_desc = #{topDesc}
-            </if>
-            <if test="bottomDesc != null  and bottomDesc != ''">
-                and bottom_desc = #{bottomDesc}
             </if>
         </where>
     </select>
@@ -115,7 +103,7 @@
             <if test="amountActual != null">
                 amount_actual,
             </if>
-            <if test="change != null">
+            <if test="amountChange != null">
                 change,
             </if>
             <if test="topDesc != null">
@@ -165,8 +153,8 @@
             <if test="amountActual != null">
                 #{amountActual},
             </if>
-            <if test="change != null">
-                #{change},
+            <if test="amountChange != null">
+                #{amountChange},
             </if>
             <if test="topDesc != null">
                 #{topDesc},
@@ -219,8 +207,8 @@
             <if test="amountActual != null">
                 amount_actual = #{amountActual},
             </if>
-            <if test="change != null">
-                change = #{change},
+            <if test="amountChange != null">
+                change = #{amountChange},
             </if>
             <if test="topDesc != null">
                 top_desc = #{topDesc},
