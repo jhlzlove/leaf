@@ -11,7 +11,7 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 05/05/2022 17:33:52
+ Date: 09/06/2022 13:56:21
 */
 
 SET NAMES utf8mb4;
@@ -609,7 +609,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -624,6 +624,8 @@ INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Firefox 9', 'Windows 10', '0', '登录成功', '2022-04-17 02:35:46');
 INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-29 17:01:18');
 INSERT INTO `sys_logininfor` VALUES (109, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-05-05 16:22:03');
+INSERT INTO `sys_logininfor` VALUES (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '1', '验证码错误', '2022-05-31 09:42:14');
+INSERT INTO `sys_logininfor` VALUES (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-05-31 09:42:19');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -669,8 +671,6 @@ INSERT INTO `sys_menu` VALUES (106, '参数设置', 1, 7, 'config', 'system/conf
 INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2022-03-31 15:49:57', '', NULL, '通知公告菜单');
 INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2022-03-31 15:49:57', '', NULL, '日志管理菜单');
 INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2022-03-31 15:49:57', '', NULL, '在线用户菜单');
-INSERT INTO `sys_menu` VALUES (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2022-03-31 15:49:57', '', NULL, '定时任务菜单');
-INSERT INTO `sys_menu` VALUES (111, '数据监控', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2022-03-31 15:49:57', '', NULL, '数据监控菜单');
 INSERT INTO `sys_menu` VALUES (112, '服务监控', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2022-03-31 15:49:57', '', NULL, '服务监控菜单');
 INSERT INTO `sys_menu` VALUES (113, '缓存监控', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2022-03-31 15:49:57', '', NULL, '缓存监控菜单');
 INSERT INTO `sys_menu` VALUES (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2022-03-31 15:49:57', '', NULL, '表单构建菜单');
@@ -815,7 +815,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 134 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -848,6 +848,12 @@ INSERT INTO `sys_oper_log` VALUES (124, '商品信息', 5, 'com.market.web.contr
 INSERT INTO `sys_oper_log` VALUES (125, '商品信息', 5, 'com.market.web.controller.system.GoodsInfoController.export()', 'POST', 1, 'admin', NULL, '/system/goods/export', '127.0.0.1', '内网IP', '{\"params\":{}}', NULL, 0, NULL, '2022-05-05 16:58:35');
 INSERT INTO `sys_oper_log` VALUES (126, '供货商信息', 1, 'com.market.web.controller.system.GoodsSupplierController.add()', 'POST', 1, 'admin', NULL, '/system/supplier', '127.0.0.1', '内网IP', '{\"supplierName\":\"大宇科技\",\"supplierAddress\":\"北京市朝阳区\",\"listingDate\":\"1980-01-1\",\"supplierLicenseBack\":\"\",\"leaderPhone\":\"12312312312\",\"supplierCode\":\"EHI652HDJ718GHB7I0\",\"params\":{},\"linkMan\":\"大宇\",\"supplierMobile\":\"12345678901\",\"supplierLeader\":\"楚凛風\",\"createTime\":1651741937996,\"id\":1,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:12:20');
 INSERT INTO `sys_oper_log` VALUES (127, '员工信息', 1, 'com.market.web.controller.system.EmployeeInfoController.add()', 'POST', 1, 'admin', NULL, '/system/employee', '127.0.0.1', '内网IP', '{\"employeePhone\":\"17838265601\",\"employeeName\":\"李逍遥\",\"params\":{},\"employeeAddress\":\"浙江省余杭区\",\"employeeCard\":\"211985177711111234\",\"employeeCode\":\"1651743155\",\"createTime\":1651743155882,\"id\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:32:45');
+INSERT INTO `sys_oper_log` VALUES (128, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"amountPayable\":999,\"params\":{},\"amountActual\":888,\"meteringWay\":\"个\",\"createTime\":1653964956188,\"goodsCode\":\"0001\",\"goodsName\":\"九天元阳剑\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsSaleMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsSaleMapper.insertTGoodsSale-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_sale          ( goods_code,                                           goods_name,                                                        goods_sale_num,                                           metering_way,                                           amount_payable,                                           amount_actual,                                                                                  create_time )           values ( ?,                                           ?,                                                        ?,                                           ?,                                           ?,                                           ?,                                                                                  ? )\r\n### Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\n; Field \'sale_code\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value', '2022-05-31 10:42:44');
+INSERT INTO `sys_oper_log` VALUES (129, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"topDesc\":\"无\",\"amountPayable\":999,\"params\":{},\"amountActual\":888,\"bottomDesc\":\"无\",\"meteringWay\":\"个\",\"createTime\":1653964980488,\"goodsCode\":\"0001\",\"goodsName\":\"九天元阳剑\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsSaleMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsSaleMapper.insertTGoodsSale-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_sale          ( goods_code,                                           goods_name,                                                        goods_sale_num,                                           metering_way,                                           amount_payable,                                           amount_actual,                                                        top_desc,                                           bottom_desc,                                           create_time )           values ( ?,                                           ?,                                                        ?,                                           ?,                                           ?,                                           ?,                                                        ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\n; Field \'sale_code\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value', '2022-05-31 10:43:09');
+INSERT INTO `sys_oper_log` VALUES (130, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"topDesc\":\"无\",\"amountPayable\":999,\"saleCode\":\"d0a7dfeddd2a4d9996b87667d58dad4d\",\"params\":{},\"amountActual\":888,\"bottomDesc\":\"无\",\"meteringWay\":\"个\",\"createTime\":1653965201554,\"goodsCode\":\"0001\",\"id\":1,\"goodsName\":\"九天元阳剑\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-31 10:46:50');
+INSERT INTO `sys_oper_log` VALUES (131, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965841803,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsRecordMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsRecordMapper.insertTGoodsRecord-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_record          ( goods_code,                                           goods_name,                                           record_code,                                           create_time )           values ( ?,                                           ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\n; Field \'id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'id\' doesn\'t have a default value', '2022-05-31 10:57:30');
+INSERT INTO `sys_oper_log` VALUES (132, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965846430,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsRecordMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsRecordMapper.insertTGoodsRecord-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_record          ( goods_code,                                           goods_name,                                           record_code,                                           create_time )           values ( ?,                                           ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\n; Field \'id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'id\' doesn\'t have a default value', '2022-05-31 10:57:35');
+INSERT INTO `sys_oper_log` VALUES (133, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965869945,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-31 10:57:58');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1048,7 +1054,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-05-05 16:22:02', 'admin', '2022-03-31 15:49:56', '', '2022-05-05 16:22:03', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-05-31 09:42:11', 'admin', '2022-03-31 15:49:56', '', '2022-05-31 09:42:19', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-03-31 15:49:56', 'admin', '2022-03-31 15:49:56', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1154,7 +1160,7 @@ INSERT INTO `t_goods_info` VALUES (3, '0002', '南明离火服', '衣服', NULL,
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_record`;
 CREATE TABLE `t_goods_record`  (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `goods_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品编码',
   `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品名称',
   `record_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '订单编号',
@@ -1164,11 +1170,12 @@ CREATE TABLE `t_goods_record`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '记录表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_record
 -- ----------------------------
+INSERT INTO `t_goods_record` VALUES (1, '0002', '南明离火服', '18734678263874682', '2022-05-31 10:57:50', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_sale
@@ -1184,7 +1191,7 @@ CREATE TABLE `t_goods_sale`  (
   `metering_way` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '计量方式',
   `amount_payable` decimal(15, 2) NULL DEFAULT NULL COMMENT '应付金额',
   `amount_actual` decimal(15, 2) NULL DEFAULT NULL COMMENT '实付金额',
-  `change` decimal(15, 2) NULL DEFAULT NULL COMMENT '找零',
+  `amount_change` decimal(15, 2) NULL DEFAULT NULL COMMENT '找零',
   `top_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '顶部信息',
   `bottom_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '底部信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
@@ -1193,11 +1200,12 @@ CREATE TABLE `t_goods_sale`  (
   `update_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品销售表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品销售表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_sale
 -- ----------------------------
+INSERT INTO `t_goods_sale` VALUES (1, 'd0a7dfeddd2a4d9996b87667d58dad4d', '0001', '九天元阳剑', NULL, 1, '个', 999.00, 888.00, NULL, '无', '无', '2022-05-31 10:46:42', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_supplier
@@ -1229,5 +1237,20 @@ CREATE TABLE `t_goods_supplier`  (
 -- Records of t_goods_supplier
 -- ----------------------------
 INSERT INTO `t_goods_supplier` VALUES (1, 'EHI652HDJ718GHB7I0', '大宇科技', '北京市朝阳区', '大宇', '12345678901', NULL, '', '楚凛風', '12312312312', '1980-01-1', NULL, '0', NULL, '2022-05-05 17:12:18', NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for t_goods_type
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_type`;
+CREATE TABLE `t_goods_type`  (
+  `id` int NOT NULL,
+  `type_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类型编号',
+  `type_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类型名称',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品类型表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_goods_type
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
