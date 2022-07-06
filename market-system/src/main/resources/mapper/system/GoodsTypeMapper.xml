@@ -23,10 +23,12 @@
         from t_goods_type
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteTypeByIds" parameterType="String">
         <!--@mbg.generated-->
-        delete from t_goods_type
-        where id = #{id,jdbcType=INTEGER}
+        delete from t_goods_type where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
     </delete>
     <insert id="insert" parameterType="com.market.system.domain.GoodsType">
         <!--@mbg.generated-->

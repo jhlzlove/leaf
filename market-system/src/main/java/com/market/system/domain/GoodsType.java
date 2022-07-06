@@ -9,6 +9,11 @@ public class GoodsType {
     private Integer id;
 
     /**
+     * 父级类型编号
+     */
+    private String pCode;
+
+    /**
      * 类型编号
      */
     private String typeCode;
@@ -22,9 +27,18 @@ public class GoodsType {
     public String toString() {
         return "GoodsType{" +
                 "id=" + id +
+                ", pCode='" + pCode + '\'' +
                 ", typeCode='" + typeCode + '\'' +
                 ", typeName='" + typeName + '\'' +
                 '}';
+    }
+
+    public String getpCode() {
+        return pCode;
+    }
+
+    public void setpCode(String pCode) {
+        this.pCode = pCode;
     }
 
     public Integer getId() {

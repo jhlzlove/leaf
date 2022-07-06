@@ -88,7 +88,6 @@
       <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="商品编码" align="center" prop="goodsCode" />
       <el-table-column label="商品名称" align="center" prop="goodsName" />
-      <el-table-column label="所属分类" align="center" prop="goodsCategory" />
       <el-table-column label="商品类型" align="center" prop="goodsType" />
       <el-table-column label="商品供货商编码" align="center" prop="goodsSupplier" />
       <el-table-column label="商品数量" align="center" prop="goodsNumber" />
@@ -100,11 +99,7 @@
           <span>{{ parseTime(scope.row.manufacturingDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="保质期" align="center" prop="saveDate" >
-        <!-- <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.saveDate, '{y}-{m}-{d}') }}</span>
-        </template> -->
-      </el-table-column>
+      <el-table-column label="保质期" align="center" prop="saveDate" />
       <el-table-column label="计量方式" align="center" prop="meteringWay" />
       <el-table-column label="供应状态" align="center" prop="status" >
         <template slot-scope="scope">
@@ -145,9 +140,6 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="商品名称" prop="goodsName">
           <el-input v-model="form.goodsName" placeholder="请输入商品名称" />
-        </el-form-item>
-        <el-form-item label="商品分类" prop="goodsCategory">
-          <el-input v-model="form.goodsName" placeholder="请输入商品分类" />
         </el-form-item>
         <el-form-item label="商品类型" prop="goodsType">
           <el-input v-model="form.goodsType" placeholder="请输入商品类型" />
@@ -265,14 +257,12 @@ export default {
         createTime: [
           { required: true, message: "信息创建时间不能为空", trigger: "blur" }
         ],
-        // updateTime: [
-        //   { required: true, message: "信息更新时间不能为空", trigger: "blur" }
-        // ],
       }
     };
   },
   created() {
     this.getList();
+    this.getTypeList();
   },
   methods: {
     /** 查询商品信息列表 */

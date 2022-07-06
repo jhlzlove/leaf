@@ -7,7 +7,7 @@ import java.util.List;
 public interface GoodsTypeMapper {
     List<GoodsType> list();
 
-    int deleteByPrimaryKey(Integer id);
+    public int deleteTypeByIds(Long[] ids);
 
     int insert(GoodsType record);
 

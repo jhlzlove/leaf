@@ -7,7 +7,6 @@ import com.market.common.core.page.TableDataInfo;
 import com.market.common.enums.BusinessType;
 import com.market.common.utils.poi.ExcelUtil;
 import com.market.system.domain.GoodsInfo;
-import com.market.system.mapper.GoodsTypeMapper;
 import com.market.system.service.IGoodsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,8 +26,6 @@ import java.util.List;
 public class GoodsInfoController extends BaseController {
     @Autowired
     private IGoodsInfoService goodsInfoService;
-    @Autowired
-    private GoodsTypeMapper goodsTypeMapper;
 
     /**
      * 查询商品信息列表
@@ -90,14 +87,5 @@ public class GoodsInfoController extends BaseController {
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(goodsInfoService.deleteTGoodsInfoByIds(ids));
-    }
-
-    /**
-     * 查询商品类型
-     */
-    @PreAuthorize("@ss.hasPermi('system:goods:type:list')")
-    @GetMapping("/type/list")
-    public AjaxResult getType() {
-        return AjaxResult.success(goodsTypeMapper.list());
     }
 }
