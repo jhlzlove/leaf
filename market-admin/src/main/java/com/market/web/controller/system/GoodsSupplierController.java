@@ -16,76 +16,76 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * 供货商信息Controller
+ * 供应商信息表Controller
  *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 @RestController
 @RequestMapping("/system/supplier")
 public class GoodsSupplierController extends BaseController {
     @Autowired
-    private IGoodsSupplierService tGoodsSupplierService;
+    private IGoodsSupplierService goodsSupplierService;
 
     /**
-     * 查询供货商信息列表
+     * 查询供应商信息表列表
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:list')")
     @GetMapping("/list")
-    public TableDataInfo list(GoodsSupplier tGoodsSupplier) {
+    public TableDataInfo list(GoodsSupplier goodsSupplier) {
         startPage();
-        List<GoodsSupplier> list = tGoodsSupplierService.selectTGoodsSupplierList(tGoodsSupplier);
+        List<GoodsSupplier> list = goodsSupplierService.selectGoodsSupplierList(goodsSupplier);
         return getDataTable(list);
     }
 
     /**
-     * 导出供货商信息列表
+     * 导出供应商信息表列表
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:export')")
-    @Log(title = "供货商信息", businessType = BusinessType.EXPORT)
+    @Log(title = "供应商信息表", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, GoodsSupplier tGoodsSupplier) {
-        List<GoodsSupplier> list = tGoodsSupplierService.selectTGoodsSupplierList(tGoodsSupplier);
+    public void export(HttpServletResponse response, GoodsSupplier goodsSupplier) {
+        List<GoodsSupplier> list = goodsSupplierService.selectGoodsSupplierList(goodsSupplier);
         ExcelUtil<GoodsSupplier> util = new ExcelUtil<GoodsSupplier>(GoodsSupplier.class);
-        util.exportExcel(response, list, "供货商信息数据");
+        util.exportExcel(response, list, "供应商信息表数据");
     }
 
     /**
-     * 获取供货商信息详细信息
+     * 获取供应商信息表详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return AjaxResult.success(tGoodsSupplierService.selectTGoodsSupplierById(id));
+        return AjaxResult.success(goodsSupplierService.selectGoodsSupplierById(id));
     }
 
     /**
-     * 新增供货商信息
+     * 新增供应商信息表
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:add')")
-    @Log(title = "供货商信息", businessType = BusinessType.INSERT)
+    @Log(title = "供应商信息表", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody GoodsSupplier tGoodsSupplier) {
-        return toAjax(tGoodsSupplierService.insertTGoodsSupplier(tGoodsSupplier));
+    public AjaxResult add(@RequestBody GoodsSupplier goodsSupplier) {
+        return toAjax(goodsSupplierService.insertGoodsSupplier(goodsSupplier));
     }
 
     /**
-     * 修改供货商信息
+     * 修改供应商信息表
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:edit')")
-    @Log(title = "供货商信息", businessType = BusinessType.UPDATE)
+    @Log(title = "供应商信息表", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody GoodsSupplier tGoodsSupplier) {
-        return toAjax(tGoodsSupplierService.updateTGoodsSupplier(tGoodsSupplier));
+    public AjaxResult edit(@RequestBody GoodsSupplier goodsSupplier) {
+        return toAjax(goodsSupplierService.updateGoodsSupplier(goodsSupplier));
     }
 
     /**
-     * 删除供货商信息
+     * 删除供应商信息表
      */
     @PreAuthorize("@ss.hasPermi('system:supplier:remove')")
-    @Log(title = "供货商信息", businessType = BusinessType.DELETE)
+    @Log(title = "供应商信息表", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(tGoodsSupplierService.deleteTGoodsSupplierByIds(ids));
+        return toAjax(goodsSupplierService.deleteGoodsSupplierByIds(ids));
     }
 }

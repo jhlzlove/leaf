@@ -3,77 +3,89 @@ package com.market.web.controller.system;
 import com.market.common.annotation.Log;
 import com.market.common.core.controller.BaseController;
 import com.market.common.core.domain.AjaxResult;
-import com.market.common.core.domain.entity.SysDictType;
 import com.market.common.core.page.TableDataInfo;
 import com.market.common.enums.BusinessType;
+import com.market.common.utils.poi.ExcelUtil;
 import com.market.system.domain.GoodsType;
-import com.market.system.mapper.GoodsTypeMapper;
+import com.market.system.service.IGoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * 商品类型表Controller
+ *
+ * @author jhlz
+ * @date 2022-07-06
+ */
 @RestController
 @RequestMapping("/system/type")
 public class GoodsTypeController extends BaseController {
+    @Autowired
+    private IGoodsTypeService goodsTypeService;
 
-    @Autowired(required = false)
-    private GoodsTypeMapper goodsTypeMapper;
-
+    /**
+     * 查询商品类型表列表
+     */
     @PreAuthorize("@ss.hasPermi('system:type:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysDictType dictType) {
+    public TableDataInfo list(GoodsType goodsType) {
         startPage();
-        List<GoodsType> list = goodsTypeMapper.list();
+        List<GoodsType> list = goodsTypeService.selectGoodsTypeList(goodsType);
         return getDataTable(list);
     }
 
     /**
-     * 获取类型的详细信息
+     * 导出商品类型表列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:type:export')")
+    @Log(title = "商品类型表", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, GoodsType goodsType) {
+        List<GoodsType> list = goodsTypeService.selectGoodsTypeList(goodsType);
+        ExcelUtil<GoodsType> util = new ExcelUtil<GoodsType>(GoodsType.class);
+        util.exportExcel(response, list, "商品类型表数据");
+    }
+
+    /**
+     * 获取商品类型表详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:type:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Integer id) {
-        return AjaxResult.success(goodsTypeMapper.selectByPrimaryKey(id));
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
+        return AjaxResult.success(goodsTypeService.selectGoodsTypeById(id));
     }
 
     /**
-     * 新增类型
+     * 新增商品类型表
      */
     @PreAuthorize("@ss.hasPermi('system:type:add')")
-    @Log(title = "商品信息", businessType = BusinessType.INSERT)
+    @Log(title = "商品类型表", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody GoodsType goodsType) {
-        return toAjax(goodsTypeMapper.insertSelective(goodsType));
+        return toAjax(goodsTypeService.insertGoodsType(goodsType));
     }
 
     /**
-     * 修改类型信息
+     * 修改商品类型表
      */
     @PreAuthorize("@ss.hasPermi('system:type:edit')")
-    @Log(title = "商品信息", businessType = BusinessType.UPDATE)
+    @Log(title = "商品类型表", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody GoodsType goodsType) {
-        return toAjax(goodsTypeMapper.updateByPrimaryKeySelective(goodsType));
+        return toAjax(goodsTypeService.updateGoodsType(goodsType));
     }
 
     /**
-     * 删除类型信息
+     * 删除商品类型表
      */
     @PreAuthorize("@ss.hasPermi('system:type:remove')")
-    @Log(title = "商品信息", businessType = BusinessType.DELETE)
+    @Log(title = "商品类型表", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(goodsTypeMapper.deleteTypeByIds(ids));
-    }
-
-    /**
-     * 查询商品类型
-     */
-    @PreAuthorize("@ss.hasPermi('system:type:list')")
-    @GetMapping("/type/list")
-    public AjaxResult getType() {
-        return AjaxResult.success(goodsTypeMapper.list());
+        return toAjax(goodsTypeService.deleteGoodsTypeByIds(ids));
     }
 }

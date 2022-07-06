@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询供货商信息列表
+// 查询供应商信息表列表
 export function listSupplier(query) {
   return request({
     url: '/system/supplier/list',
@@ -9,7 +9,7 @@ export function listSupplier(query) {
   })
 }
 
-// 查询供货商信息详细
+// 查询供应商信息表详细
 export function getSupplier(id) {
   return request({
     url: '/system/supplier/' + id,
@@ -17,7 +17,7 @@ export function getSupplier(id) {
   })
 }
 
-// 新增供货商信息
+// 新增供应商信息表
 export function addSupplier(data) {
   return request({
     url: '/system/supplier',
@@ -26,7 +26,7 @@ export function addSupplier(data) {
   })
 }
 
-// 修改供货商信息
+// 修改供应商信息表
 export function updateSupplier(data) {
   return request({
     url: '/system/supplier',
@@ -35,7 +35,7 @@ export function updateSupplier(data) {
   })
 }
 
-// 删除供货商信息
+// 删除供应商信息表
 export function delSupplier(id) {
   return request({
     url: '/system/supplier/' + id,

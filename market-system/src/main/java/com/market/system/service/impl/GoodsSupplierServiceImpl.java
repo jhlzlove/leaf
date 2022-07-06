@@ -10,88 +10,81 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 供货商信息Service业务层处理
- * 
+ * 供应商信息表Service业务层处理
+ *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 @Service
-public class GoodsSupplierServiceImpl implements IGoodsSupplierService
-{
+public class GoodsSupplierServiceImpl implements IGoodsSupplierService {
     @Autowired
-    private GoodsSupplierMapper tGoodsSupplierMapper;
+    private GoodsSupplierMapper goodsSupplierMapper;
 
     /**
-     * 查询供货商信息
-     * 
-     * @param id 供货商信息主键
-     * @return 供货商信息
+     * 查询供应商信息表
+     *
+     * @param id 供应商信息表主键
+     * @return 供应商信息表
      */
     @Override
-    public GoodsSupplier selectTGoodsSupplierById(Long id)
-    {
-        return tGoodsSupplierMapper.selectTGoodsSupplierById(id);
+    public GoodsSupplier selectGoodsSupplierById(Long id) {
+        return goodsSupplierMapper.selectGoodsSupplierById(id);
     }
 
     /**
-     * 查询供货商信息列表
-     * 
-     * @param tGoodsSupplier 供货商信息
-     * @return 供货商信息
+     * 查询供应商信息表列表
+     *
+     * @param goodsSupplier 供应商信息表
+     * @return 供应商信息表
      */
     @Override
-    public List<GoodsSupplier> selectTGoodsSupplierList(GoodsSupplier tGoodsSupplier)
-    {
-        return tGoodsSupplierMapper.selectTGoodsSupplierList(tGoodsSupplier);
+    public List<GoodsSupplier> selectGoodsSupplierList(GoodsSupplier goodsSupplier) {
+        return goodsSupplierMapper.selectGoodsSupplierList(goodsSupplier);
     }
 
     /**
-     * 新增供货商信息
-     * 
-     * @param tGoodsSupplier 供货商信息
+     * 新增供应商信息表
+     *
+     * @param goodsSupplier 供应商信息表
      * @return 结果
      */
     @Override
-    public int insertTGoodsSupplier(GoodsSupplier tGoodsSupplier)
-    {
-        tGoodsSupplier.setCreateTime(DateUtils.getNowDate());
-        return tGoodsSupplierMapper.insertTGoodsSupplier(tGoodsSupplier);
+    public int insertGoodsSupplier(GoodsSupplier goodsSupplier) {
+        goodsSupplier.setCreateTime(DateUtils.getNowDate());
+        return goodsSupplierMapper.insertGoodsSupplier(goodsSupplier);
     }
 
     /**
-     * 修改供货商信息
-     * 
-     * @param tGoodsSupplier 供货商信息
+     * 修改供应商信息表
+     *
+     * @param goodsSupplier 供应商信息表
      * @return 结果
      */
     @Override
-    public int updateTGoodsSupplier(GoodsSupplier tGoodsSupplier)
-    {
-        tGoodsSupplier.setUpdateTime(DateUtils.getNowDate());
-        return tGoodsSupplierMapper.updateTGoodsSupplier(tGoodsSupplier);
+    public int updateGoodsSupplier(GoodsSupplier goodsSupplier) {
+        goodsSupplier.setUpdateTime(DateUtils.getNowDate());
+        return goodsSupplierMapper.updateGoodsSupplier(goodsSupplier);
     }
 
     /**
-     * 批量删除供货商信息
-     * 
-     * @param ids 需要删除的供货商信息主键
+     * 批量删除供应商信息表
+     *
+     * @param ids 需要删除的供应商信息表主键
      * @return 结果
      */
     @Override
-    public int deleteTGoodsSupplierByIds(Long[] ids)
-    {
-        return tGoodsSupplierMapper.deleteTGoodsSupplierByIds(ids);
+    public int deleteGoodsSupplierByIds(Long[] ids) {
+        return goodsSupplierMapper.deleteGoodsSupplierByIds(ids);
     }
 
     /**
-     * 删除供货商信息信息
-     * 
-     * @param id 供货商信息主键
+     * 删除供应商信息表信息
+     *
+     * @param id 供应商信息表主键
      * @return 结果
      */
     @Override
-    public int deleteTGoodsSupplierById(Long id)
-    {
-        return tGoodsSupplierMapper.deleteTGoodsSupplierById(id);
+    public int deleteGoodsSupplierById(Long id) {
+        return goodsSupplierMapper.deleteGoodsSupplierById(id);
     }
 }
