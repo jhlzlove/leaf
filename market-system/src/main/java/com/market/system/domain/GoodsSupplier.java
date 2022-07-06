@@ -5,11 +5,13 @@ import com.market.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.time.LocalDate;
+
 /**
- * 供货商信息对象 t_goods_supplier
+ * 供应商信息表对象 t_goods_supplier
  *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 public class GoodsSupplier extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -77,7 +79,7 @@ public class GoodsSupplier extends BaseEntity {
      * 上市日期
      */
     @Excel(name = "上市日期")
-    private String listingDate;
+    private LocalDate listingDate;
 
     /**
      * 删除标志（Y代表存在 N代表删除）
@@ -170,11 +172,11 @@ public class GoodsSupplier extends BaseEntity {
         return leaderPhone;
     }
 
-    public void setListingDate(String listingDate) {
+    public void setListingDate(LocalDate listingDate) {
         this.listingDate = listingDate;
     }
 
-    public String getListingDate() {
+    public LocalDate getListingDate() {
         return listingDate;
     }
 

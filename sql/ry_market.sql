@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 101.34.224.56_3306
+ Source Server         : mysql-localhost
  Source Server Type    : MySQL
- Source Server Version : 80028
- Source Host           : 101.34.224.56:3306
- Source Schema         : market
+ Source Server Version : 80020
+ Source Host           : localhost:3306
+ Source Schema         : ry_market
 
  Target Server Type    : MySQL
- Target Server Version : 80028
+ Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 09/06/2022 13:56:21
+ Date: 06/07/2022 16:36:27
 */
 
 SET NAMES utf8mb4;
@@ -43,16 +43,17 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (6, 't_employee_info', '员工信息表', NULL, NULL, 'TEmployeeInfo', 'crud', 'com.market.system', 'system', 'info', '员工信息', 'jhlz', '0', '/', NULL, 'admin', '2022-04-13 01:41:17', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (7, 't_goods_info', '商品信息表', NULL, NULL, 'TGoodsInfo', 'crud', 'com.market.system', 'system', 'info', '商品信息', 'jhlz', '0', '/', NULL, 'admin', '2022-04-13 01:41:19', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (8, 't_goods_record', '记录表', NULL, NULL, 'TGoodsRecord', 'crud', 'com.market.system', 'system', 'record', '记录', 'jhlz', '0', '/', NULL, 'admin', '2022-04-13 01:41:20', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (9, 't_goods_sale', '商品销售表', NULL, NULL, 'TGoodsSale', 'crud', 'com.market.system', 'system', 'sale', '商品销售', 'jhlz', '0', '/', NULL, 'admin', '2022-04-13 01:41:21', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (10, 't_goods_supplier', '供货商信息表', NULL, NULL, 'TGoodsSupplier', 'crud', 'com.market.system', 'system', 'supplier', '供货商信息', 'jhlz', '0', '/', NULL, 'admin', '2022-04-13 01:41:22', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (1, 't_employee_info', '', NULL, NULL, 'TEmployeeInfo', 'crud', 'com.market.system', 'system', 'info', NULL, 'jhlz', '0', '/', NULL, 'admin', '2022-03-31 17:14:17', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (2, 't_goods_info', '商品信息表', 't_goods_type', 'type_code', 'GoodsInfo', 'sub', 'com.market.system', 'system', 'info', '商品信息', 'jhlz', '0', '/', '{\"parentMenuId\":4}', 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23', NULL);
+INSERT INTO `gen_table` VALUES (3, 't_goods_sale', '', NULL, NULL, 'TGoodsSale', 'crud', 'com.market.system', 'system', 'sale', NULL, 'jhlz', '0', '/', NULL, 'admin', '2022-03-31 17:14:17', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (4, 't_goods_stock', '', NULL, NULL, 'TGoodsStock', 'crud', 'com.market.system', 'system', 'stock', NULL, 'jhlz', '0', '/', NULL, 'admin', '2022-03-31 17:14:17', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (5, 't_goods_supplier', '供应商信息表', '', '', 'GoodsSupplier', 'crud', 'com.market.system', 'system', 'supplier', '供应商信息表', 'jhlz', '0', '/', '{\"parentMenuId\":4}', 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16', NULL);
+INSERT INTO `gen_table` VALUES (6, 't_goods_type', '商品类型表', NULL, NULL, 'GoodsType', 'crud', 'com.market.system', 'system', 'type', '商品类型表', 'jhlz', '0', '/', '{\"parentMenuId\":4}', 'admin', '2022-07-06 15:47:05', '', '2022-07-06 16:01:59', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -82,91 +83,102 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 168 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 87 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table_column
 -- ----------------------------
-INSERT INTO `gen_table_column` VALUES (88, '6', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (89, '6', 'employee_code', '员工编号', 'varchar(255)', 'String', 'employeeCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (90, '6', 'employee_name', '员工名称', 'varchar(255)', 'String', 'employeeName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (91, '6', 'employee_sex', '员工性别', 'varchar(255)', 'String', 'employeeSex', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (92, '6', 'employee_dept', '员工部门', 'int', 'Long', 'employeeDept', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (93, '6', 'employee_address', '住址', 'varchar(255)', 'String', 'employeeAddress', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (94, '6', 'employee_phone', '联系电话', 'varchar(255)', 'String', 'employeePhone', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (95, '6', 'employee_card', '身份证号', 'varchar(255)', 'String', 'employeeCard', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (96, '6', 'employee_photo', '照片地址', 'varchar(255)', 'String', 'employeePhoto', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (97, '6', 'province', '所在省', 'varchar(255)', 'String', 'province', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (98, '6', 'city', '所在市', 'varchar(255)', 'String', 'city', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (99, '6', 'town', '乡镇/街道', 'varchar(255)', 'String', 'town', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (100, '6', 'del_flag', '删除标志(0:存在;2:删除)', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 13, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (101, '6', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (102, '6', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 15, 'admin', '2022-04-13 01:41:18', '', NULL);
-INSERT INTO `gen_table_column` VALUES (103, '6', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (104, '6', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (105, '6', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 18, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (106, '7', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (107, '7', 'goods_code', '商品编码', 'varchar(100)', 'String', 'goodsCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (108, '7', 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (109, '7', 'goods_type', '商品类型', 'varchar(255)', 'String', 'goodsType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (110, '7', 'goods_supplier', '商品供货商编码', 'varchar(255)', 'String', 'goodsSupplier', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (111, '7', 'goods_number', '商品数量', 'int', 'Long', 'goodsNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (112, '7', 'goods_price', '商品定价', 'decimal(15,2)', 'BigDecimal', 'goodsPrice', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (113, '7', 'goods_discount', '折扣', 'varchar(100)', 'String', 'goodsDiscount', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (114, '7', 'goods_preferential', '优惠价格', 'decimal(15,2)', 'BigDecimal', 'goodsPreferential', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (115, '7', 'manufacturing_date', '生产日期', 'datetime', 'Date', 'manufacturingDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (116, '7', 'save_date', '保质期', 'datetime', 'Date', 'saveDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 11, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (117, '7', 'metering_way', '计量方式', 'varchar(255)', 'String', 'meteringWay', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2022-04-13 01:41:19', '', NULL);
-INSERT INTO `gen_table_column` VALUES (118, '7', 'status', '供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）', 'varchar(255)', 'String', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 13, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (119, '7', 'del_flag', '删除标志（Y代表存在 N代表删除）', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (120, '7', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (121, '7', 'create_time', '信息创建时间', 'datetime', 'Date', 'createTime', '0', '0', '1', '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (122, '7', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (123, '7', 'update_time', '信息更新时间', 'datetime', 'Date', 'updateTime', '0', '0', '1', '1', '1', NULL, NULL, 'EQ', 'datetime', '', 18, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (124, '7', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 19, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (125, '8', 'id', NULL, 'int', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (126, '8', 'goods_code', '商品编码', 'varchar(255)', 'String', 'goodsCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (127, '8', 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (128, '8', 'record_code', '订单编号', 'varchar(255)', 'String', 'recordCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (129, '8', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 5, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (130, '8', 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (131, '8', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 7, 'admin', '2022-04-13 01:41:20', '', NULL);
-INSERT INTO `gen_table_column` VALUES (132, '8', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 8, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (133, '8', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 9, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (134, '9', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (135, '9', 'goods_code', '商品编码', 'varchar(255)', 'String', 'goodsCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (136, '9', 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (137, '9', 'goods_type', '商品类型', 'varchar(255)', 'String', 'goodsType', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (138, '9', 'goods_sale_num', '售出数量', 'int', 'Long', 'goodsSaleNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (139, '9', 'metering_way', '计量方式', 'varchar(255)', 'String', 'meteringWay', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (140, '9', 'amount_payable', '应付金额', 'decimal(15,2)', 'BigDecimal', 'amountPayable', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (141, '9', 'amount_actual', '实付金额', 'decimal(15,2)', 'BigDecimal', 'amountActual', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (142, '9', 'change', '找零', 'decimal(15,2)', 'BigDecimal', 'change', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (143, '9', 'top_desc', '顶部信息', 'varchar(255)', 'String', 'topDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (144, '9', 'bottom_desc', '底部信息', 'varchar(255)', 'String', 'bottomDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (145, '9', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 12, 'admin', '2022-04-13 01:41:21', '', NULL);
-INSERT INTO `gen_table_column` VALUES (146, '9', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (147, '9', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (148, '9', 'update_by', '更新者', 'varchar(255)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (149, '9', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 16, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (150, '10', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (151, '10', 'supplier_code', '供应商社会统一信用码', 'varchar(255)', 'String', 'supplierCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (152, '10', 'supplier_name', '供应商名称', 'varchar(255)', 'String', 'supplierName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (153, '10', 'supplier_address', '地址', 'varchar(255)', 'String', 'supplierAddress', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (154, '10', 'link_man', '联系人', 'varchar(255)', 'String', 'linkMan', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (155, '10', 'supplier_mobile', '联系方式', 'varchar(11)', 'String', 'supplierMobile', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (156, '10', 'supplier_license_font', '经营执照（正面）', 'varchar(255)', 'String', 'supplierLicenseFont', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (157, '10', 'supplier_license_back', '经营执照（反面）', 'varchar(255)', 'String', 'supplierLicenseBack', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (158, '10', 'supplier_leader', '公司老板', 'varchar(255)', 'String', 'supplierLeader', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (159, '10', 'leader_phone', '联系方式', 'varchar(255)', 'String', 'leaderPhone', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (160, '10', 'listing_date', '上市日期', 'varchar(255)', 'String', 'listingDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (161, '10', 'del_flag', '删除标志（Y代表存在 N代表删除）', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (162, '10', 'status', '供应/合作状态（0正常 1停用）', 'varchar(255)', 'String', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 13, 'admin', '2022-04-13 01:41:22', '', NULL);
-INSERT INTO `gen_table_column` VALUES (163, '10', 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-04-13 01:41:23', '', NULL);
-INSERT INTO `gen_table_column` VALUES (164, '10', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 15, 'admin', '2022-04-13 01:41:23', '', NULL);
-INSERT INTO `gen_table_column` VALUES (165, '10', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 16, 'admin', '2022-04-13 01:41:23', '', NULL);
-INSERT INTO `gen_table_column` VALUES (166, '10', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 17, 'admin', '2022-04-13 01:41:23', '', NULL);
-INSERT INTO `gen_table_column` VALUES (167, '10', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 18, 'admin', '2022-04-13 01:41:23', '', NULL);
+INSERT INTO `gen_table_column` VALUES (1, '1', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (2, '1', 'employee_code', '员工编号', 'varchar(255)', 'String', 'employeeCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (3, '1', 'employee_name', '员工名称', 'varchar(255)', 'String', 'employeeName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (4, '1', 'employee_sex', '员工性别', 'varchar(255)', 'String', 'employeeSex', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (5, '1', 'employee_dept', '员工部门', 'int', 'Long', 'employeeDept', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (6, '1', 'employee_address', '住址', 'varchar(255)', 'String', 'employeeAddress', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (7, '1', 'employee_phone', '联系电话', 'varchar(255)', 'String', 'employeePhone', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (8, '1', 'employee_card', '身份证号', 'varchar(255)', 'String', 'employeeCard', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (9, '1', 'employee_photo', '照片地址', 'varchar(255)', 'String', 'employeePhoto', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (10, '1', 'province', '所在省', 'varchar(255)', 'String', 'province', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (11, '1', 'city', '所在市', 'varchar(255)', 'String', 'city', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (12, '1', 'town', '乡镇/街道', 'varchar(255)', 'String', 'town', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (13, '1', 'nick_name', '昵称', 'varchar(255)', 'String', 'nickName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 13, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (14, '1', 'login_accounts', '登录账户', 'varchar(255)', 'String', 'loginAccounts', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 14, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (15, '1', 'login_password', '登录密码', 'varchar(255)', 'String', 'loginPassword', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 15, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (16, '1', 'avatar', '头像地址', 'varchar(255)', 'String', 'avatar', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 16, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (17, '1', 'accounts_status', '账号状态', 'varchar(255)', 'String', 'accountsStatus', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 17, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (18, '1', 'del_flag', '删除标志(0:存在;2:删除)', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 18, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (19, '1', 'last_login_ip', '最后登录IP', 'varchar(255)', 'String', 'lastLoginIp', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 19, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (20, '1', 'last_login_date', '最后登录时间', 'datetime', 'Date', 'lastLoginDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 20, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (21, '1', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 21, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (22, '1', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 22, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (23, '1', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 23, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (24, '1', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 24, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (25, '1', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 25, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (26, '2', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (27, '2', 'goods_code', '商品编码', 'varchar(100)', 'String', 'goodsCode', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (28, '2', 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (29, '2', 'goods_type', '商品类型', 'varchar(255)', 'String', 'goodsType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (30, '2', 'goods_supplier', '商品供货商编码', 'varchar(255)', 'String', 'goodsSupplier', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (31, '2', 'goods_number', '商品数量', 'int', 'Long', 'goodsNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (32, '2', 'goods_price', '商品定价', 'decimal(15,2)', 'BigDecimal', 'goodsPrice', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (33, '2', 'goods_discount', '折扣', 'varchar(100)', 'String', 'goodsDiscount', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (34, '2', 'goods_preferential', '优惠价格', 'decimal(15,2)', 'BigDecimal', 'goodsPreferential', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (35, '2', 'manufacturing_date', '生产日期', 'datetime', 'Date', 'manufacturingDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (36, '2', 'save_date', '保质期', 'datetime', 'Date', 'saveDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 11, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (37, '2', 'metering_way', '计量方式', 'varchar(255)', 'String', 'meteringWay', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (38, '2', 'status', '供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）', 'varchar(255)', 'String', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 13, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (39, '2', 'del_flag', '删除标志（Y代表存在 N代表删除）', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (40, '2', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (41, '2', 'create_time', '信息创建时间', 'datetime', 'Date', 'createTime', '0', '0', '1', '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (42, '2', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (43, '2', 'update_time', '信息更新时间', 'datetime', 'Date', 'updateTime', '0', '0', '1', '1', '1', NULL, NULL, 'EQ', 'datetime', '', 18, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (44, '2', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 19, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:23');
+INSERT INTO `gen_table_column` VALUES (45, '3', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (46, '3', 'goods_code', '商品编码', 'varchar(255)', 'String', 'goodsCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (47, '3', 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (48, '3', 'goods_type', '商品类型', 'varchar(255)', 'String', 'goodsType', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 4, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (49, '3', 'goods_sale_num', '售出数量', 'int', 'Long', 'goodsSaleNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (50, '3', 'metering_way', '计量方式', 'varchar(255)', 'String', 'meteringWay', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (51, '3', 'amount_payable', '应付金额', 'decimal(15,2)', 'BigDecimal', 'amountPayable', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (52, '3', 'amount_actual', '实付金额', 'decimal(15,2)', 'BigDecimal', 'amountActual', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (53, '3', 'change', '找零', 'decimal(15,2)', 'BigDecimal', 'change', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (54, '3', 'top_desc', '顶部信息', 'varchar(255)', 'String', 'topDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (55, '3', 'bottom_desc', '底部信息', 'varchar(255)', 'String', 'bottomDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (56, '3', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 12, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (57, '3', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (58, '3', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (59, '3', 'update_by', '更新者', 'varchar(255)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (60, '3', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 16, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (61, '4', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (62, '4', 'goods_code', '商品编码', 'varchar(255)', 'String', 'goodsCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (63, '4', 'goods_number', '商品数量', 'int', 'Long', 'goodsNumber', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (64, '4', 'metering_way', '计量方式', 'varchar(255)', 'String', 'meteringWay', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (65, '4', 'create_time', '信息创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 5, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (66, '4', 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (67, '4', 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 7, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (68, '4', 'update_time', '信息更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 8, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (69, '4', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 9, 'admin', '2022-03-31 17:14:17', '', NULL);
+INSERT INTO `gen_table_column` VALUES (70, '5', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (71, '5', 'supplier_code', '供应商社会统一信用码', 'varchar(255)', 'String', 'supplierCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (72, '5', 'supplier_name', '供应商名称', 'varchar(255)', 'String', 'supplierName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (73, '5', 'supplier_address', '地址', 'varchar(255)', 'String', 'supplierAddress', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (74, '5', 'link_man', '联系人', 'varchar(255)', 'String', 'linkMan', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (75, '5', 'supplier_mobile', '联系方式', 'varchar(11)', 'String', 'supplierMobile', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (76, '5', 'supplier_license_font', '经营执照（正面）', 'varchar(255)', 'String', 'supplierLicenseFont', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (77, '5', 'supplier_license_back', '经营执照（反面）', 'varchar(255)', 'String', 'supplierLicenseBack', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (78, '5', 'supplier_leader', '公司老板', 'varchar(255)', 'String', 'supplierLeader', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (79, '5', 'leader_phone', '联系方式', 'varchar(255)', 'String', 'leaderPhone', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (80, '5', 'listing_date', '上市日期', 'varchar(255)', 'String', 'listingDate', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (81, '5', 'del_flag', '删除标志（Y代表存在 N代表删除）', 'varchar(255)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (82, '5', 'status', '供应/合作状态（0正常 1停用）', 'varchar(255)', 'String', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 13, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (83, '5', 'create_by', '创建者', 'varchar(255)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (84, '5', 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 15, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (85, '5', 'update_by', '更新者', 'varchar(255)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 16, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (86, '5', 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 17, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (87, '5', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 18, 'admin', '2022-03-31 17:14:17', '', '2022-07-06 16:01:16');
+INSERT INTO `gen_table_column` VALUES (88, '6', 'id', NULL, 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2022-07-06 15:47:05', '', '2022-07-06 16:01:59');
+INSERT INTO `gen_table_column` VALUES (89, '6', 'type_name', '分类名称', 'varchar(255)', 'String', 'typeName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2022-07-06 15:47:05', '', '2022-07-06 16:01:59');
+INSERT INTO `gen_table_column` VALUES (90, '6', 'p_code', '父级分类编号', 'varchar(50)', 'String', 'pCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2022-07-06 15:47:05', '', '2022-07-06 16:01:59');
+INSERT INTO `gen_table_column` VALUES (91, '6', 'type_code', '分类编号', 'varchar(50)', 'String', 'typeCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2022-07-06 15:47:05', '', '2022-07-06 16:01:59');
 
 -- ----------------------------
 -- Table structure for qrtz_blob_triggers
@@ -179,7 +191,7 @@ CREATE TABLE `qrtz_blob_triggers`  (
   `blob_data` blob NULL COMMENT '存放持久化Trigger对象',
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Blob类型的触发器表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Blob类型的触发器表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_blob_triggers
@@ -194,7 +206,7 @@ CREATE TABLE `qrtz_calendars`  (
   `calendar_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '日历名称',
   `calendar` blob NOT NULL COMMENT '存放持久化calendar对象',
   PRIMARY KEY (`sched_name`, `calendar_name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '日历信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '日历信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_calendars
@@ -212,7 +224,7 @@ CREATE TABLE `qrtz_cron_triggers`  (
   `time_zone_id` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '时区',
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Cron类型的触发器表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Cron类型的触发器表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_cron_triggers
@@ -240,7 +252,7 @@ CREATE TABLE `qrtz_fired_triggers`  (
   `is_nonconcurrent` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '是否并发',
   `requests_recovery` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '是否接受恢复执行',
   PRIMARY KEY (`sched_name`, `entry_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '已触发的触发器表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '已触发的触发器表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_fired_triggers
@@ -262,7 +274,7 @@ CREATE TABLE `qrtz_job_details`  (
   `requests_recovery` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '是否接受恢复执行',
   `job_data` blob NULL COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`, `job_name`, `job_group`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '任务详细信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '任务详细信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_job_details
@@ -279,7 +291,7 @@ CREATE TABLE `qrtz_locks`  (
   `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '调度名称',
   `lock_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '悲观锁名称',
   PRIMARY KEY (`sched_name`, `lock_name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '存储的悲观锁信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '存储的悲观锁信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_locks
@@ -295,7 +307,7 @@ CREATE TABLE `qrtz_paused_trigger_grps`  (
   `sched_name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '调度名称',
   `trigger_group` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   PRIMARY KEY (`sched_name`, `trigger_group`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '暂停的触发器表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '暂停的触发器表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_paused_trigger_grps
@@ -311,7 +323,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
   `last_checkin_time` bigint NOT NULL COMMENT '上次检查时间',
   `checkin_interval` bigint NOT NULL COMMENT '检查间隔时间',
   PRIMARY KEY (`sched_name`, `instance_name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '调度器状态表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '调度器状态表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_scheduler_state
@@ -331,7 +343,7 @@ CREATE TABLE `qrtz_simple_triggers`  (
   `times_triggered` bigint NOT NULL COMMENT '已经触发的次数',
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '简单触发器的信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '简单触发器的信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_simple_triggers
@@ -358,7 +370,7 @@ CREATE TABLE `qrtz_simprop_triggers`  (
   `bool_prop_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'Boolean类型的trigger的第二个参数',
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '同步机制的行锁表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '同步机制的行锁表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_simprop_triggers
@@ -388,7 +400,7 @@ CREATE TABLE `qrtz_triggers`  (
   PRIMARY KEY (`sched_name`, `trigger_name`, `trigger_group`) USING BTREE,
   INDEX `sched_name`(`sched_name`, `job_name`, `job_group`) USING BTREE,
   CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `job_name`, `job_group`) REFERENCES `qrtz_job_details` (`sched_name`, `job_name`, `job_group`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '触发器详细信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '触发器详细信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of qrtz_triggers
@@ -413,7 +425,7 @@ CREATE TABLE `sys_config`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_config
@@ -444,7 +456,7 @@ CREATE TABLE `sys_dept`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 109 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
@@ -480,7 +492,7 @@ CREATE TABLE `sys_dict_data`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -530,7 +542,7 @@ CREATE TABLE `sys_dict_type`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `dict_type`(`dict_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -565,7 +577,7 @@ CREATE TABLE `sys_job`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`, `job_name`, `job_group`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job
@@ -588,7 +600,7 @@ CREATE TABLE `sys_job_log`  (
   `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '异常信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -609,23 +621,18 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
 INSERT INTO `sys_logininfor` VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '1', '验证码错误', '2022-03-31 16:52:33');
 INSERT INTO `sys_logininfor` VALUES (101, 'admin', '127.0.0.1', '内网IP', 'Chrome 9', 'Windows 10', '0', '登录成功', '2022-03-31 16:52:37');
-INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-12 08:46:50');
-INSERT INTO `sys_logininfor` VALUES (103, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-12 09:32:42');
-INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-12 09:32:56');
-INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-13 01:32:07');
-INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-17 01:34:08');
-INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Firefox 9', 'Windows 10', '0', '登录成功', '2022-04-17 02:35:46');
-INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-04-29 17:01:18');
-INSERT INTO `sys_logininfor` VALUES (109, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-05-05 16:22:03');
-INSERT INTO `sys_logininfor` VALUES (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '1', '验证码错误', '2022-05-31 09:42:14');
-INSERT INTO `sys_logininfor` VALUES (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-05-31 09:42:19');
+INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-07-06 15:07:58');
+INSERT INTO `sys_logininfor` VALUES (103, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-07-06 15:46:43');
+INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '退出成功', '2022-07-06 15:59:20');
+INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '1', '验证码错误', '2022-07-06 15:59:26');
+INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', '0', '登录成功', '2022-07-06 15:59:30');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -652,15 +659,15 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1091 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1060 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2022-03-31 15:49:57', '', NULL, '系统管理目录');
-INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 8, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2022-03-31 15:49:57', 'admin', '2022-04-29 17:07:40', '系统监控目录');
+INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2022-03-31 15:49:57', '', NULL, '系统监控目录');
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, 'tool', NULL, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2022-03-31 15:49:57', '', NULL, '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, '基本功能', 0, 4, 'base', NULL, NULL, 1, 0, 'M', '0', '0', '', 'list', 'admin', '2022-04-29 17:03:15', 'admin', '2022-04-29 17:07:11', '基础功能目录');
+INSERT INTO `sys_menu` VALUES (4, '功能管理', 0, 4, 'base', NULL, NULL, 1, 0, 'M', '0', '0', '', 'list', 'admin', '2022-07-06 15:51:45', 'admin', '2022-07-06 15:53:21', '功能管理目录');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2022-03-31 15:49:57', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2022-03-31 15:49:57', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2022-03-31 15:49:57', '', NULL, '菜单管理菜单');
@@ -671,6 +678,8 @@ INSERT INTO `sys_menu` VALUES (106, '参数设置', 1, 7, 'config', 'system/conf
 INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2022-03-31 15:49:57', '', NULL, '通知公告菜单');
 INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2022-03-31 15:49:57', '', NULL, '日志管理菜单');
 INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2022-03-31 15:49:57', '', NULL, '在线用户菜单');
+INSERT INTO `sys_menu` VALUES (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2022-03-31 15:49:57', '', NULL, '定时任务菜单');
+INSERT INTO `sys_menu` VALUES (111, '数据监控', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2022-03-31 15:49:57', '', NULL, '数据监控菜单');
 INSERT INTO `sys_menu` VALUES (112, '服务监控', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2022-03-31 15:49:57', '', NULL, '服务监控菜单');
 INSERT INTO `sys_menu` VALUES (113, '缓存监控', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2022-03-31 15:49:57', '', NULL, '缓存监控菜单');
 INSERT INTO `sys_menu` VALUES (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2022-03-31 15:49:57', '', NULL, '表单构建菜单');
@@ -738,36 +747,24 @@ INSERT INTO `sys_menu` VALUES (1057, '生成删除', 115, 3, '#', '', '', 1, 0, 
 INSERT INTO `sys_menu` VALUES (1058, '导入代码', 115, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1059, '预览代码', 115, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (1060, '生成代码', 115, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2022-03-31 15:49:57', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1061, '客户管理', 4, 1, 'employee', 'system/employee/index', NULL, 1, 1, 'C', '0', '0', 'system:info:list', 'user', 'admin', '2022-04-13 02:01:36', 'admin', '2022-04-29 17:11:34', '员工信息菜单');
-INSERT INTO `sys_menu` VALUES (1062, '员工信息查询', 1061, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:query', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1063, '员工信息新增', 1061, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:add', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1064, '员工信息修改', 1061, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:edit', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1065, '员工信息删除', 1061, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:remove', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1066, '员工信息导出', 1061, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:employee:export', '#', 'admin', '2022-04-13 02:01:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1067, '记录管理', 4, 1, 'record', 'system/record/index', NULL, 1, 1, 'C', '0', '0', 'system:record:list', 'documentation', 'admin', '2022-04-13 02:01:49', 'admin', '2022-04-29 17:12:19', '记录菜单');
-INSERT INTO `sys_menu` VALUES (1068, '记录查询', 1067, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:query', '#', 'admin', '2022-04-13 02:01:49', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1069, '记录新增', 1067, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:add', '#', 'admin', '2022-04-13 02:01:49', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1070, '记录修改', 1067, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:edit', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1071, '记录删除', 1067, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:remove', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1072, '记录导出', 1067, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:record:export', '#', 'admin', '2022-04-13 02:01:50', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1073, '销售管理', 4, 1, 'sale', 'system/sale/index', NULL, 1, 1, 'C', '0', '0', 'system:sale:list', 'shopping', 'admin', '2022-04-13 02:01:58', 'admin', '2022-04-29 17:13:06', '商品销售菜单');
-INSERT INTO `sys_menu` VALUES (1074, '商品销售查询', 1073, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:query', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1075, '商品销售新增', 1073, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:add', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1076, '商品销售修改', 1073, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:edit', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1077, '商品销售删除', 1073, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:remove', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1078, '商品销售导出', 1073, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:sale:export', '#', 'admin', '2022-04-13 02:01:58', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1079, '供货商信息管理', 4, 1, 'supplier', 'system/supplier/index', NULL, 1, 1, 'C', '0', '0', 'system:supplier:list', 'phone', 'admin', '2022-04-13 02:02:06', 'admin', '2022-04-29 17:14:30', '供货商信息菜单');
-INSERT INTO `sys_menu` VALUES (1080, '供货商信息查询', 1079, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:query', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1081, '供货商信息新增', 1079, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:add', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1082, '供货商信息修改', 1079, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:edit', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1083, '供货商信息删除', 1079, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:remove', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1084, '供货商信息导出', 1079, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:export', '#', 'admin', '2022-04-13 02:02:06', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1085, '商品管理', 4, 1, 'goods', 'system/goods/index', NULL, 1, 1, 'C', '0', '0', 'system:goods:list', 'table', 'admin', '2022-04-13 02:02:18', 'admin', '2022-04-29 17:14:35', '商品信息菜单');
-INSERT INTO `sys_menu` VALUES (1086, '商品信息查询', 1085, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:query', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1087, '商品信息新增', 1085, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:add', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1088, '商品信息修改', 1085, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:edit', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1089, '商品信息删除', 1085, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:remove', '#', 'admin', '2022-04-13 02:02:18', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (1090, '商品信息导出', 1085, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:goods:export', '#', 'admin', '2022-04-13 02:02:19', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2000, '商品类型表', 4, 1, 'type', 'system/type/index', NULL, 1, 0, 'C', '0', '0', 'system:type:list', 'dict', 'admin', '2022-07-06 16:03:10', 'admin', '2022-07-06 16:30:22', '商品类型表菜单');
+INSERT INTO `sys_menu` VALUES (2001, '商品类型表查询', 2000, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:type:query', '#', 'admin', '2022-07-06 16:03:10', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2002, '商品类型表新增', 2000, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:type:add', '#', 'admin', '2022-07-06 16:03:10', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2003, '商品类型表修改', 2000, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:type:edit', '#', 'admin', '2022-07-06 16:03:10', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2004, '商品类型表删除', 2000, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:type:remove', '#', 'admin', '2022-07-06 16:03:10', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2005, '商品类型表导出', 2000, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:type:export', '#', 'admin', '2022-07-06 16:03:10', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2006, '商品信息', 4, 1, 'info', 'system/info/index', NULL, 1, 0, 'C', '0', '0', 'system:info:list', 'shopping', 'admin', '2022-07-06 16:03:21', 'admin', '2022-07-06 16:30:09', '商品信息菜单');
+INSERT INTO `sys_menu` VALUES (2007, '商品信息查询', 2006, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:info:query', '#', 'admin', '2022-07-06 16:03:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2008, '商品信息新增', 2006, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:info:add', '#', 'admin', '2022-07-06 16:03:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2009, '商品信息修改', 2006, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:info:edit', '#', 'admin', '2022-07-06 16:03:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2010, '商品信息删除', 2006, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:info:remove', '#', 'admin', '2022-07-06 16:03:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2011, '商品信息导出', 2006, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:info:export', '#', 'admin', '2022-07-06 16:03:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2012, '供应商信息表', 4, 1, 'supplier', 'system/supplier/index', NULL, 1, 0, 'C', '0', '0', 'system:supplier:list', 'tree', 'admin', '2022-07-06 16:03:29', 'admin', '2022-07-06 16:30:47', '供应商信息表菜单');
+INSERT INTO `sys_menu` VALUES (2013, '供应商信息表查询', 2012, 1, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:query', '#', 'admin', '2022-07-06 16:03:29', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2014, '供应商信息表新增', 2012, 2, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:add', '#', 'admin', '2022-07-06 16:03:29', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2015, '供应商信息表修改', 2012, 3, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:edit', '#', 'admin', '2022-07-06 16:03:29', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2016, '供应商信息表删除', 2012, 4, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:remove', '#', 'admin', '2022-07-06 16:03:29', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2017, '供应商信息表导出', 2012, 5, '#', '', NULL, 1, 0, 'F', '0', '0', 'system:supplier:export', '#', 'admin', '2022-07-06 16:03:29', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -785,7 +782,7 @@ CREATE TABLE `sys_notice`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_notice
@@ -815,45 +812,24 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 134 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
 INSERT INTO `sys_oper_log` VALUES (100, '代码生成', 6, 'com.ruoyi.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', 't_employee_info,t_goods_info,t_goods_sale,t_goods_stock,t_goods_supplier', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-03-31 17:14:17');
-INSERT INTO `sys_oper_log` VALUES (101, '代码生成', 3, 'com.market.generator.controller.GenController.remove()', 'DELETE', 1, 'admin', NULL, '/tool/gen/1,2,3,4,5', '127.0.0.1', '内网IP', '{tableIds=1,2,3,4,5}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-13 01:40:40');
-INSERT INTO `sys_oper_log` VALUES (102, '代码生成', 6, 'com.market.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', 't_employee_info,t_goods_info,t_goods_record,t_goods_sale,t_goods_supplier', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-13 01:41:23');
-INSERT INTO `sys_oper_log` VALUES (103, '代码生成', 8, 'com.market.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{}', NULL, 0, NULL, '2022-04-13 01:41:38');
-INSERT INTO `sys_oper_log` VALUES (104, '代码生成', 8, 'com.market.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{}', NULL, 0, NULL, '2022-04-13 01:45:25');
-INSERT INTO `sys_oper_log` VALUES (105, '代码生成', 8, 'com.market.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{}', NULL, 0, NULL, '2022-04-13 01:51:33');
-INSERT INTO `sys_oper_log` VALUES (106, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"saveDate\":1651075200000,\"remark\":\"宝剑锋从磨砺出\",\"params\":{},\"goodsSupplier\":\"test01\",\"meteringWay\":\"个\",\"createTime\":1649816931349,\"goodsNumber\":12,\"goodsPrice\":999,\"manufacturingDate\":1649174400000,\"goodsCode\":\"test01\",\"goodsName\":\"九天元阳剑\",\"status\":\"0\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'goods_type\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsInfoMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsInfoMapper.insertTGoodsInfo-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_info          ( goods_code,             goods_name,                          goods_supplier,             goods_number,             goods_price,                                       manufacturing_date,             save_date,             metering_way,             status,                                       create_time,                                       remark )           values ( ?,             ?,                          ?,             ?,             ?,                                       ?,             ?,             ?,             ?,                                       ?,                                       ? )\r\n### Cause: java.sql.SQLException: Field \'goods_type\' doesn\'t have a default value\n; Field \'goods_type\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'goods_type\' doesn\'t have a default value', '2022-04-13 02:29:03');
-INSERT INTO `sys_oper_log` VALUES (107, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"saveDate\":1649865600000,\"remark\":\"宝剑锋从磨砺出\",\"params\":{},\"goodsSupplier\":\"00001\",\"goodsType\":\"武器\",\"createTime\":1649817202710,\"goodsNumber\":12,\"goodsPrice\":999,\"manufacturingDate\":1649174400000,\"goodsCode\":\"00001\",\"goodsName\":\"九天元阳剑\",\"status\":\"0\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'update_time\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsInfoMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsInfoMapper.insertTGoodsInfo-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_info          ( goods_code,             goods_name,             goods_type,             goods_supplier,             goods_number,             goods_price,                                       manufacturing_date,             save_date,                          status,                                       create_time,                                       remark )           values ( ?,             ?,             ?,             ?,             ?,             ?,                                       ?,             ?,                          ?,                                       ?,                                       ? )\r\n### Cause: java.sql.SQLException: Field \'update_time\' doesn\'t have a default value\n; Field \'update_time\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'update_time\' doesn\'t have a default value', '2022-04-13 02:33:25');
-INSERT INTO `sys_oper_log` VALUES (108, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"saveDate\":\"无限期\",\"remark\":\"宝剑锋从磨砺出\",\"params\":{},\"goodsSupplier\":\"0001\",\"goodsType\":\"武器\",\"meteringWay\":\"个\",\"createTime\":1649817711175,\"goodsNumber\":11,\"goodsPrice\":999,\"manufacturingDate\":1649174400000,\"goodsCode\":\"0001\",\"goodsName\":\"九天元阳剑\",\"status\":\"0\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'update_time\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsInfoMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsInfoMapper.insertTGoodsInfo-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_info          ( goods_code,                                           goods_name,                                           goods_type,                                           goods_supplier,                                           goods_number,                                           goods_price,                                                                     manufacturing_date,                                           save_date,                                           metering_way,                                           status,                                                                     create_time,                                                                     remark )           values ( ?,                                           ?,                                           ?,                                           ?,                                           ?,                                           ?,                                                                     ?,                                           ?,                                           ?,                                           ?,                                                                     ?,                                                                     ? )\r\n### Cause: java.sql.SQLException: Field \'update_time\' doesn\'t have a default value\n; Field \'update_time\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'update_time\' doesn\'t have a default value', '2022-04-13 02:41:54');
-INSERT INTO `sys_oper_log` VALUES (109, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"saveDate\":\"无限期\",\"remark\":\"宝剑锋从磨砺出\",\"params\":{},\"goodsSupplier\":\"0001\",\"goodsType\":\"武器\",\"meteringWay\":\"个\",\"createTime\":1649817762766,\"goodsNumber\":11,\"goodsPrice\":999,\"manufacturingDate\":1649174400000,\"goodsCode\":\"0001\",\"id\":1,\"goodsName\":\"九天元阳剑\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-13 02:42:45');
-INSERT INTO `sys_oper_log` VALUES (110, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":20,\"saveDate\":\"无限期\",\"remark\":\"传说级宝甲\",\"params\":{},\"goodsSupplier\":\"仙剑问情\",\"goodsDiscount\":\"8\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160036173,\"goodsNumber\":2,\"goodsPrice\":800,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":2,\"goodsName\":\"南明离火服\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:47:27');
-INSERT INTO `sys_oper_log` VALUES (111, '商品信息', 1, 'com.market.web.controller.system.GoodsInfoController.add()', 'POST', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":20,\"saveDate\":\"无限期\",\"remark\":\"传说级宝甲\",\"params\":{},\"goodsSupplier\":\"仙剑问情\",\"goodsDiscount\":\"8\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160041588,\"goodsNumber\":2,\"goodsPrice\":800,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":3,\"goodsName\":\"南明离火服\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:47:27');
-INSERT INTO `sys_oper_log` VALUES (112, '商品信息', 2, 'com.market.web.controller.system.GoodsInfoController.edit()', 'PUT', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":10,\"saveDate\":\"无限期\",\"remark\":\"nice\",\"updateTime\":1650160201695,\"params\":{},\"goodsSupplier\":\"仙剑奇侠传\",\"goodsDiscount\":\"9\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160036000,\"goodsNumber\":1,\"goodsPrice\":1200,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":2,\"goodsName\":\"广绣流仙裙\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:50:14');
-INSERT INTO `sys_oper_log` VALUES (113, '商品信息', 2, 'com.market.web.controller.system.GoodsInfoController.edit()', 'PUT', 1, 'admin', NULL, '/system/goods', '127.0.0.1', '内网IP', '{\"goodsPreferential\":10,\"saveDate\":\"无限期\",\"remark\":\"nice\",\"updateTime\":1650160213366,\"params\":{},\"goodsSupplier\":\"仙剑奇侠传\",\"goodsDiscount\":\"9\",\"goodsType\":\"衣服\",\"meteringWay\":\"件\",\"createTime\":1650160036000,\"goodsNumber\":1,\"goodsPrice\":1200,\"manufacturingDate\":1650124800000,\"goodsCode\":\"0002\",\"id\":2,\"goodsName\":\"广绣流仙裙\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-17 01:50:14');
-INSERT INTO `sys_oper_log` VALUES (114, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"list\",\"orderNum\":\"4\",\"menuName\":\"基本功能\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"base\",\"children\":[],\"createTime\":1651222995000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":4,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:07:12');
-INSERT INTO `sys_oper_log` VALUES (115, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"monitor\",\"orderNum\":\"8\",\"menuName\":\"系统监控\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"monitor\",\"children\":[],\"createTime\":1648712997000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:07:40');
-INSERT INTO `sys_oper_log` VALUES (116, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"#\",\"orderNum\":\"1\",\"menuName\":\"客户管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"employee\",\"component\":\"system/employee/index\",\"children\":[],\"createTime\":1649786496000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1061,\"menuType\":\"C\",\"perms\":\"system:info:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:10:40');
-INSERT INTO `sys_oper_log` VALUES (117, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"#\",\"orderNum\":\"1\",\"menuName\":\"记录管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"record\",\"component\":\"system/record/index\",\"children\":[],\"createTime\":1649786509000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1067,\"menuType\":\"C\",\"perms\":\"system:record:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:10:56');
-INSERT INTO `sys_oper_log` VALUES (118, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"user\",\"orderNum\":\"1\",\"menuName\":\"客户管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"employee\",\"component\":\"system/employee/index\",\"children\":[],\"createTime\":1649786496000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1061,\"menuType\":\"C\",\"perms\":\"system:info:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:11:34');
-INSERT INTO `sys_oper_log` VALUES (119, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"documentation\",\"orderNum\":\"1\",\"menuName\":\"记录管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"record\",\"component\":\"system/record/index\",\"children\":[],\"createTime\":1649786509000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1067,\"menuType\":\"C\",\"perms\":\"system:record:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:12:19');
-INSERT INTO `sys_oper_log` VALUES (120, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"shopping\",\"orderNum\":\"1\",\"menuName\":\"销售管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"sale\",\"component\":\"system/sale/index\",\"children\":[],\"createTime\":1649786518000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1073,\"menuType\":\"C\",\"perms\":\"system:sale:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:13:06');
-INSERT INTO `sys_oper_log` VALUES (121, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:13:51');
-INSERT INTO `sys_oper_log` VALUES (122, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"phone\",\"orderNum\":\"1\",\"menuName\":\"供货商信息管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"supplier\",\"component\":\"system/supplier/index\",\"children\":[],\"createTime\":1649786526000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1079,\"menuType\":\"C\",\"perms\":\"system:supplier:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:30');
-INSERT INTO `sys_oper_log` VALUES (123, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"table\",\"orderNum\":\"1\",\"menuName\":\"商品管理\",\"params\":{},\"parentId\":4,\"isCache\":\"1\",\"path\":\"goods\",\"component\":\"system/goods/index\",\"children\":[],\"createTime\":1649786538000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1085,\"menuType\":\"C\",\"perms\":\"system:goods:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-04-29 17:14:35');
-INSERT INTO `sys_oper_log` VALUES (124, '商品信息', 5, 'com.market.web.controller.system.GoodsInfoController.export()', 'POST', 1, 'admin', NULL, '/system/goods/export', '127.0.0.1', '内网IP', '{\"params\":{}}', NULL, 0, NULL, '2022-05-05 16:58:25');
-INSERT INTO `sys_oper_log` VALUES (125, '商品信息', 5, 'com.market.web.controller.system.GoodsInfoController.export()', 'POST', 1, 'admin', NULL, '/system/goods/export', '127.0.0.1', '内网IP', '{\"params\":{}}', NULL, 0, NULL, '2022-05-05 16:58:35');
-INSERT INTO `sys_oper_log` VALUES (126, '供货商信息', 1, 'com.market.web.controller.system.GoodsSupplierController.add()', 'POST', 1, 'admin', NULL, '/system/supplier', '127.0.0.1', '内网IP', '{\"supplierName\":\"大宇科技\",\"supplierAddress\":\"北京市朝阳区\",\"listingDate\":\"1980-01-1\",\"supplierLicenseBack\":\"\",\"leaderPhone\":\"12312312312\",\"supplierCode\":\"EHI652HDJ718GHB7I0\",\"params\":{},\"linkMan\":\"大宇\",\"supplierMobile\":\"12345678901\",\"supplierLeader\":\"楚凛風\",\"createTime\":1651741937996,\"id\":1,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:12:20');
-INSERT INTO `sys_oper_log` VALUES (127, '员工信息', 1, 'com.market.web.controller.system.EmployeeInfoController.add()', 'POST', 1, 'admin', NULL, '/system/employee', '127.0.0.1', '内网IP', '{\"employeePhone\":\"17838265601\",\"employeeName\":\"李逍遥\",\"params\":{},\"employeeAddress\":\"浙江省余杭区\",\"employeeCard\":\"211985177711111234\",\"employeeCode\":\"1651743155\",\"createTime\":1651743155882,\"id\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-05 17:32:45');
-INSERT INTO `sys_oper_log` VALUES (128, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"amountPayable\":999,\"params\":{},\"amountActual\":888,\"meteringWay\":\"个\",\"createTime\":1653964956188,\"goodsCode\":\"0001\",\"goodsName\":\"九天元阳剑\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsSaleMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsSaleMapper.insertTGoodsSale-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_sale          ( goods_code,                                           goods_name,                                                        goods_sale_num,                                           metering_way,                                           amount_payable,                                           amount_actual,                                                                                  create_time )           values ( ?,                                           ?,                                                        ?,                                           ?,                                           ?,                                           ?,                                                                                  ? )\r\n### Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\n; Field \'sale_code\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value', '2022-05-31 10:42:44');
-INSERT INTO `sys_oper_log` VALUES (129, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"topDesc\":\"无\",\"amountPayable\":999,\"params\":{},\"amountActual\":888,\"bottomDesc\":\"无\",\"meteringWay\":\"个\",\"createTime\":1653964980488,\"goodsCode\":\"0001\",\"goodsName\":\"九天元阳剑\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsSaleMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsSaleMapper.insertTGoodsSale-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_sale          ( goods_code,                                           goods_name,                                                        goods_sale_num,                                           metering_way,                                           amount_payable,                                           amount_actual,                                                        top_desc,                                           bottom_desc,                                           create_time )           values ( ?,                                           ?,                                                        ?,                                           ?,                                           ?,                                           ?,                                                        ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value\n; Field \'sale_code\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'sale_code\' doesn\'t have a default value', '2022-05-31 10:43:09');
-INSERT INTO `sys_oper_log` VALUES (130, '商品销售', 1, 'com.market.web.controller.system.GoodsSaleController.add()', 'POST', 1, 'admin', NULL, '/system/sale', '127.0.0.1', '内网IP', '{\"goodsSaleNum\":1,\"topDesc\":\"无\",\"amountPayable\":999,\"saleCode\":\"d0a7dfeddd2a4d9996b87667d58dad4d\",\"params\":{},\"amountActual\":888,\"bottomDesc\":\"无\",\"meteringWay\":\"个\",\"createTime\":1653965201554,\"goodsCode\":\"0001\",\"id\":1,\"goodsName\":\"九天元阳剑\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-31 10:46:50');
-INSERT INTO `sys_oper_log` VALUES (131, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965841803,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsRecordMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsRecordMapper.insertTGoodsRecord-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_record          ( goods_code,                                           goods_name,                                           record_code,                                           create_time )           values ( ?,                                           ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\n; Field \'id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'id\' doesn\'t have a default value', '2022-05-31 10:57:30');
-INSERT INTO `sys_oper_log` VALUES (132, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965846430,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\r\n### The error may exist in file [D:\\Projects\\JavaProjects\\study\\market\\market-system\\target\\classes\\mapper\\system\\GoodsRecordMapper.xml]\r\n### The error may involve com.market.system.mapper.GoodsRecordMapper.insertTGoodsRecord-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into t_goods_record          ( goods_code,                                           goods_name,                                           record_code,                                           create_time )           values ( ?,                                           ?,                                           ?,                                           ? )\r\n### Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\n; Field \'id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'id\' doesn\'t have a default value', '2022-05-31 10:57:35');
-INSERT INTO `sys_oper_log` VALUES (133, '记录', 1, 'com.market.web.controller.system.GoodsRecordController.add()', 'POST', 1, 'admin', NULL, '/system/record', '127.0.0.1', '内网IP', '{\"createTime\":1653965869945,\"goodsCode\":\"0002\",\"recordCode\":\"18734678263874682\",\"params\":{},\"goodsName\":\"南明离火服\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-05-31 10:57:58');
+INSERT INTO `sys_oper_log` VALUES (101, '代码生成', 6, 'com.market.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', 't_goods_type', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 15:47:05');
+INSERT INTO `sys_oper_log` VALUES (102, '代码生成', 8, 'com.market.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{}', NULL, 0, NULL, '2022-07-06 15:47:09');
+INSERT INTO `sys_oper_log` VALUES (103, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"list\",\"orderNum\":\"4\",\"menuName\":\"功能管理\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"base\",\"children\":[],\"createTime\":1657093905000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":4,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 15:53:21');
+INSERT INTO `sys_oper_log` VALUES (104, '代码生成', 2, 'com.market.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"sub\":true,\"subTableName\":\"t_goods_type\",\"functionAuthor\":\"jhlz\",\"columns\":[{\"capJavaField\":\"Id\",\"usableColumn\":false,\"columnId\":26,\"isIncrement\":\"1\",\"increment\":true,\"insert\":true,\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"id\",\"htmlType\":\"input\",\"edit\":false,\"query\":false,\"sort\":1,\"list\":false,\"params\":{},\"javaType\":\"Long\",\"queryType\":\"EQ\",\"columnType\":\"int\",\"createBy\":\"admin\",\"isPk\":\"1\",\"createTime\":1648718057000,\"tableId\":2,\"pk\":true,\"columnName\":\"id\"},{\"capJavaField\":\"GoodsCode\",\"usableColumn\":false,\"columnId\":27,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsCode\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"商品编码\",\"isQuery\":\"1\",\"sort\":2,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnType\":\"varchar(100)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":2,\"pk\":false,\"columnName\":\"goods_code\"},{\"capJavaField\":\"GoodsName\",\"usableColumn\":false,\"columnId\":28,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsName\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"商品名称\",\"isQuery\":\"1\",\"sort\":3,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"LIKE\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":2,\"pk\":false,\"columnName\":\"goods_name\"},{\"capJavaField\":\"GoodsType\",\"usableColumn\":false,\"columnId\":29,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsType\",\"htmlType\":\"select\",\"edit\":true,\"query\":true,\"columnComment\":\"商品类型\",\"isQuery\":\"1\",\"sort\":4,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:00:29');
+INSERT INTO `sys_oper_log` VALUES (105, '代码生成', 2, 'com.market.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"sub\":false,\"subTableName\":\"\",\"functionAuthor\":\"jhlz\",\"columns\":[{\"capJavaField\":\"Id\",\"usableColumn\":false,\"columnId\":70,\"isIncrement\":\"1\",\"increment\":true,\"insert\":true,\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"id\",\"htmlType\":\"input\",\"edit\":false,\"query\":false,\"sort\":1,\"list\":false,\"params\":{},\"javaType\":\"Long\",\"queryType\":\"EQ\",\"columnType\":\"int\",\"createBy\":\"admin\",\"isPk\":\"1\",\"createTime\":1648718057000,\"tableId\":5,\"pk\":true,\"columnName\":\"id\"},{\"capJavaField\":\"SupplierCode\",\"usableColumn\":false,\"columnId\":71,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"supplierCode\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"供应商社会统一信用码\",\"isQuery\":\"1\",\"sort\":2,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":5,\"pk\":false,\"columnName\":\"supplier_code\"},{\"capJavaField\":\"SupplierName\",\"usableColumn\":false,\"columnId\":72,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"supplierName\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"供应商名称\",\"isQuery\":\"1\",\"sort\":3,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"LIKE\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":5,\"pk\":false,\"columnName\":\"supplier_name\"},{\"capJavaField\":\"SupplierAddress\",\"usableColumn\":false,\"columnId\":73,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"supplierAddress\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"地址\",\"isQuery\":\"1\",\"sort\":4,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnT', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:01:16');
+INSERT INTO `sys_oper_log` VALUES (106, '代码生成', 2, 'com.market.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"sub\":true,\"subTableName\":\"t_goods_type\",\"functionAuthor\":\"jhlz\",\"columns\":[{\"capJavaField\":\"Id\",\"usableColumn\":false,\"columnId\":26,\"isIncrement\":\"1\",\"increment\":true,\"insert\":true,\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"id\",\"htmlType\":\"input\",\"edit\":false,\"query\":false,\"updateTime\":1657094429000,\"sort\":1,\"list\":false,\"params\":{},\"javaType\":\"Long\",\"queryType\":\"EQ\",\"columnType\":\"int\",\"createBy\":\"admin\",\"isPk\":\"1\",\"createTime\":1648718057000,\"tableId\":2,\"pk\":true,\"columnName\":\"id\"},{\"capJavaField\":\"GoodsCode\",\"usableColumn\":false,\"columnId\":27,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsCode\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"商品编码\",\"isQuery\":\"1\",\"updateTime\":1657094429000,\"sort\":2,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnType\":\"varchar(100)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":2,\"pk\":false,\"columnName\":\"goods_code\"},{\"capJavaField\":\"GoodsName\",\"usableColumn\":false,\"columnId\":28,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsName\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"商品名称\",\"isQuery\":\"1\",\"updateTime\":1657094429000,\"sort\":3,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"LIKE\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1648718057000,\"isEdit\":\"1\",\"tableId\":2,\"pk\":false,\"columnName\":\"goods_name\"},{\"capJavaField\":\"GoodsType\",\"usableColumn\":false,\"columnId\":29,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":true,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsType\",\"htmlType\":\"select\",\"edit\":true,\"query\":true,\"columnComment\":\"商品类型\",\"i', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:01:23');
+INSERT INTO `sys_oper_log` VALUES (107, '代码生成', 2, 'com.market.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"sub\":false,\"functionAuthor\":\"jhlz\",\"columns\":[{\"capJavaField\":\"Id\",\"usableColumn\":false,\"columnId\":88,\"isIncrement\":\"1\",\"increment\":true,\"insert\":true,\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"id\",\"htmlType\":\"input\",\"edit\":false,\"query\":false,\"sort\":1,\"list\":false,\"params\":{},\"javaType\":\"Long\",\"queryType\":\"EQ\",\"columnType\":\"int\",\"createBy\":\"admin\",\"isPk\":\"1\",\"createTime\":1657093625000,\"tableId\":6,\"pk\":true,\"columnName\":\"id\"},{\"capJavaField\":\"TypeName\",\"usableColumn\":false,\"columnId\":89,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"typeName\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"分类名称\",\"isQuery\":\"1\",\"sort\":2,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"LIKE\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1657093625000,\"isEdit\":\"1\",\"tableId\":6,\"pk\":false,\"columnName\":\"type_name\"},{\"capJavaField\":\"PCode\",\"usableColumn\":false,\"columnId\":90,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"pCode\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"父级分类编号\",\"isQuery\":\"1\",\"sort\":3,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1657093625000,\"isEdit\":\"1\",\"tableId\":6,\"pk\":false,\"columnName\":\"p_code\"},{\"capJavaField\":\"TypeCode\",\"usableColumn\":false,\"columnId\":91,\"isIncrement\":\"0\",\"increment\":false,\"insert\":true,\"isList\":\"1\",\"dictType\":\"\",\"required\":false,\"superColumn\":false,\"updateBy\":\"\",\"isInsert\":\"1\",\"javaField\":\"typeCode\",\"htmlType\":\"input\",\"edit\":true,\"query\":true,\"columnComment\":\"分类编号\",\"isQuery\":\"1\",\"sort\":4,\"list\":true,\"params\":{},\"javaType\":\"String\",\"queryType\":\"EQ\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"isPk\":\"0\",\"createTime\":1657093625000,\"isEdit\":', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:02:00');
+INSERT INTO `sys_oper_log` VALUES (108, '代码生成', 8, 'com.market.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{}', NULL, 0, NULL, '2022-07-06 16:02:12');
+INSERT INTO `sys_oper_log` VALUES (109, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"nested\",\"orderNum\":\"1\",\"menuName\":\"商品类型表\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"type\",\"component\":\"system/type/index\",\"children\":[],\"createTime\":1657094590000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2000,\"menuType\":\"C\",\"perms\":\"system:type:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:29:34');
+INSERT INTO `sys_oper_log` VALUES (110, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"shopping\",\"orderNum\":\"1\",\"menuName\":\"商品信息\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"info\",\"component\":\"system/info/index\",\"children\":[],\"createTime\":1657094601000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2006,\"menuType\":\"C\",\"perms\":\"system:info:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:30:09');
+INSERT INTO `sys_oper_log` VALUES (111, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"dict\",\"orderNum\":\"1\",\"menuName\":\"商品类型表\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"type\",\"component\":\"system/type/index\",\"children\":[],\"createTime\":1657094590000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2000,\"menuType\":\"C\",\"perms\":\"system:type:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:30:22');
+INSERT INTO `sys_oper_log` VALUES (112, '菜单管理', 2, 'com.market.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"visible\":\"0\",\"icon\":\"tree\",\"orderNum\":\"1\",\"menuName\":\"供应商信息表\",\"params\":{},\"parentId\":4,\"isCache\":\"0\",\"path\":\"supplier\",\"component\":\"system/supplier/index\",\"children\":[],\"createTime\":1657094609000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":2012,\"menuType\":\"C\",\"perms\":\"system:supplier:list\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2022-07-06 16:30:47');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -871,7 +847,7 @@ CREATE TABLE `sys_post`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_post
@@ -901,7 +877,7 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
@@ -917,7 +893,7 @@ CREATE TABLE `sys_role_dept`  (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `dept_id` bigint NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`, `dept_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和部门关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和部门关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_dept
@@ -934,7 +910,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -1049,12 +1025,12 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-05-31 09:42:11', 'admin', '2022-03-31 15:49:56', '', '2022-05-31 09:42:19', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-07-06 15:59:30', 'admin', '2022-03-31 15:49:56', '', '2022-07-06 15:59:30', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-03-31 15:49:56', 'admin', '2022-03-31 15:49:56', '', NULL, '测试员');
 
 -- ----------------------------
@@ -1065,7 +1041,7 @@ CREATE TABLE `sys_user_post`  (
   `user_id` bigint NOT NULL COMMENT '用户ID',
   `post_id` bigint NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`, `post_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_post
@@ -1081,7 +1057,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` bigint NOT NULL COMMENT '用户ID',
   `role_id` bigint NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户和角色关联表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -1113,12 +1089,11 @@ CREATE TABLE `t_employee_info`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_employee_info
 -- ----------------------------
-INSERT INTO `t_employee_info` VALUES (1, '1651743155', '李逍遥', NULL, NULL, '浙江省余杭区', '17838265601', '211985177711111234', NULL, NULL, NULL, NULL, NULL, NULL, '2022-05-05 17:32:36', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_info
@@ -1128,84 +1103,29 @@ CREATE TABLE `t_goods_info`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `goods_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品编码',
   `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品名称',
-  `goods_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品具体类型',
-  `goods_category` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '所属分类',
+  `goods_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品类型',
   `goods_supplier` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品供货商编码',
   `goods_number` int NOT NULL COMMENT '商品数量',
   `goods_price` decimal(15, 2) NOT NULL COMMENT '商品定价',
   `goods_discount` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '折扣',
   `goods_preferential` decimal(15, 2) NULL DEFAULT NULL COMMENT '优惠价格',
   `manufacturing_date` datetime NULL DEFAULT NULL COMMENT '生产日期',
-  `save_date` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '保质期',
-  `metering_way` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '计量方式',
-  `status` int NULL DEFAULT NULL COMMENT '供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）',
+  `save_date` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '保质期',
+  `metering_way` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '计量方式',
+  `status` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）\r\n供应状态（0正常 1下架）',
   `del_flag` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '删除标志（Y代表存在 N代表删除）',
-  `create_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
-  `create_time` datetime NOT NULL COMMENT '信息创建时间',
+  `create_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '信息创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '信息更新时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '信息更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_info
 -- ----------------------------
-INSERT INTO `t_goods_info` VALUES (1, '0001', '九天元阳剑', '武器', '日用百货', '0001', 11, 999.00, NULL, NULL, '2022-04-06 00:00:00', '无限期', '个', 0, NULL, NULL, '2022-04-13 10:42:43', NULL, NULL, '宝剑锋从磨砺出');
-INSERT INTO `t_goods_info` VALUES (2, '0002', '广绣流仙裙', '衣服', NULL, '仙剑奇侠传', 1, 1200.00, '9', 10.00, '2022-04-17 00:00:00', '无限期', '件', 0, NULL, NULL, '2022-04-17 09:47:16', NULL, '2022-04-17 09:50:13', 'nice');
-INSERT INTO `t_goods_info` VALUES (3, '0002', '南明离火服', '衣服', NULL, '仙剑问情', 2, 800.00, '8', 20.00, '2022-04-17 00:00:00', '无限期', '件', 0, NULL, NULL, '2022-04-17 09:47:22', NULL, NULL, '传说级宝甲');
-
--- ----------------------------
--- Table structure for t_goods_record
--- ----------------------------
-DROP TABLE IF EXISTS `t_goods_record`;
-CREATE TABLE `t_goods_record`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `goods_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品编码',
-  `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品名称',
-  `record_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '订单编号',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '记录表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of t_goods_record
--- ----------------------------
-INSERT INTO `t_goods_record` VALUES (1, '0002', '南明离火服', '18734678263874682', '2022-05-31 10:57:50', NULL, NULL, NULL, NULL);
-
--- ----------------------------
--- Table structure for t_goods_sale
--- ----------------------------
-DROP TABLE IF EXISTS `t_goods_sale`;
-CREATE TABLE `t_goods_sale`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `sale_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '出售编码',
-  `goods_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品编码',
-  `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品名称',
-  `goods_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品类型',
-  `goods_sale_num` int NOT NULL COMMENT '售出数量',
-  `metering_way` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '计量方式',
-  `amount_payable` decimal(15, 2) NULL DEFAULT NULL COMMENT '应付金额',
-  `amount_actual` decimal(15, 2) NULL DEFAULT NULL COMMENT '实付金额',
-  `amount_change` decimal(15, 2) NULL DEFAULT NULL COMMENT '找零',
-  `top_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '顶部信息',
-  `bottom_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '底部信息',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
-  `create_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
-  `update_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新者',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品销售表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of t_goods_sale
--- ----------------------------
-INSERT INTO `t_goods_sale` VALUES (1, 'd0a7dfeddd2a4d9996b87667d58dad4d', '0001', '九天元阳剑', NULL, 1, '个', 999.00, 888.00, NULL, '无', '无', '2022-05-31 10:46:42', NULL, NULL, NULL, NULL);
+INSERT INTO `t_goods_info` VALUES (1, '123456789', '九天元阳剑', '123456', '1', 10, 999.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-07-06 14:26:44', NULL, '2022-07-06 14:26:44', NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_supplier
@@ -1220,9 +1140,9 @@ CREATE TABLE `t_goods_supplier`  (
   `supplier_mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系方式',
   `supplier_license_font` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '经营执照（正面）',
   `supplier_license_back` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '经营执照（反面）',
-  `supplier_leader` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '公司老板',
+  `supplier_leader` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '法定责任人',
   `leader_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系方式',
-  `listing_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '上市日期',
+  `listing_date` datetime NULL DEFAULT NULL COMMENT '上市日期',
   `del_flag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '删除标志（Y代表存在 N代表删除）',
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '供应/合作状态（0正常 1停用）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建者',
@@ -1231,26 +1151,30 @@ CREATE TABLE `t_goods_supplier`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '供货商信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '供货商信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_goods_supplier
 -- ----------------------------
-INSERT INTO `t_goods_supplier` VALUES (1, 'EHI652HDJ718GHB7I0', '大宇科技', '北京市朝阳区', '大宇', '12345678901', NULL, '', '楚凛風', '12312312312', '1980-01-1', NULL, '0', NULL, '2022-05-05 17:12:18', NULL, NULL, NULL);
+INSERT INTO `t_goods_supplier` VALUES (1, '123456789987654321', '浪子小店', '河南省南阳市', '李逍遥', '12345678901', NULL, NULL, '楚凛風', '175189967321', '2022-01-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_goods_type
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_type`;
 CREATE TABLE `t_goods_type`  (
-  `id` int NOT NULL,
-  `type_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类型编号',
-  `type_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类型名称',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '类型名称',
+  `p_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '父级类型编号',
+  `type_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '类型编号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品类型表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_goods_type
 -- ----------------------------
+INSERT INTO `t_goods_type` VALUES (1, '武器', '0', '0000011');
+INSERT INTO `t_goods_type` VALUES (2, '护甲', '0', '2147387');
+INSERT INTO `t_goods_type` VALUES (3, '剑', '0000011', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;

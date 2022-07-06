@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="商品编码" prop="saleCode">
+      <el-form-item label="类型名称" prop="typeName">
         <el-input
-          v-model="queryParams.saleCode"
-          placeholder="请输入出售编码"
+          v-model="queryParams.typeName"
+          placeholder="请输入分类名称"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -24,7 +24,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:sale:add']"
+          v-hasPermi="['system:type:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -35,7 +35,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:sale:edit']"
+          v-hasPermi="['system:type:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -46,7 +46,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:sale:remove']"
+          v-hasPermi="['system:type:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -56,26 +56,18 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:sale:export']"
+          v-hasPermi="['system:type:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="saleList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="id" />
-      <el-table-column label="商品编码" align="center" prop="goodsCode" />
-      <el-table-column label="商品名称" align="center" prop="goodsName" />
-      <el-table-column label="商品类型" align="center" prop="goodsType" />
-      <el-table-column label="售出数量" align="center" prop="goodsSaleNum" />
-      <el-table-column label="计量方式" align="center" prop="meteringWay" />
-      <el-table-column label="应付金额" align="center" prop="amountPayable" />
-      <el-table-column label="实付金额" align="center" prop="amountActual" />
-      <el-table-column label="找零" align="center" prop="change" />
-      <el-table-column label="顶部信息" align="center" prop="topDesc" />
-      <el-table-column label="底部信息" align="center" prop="bottomDesc" />
-      <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="类型名称" align="center" prop="typeName" />
+      <el-table-column label="父级类型编号" align="center" prop="pCode" />
+      <el-table-column label="类型编号" align="center" prop="typeCode" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -83,14 +75,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:sale:edit']"
+            v-hasPermi="['system:type:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:sale:remove']"
+            v-hasPermi="['system:type:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -104,38 +96,17 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改商品销售对话框 -->
+    <!-- 添加或修改商品类型表对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="商品编码" prop="goodsCode">
-          <el-input v-model="form.goodsCode" placeholder="请输入商品编码" />
+        <el-form-item label="分类名称" prop="typeName">
+          <el-input v-model="form.typeName" placeholder="请输入分类名称" />
         </el-form-item>
-        <el-form-item label="商品名称" prop="goodsName">
-          <el-input v-model="form.goodsName" placeholder="请输入商品名称" />
+        <el-form-item label="父级分类编号" prop="pCode">
+          <el-input v-model="form.pCode" placeholder="请输入父级分类编号" />
         </el-form-item>
-        <el-form-item label="售出数量" prop="goodsSaleNum">
-          <el-input v-model="form.goodsSaleNum" placeholder="请输入售出数量" />
-        </el-form-item>
-        <el-form-item label="计量方式" prop="meteringWay">
-          <el-input v-model="form.meteringWay" placeholder="请输入计量方式" />
-        </el-form-item>
-        <el-form-item label="应付金额" prop="amountPayable">
-          <el-input v-model="form.amountPayable" placeholder="请输入应付金额" />
-        </el-form-item>
-        <el-form-item label="实付金额" prop="amountActual">
-          <el-input v-model="form.amountActual" placeholder="请输入实付金额" />
-        </el-form-item>
-        <el-form-item label="找零" prop="change">
-          <el-input v-model="form.change" placeholder="请输入找零" />
-        </el-form-item>
-        <el-form-item label="顶部信息" prop="topDesc">
-          <el-input v-model="form.topDesc" placeholder="请输入顶部信息" />
-        </el-form-item>
-        <el-form-item label="底部信息" prop="bottomDesc">
-          <el-input v-model="form.bottomDesc" placeholder="请输入底部信息" />
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入备注" />
+        <el-form-item label="分类编号" prop="typeCode">
+          <el-input v-model="form.typeCode" placeholder="请输入分类编号" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -147,10 +118,10 @@
 </template>
 
 <script>
-import { listSale, getSale, delSale, addSale, updateSale } from "@/api/system/sale";
+import { listType, getType, delType, addType, updateType } from "@/api/system/type";
 
 export default {
-  name: "Sale",
+  name: "Type",
   data() {
     return {
       // 遮罩层
@@ -165,8 +136,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 商品销售表格数据
-      saleList: [],
+      // 商品类型表表格数据
+      typeList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -175,15 +146,14 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        saleCode: null,
+        typeName: null,
+        pCode: null,
+        typeCode: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        goodsSaleNum: [
-          { required: true, message: "售出数量不能为空", trigger: "blur" }
-        ],
       }
     };
   },
@@ -191,11 +161,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询商品销售列表 */
+    /** 查询商品类型表列表 */
     getList() {
       this.loading = true;
-      listSale(this.queryParams).then(response => {
-        this.saleList = response.rows;
+      listType(this.queryParams).then(response => {
+        this.typeList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -209,21 +179,9 @@ export default {
     reset() {
       this.form = {
         id: null,
-        goodsCode: null,
-        goodsName: null,
-        goodsType: null,
-        goodsSaleNum: null,
-        meteringWay: null,
-        amountPayable: null,
-        amountActual: null,
-        change: null,
-        topDesc: null,
-        bottomDesc: null,
-        createTime: null,
-        updateTime: null,
-        createBy: null,
-        updateBy: null,
-        remark: null
+        typeName: null,
+        pCode: null,
+        typeCode: null
       };
       this.resetForm("form");
     },
@@ -247,16 +205,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加商品销售";
+      this.title = "添加商品类型表";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getSale(id).then(response => {
+      getType(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改商品销售";
+        this.title = "修改商品类型表";
       });
     },
     /** 提交按钮 */
@@ -264,13 +222,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateSale(this.form).then(response => {
+            updateType(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addSale(this.form).then(response => {
+            addType(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -282,8 +240,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除商品销售编号为"' + ids + '"的数据项？').then(function() {
-        return delSale(ids);
+      this.$modal.confirm('是否确认删除商品类型表编号为"' + ids + '"的数据项？').then(function() {
+        return delType(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -291,9 +249,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/sale/export', {
+      this.download('system/type/export', {
         ...this.queryParams
-      }, `sale_${new Date().getTime()}.xlsx`)
+      }, `type_${new Date().getTime()}.xlsx`)
     }
   }
 };

@@ -1,24 +1,28 @@
 package com.market.system.service.impl;
 
 import com.market.common.utils.DateUtils;
+import com.market.common.utils.StringUtils;
 import com.market.system.domain.GoodsInfo;
+import com.market.system.domain.GoodsType;
 import com.market.system.mapper.GoodsInfoMapper;
 import com.market.system.service.IGoodsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 商品信息Service业务层处理
  *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 @Service
 public class GoodsInfoServiceImpl implements IGoodsInfoService {
     @Autowired
-    private GoodsInfoMapper tGoodsInfoMapper;
+    private GoodsInfoMapper goodsInfoMapper;
 
     /**
      * 查询商品信息
@@ -27,19 +31,19 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
      * @return 商品信息
      */
     @Override
-    public GoodsInfo selectTGoodsInfoById(Long id) {
-        return tGoodsInfoMapper.selectTGoodsInfoById(id);
+    public GoodsInfo selectGoodsInfoById(Long id) {
+        return goodsInfoMapper.selectGoodsInfoById(id);
     }
 
     /**
      * 查询商品信息列表
      *
-     * @param tGoodsInfo 商品信息
+     * @param goodsInfo 商品信息
      * @return 商品信息
      */
     @Override
-    public List<GoodsInfo> selectTGoodsInfoList(GoodsInfo tGoodsInfo) {
-        return tGoodsInfoMapper.selectTGoodsInfoList(tGoodsInfo);
+    public List<GoodsInfo> selectGoodsInfoList(GoodsInfo goodsInfo) {
+        return goodsInfoMapper.selectGoodsInfoList(goodsInfo);
     }
 
     /**
@@ -48,23 +52,28 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
      * @param goodsInfo 商品信息
      * @return 结果
      */
+    @Transactional
     @Override
-    public int insertTGoodsInfo(GoodsInfo goodsInfo) {
-        goodsInfo.setGoodsCode(System.currentTimeMillis() + "");
+    public int insertGoodsInfo(GoodsInfo goodsInfo) {
         goodsInfo.setCreateTime(DateUtils.getNowDate());
-        return tGoodsInfoMapper.insertTGoodsInfo(goodsInfo);
+        int rows = goodsInfoMapper.insertGoodsInfo(goodsInfo);
+        insertGoodsType(goodsInfo);
+        return rows;
     }
 
     /**
      * 修改商品信息
      *
-     * @param tGoodsInfo 商品信息
+     * @param goodsInfo 商品信息
      * @return 结果
      */
+    @Transactional
     @Override
-    public int updateTGoodsInfo(GoodsInfo tGoodsInfo) {
-        tGoodsInfo.setUpdateTime(DateUtils.getNowDate());
-        return tGoodsInfoMapper.updateTGoodsInfo(tGoodsInfo);
+    public int updateGoodsInfo(GoodsInfo goodsInfo) {
+        goodsInfo.setUpdateTime(DateUtils.getNowDate());
+        goodsInfoMapper.deleteGoodsTypeByTypeCode(goodsInfo.getId());
+        insertGoodsType(goodsInfo);
+        return goodsInfoMapper.updateGoodsInfo(goodsInfo);
     }
 
     /**
@@ -73,9 +82,11 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
      * @param ids 需要删除的商品信息主键
      * @return 结果
      */
+    @Transactional
     @Override
-    public int deleteTGoodsInfoByIds(Long[] ids) {
-        return tGoodsInfoMapper.deleteTGoodsInfoByIds(ids);
+    public int deleteGoodsInfoByIds(Long[] ids) {
+        goodsInfoMapper.deleteGoodsTypeByTypeCodes(ids);
+        return goodsInfoMapper.deleteGoodsInfoByIds(ids);
     }
 
     /**
@@ -84,8 +95,30 @@ public class GoodsInfoServiceImpl implements IGoodsInfoService {
      * @param id 商品信息主键
      * @return 结果
      */
+    @Transactional
     @Override
-    public int deleteTGoodsInfoById(Long id) {
-        return tGoodsInfoMapper.deleteTGoodsInfoById(id);
+    public int deleteGoodsInfoById(Long id) {
+        goodsInfoMapper.deleteGoodsTypeByTypeCode(id);
+        return goodsInfoMapper.deleteGoodsInfoById(id);
+    }
+
+    /**
+     * 新增商品类型表信息
+     *
+     * @param goodsInfo 商品信息对象
+     */
+    public void insertGoodsType(GoodsInfo goodsInfo) {
+        List<GoodsType> goodsTypeList = goodsInfo.getGoodsTypeList();
+        Long id = goodsInfo.getId();
+        if (StringUtils.isNotNull(goodsTypeList)) {
+            List<GoodsType> list = new ArrayList<GoodsType>();
+            for (GoodsType goodsType : goodsTypeList) {
+                goodsType.setTypeCode(String.valueOf(id));
+                list.add(goodsType);
+            }
+            if (list.size() > 0) {
+                goodsInfoMapper.batchGoodsType(list);
+            }
+        }
     }
 }

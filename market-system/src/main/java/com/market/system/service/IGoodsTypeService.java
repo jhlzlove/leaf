@@ -1,19 +1,19 @@
-package com.market.system.mapper;
-
-import com.market.system.domain.GoodsType;
+package com.market.system.service;
 
 import java.util.List;
+import com.market.system.domain.GoodsType;
 
 /**
- * 商品类型表Mapper接口
- *
+ * 商品类型表Service接口
+ * 
  * @author jhlz
  * @date 2022-07-06
  */
-public interface GoodsTypeMapper {
+public interface IGoodsTypeService 
+{
     /**
      * 查询商品类型表
-     *
+     * 
      * @param id 商品类型表主键
      * @return 商品类型表
      */
@@ -21,7 +21,7 @@ public interface GoodsTypeMapper {
 
     /**
      * 查询商品类型表列表
-     *
+     * 
      * @param goodsType 商品类型表
      * @return 商品类型表集合
      */
@@ -29,7 +29,7 @@ public interface GoodsTypeMapper {
 
     /**
      * 新增商品类型表
-     *
+     * 
      * @param goodsType 商品类型表
      * @return 结果
      */
@@ -37,25 +37,25 @@ public interface GoodsTypeMapper {
 
     /**
      * 修改商品类型表
-     *
+     * 
      * @param goodsType 商品类型表
      * @return 结果
      */
     public int updateGoodsType(GoodsType goodsType);
 
     /**
-     * 删除商品类型表
-     *
+     * 批量删除商品类型表
+     * 
+     * @param ids 需要删除的商品类型表主键集合
+     * @return 结果
+     */
+    public int deleteGoodsTypeByIds(Long[] ids);
+
+    /**
+     * 删除商品类型表信息
+     * 
      * @param id 商品类型表主键
      * @return 结果
      */
     public int deleteGoodsTypeById(Long id);
-
-    /**
-     * 批量删除商品类型表
-     *
-     * @param ids 需要删除的数据主键集合
-     * @return 结果
-     */
-    public int deleteGoodsTypeByIds(Long[] ids);
 }

@@ -8,12 +8,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 商品信息对象 t_goods_info
  *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 public class GoodsInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -34,12 +35,6 @@ public class GoodsInfo extends BaseEntity {
      */
     @Excel(name = "商品名称")
     private String goodsName;
-
-    /**
-     * 所属分类
-     */
-    @Excel(name = "所属分类")
-    private String goodsCategory;
 
     /**
      * 商品类型
@@ -87,8 +82,9 @@ public class GoodsInfo extends BaseEntity {
     /**
      * 保质期
      */
-    @Excel(name = "保质期")
-    private String saveDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "保质期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date saveDate;
 
     /**
      * 计量方式
@@ -98,14 +94,21 @@ public class GoodsInfo extends BaseEntity {
 
     /**
      * 供应状态（0正常 1下架）
+     * 供应状态（0正常 1下架）
+     * 供应状态（0正常 1下架）
      */
     @Excel(name = "供应状态", readConverterExp = "0=正常,1=下架")
-    private Integer status;
+    private String status;
 
     /**
      * 删除标志（Y代表存在 N代表删除）
      */
     private String delFlag;
+
+    /**
+     * 商品类型表信息
+     */
+    private List<GoodsType> goodsTypeList;
 
     public void setId(Long id) {
         this.id = id;
@@ -187,11 +190,11 @@ public class GoodsInfo extends BaseEntity {
         return manufacturingDate;
     }
 
-    public void setSaveDate(String saveDate) {
+    public void setSaveDate(Date saveDate) {
         this.saveDate = saveDate;
     }
 
-    public String getSaveDate() {
+    public Date getSaveDate() {
         return saveDate;
     }
 
@@ -203,11 +206,11 @@ public class GoodsInfo extends BaseEntity {
         return meteringWay;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -219,12 +222,12 @@ public class GoodsInfo extends BaseEntity {
         return delFlag;
     }
 
-    public String getGoodsCategory() {
-        return goodsCategory;
+    public List<GoodsType> getGoodsTypeList() {
+        return goodsTypeList;
     }
 
-    public void setGoodsCategory(String goodsCategory) {
-        this.goodsCategory = goodsCategory;
+    public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
+        this.goodsTypeList = goodsTypeList;
     }
 
     @Override
@@ -233,7 +236,6 @@ public class GoodsInfo extends BaseEntity {
                 .append("id", getId())
                 .append("goodsCode", getGoodsCode())
                 .append("goodsName", getGoodsName())
-                .append("goodsCategory", getGoodsCategory())
                 .append("goodsType", getGoodsType())
                 .append("goodsSupplier", getGoodsSupplier())
                 .append("goodsNumber", getGoodsNumber())
@@ -250,6 +252,7 @@ public class GoodsInfo extends BaseEntity {
                 .append("updateBy", getUpdateBy())
                 .append("updateTime", getUpdateTime())
                 .append("remark", getRemark())
+                .append("goodsTypeList", getGoodsTypeList())
                 .toString();
     }
 }
