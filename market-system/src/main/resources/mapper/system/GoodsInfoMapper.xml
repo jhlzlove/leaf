@@ -26,17 +26,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
     </resultMap>
 
-    <resultMap id="GoodsInfoGoodsTypeResult" type="GoodsInfo" extends="GoodsInfoResult">
-        <collection property="goodsTypeList" notNullColumn="sub_id" javaType="java.util.List" resultMap="GoodsTypeResult" />
-    </resultMap>
-
-    <resultMap type="GoodsType" id="GoodsTypeResult">
-        <result property="id"    column="sub_id"    />
-        <result property="typeName"    column="sub_type_name"    />
-        <result property="pCode"    column="sub_p_code"    />
-        <result property="typeCode"    column="sub_type_code"    />
-    </resultMap>
-
     <sql id="selectGoodsInfoVo">
         select id, goods_code, goods_name, goods_type, goods_supplier, goods_number, goods_price, goods_discount, goods_preferential, manufacturing_date, save_date, metering_way, status, del_flag, create_by, create_time, update_by, update_time, remark from t_goods_info
     </sql>
@@ -53,18 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="goodsDiscount != null  and goodsDiscount != ''"> and goods_discount = #{goodsDiscount}</if>
             <if test="goodsPreferential != null "> and goods_preferential = #{goodsPreferential}</if>
             <if test="manufacturingDate != null "> and manufacturing_date = #{manufacturingDate}</if>
-            <if test="saveDate != null "> and save_date = #{saveDate}</if>
+            <if test="saveDate != null  and saveDate != ''"> and save_date = #{saveDate}</if>
             <if test="meteringWay != null  and meteringWay != ''"> and metering_way = #{meteringWay}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
     
-    <select id="selectGoodsInfoById" parameterType="Long" resultMap="GoodsInfoGoodsTypeResult">
-        select a.id, a.goods_code, a.goods_name, a.goods_type, a.goods_supplier, a.goods_number, a.goods_price, a.goods_discount, a.goods_preferential, a.manufacturing_date, a.save_date, a.metering_way, a.status, a.del_flag, a.create_by, a.create_time, a.update_by, a.update_time, a.remark,
- b.id as sub_id, b.type_name as sub_type_name, b.p_code as sub_p_code, b.type_code as sub_type_code
-        from t_goods_info a
-        left join t_goods_type b on b.type_code = a.id
-        where a.id = #{id}
+    <select id="selectGoodsInfoById" parameterType="Long" resultMap="GoodsInfoResult">
+        <include refid="selectGoodsInfoVo"/>
+        where id = #{id}
     </select>
         
     <insert id="insertGoodsInfo" parameterType="GoodsInfo" useGeneratedKeys="true" keyProperty="id">
@@ -146,22 +132,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
-    <delete id="deleteGoodsTypeByTypeCodes" parameterType="String">
-        delete from t_goods_type where type_code in 
-        <foreach item="typeCode" collection="array" open="(" separator="," close=")">
-            #{typeCode}
-        </foreach>
-    </delete>
-
-    <delete id="deleteGoodsTypeByTypeCode" parameterType="Long">
-        delete from t_goods_type where type_code = #{typeCode}
-    </delete>
-
-    <insert id="batchGoodsType">
-        insert into t_goods_type( id, type_name, p_code, type_code) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.typeName}, #{item.pCode}, #{item.typeCode})
-        </foreach>
-    </insert>
 </mapper>

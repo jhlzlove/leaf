@@ -1,7 +1,7 @@
 package com.market.system.domain;
 
 import com.market.common.annotation.Excel;
-import com.market.common.core.domain.BaseEntity;
+import com.market.common.core.domain.TreeEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -9,9 +9,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 商品类型表对象 t_goods_type
  *
  * @author jhlz
- * @date 2022-07-06
+ * @date 2022-07-08
  */
-public class GoodsType extends BaseEntity {
+public class GoodsType extends TreeEntity {
     private static final long serialVersionUID = 1L;
 
     /**
