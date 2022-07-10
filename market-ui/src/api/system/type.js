@@ -42,3 +42,11 @@ export function delType(id) {
     method: 'delete'
   })
 }
+
+// 查询类型下拉树结构
+export function treeselect() {
+  return request({
+    url: '/system/type/treeselect',
+    method: 'get'
+  })
+}

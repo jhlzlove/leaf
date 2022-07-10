@@ -86,4 +86,13 @@ public class GoodsTypeController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(goodsTypeService.deleteGoodsTypeByIds(ids));
     }
+
+    /**
+     * 获取部门下拉树列表
+     */
+    @GetMapping("/treeselect")
+    public AjaxResult treeselect(GoodsType goodsType) {
+        List<GoodsType> types = goodsTypeService.selectTypeList(goodsType);
+        return AjaxResult.success(goodsTypeService.buildTypeTreeSelect(types));
+    }
 }

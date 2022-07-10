@@ -1,19 +1,20 @@
 package com.market.system.service;
 
-import java.util.List;
+import com.market.common.core.domain.TreeSelect;
 import com.market.system.domain.GoodsType;
+
+import java.util.List;
 
 /**
  * 商品类型表Service接口
- * 
+ *
  * @author jhlz
  * @date 2022-07-08
  */
-public interface IGoodsTypeService 
-{
+public interface IGoodsTypeService {
     /**
      * 查询商品类型表
-     * 
+     *
      * @param id 商品类型表主键
      * @return 商品类型表
      */
@@ -21,7 +22,7 @@ public interface IGoodsTypeService
 
     /**
      * 查询商品类型表列表
-     * 
+     *
      * @param goodsType 商品类型表
      * @return 商品类型表集合
      */
@@ -29,7 +30,7 @@ public interface IGoodsTypeService
 
     /**
      * 新增商品类型表
-     * 
+     *
      * @param goodsType 商品类型表
      * @return 结果
      */
@@ -37,7 +38,7 @@ public interface IGoodsTypeService
 
     /**
      * 修改商品类型表
-     * 
+     *
      * @param goodsType 商品类型表
      * @return 结果
      */
@@ -45,7 +46,7 @@ public interface IGoodsTypeService
 
     /**
      * 批量删除商品类型表
-     * 
+     *
      * @param ids 需要删除的商品类型表主键集合
      * @return 结果
      */
@@ -53,9 +54,15 @@ public interface IGoodsTypeService
 
     /**
      * 删除商品类型表信息
-     * 
+     *
      * @param id 商品类型表主键
      * @return 结果
      */
     public int deleteGoodsTypeById(Long id);
+
+    List<GoodsType> selectTypeList(List<GoodsType> goodsType);
+
+    List<GoodsType> buildTypeTree(GoodsType types);
+
+    public abstract List<TreeSelect> buildTypeTreeSelect(List<GoodsType> types);
 }

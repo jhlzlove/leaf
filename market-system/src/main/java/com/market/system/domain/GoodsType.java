@@ -29,13 +29,13 @@ public class GoodsType extends TreeEntity {
      * 父级分类编号
      */
     @Excel(name = "父级分类编号")
-    private String pCode;
+    private Long pCode;
 
     /**
      * 分类编号
      */
     @Excel(name = "分类编号")
-    private String typeCode;
+    private Long typeCode;
 
     public void setId(Long id) {
         this.id = id;
@@ -53,19 +53,19 @@ public class GoodsType extends TreeEntity {
         return typeName;
     }
 
-    public void setpCode(String pCode) {
+    public void setpCode(Long pCode) {
         this.pCode = pCode;
     }
 
-    public String getpCode() {
+    public Long getpCode() {
         return pCode;
     }
 
-    public void setTypeCode(String typeCode) {
+    public void setTypeCode(Long typeCode) {
         this.typeCode = typeCode;
     }
 
-    public String getTypeCode() {
+    public Long getTypeCode() {
         return typeCode;
     }
 
