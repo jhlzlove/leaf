@@ -1,19 +1,19 @@
 package com.market.system.service;
 
-import java.util.List;
 import com.market.system.domain.GoodsInfo;
+
+import java.util.List;
 
 /**
  * 商品信息Service接口
- * 
+ *
  * @author jhlz
- * @date 2022-07-06
+ * @date 2022-07-08
  */
-public interface IGoodsInfoService 
-{
+public interface IGoodsInfoService {
     /**
      * 查询商品信息
-     * 
+     *
      * @param id 商品信息主键
      * @return 商品信息
      */
@@ -21,7 +21,7 @@ public interface IGoodsInfoService
 
     /**
      * 查询商品信息列表
-     * 
+     *
      * @param goodsInfo 商品信息
      * @return 商品信息集合
      */
@@ -29,7 +29,7 @@ public interface IGoodsInfoService
 
     /**
      * 新增商品信息
-     * 
+     *
      * @param goodsInfo 商品信息
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface IGoodsInfoService
 
     /**
      * 修改商品信息
-     * 
+     *
      * @param goodsInfo 商品信息
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface IGoodsInfoService
 
     /**
      * 批量删除商品信息
-     * 
+     *
      * @param ids 需要删除的商品信息主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface IGoodsInfoService
 
     /**
      * 删除商品信息信息
-     * 
+     *
      * @param id 商品信息主键
      * @return 结果
      */

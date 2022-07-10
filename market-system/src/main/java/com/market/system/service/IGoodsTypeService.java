@@ -7,7 +7,7 @@ import com.market.system.domain.GoodsType;
  * 商品类型表Service接口
  * 
  * @author jhlz
- * @date 2022-07-06
+ * @date 2022-07-08
  */
 public interface IGoodsTypeService 
 {

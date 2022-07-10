@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="类型名称" prop="typeName">
+      <el-form-item label="分类名称" prop="typeName">
         <el-input
           v-model="queryParams.typeName"
           placeholder="请输入分类名称"
@@ -11,7 +11,7 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+	    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -27,47 +27,19 @@
           v-hasPermi="['system:type:add']"
         >新增</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['system:type:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['system:type:remove']"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['system:type:export']"
-        >导出</el-button>
-      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="序号" align="center" prop="id" />
-      <el-table-column label="类型名称" align="center" prop="typeName" />
-      <el-table-column label="父级类型编号" align="center" prop="pCode" />
-      <el-table-column label="类型编号" align="center" prop="typeCode" />
+    <el-table
+      v-loading="loading"
+      :data="typeList"
+      row-key="typeCode"
+      default-expand-all
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+    >
+      <el-table-column label="分类名称" prop="typeName" />
+      <el-table-column label="父级分类编号" align="center" prop="pCode" />
+      <el-table-column label="分类编号" align="center" prop="typeCode" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -80,6 +52,13 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-plus"
+            @click="handleAdd(scope.row)"
+            v-hasPermi="['system:type:add']"
+          >新增</el-button>
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:type:remove']"
@@ -87,14 +66,6 @@
         </template>
       </el-table-column>
     </el-table>
-    
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
 
     <!-- 添加或修改商品类型表对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -103,7 +74,7 @@
           <el-input v-model="form.typeName" placeholder="请输入分类名称" />
         </el-form-item>
         <el-form-item label="父级分类编号" prop="pCode">
-          <el-input v-model="form.pCode" placeholder="请输入父级分类编号" />
+          <treeselect v-model="form.pCode" :options="typeOptions" :normalizer="normalizer" placeholder="请选择父级分类编号" />
         </el-form-item>
         <el-form-item label="分类编号" prop="typeCode">
           <el-input v-model="form.typeCode" placeholder="请输入分类编号" />
@@ -119,33 +90,30 @@
 
 <script>
 import { listType, getType, delType, addType, updateType } from "@/api/system/type";
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
   name: "Type",
+  components: {
+    Treeselect
+  },
   data() {
     return {
       // 遮罩层
       loading: true,
-      // 选中数组
-      ids: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
       // 显示搜索条件
       showSearch: true,
-      // 总条数
-      total: 0,
       // 商品类型表表格数据
       typeList: [],
+      // 商品类型表树选项
+      typeOptions: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
       open: false,
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
         typeName: null,
         pCode: null,
         typeCode: null
@@ -165,9 +133,28 @@ export default {
     getList() {
       this.loading = true;
       listType(this.queryParams).then(response => {
-        this.typeList = response.rows;
-        this.total = response.total;
+        this.typeList = this.handleTree(response.data, "typeCode", "pCode");
         this.loading = false;
+      });
+    },
+    /** 转换商品类型表数据结构 */
+    normalizer(node) {
+      if (node.children && !node.children.length) {
+        delete node.children;
+      }
+      return {
+        id: node.typeCode,
+        label: node.typeName,
+        children: node.children
+      };
+    },
+	/** 查询商品类型表下拉树结构 */
+    getTreeselect() {
+      listType().then(response => {
+        this.typeOptions = [];
+        const data = { typeCode: 0, typeName: '顶级节点', children: [] };
+        data.children = this.handleTree(response.data, "typeCode", "pCode");
+        this.typeOptions.push(data);
       });
     },
     // 取消按钮
@@ -187,7 +174,6 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -195,23 +181,26 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
-    },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAdd(row) {
       this.reset();
+      this.getTreeselect();
+      if (row != null && row.typeCode) {
+        this.form.pCode = row.typeCode;
+      } else {
+        this.form.pCode = 0;
+      }
       this.open = true;
       this.title = "添加商品类型表";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const id = row.id || this.ids
-      getType(id).then(response => {
+      this.getTreeselect();
+      if (row != null) {
+        this.form.pCode = row.typeCode;
+      }
+      getType(row.id).then(response => {
         this.form = response.data;
         this.open = true;
         this.title = "修改商品类型表";
@@ -239,19 +228,12 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除商品类型表编号为"' + ids + '"的数据项？').then(function() {
-        return delType(ids);
+      this.$modal.confirm('是否确认删除商品类型表编号为"' + row.id + '"的数据项？').then(function() {
+        return delType(row.id);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
       }).catch(() => {});
-    },
-    /** 导出按钮操作 */
-    handleExport() {
-      this.download('system/type/export', {
-        ...this.queryParams
-      }, `type_${new Date().getTime()}.xlsx`)
     }
   }
 };

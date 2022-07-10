@@ -3,7 +3,6 @@ package com.market.web.controller.system;
 import com.market.common.annotation.Log;
 import com.market.common.core.controller.BaseController;
 import com.market.common.core.domain.AjaxResult;
-import com.market.common.core.page.TableDataInfo;
 import com.market.common.enums.BusinessType;
 import com.market.common.utils.poi.ExcelUtil;
 import com.market.system.domain.GoodsType;
@@ -19,7 +18,7 @@ import java.util.List;
  * 商品类型表Controller
  *
  * @author jhlz
- * @date 2022-07-06
+ * @date 2022-07-08
  */
 @RestController
 @RequestMapping("/system/type")
@@ -32,10 +31,9 @@ public class GoodsTypeController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('system:type:list')")
     @GetMapping("/list")
-    public TableDataInfo list(GoodsType goodsType) {
-        startPage();
+    public AjaxResult list(GoodsType goodsType) {
         List<GoodsType> list = goodsTypeService.selectGoodsTypeList(goodsType);
-        return getDataTable(list);
+        return AjaxResult.success(list);
     }
 
     /**

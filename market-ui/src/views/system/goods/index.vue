@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      
       <el-form-item label="商品名称" prop="goodsName">
         <el-input
           v-model="queryParams.goodsName"
@@ -11,13 +10,15 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      
       <el-form-item label="保质期" prop="saveDate">
-        <el-date-picker clearable size="small"
+        <el-input
           v-model="queryParams.saveDate"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="选择保质期">
-        </el-date-picker>
+          placeholder="请输入保质期"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -33,7 +34,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['system:info:add']"
+          v-hasPermi="['system:goods:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -44,7 +45,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:info:edit']"
+          v-hasPermi="['system:goods:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -55,7 +56,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:info:remove']"
+          v-hasPermi="['system:goods:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -65,17 +66,18 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['system:info:export']"
+          v-hasPermi="['system:goods:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="infoList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="goodsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="id" />
       <el-table-column label="商品编码" align="center" prop="goodsCode" />
       <el-table-column label="商品名称" align="center" prop="goodsName" />
+      <el-table-column label="商品类型" align="center" key="typeName" prop="type.typeName" />
       <el-table-column label="商品类型" align="center" prop="goodsType" />
       <el-table-column label="商品供货商编码" align="center" prop="goodsSupplier" />
       <el-table-column label="商品数量" align="center" prop="goodsNumber" />
@@ -87,8 +89,7 @@
           <span>{{ parseTime(scope.row.manufacturingDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="保质期" align="center" prop="saveDate">
-      </el-table-column>
+      <el-table-column label="保质期" align="center" prop="saveDate" />
       <el-table-column label="计量方式" align="center" prop="meteringWay" />
       <el-table-column label="供应状态" align="center" prop="status" />
       <el-table-column label="备注" align="center" prop="remark" />
@@ -99,14 +100,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:info:edit']"
+            v-hasPermi="['system:goods:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:info:remove']"
+            v-hasPermi="['system:goods:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -130,7 +131,7 @@
           <el-input v-model="form.goodsName" placeholder="请输入商品名称" />
         </el-form-item>
         <el-form-item label="商品类型" prop="goodsType">
-          <el-input v-model="form.goodsType" placeholder="请选择商品类型" />
+          <treeselect v-model="form.goodsType" :options="typeOptions" :show-count="true" placeholder="请选择商品分类" />
         </el-form-item>
         <el-form-item label="商品供货商编码" prop="goodsSupplier">
           <el-input v-model="form.goodsSupplier" placeholder="请输入商品供货商编码" />
@@ -174,18 +175,17 @@
 </template>
 
 <script>
-import { listInfo, getInfo, delInfo, addInfo, updateInfo } from "@/api/system/info";
-
+import { listGoods, getGoods, delGoods, addGoods, updateGoods } from "@/api/system/goods";
+// 引入类型
+import { treeselect } from "@/api/system/type";
 export default {
-  name: "Info",
+  name: "Goods",
   data() {
     return {
       // 遮罩层
       loading: true,
       // 选中数组
       ids: [],
-      // 子表选中数据
-      checkedGoodsType: [],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -195,29 +195,26 @@ export default {
       // 总条数
       total: 0,
       // 商品信息表格数据
-      infoList: [],
-      // 商品类型表表格数据
-      goodsTypeList: [],
+      goodsList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
       open: false,
+      goodsType: null,
+      // 类型树选项
+      typeOptions: undefined,
+      defaultProps: {
+        children: "children",
+        label: "label"
+      },
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        goodsCode: null,
         goodsName: null,
-        goodsType: null,
-        goodsSupplier: null,
-        goodsNumber: null,
-        goodsPrice: null,
-        goodsDiscount: null,
-        goodsPreferential: null,
-        manufacturingDate: null,
         saveDate: null,
-        meteringWay: null,
         status: null,
+        goodsType: null,
       },
       // 表单参数
       form: {},
@@ -241,26 +238,33 @@ export default {
         goodsPrice: [
           { required: true, message: "商品定价不能为空", trigger: "blur" }
         ],
-        createTime: [
-          { required: true, message: "信息创建时间不能为空", trigger: "blur" }
-        ],
-        updateTime: [
-          { required: true, message: "信息更新时间不能为空", trigger: "blur" }
-        ],
       }
     };
   },
+  watch: {
+    // 根据名称筛选部门树
+    typeName(val) {
+      this.$refs.tree.filter(val);
+    }
+  },
   created() {
     this.getList();
+    this.getTreeselect();
   },
   methods: {
     /** 查询商品信息列表 */
     getList() {
       this.loading = true;
-      listInfo(this.queryParams).then(response => {
-        this.infoList = response.rows;
+      listGoods(this.queryParams).then(response => {
+        this.goodsList = response.rows;
         this.total = response.total;
         this.loading = false;
+      });
+    },
+    /** 查询商品类型下拉树结构 */
+    getTreeselect() {
+      treeselect().then(response => {
+        this.typeOptions = response.data;
       });
     },
     // 取消按钮
@@ -283,15 +287,8 @@ export default {
         manufacturingDate: null,
         saveDate: null,
         meteringWay: null,
-        status: "0",
-        delFlag: null,
-        createBy: null,
-        createTime: null,
-        updateBy: null,
-        updateTime: null,
         remark: null
       };
-      this.goodsTypeList = [];
       this.resetForm("form");
     },
     /** 搜索按钮操作 */
@@ -320,9 +317,8 @@ export default {
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getInfo(id).then(response => {
+      getGoods(id).then(response => {
         this.form = response.data;
-        this.goodsTypeList = response.data.goodsTypeList;
         this.open = true;
         this.title = "修改商品信息";
       });
@@ -331,15 +327,14 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.form.goodsTypeList = this.goodsTypeList;
           if (this.form.id != null) {
-            updateInfo(this.form).then(response => {
+            updateGoods(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addInfo(this.form).then(response => {
+            addGoods(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -352,44 +347,17 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal.confirm('是否确认删除商品信息编号为"' + ids + '"的数据项？').then(function() {
-        return delInfo(ids);
+        return delGoods(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
       }).catch(() => {});
     },
-	/** 商品类型表序号 */
-    rowGoodsTypeIndex({ row, rowIndex }) {
-      row.index = rowIndex + 1;
-    },
-    /** 商品类型表添加按钮操作 */
-    handleAddGoodsType() {
-      let obj = {};
-      obj.typeName = "";
-      obj.pCode = "";
-      this.goodsTypeList.push(obj);
-    },
-    /** 商品类型表删除按钮操作 */
-    handleDeleteGoodsType() {
-      if (this.checkedGoodsType.length == 0) {
-        this.$modal.msgError("请先选择要删除的商品类型表数据");
-      } else {
-        const goodsTypeList = this.goodsTypeList;
-        const checkedGoodsType = this.checkedGoodsType;
-        this.goodsTypeList = goodsTypeList.filter(function(item) {
-          return checkedGoodsType.indexOf(item.index) == -1
-        });
-      }
-    },
-    /** 复选框选中数据 */
-    handleGoodsTypeSelectionChange(selection) {
-      this.checkedGoodsType = selection.map(item => item.index)
-    },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('system/info/export', {
+      this.download('system/goods/export', {
         ...this.queryParams
-      }, `info_${new Date().getTime()}.xlsx`)
+      }, `goods_${new Date().getTime()}.xlsx`)
     }
   }
 };

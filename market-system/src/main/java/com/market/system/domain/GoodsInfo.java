@@ -8,13 +8,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 商品信息对象 t_goods_info
  *
  * @author jhlz
- * @date 2022-07-06
+ * @date 2022-07-08
  */
 public class GoodsInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -82,9 +81,8 @@ public class GoodsInfo extends BaseEntity {
     /**
      * 保质期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "保质期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date saveDate;
+    @Excel(name = "保质期")
+    private String saveDate;
 
     /**
      * 计量方式
@@ -104,11 +102,6 @@ public class GoodsInfo extends BaseEntity {
      * 删除标志（Y代表存在 N代表删除）
      */
     private String delFlag;
-
-    /**
-     * 商品类型表信息
-     */
-    private List<GoodsType> goodsTypeList;
 
     public void setId(Long id) {
         this.id = id;
@@ -190,11 +183,11 @@ public class GoodsInfo extends BaseEntity {
         return manufacturingDate;
     }
 
-    public void setSaveDate(Date saveDate) {
+    public void setSaveDate(String saveDate) {
         this.saveDate = saveDate;
     }
 
-    public Date getSaveDate() {
+    public String getSaveDate() {
         return saveDate;
     }
 
@@ -222,14 +215,6 @@ public class GoodsInfo extends BaseEntity {
         return delFlag;
     }
 
-    public List<GoodsType> getGoodsTypeList() {
-        return goodsTypeList;
-    }
-
-    public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
-        this.goodsTypeList = goodsTypeList;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -252,7 +237,6 @@ public class GoodsInfo extends BaseEntity {
                 .append("updateBy", getUpdateBy())
                 .append("updateTime", getUpdateTime())
                 .append("remark", getRemark())
-                .append("goodsTypeList", getGoodsTypeList())
                 .toString();
     }
 }
