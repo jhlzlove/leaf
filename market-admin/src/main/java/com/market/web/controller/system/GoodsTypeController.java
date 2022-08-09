@@ -92,7 +92,7 @@ public class GoodsTypeController extends BaseController {
      */
     @GetMapping("/treeselect")
     public AjaxResult treeselect(GoodsType goodsType) {
-        List<GoodsType> types = goodsTypeService.selectTypeList(goodsType);
+        List<GoodsType> types = goodsTypeService.selectGoodsTypeList(goodsType);
         return AjaxResult.success(goodsTypeService.buildTypeTreeSelect(types));
     }
 }

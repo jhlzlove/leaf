@@ -1,6 +1,6 @@
 package com.market.system.service;
 
-import com.market.common.core.domain.TreeSelect;
+import com.market.system.domain.GoodsTreeSelect;
 import com.market.system.domain.GoodsType;
 
 import java.util.List;
@@ -60,9 +60,19 @@ public interface IGoodsTypeService {
      */
     public int deleteGoodsTypeById(Long id);
 
-    List<GoodsType> selectTypeList(List<GoodsType> goodsType);
+    /**
+     * 构建前端所需要树结构
+     *
+     * @param goodsTypes 类型列表
+     * @return 树结构列表
+     */
+    List<GoodsType> buildTypeTree(List<GoodsType> goodsTypes);
 
-    List<GoodsType> buildTypeTree(GoodsType types);
-
-    public abstract List<TreeSelect> buildTypeTreeSelect(List<GoodsType> types);
+    /**
+     * 构建前端所需要下拉树结构
+     *
+     * @param goodsTypes 类型列表
+     * @return 下拉树结构列表
+     */
+    List<GoodsTreeSelect> buildTypeTreeSelect(List<GoodsType> goodsTypes);
 }

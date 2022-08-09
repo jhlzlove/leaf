@@ -1,7 +1,7 @@
 package com.market.system.service.impl;
 
-import com.market.common.core.domain.TreeSelect;
 import com.market.common.utils.StringUtils;
+import com.market.system.domain.GoodsTreeSelect;
 import com.market.system.domain.GoodsType;
 import com.market.system.mapper.GoodsTypeMapper;
 import com.market.system.service.IGoodsTypeService;
@@ -90,10 +90,16 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
         return goodsTypeMapper.deleteGoodsTypeById(id);
     }
 
+    /**
+     * 构建前端所需要下拉树结构
+     *
+     * @param goodsTypes 类型列表
+     * @return 下拉树结构列表
+     */
     @Override
-    public List<GoodsType> selectTypeList(List<GoodsType> goodsType) {
-        List<GoodsType> typeTree = buildTypeTree(goodsType);
-        return typeTree.stream().map(TreeSelect::new).collect(Collectors.toList());
+    public List<GoodsTreeSelect> buildTypeTreeSelect(List<GoodsType> goodsTypes) {
+        List<GoodsType> typeTrees = buildTypeTree(goodsTypes);
+        return typeTrees.stream().map(GoodsTreeSelect::new).collect(Collectors.toList());
     }
 
     /**
@@ -123,11 +129,6 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
         return returnList;
     }
 
-    @Override
-    public List<TreeSelect> buildTypeTreeSelect(List<GoodsType> types) {
-        return null;
-    }
-
     /**
      * 递归列表
      */
@@ -150,7 +151,7 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
         Iterator<GoodsType> it = list.iterator();
         while (it.hasNext()) {
             GoodsType n = (GoodsType) it.next();
-            if (StringUtils.isNotNull(n.getParentId()) && n.getParentId().longValue() == t.getTypeCode().longValue()) {
+            if (StringUtils.isNotNull(n.getpCode()) && n.getParentId().longValue() == t.getTypeCode().longValue()) {
                 tlist.add(n);
             }
         }
