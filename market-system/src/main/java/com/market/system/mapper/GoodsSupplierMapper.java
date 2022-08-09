@@ -5,57 +5,57 @@ import com.market.system.domain.GoodsSupplier;
 import java.util.List;
 
 /**
- * 供货商信息Mapper接口
+ * 供应商信息表Mapper接口
  *
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-06
  */
 public interface GoodsSupplierMapper {
     /**
-     * 查询供货商信息
+     * 查询供应商信息表
      *
-     * @param id 供货商信息主键
-     * @return 供货商信息
+     * @param id 供应商信息表主键
+     * @return 供应商信息表
      */
-    public GoodsSupplier selectTGoodsSupplierById(Long id);
+    public GoodsSupplier selectGoodsSupplierById(Long id);
 
     /**
-     * 查询供货商信息列表
+     * 查询供应商信息表列表
      *
-     * @param tGoodsSupplier 供货商信息
-     * @return 供货商信息集合
+     * @param goodsSupplier 供应商信息表
+     * @return 供应商信息表集合
      */
-    public List<GoodsSupplier> selectTGoodsSupplierList(GoodsSupplier tGoodsSupplier);
+    public List<GoodsSupplier> selectGoodsSupplierList(GoodsSupplier goodsSupplier);
 
     /**
-     * 新增供货商信息
+     * 新增供应商信息表
      *
-     * @param tGoodsSupplier 供货商信息
+     * @param goodsSupplier 供应商信息表
      * @return 结果
      */
-    public int insertTGoodsSupplier(GoodsSupplier tGoodsSupplier);
+    public int insertGoodsSupplier(GoodsSupplier goodsSupplier);
 
     /**
-     * 修改供货商信息
+     * 修改供应商信息表
      *
-     * @param tGoodsSupplier 供货商信息
+     * @param goodsSupplier 供应商信息表
      * @return 结果
      */
-    public int updateTGoodsSupplier(GoodsSupplier tGoodsSupplier);
+    public int updateGoodsSupplier(GoodsSupplier goodsSupplier);
 
     /**
-     * 删除供货商信息
+     * 删除供应商信息表
      *
-     * @param id 供货商信息主键
+     * @param id 供应商信息表主键
      * @return 结果
      */
-    public int deleteTGoodsSupplierById(Long id);
+    public int deleteGoodsSupplierById(Long id);
 
     /**
-     * 批量删除供货商信息
+     * 批量删除供应商信息表
      *
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteTGoodsSupplierByIds(Long[] ids);
+    public int deleteGoodsSupplierByIds(Long[] ids);
 }

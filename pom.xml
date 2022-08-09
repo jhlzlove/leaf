@@ -9,7 +9,7 @@
     <version>3.8.1</version>
 
     <name>market</name>
-    <url>http://www.ruoyi.vip</url>
+    <url>http://github.com/jhlzlove/market</url>
     <description>基于若依管理系统二次开发的超市后台管理系统</description>
 
     <properties>
@@ -24,7 +24,7 @@
         <kaptcha.version>2.3.2</kaptcha.version>
         <mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
-        <fastjson.version>1.2.79</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <oshi.version>5.8.6</oshi.version>
         <jna.version>5.10.0</jna.version>
         <commons.io.version>2.11.0</commons.io.version>

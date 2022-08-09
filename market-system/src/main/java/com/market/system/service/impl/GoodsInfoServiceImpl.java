@@ -1,91 +1,96 @@
 package com.market.system.service.impl;
 
+import java.util.List;
 import com.market.common.utils.DateUtils;
-import com.market.system.domain.GoodsInfo;
-import com.market.system.mapper.GoodsInfoMapper;
-import com.market.system.service.IGoodsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.market.system.mapper.GoodsInfoMapper;
+import com.market.system.domain.GoodsInfo;
+import com.market.system.service.IGoodsInfoService;
 
 /**
  * 商品信息Service业务层处理
- *
+ * 
  * @author jhlz
- * @date 2022-04-13
+ * @date 2022-07-08
  */
 @Service
-public class GoodsInfoServiceImpl implements IGoodsInfoService {
+public class GoodsInfoServiceImpl implements IGoodsInfoService 
+{
     @Autowired
-    private GoodsInfoMapper tGoodsInfoMapper;
+    private GoodsInfoMapper goodsInfoMapper;
 
     /**
      * 查询商品信息
-     *
+     * 
      * @param id 商品信息主键
      * @return 商品信息
      */
     @Override
-    public GoodsInfo selectTGoodsInfoById(Long id) {
-        return tGoodsInfoMapper.selectTGoodsInfoById(id);
+    public GoodsInfo selectGoodsInfoById(Long id)
+    {
+        return goodsInfoMapper.selectGoodsInfoById(id);
     }
 
     /**
      * 查询商品信息列表
-     *
-     * @param tGoodsInfo 商品信息
+     * 
+     * @param goodsInfo 商品信息
      * @return 商品信息
      */
     @Override
-    public List<GoodsInfo> selectTGoodsInfoList(GoodsInfo tGoodsInfo) {
-        return tGoodsInfoMapper.selectTGoodsInfoList(tGoodsInfo);
+    public List<GoodsInfo> selectGoodsInfoList(GoodsInfo goodsInfo)
+    {
+        return goodsInfoMapper.selectGoodsInfoList(goodsInfo);
     }
 
     /**
      * 新增商品信息
-     *
+     * 
      * @param goodsInfo 商品信息
      * @return 结果
      */
     @Override
-    public int insertTGoodsInfo(GoodsInfo goodsInfo) {
-        goodsInfo.setGoodsCode(System.currentTimeMillis() + "");
+    public int insertGoodsInfo(GoodsInfo goodsInfo)
+    {
         goodsInfo.setCreateTime(DateUtils.getNowDate());
-        return tGoodsInfoMapper.insertTGoodsInfo(goodsInfo);
+        return goodsInfoMapper.insertGoodsInfo(goodsInfo);
     }
 
     /**
      * 修改商品信息
-     *
-     * @param tGoodsInfo 商品信息
+     * 
+     * @param goodsInfo 商品信息
      * @return 结果
      */
     @Override
-    public int updateTGoodsInfo(GoodsInfo tGoodsInfo) {
-        tGoodsInfo.setUpdateTime(DateUtils.getNowDate());
-        return tGoodsInfoMapper.updateTGoodsInfo(tGoodsInfo);
+    public int updateGoodsInfo(GoodsInfo goodsInfo)
+    {
+        goodsInfo.setUpdateTime(DateUtils.getNowDate());
+        return goodsInfoMapper.updateGoodsInfo(goodsInfo);
     }
 
     /**
      * 批量删除商品信息
-     *
+     * 
      * @param ids 需要删除的商品信息主键
      * @return 结果
      */
     @Override
-    public int deleteTGoodsInfoByIds(Long[] ids) {
-        return tGoodsInfoMapper.deleteTGoodsInfoByIds(ids);
+    public int deleteGoodsInfoByIds(Long[] ids)
+    {
+        return goodsInfoMapper.deleteGoodsInfoByIds(ids);
     }
 
     /**
      * 删除商品信息信息
-     *
+     * 
      * @param id 商品信息主键
      * @return 结果
      */
     @Override
-    public int deleteTGoodsInfoById(Long id) {
-        return tGoodsInfoMapper.deleteTGoodsInfoById(id);
+    public int deleteGoodsInfoById(Long id)
+    {
+        return goodsInfoMapper.deleteGoodsInfoById(id);
     }
 }

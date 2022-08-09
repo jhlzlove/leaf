@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="统一信用码" prop="supplierCode">
+      <el-form-item label="社会统一信用码" prop="supplierCode">
         <el-input
           v-model="queryParams.supplierCode"
-          placeholder="统一信用码"
+          placeholder="请输入供应商社会统一信用码"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -19,10 +19,11 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="联系人" prop="linkMan">
+      
+      <el-form-item label="责任人" prop="supplierLeader">
         <el-input
-          v-model="queryParams.linkMan"
-          placeholder="请输入联系人"
+          v-model="queryParams.supplierLeader"
+          placeholder="请输入法定责任人"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
@@ -83,14 +84,14 @@
     <el-table v-loading="loading" :data="supplierList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" prop="id" />
-      <el-table-column label="统一信用码" align="center" prop="supplierCode" />
-      <el-table-column label="供应商名称" align="center" prop="supplierName" />
+      <el-table-column label="社会统一信用码" align="center" prop="supplierCode" />
+      <el-table-column label="企业名称" align="center" prop="supplierName" />
       <el-table-column label="地址" align="center" prop="supplierAddress" />
       <el-table-column label="联系人" align="center" prop="linkMan" />
       <el-table-column label="联系方式" align="center" prop="supplierMobile" />
-      <el-table-column label="经营执照" align="center" prop="supplierLicenseFont" />
-      <el-table-column label="经营执照" align="center" prop="supplierLicenseBack" />
-      <el-table-column label="公司老板" align="center" prop="supplierLeader" />
+      <el-table-column label="经营执照（前）" align="center" prop="supplierLicenseFont" />
+      <el-table-column label="经营执照（后）" align="center" prop="supplierLicenseBack" />
+      <el-table-column label="法定责任人" align="center" prop="supplierLeader" />
       <el-table-column label="联系方式" align="center" prop="leaderPhone" />
       <el-table-column label="上市日期" align="center" prop="listingDate" />
       <el-table-column label="供应/合作状态" align="center" prop="status" />
@@ -123,10 +124,10 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改供货商信息对话框 -->
+    <!-- 添加或修改供应商信息表对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="统一信用码" prop="supplierCode">
+        <el-form-item label="供应商社会统一信用码" prop="supplierCode">
           <el-input v-model="form.supplierCode" placeholder="请输入供应商社会统一信用码" />
         </el-form-item>
         <el-form-item label="供应商名称" prop="supplierName">
@@ -155,6 +156,9 @@
         </el-form-item>
         <el-form-item label="上市日期" prop="listingDate">
           <el-input v-model="form.listingDate" placeholder="请输入上市日期" />
+        </el-form-item>
+        <el-form-item label="删除标志" prop="delFlag">
+          <el-input v-model="form.delFlag" placeholder="请输入删除标志" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
@@ -187,7 +191,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 供货商信息表格数据
+      // 供应商信息表表格数据
       supplierList: [],
       // 弹出层标题
       title: "",
@@ -201,6 +205,13 @@ export default {
         supplierName: null,
         supplierAddress: null,
         linkMan: null,
+        supplierMobile: null,
+        supplierLicenseFont: null,
+        supplierLicenseBack: null,
+        supplierLeader: null,
+        leaderPhone: null,
+        listingDate: null,
+        status: null,
       },
       // 表单参数
       form: {},
@@ -216,7 +227,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询供货商信息列表 */
+    /** 查询供应商信息表列表 */
     getList() {
       this.loading = true;
       listSupplier(this.queryParams).then(response => {
@@ -274,7 +285,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加供货商信息";
+      this.title = "添加供应商信息表";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -283,7 +294,7 @@ export default {
       getSupplier(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改供货商信息";
+        this.title = "修改供应商信息表";
       });
     },
     /** 提交按钮 */
@@ -309,7 +320,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除供货商信息编号为"' + ids + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除供应商信息表编号为"' + ids + '"的数据项？').then(function() {
         return delSupplier(ids);
       }).then(() => {
         this.getList();
