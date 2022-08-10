@@ -73,4 +73,12 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByUserName" resultType="com.market.example.domain.SysUser">
+    select * from sys_user
+    <where>
+      <if test="username != null and username != ''">
+        user_name = #{username}
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -4,10 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.market.example.interceptor.CustomerInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDateTime;
@@ -15,8 +19,36 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 // 这是一个webmvc的配置类
-// @Configuration
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new CustomerInterceptor())
+                .excludePathPatterns(
+                "/register",
+                "/doc.html",
+                "/swagger**/**",
+                "/webjars/**",
+                "/v3/**");
+    }
+
+    /**
+     * 跨域访问（CORS）
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowCredentials(false)
+                // 所有头
+                .allowedHeaders("/**")
+                // 所有源
+                .allowedOrigins("/**")
+                // 所有方法
+                .allowedMethods("/**")
+                .maxAge(5000);
+    }
+
     @Bean
     public ObjectMapper serializingObjectMapper() {
         JavaTimeModule module = new JavaTimeModule();

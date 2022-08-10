@@ -32,6 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        SysUser sysUser = userMapper.selectByUserName(username);
         return null;
     }
 

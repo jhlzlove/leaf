@@ -23,7 +23,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetails(){
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.builder().username("jhlz").password("{noop}clf").authorities("admin").build());
+        manager.createUser(User.builder().username("jhlz").password("{noop}root").authorities("admin").build());
         return manager;
     }
 
@@ -38,8 +38,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable().formLogin().and()
                 .authorizeRequests(authorize -> {
-                    // hello 允许所有用户访问
-                    authorize.antMatchers("/hello", "/register").anonymous()
+                    // 允许匿名用户访问
+                    authorize.antMatchers("/hello", "/register",
+                                    "/doc.html",
+                                    "/swagger**/**",
+                                    "/webjars/**",
+                                    "/v3/**")
+                            .anonymous()
                             // 除上面以外的所有接口都需要认证
                             .anyRequest().authenticated();
                 }).userDetailsService(userDetails()).build();
