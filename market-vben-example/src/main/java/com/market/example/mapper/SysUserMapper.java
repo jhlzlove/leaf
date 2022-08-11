@@ -1,7 +1,11 @@
-package com.market.example.mapper;
+package generate;
 
-import com.market.example.domain.SysUser;
-import org.apache.ibatis.annotations.Param;
+import generate.SysUser;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -15,6 +19,4 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
-
-    SysUser selectByUserName(@Param("username") String username);
 }

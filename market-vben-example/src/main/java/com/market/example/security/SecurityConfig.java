@@ -2,14 +2,13 @@ package com.market.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * @author clf
@@ -21,22 +20,29 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     @Bean
-    public UserDetailsService userDetails(){
+    public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.builder().username("jhlz").password("{noop}root").authorities("admin").build());
         return manager;
     }
+User
+    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService());
+    }
 
     /**
+     * Security 5.7 Spring Boot Security 2.7 之后新的写法
+     * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
      * anonymous | 只允许匿名访问（未登录用户）
      * permitAll | 允许所有用户访问
+     *
      * @param http
      * @return
      * @throws Exception
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable().formLogin().and()
+        http.csrf().disable().formLogin().and()
                 .authorizeRequests(authorize -> {
                     // 允许匿名用户访问
                     authorize.antMatchers("/hello", "/register",
@@ -47,16 +53,17 @@ public class SecurityConfig {
                             .anonymous()
                             // 除上面以外的所有接口都需要认证
                             .anyRequest().authenticated();
-                }).userDetailsService(userDetails()).build();
+                });
+        return http.build();
     }
 
     /**
-     * 配置跨源访问(CORS)
+     * 等同于 WebSecurityConfigurerAdapter#configure(WebSecurity web)
+     *
+     * @return
      */
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/ignore1", "/ignore2");
     }
 }
