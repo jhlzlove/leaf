@@ -8,4 +8,5 @@ package com.market.example.constant;
 public class GlobalConstant {
     // 版本号
     public static final String APP_VERSION = "v0.1";
+
 }
