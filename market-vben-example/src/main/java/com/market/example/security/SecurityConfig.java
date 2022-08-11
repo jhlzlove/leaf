@@ -1,13 +1,11 @@
-package com.market.example.config;
+package com.market.example.security;
 
+import com.market.example.service.impl.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -19,16 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.builder().username("jhlz").password("{noop}root").authorities("admin").build());
-        return manager;
-    }
-User
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService());
-    }
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
 
     /**
      * Security 5.7 Spring Boot Security 2.7 之后新的写法
@@ -53,7 +43,9 @@ User
                             .anonymous()
                             // 除上面以外的所有接口都需要认证
                             .anyRequest().authenticated();
-                });
+                })
+                // 设置自定义认证数据源
+                .userDetailsService(userDetailService);
         return http.build();
     }
 
