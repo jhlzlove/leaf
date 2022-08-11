@@ -35,7 +35,7 @@ public class SecurityConfig {
         http.csrf().disable().formLogin().and()
                 .authorizeRequests(authorize -> {
                     // 允许匿名用户访问
-                    authorize.antMatchers("/hello", "/register",
+                    authorize.antMatchers("/hello", "/register", "/login", "/get/**",
                                     "/doc.html",
                                     "/swagger**/**",
                                     "/webjars/**",

@@ -35,7 +35,10 @@ server:
   port: 8080
 mybatis:
   # 实体类目录
-  type-aliases-package: com/market/example/domain
+  type-aliases-package: com.market.example.domain
   # mapper 文件
   mapper-locations: com/market/example/mapper/xml/*xml
-
+# 日志
+logging:
+  level:
+    com.market.example.mapper: debug

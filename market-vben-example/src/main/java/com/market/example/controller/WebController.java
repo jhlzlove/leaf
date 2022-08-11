@@ -5,12 +5,10 @@ import com.market.example.service.impl.UserDetailServiceImpl;
 import com.market.example.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author clf
@@ -26,15 +24,20 @@ public class WebController {
 
     @PostMapping("register")
     @ApiOperation(value = "注册接口")
-    public Response register(@ApiParam(value = "user") SysUser user) {
+    public Response register(SysUser user) {
         userDetailService.register(user);
         return Response.success("注册成功");
     }
 
-    @PostMapping("login")
+    @GetMapping("login")
     @ApiOperation(value = "登录接口")
-    public Response login(@ApiParam(value = "user") SysUser user) {
-        userDetailService.loadUserByUsername(user.getUserName());
+    public Response login(@RequestBody SysUser user) {
         return Response.success();
+    }
+
+    @GetMapping("get/{name}")
+    @ApiOperation(value = "查询用户")
+    public Response getByUserName(@PathVariable("name") String username) {
+        return Response.success(userDetailService.loadUserByUsername(username));
     }
 }

@@ -1,11 +1,6 @@
-package generate;
+package com.market.example.mapper;
 
-import generate.SysUser;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import org.hibernate.validator.constraints.NotEmpty;
+import com.market.example.domain.SysUser;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -19,4 +14,6 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    SysUser loadByUserName(String username);
 }

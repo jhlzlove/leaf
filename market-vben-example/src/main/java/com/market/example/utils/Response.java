@@ -9,13 +9,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @desc: Response：简单返回结果
  */
 public class Response {
-    /** code **/
+    /**
+     * code
+     **/
     private String code;
 
-    /** 返回数据 **/
+    /**
+     * 返回数据
+     **/
     private Object data;
 
-    /** 描述信息 **/
+    /**
+     * 描述信息
+     **/
     private String desc;
 
     public Response() {
@@ -30,12 +36,14 @@ public class Response {
     public static Response success(String code, Object data, String desc) {
         return new Response(code, data, desc);
     }
+
     /**
      * 成功
      */
     public static Response success(Object data) {
-        return success("200", data, null);
+        return success("200", data, "操作成功");
     }
+
     public static Response success(String message) {
         return success("200", null, message);
     }
