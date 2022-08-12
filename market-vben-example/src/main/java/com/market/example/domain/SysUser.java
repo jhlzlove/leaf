@@ -2,12 +2,9 @@ package com.market.example.domain;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 /**
  * sys_user
@@ -15,7 +12,7 @@ import java.util.Collection;
  * @author
  */
 @Data
-public class SysUser implements UserDetails, Serializable {
+public class SysUser implements Serializable {
     private Integer id;
 
     private String userName;
@@ -43,35 +40,4 @@ public class SysUser implements UserDetails, Serializable {
         sb.append("]");
         return sb.toString();
     }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userName;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
 }

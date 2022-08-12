@@ -18,7 +18,7 @@
         from sys_user
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="loadByUserName" resultType="com.market.example.domain.SysUser">
+    <select id="loadByUserName" resultMap="BaseResultMap" resultType="com.market.example.domain.SysUser">
         select *
         from sys_user
         where user_name = #{username}

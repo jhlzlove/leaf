@@ -3,6 +3,7 @@ package com.market.example.service.impl;
 import com.market.example.domain.SysUser;
 import com.market.example.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,7 +40,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
         }
         // 2. TODO 权限信息
         // List<SysRole> roles = userMapper.getRolesByUid(sysUser.getId());
-        return sysUser;
+        return User.builder().username(sysUser.getUserName())
+                .password(sysUser.getPassword())
+                .authorities("admin")
+                .build();
     }
 
     @Transactional(rollbackFor = Exception.class)
