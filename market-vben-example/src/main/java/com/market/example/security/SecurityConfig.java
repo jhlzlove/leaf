@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -58,13 +59,13 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     authorize
                             // 允许匿名用户访问
-                            .antMatchers("/hello",
+                            .antMatchers("/user/login",
                                     "/doc.html",
                                     "/swagger**/**",
                                     "/webjars/**",
                                     "/v3/**").anonymous()
-                            // 完全放开接口
-                            .antMatchers("/nonauth/**")
+                            // 开放api
+                            .antMatchers("/api/**")
                             .permitAll()
                             // 除上面以外的所有接口都需要认证
                             .anyRequest().authenticated();
@@ -79,10 +80,10 @@ public class SecurityConfig {
     /**
      * 密码加密实现
      */
-    // @Bean
-    // public BCryptPasswordEncoder bCryptPasswordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     /**
      * 配置跨源访问(CORS)

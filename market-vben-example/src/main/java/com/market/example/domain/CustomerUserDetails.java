@@ -28,6 +28,14 @@ public class CustomerUserDetails implements UserDetails {
 
     private List<SysRole> roles = new ArrayList<>();
 
+    public SysUser getUser() {
+        return user;
+    }
+
+    public void setUser(SysUser user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();

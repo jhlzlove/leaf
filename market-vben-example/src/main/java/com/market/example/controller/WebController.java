@@ -2,7 +2,7 @@ package com.market.example.controller;
 
 import com.market.example.domain.SysUser;
 import com.market.example.service.impl.UserDetailServiceImpl;
-import com.market.example.utils.Response;
+import com.market.example.utils.ResResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Api(value = "Web")
-@RequestMapping("/nonauth")
+@RequestMapping("/api")
 public class WebController {
     @Autowired
     private UserDetailServiceImpl userDetailService;
@@ -25,15 +25,15 @@ public class WebController {
 
     @PostMapping("register")
     @ApiOperation(value = "注册接口", notes = "添加新用户")
-    public Response register(SysUser user) {
+    public ResResult register(SysUser user) {
         userDetailService.register(user);
-        return Response.success("注册成功");
+        return ResResult.success("注册成功");
     }
 
     @GetMapping("get/{name}")
     @ApiOperation(value = "查询用户", notes = "查询用户信息")
-    public Response getByUserName(@PathVariable("name") String username) {
-        return Response.success(userDetailService.loadUserByUsername(username));
+    public ResResult getByUserName(@PathVariable("name") String username) {
+        return ResResult.success(userDetailService.loadUserByUsername(username));
     }
 
     /**
@@ -44,8 +44,8 @@ public class WebController {
      */
     @PutMapping("update/{name}")
     @ApiOperation(value = "查询用户", notes = "更新用户信息")
-    public Response updateByUserName(@PathVariable("name") String username) {
-        return Response.success(userDetailService.loadUserByUsername(username));
+    public ResResult updateByUserName(@PathVariable("name") String username) {
+        return ResResult.success(userDetailService.loadUserByUsername(username));
     }
 
     /**
@@ -56,7 +56,7 @@ public class WebController {
      */
     @DeleteMapping("delete/{name}")
     @ApiOperation(value = "查询用户", notes = "删除用户信息")
-    public Response deleteByUserName(@PathVariable("name") String username) {
-        return Response.success(userDetailService.loadUserByUsername(username));
+    public ResResult deleteByUserName(@PathVariable("name") String username) {
+        return ResResult.success(userDetailService.loadUserByUsername(username));
     }
 }
