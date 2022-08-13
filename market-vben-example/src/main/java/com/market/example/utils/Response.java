@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author clf
  * @time 2022/8/10 14:52
- * @desc: Response：简单返回结果
+ * @desc: Response：返回结果集
  */
 public class Response {
     /**

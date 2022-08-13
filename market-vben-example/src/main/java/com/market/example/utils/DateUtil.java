@@ -35,10 +35,10 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转为 LocalDate 自定义默认格式
+     * 字符串转为 LocalDateTime 自定义默认格式
      *
      * @param date 字符串日期
-     * @return
+     * @return LocalDateTime
      */
     public static LocalDateTime defaultString2LocalDateTime(String date) {
         return string2LocalDateTime(date, DATE_TIME_PATTERN);
@@ -48,7 +48,7 @@ public class DateUtil {
      * LocalDateTime 转为字符串默认格式
      *
      * @param date LocalDateTime 日期
-     * @return
+     * @return 字符串日期
      */
     public static String defaultLocalDateTime2String(LocalDateTime date) {
         return localDateTime2String(date, DATE_TIME_PATTERN);
@@ -59,7 +59,7 @@ public class DateUtil {
      *
      * @param date    字符串日期
      * @param pattern 格式
-     * @return
+     * @return LocalDate
      */
     public static LocalDate string2LocalDate(String date, String pattern) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern));

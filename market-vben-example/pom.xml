@@ -54,6 +54,12 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.11</version>
         </dependency>
+        <!-- Google 验证码 -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
 
         <!-- lombok -->
         <dependency>

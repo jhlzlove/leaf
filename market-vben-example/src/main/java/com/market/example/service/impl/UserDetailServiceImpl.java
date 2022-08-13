@@ -1,10 +1,11 @@
 package com.market.example.service.impl;
 
+import com.market.example.domain.CustomerUserDetails;
 import com.market.example.domain.SysUser;
 import com.market.example.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import org.springframework.util.ObjectUtils;
  * @desc: UserDetailsServiceImpl
  */
 @Service
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPasswordService {
 
     private final SysUserMapper userMapper;
 
@@ -39,15 +40,29 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在哦，请检查输入是否正确");
         }
         // 2. TODO 权限信息
-        // List<SysRole> roles = userMapper.getRolesByUid(sysUser.getId());
-        return User.builder().username(sysUser.getUserName())
-                .password(sysUser.getPassword())
-                .authorities("admin")
-                .build();
+
+        return new CustomerUserDetails(sysUser);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void register(SysUser user) {
         userMapper.insertSelective(user);
+    }
+
+    /**
+     * 默认使用相对安全的密码加密 DelegatingPasswordEncoder
+     *
+     * @param user        the user to modify the password for
+     * @param newPassword the password to change to, encoded by the configured
+     *                    {@code PasswordEncoder}
+     * @return
+     */
+    @Override
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        Integer result = userMapper.updatePassword(user.getUsername(), newPassword);
+        if (result == 1) {
+            ((SysUser) user).setPassword(newPassword);
+        }
+        return user;
     }
 }

@@ -1,4 +1,4 @@
-package com.market.marketvbenexample;
+package com.market.example;
 
 /**
  * @author clf
