@@ -1,4 +1,4 @@
-package com.market.example.security;
+package com.market.example.config.security;
 
 import com.market.example.service.impl.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // @EnableGlobalMethodSecurity(prePostEnabled = true)    // 启用方法级别的权限认证
 public class SecurityConfig {
 
+    private final UserDetailServiceImpl userDetailService;
+
     @Autowired
-    private UserDetailServiceImpl userDetailService;
+    public SecurityConfig(UserDetailServiceImpl userDetailService) {
+        this.userDetailService = userDetailService;
+    }
 
     /**
      * 暴露AuthenticationManager（认证管理器），登录时认证使用
