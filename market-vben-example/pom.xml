@@ -56,9 +56,9 @@
         </dependency>
         <!-- Google 验证码 -->
         <dependency>
-            <groupId>com.github.penggle</groupId>
+            <groupId>com.oopsguy.kaptcha</groupId>
             <artifactId>kaptcha</artifactId>
-            <version>2.3.2</version>
+            <version>1.0.0-beta-2</version>
         </dependency>
 
         <!-- lombok -->
