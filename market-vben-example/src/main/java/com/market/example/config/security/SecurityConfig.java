@@ -30,7 +30,7 @@ public class SecurityConfig {
     private UserDetailServiceImpl userDetailService;
 
     /**
-     * 获取AuthenticationManager（认证管理器），登录时认证使用
+     * 暴露AuthenticationManager（认证管理器），登录时认证使用
      *
      * @param authenticationConfiguration
      * @return
