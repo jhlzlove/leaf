@@ -15,22 +15,22 @@ public class DateUtil {
     private static final String TIME_PATTERN = "HH:mm:ss";
 
     /**
-     * 字符串转为 LocalDate 默认格式
+     * yyyy-MM-dd 格式日期字符串转为 LocalDate
      *
      * @param date 字符串日期
-     * @return
+     * @return LocalDate
      */
-    public static LocalDate defaultString2LocalDate(String date) {
+    public static LocalDate string2LocalDate(String date) {
         return string2LocalDate(date, DATE_PATTERN);
     }
 
     /**
-     * LocalDate 转为字符串默认格式
+     * LocalDate 转为指定格式的字符串
      *
      * @param date LocalDate 日期
-     * @return
+     * @return yyyy-MM-dd 格式的日期
      */
-    public static String defaultLocalDate2String(LocalDate date) {
+    public static String localDate2String(LocalDate date) {
         return localDate2String(date, DATE_PATTERN);
     }
 
@@ -77,10 +77,10 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转为 LocalDateTime
+     * 指定格式的字符串转为 LocalDateTime
      *
      * @param date    字符串日期
-     * @param pattern 格式
+     * @param pattern 字符串日期格式
      * @return
      */
     public static LocalDateTime string2LocalDateTime(String date, String pattern) {
@@ -88,7 +88,7 @@ public class DateUtil {
     }
 
     /**
-     * LocalDateTime 转为字符串
+     * LocalDateTime 格式化为指定格式的字符串
      *
      * @param date    LocalDateTime 日期
      * @param pattern 格式
