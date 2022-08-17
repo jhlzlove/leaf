@@ -1,4 +1,4 @@
-package com.market.example.domain;
+package com.example.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

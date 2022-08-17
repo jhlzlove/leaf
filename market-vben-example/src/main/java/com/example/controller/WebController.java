@@ -1,8 +1,8 @@
-package com.market.example.controller;
+package com.example.controller;
 
-import com.market.example.domain.SysUser;
-import com.market.example.service.impl.UserDetailServiceImpl;
-import com.market.example.utils.ResResult;
+import com.example.common.utils.ResResult;
+import com.example.domain.SysUser;
+import com.example.service.impl.UserDetailServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "Web")
 @RequestMapping("/api")
 public class WebController {
+
     @Autowired
     private UserDetailServiceImpl userDetailService;
+
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 
     @PostMapping("register")

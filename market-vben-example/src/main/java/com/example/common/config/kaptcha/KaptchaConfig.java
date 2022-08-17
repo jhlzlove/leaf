@@ -1,4 +1,4 @@
-package com.market.example.common.config.kaptcha;
+package com.example.common.config.kaptcha;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;

@@ -1,11 +1,12 @@
-package com.market.example.domain;
+package com.example.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * sys_user
- * @author 
+ *
+ * @author
  */
 public class SysUser implements Serializable {
     private Long id;
@@ -14,11 +15,6 @@ public class SysUser implements Serializable {
      * 用户名
      */
     private String userName;
-
-    /**
-     * 昵称
-     */
-    private String nickName;
 
     /**
      * 密码
@@ -31,9 +27,9 @@ public class SysUser implements Serializable {
     private Boolean delFlag;
 
     /**
-     * 账号
+     * 昵称
      */
-    private String loginUser;
+    private String nickName;
 
     /**
      * 头像
@@ -88,14 +84,6 @@ public class SysUser implements Serializable {
         this.userName = userName;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -112,12 +100,12 @@ public class SysUser implements Serializable {
         this.delFlag = delFlag;
     }
 
-    public String getLoginUser() {
-        return loginUser;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setLoginUser(String loginUser) {
-        this.loginUser = loginUser;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getAvatar() {

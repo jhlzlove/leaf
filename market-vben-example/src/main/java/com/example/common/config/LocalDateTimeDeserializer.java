@@ -1,4 +1,4 @@
-package com.market.example.common.config;
+package com.example.common.config;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonParser;

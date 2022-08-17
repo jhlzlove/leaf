@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.market.example.mapper.SysRoleMapper">
-    <resultMap id="BaseResultMap" type="com.market.example.domain.SysRole">
+<mapper namespace="com.example.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.example.domain.SysRole">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="role_key" jdbcType="VARCHAR" property="roleKey"/>
@@ -30,16 +30,16 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.market.example.domain.SysRole"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.domain.SysRole"
             useGeneratedKeys="true">
         insert into sys_role (`name`, role_key, del_flag,
-                              create_time, create_by, update_by,
-                              update_time, remark)
+        create_time, create_by, update_by,
+        update_time, remark)
         values (#{name,jdbcType=VARCHAR}, #{roleKey,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT},
-                #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
-                #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+        #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.market.example.domain.SysRole"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.domain.SysRole"
             useGeneratedKeys="true">
         insert into sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -96,7 +96,7 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.market.example.domain.SysRole">
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.domain.SysRole">
         update sys_role
         <set>
             <if test="name != null">
@@ -126,16 +126,16 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.market.example.domain.SysRole">
+    <update id="updateByPrimaryKey" parameterType="com.example.domain.SysRole">
         update sys_role
-        set `name`      = #{name,jdbcType=VARCHAR},
-            role_key    = #{roleKey,jdbcType=VARCHAR},
-            del_flag    = #{delFlag,jdbcType=BIT},
-            create_time = #{createTime,jdbcType=TIMESTAMP},
-            create_by   = #{createBy,jdbcType=VARCHAR},
-            update_by   = #{updateBy,jdbcType=VARCHAR},
-            update_time = #{updateTime,jdbcType=TIMESTAMP},
-            remark      = #{remark,jdbcType=VARCHAR}
+        set `name` = #{name,jdbcType=VARCHAR},
+        role_key = #{roleKey,jdbcType=VARCHAR},
+        del_flag = #{delFlag,jdbcType=BIT},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_by = #{createBy,jdbcType=VARCHAR},
+        update_by = #{updateBy,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        remark = #{remark,jdbcType=VARCHAR}
         where id = #{id,jdbcType=BIGINT}
     </update>
 </mapper>

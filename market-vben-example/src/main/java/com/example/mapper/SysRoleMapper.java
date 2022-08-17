@@ -1,6 +1,6 @@
-package com.market.example.mapper;
+package com.example.mapper;
 
-import com.market.example.domain.SysRole;
+import com.example.domain.SysRole;
 
 public interface SysRoleMapper {
 

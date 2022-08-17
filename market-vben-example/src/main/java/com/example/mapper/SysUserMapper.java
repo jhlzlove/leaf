@@ -1,6 +1,7 @@
-package com.market.example.mapper;
+package com.example.mapper;
 
-import com.market.example.domain.SysUser;
+import com.example.domain.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 public interface SysUserMapper {
 
@@ -16,4 +17,9 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    SysUser loadByUserName(String username);
+
+    Integer updatePassword(@Param("username") String username,
+                           @Param("newPassword") String newPassword);
 }

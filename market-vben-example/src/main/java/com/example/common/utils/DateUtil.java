@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.example.common.utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,16 +57,16 @@ public class DateUtil {
     /**
      * 字符串转为 LocalDate
      *
-     * @param date    字符串日期
-     * @param pattern 格式
+     * @param dateStr 字符串日期
+     * @param pattern 字符串日期格式
      * @return LocalDate
      */
-    public static LocalDate string2LocalDate(String date, String pattern) {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern));
+    public static LocalDate string2LocalDate(String dateStr, String pattern) {
+        return LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(pattern));
     }
 
     /**
-     * LocalDate 转为字符串
+     * LocalDate 转为指定格式的字符串
      *
      * @param date    LocalDate 日期
      * @param pattern 格式
@@ -96,5 +96,10 @@ public class DateUtil {
      */
     public static String localDateTime2String(LocalDateTime date, String pattern) {
         return date.format(DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static void main(String[] args) {
+        // System.out.println(string2LocalDate("2022/10/1 15:30", "yyyy-MM-dd"));
+        System.out.println(localDate2String(LocalDate.now(), "yyyy-MM-dd"));
     }
 }

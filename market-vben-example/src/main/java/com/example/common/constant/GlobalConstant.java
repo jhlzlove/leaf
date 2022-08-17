@@ -1,4 +1,4 @@
-package com.market.example.common.constant;
+package com.example.common.constant;
 
 /**
  * @author clf

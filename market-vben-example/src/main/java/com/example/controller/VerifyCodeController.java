@@ -1,4 +1,4 @@
-package com.market.example.controller;
+package com.example.controller;
 
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,8 @@ import java.util.Base64;
  */
 @RestController
 public class VerifyCodeController {
-    private final Producer producer;
-
     @Autowired
-    public VerifyCodeController(Producer producer) {
-        this.producer = producer;
-    }
+    private Producer producer;
 
     /**
      * 生成验证码

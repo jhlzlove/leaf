@@ -1,7 +1,5 @@
-package com.market.example.common.filter;
+package com.example.common.filter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,13 +17,6 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-
-    private final RedisTemplate redisTemplate;
-
-    @Autowired
-    public JwtAuthenticationTokenFilter(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.example.common.utils;
 
 import com.example.common.constant.RequestEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;

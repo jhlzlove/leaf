@@ -1,7 +1,7 @@
-package com.market.example.common.config.security;
+package com.example.common.config.security;
 
-import com.market.example.common.filter.JwtAuthenticationTokenFilter;
-import com.market.example.service.impl.UserDetailServiceImpl;
+import com.example.common.filter.JwtAuthenticationTokenFilter;
+import com.example.service.impl.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,10 +30,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // 启用方法级别的权限认证
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
-    private final UserDetailServiceImpl userDetailService;
-
-    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     /**
      * 暴露AuthenticationManager（认证管理器），登录时认证使用
@@ -102,17 +102,5 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
-    }
-
-    /**
-     * 构造注入
-     *
-     * @param userDetailService
-     * @param jwtAuthenticationTokenFilter
-     */
-    @Autowired
-    public SecurityConfig(UserDetailServiceImpl userDetailService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
-        this.userDetailService = userDetailService;
     }
 }

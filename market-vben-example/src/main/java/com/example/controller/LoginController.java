@@ -1,12 +1,11 @@
-package com.market.example.controller;
+package com.example.controller;
 
-import com.market.example.domain.LoginUser;
-import com.market.example.domain.SysUser;
-import com.market.example.service.LoginService;
-import com.market.example.utils.ResResult;
+import com.example.common.utils.ResResult;
+import com.example.domain.LoginUser;
+import com.example.domain.SysUser;
+import com.example.service.LoginService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class LoginController {
-
-    private final LoginService loginService;
-    private final RedisTemplate redisTemplate;
+    @Autowired
+    private LoginService loginService;
 
     @PostMapping("login")
     @ApiOperation(value = "登录接口")
@@ -42,14 +40,7 @@ public class LoginController {
         LoginUser user = (LoginUser) authentication.getPrincipal();
         // 获取 userId
         Long userId = user.getUser().getId();
-        // 删除Redis信息
-        redisTemplate.delete(userId);
         return ResResult.success();
     }
 
-    @Autowired
-    public LoginController(LoginService loginService, RedisTemplate redisTemplate) {
-        this.loginService = loginService;
-        this.redisTemplate = redisTemplate;
-    }
 }

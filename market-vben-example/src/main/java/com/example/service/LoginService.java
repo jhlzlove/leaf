@@ -1,7 +1,7 @@
-package com.market.example.service;
+package com.example.service;
 
-import com.market.example.domain.SysUser;
-import com.market.example.utils.ResResult;
+import com.example.common.utils.ResResult;
+import com.example.domain.SysUser;
 
 /**
  * @author clf
@@ -9,6 +9,5 @@ import com.market.example.utils.ResResult;
  * @desc: LoginService
  */
 public interface LoginService {
-
     ResResult login(SysUser user);
 }

@@ -1,11 +1,12 @@
-package com.market.example.domain;
+package com.example.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * sys_role
- * @author 
+ *
+ * @author
  */
 public class SysRole implements Serializable {
     /**

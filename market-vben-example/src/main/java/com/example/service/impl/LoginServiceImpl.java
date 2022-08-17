@@ -1,9 +1,9 @@
-package com.market.example.service.impl;
+package com.example.service.impl;
 
-import com.market.example.domain.LoginUser;
-import com.market.example.domain.SysUser;
-import com.market.example.service.LoginService;
-import com.market.example.utils.ResResult;
+import com.example.common.utils.ResResult;
+import com.example.domain.LoginUser;
+import com.example.domain.SysUser;
+import com.example.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,12 +19,8 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private final AuthenticationManager manager;
-
     @Autowired
-    public LoginServiceImpl(AuthenticationManager manager) {
-        this.manager = manager;
-    }
+    private AuthenticationManager manager;
 
     @Override
     public ResResult login(SysUser user) {

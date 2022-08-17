@@ -1,8 +1,8 @@
-package com.market.example.service.impl;
+package com.example.service.impl;
 
-import com.market.example.domain.LoginUser;
-import com.market.example.domain.SysUser;
-import com.market.example.mapper.SysUserMapper;
+import com.example.domain.LoginUser;
+import com.example.domain.SysUser;
+import com.example.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
@@ -20,12 +20,8 @@ import org.springframework.util.ObjectUtils;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPasswordService {
 
-    private final SysUserMapper userMapper;
-
     @Autowired
-    public UserDetailServiceImpl(SysUserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    private SysUserMapper userMapper;
 
     /**
      * @param username

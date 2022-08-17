@@ -1,5 +1,6 @@
-package com.market.example.common.config;
+package com.example.common.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -31,7 +32,9 @@ public class SwaggerConfig {
                 .groupName("jhlz")
                 .select()
                 // 扫描指定目录的所有接口
-                .apis(RequestHandlerSelectors.basePackage("com.market.example.controller"))
+                // .apis(RequestHandlerSelectors.basePackage("com.example.controller"))
+                // 扫描指定注解
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.ant("/**"))
                 .build();
     }

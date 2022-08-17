@@ -1,4 +1,4 @@
-package com.market.example.common.handle;
+package com.example.common.handle;
 
 import org.springframework.stereotype.Component;
 

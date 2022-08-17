@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.example.common.utils;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;

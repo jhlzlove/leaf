@@ -1,4 +1,4 @@
-package com.market.example.common.constant;
+package com.example.common.constant;
 
 /**
  * 请求代码和消息的简单枚举类
