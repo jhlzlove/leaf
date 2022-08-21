@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author clf
  * @time 2022/8/10 15:19
- * @desc: DateUtil
+ * @desc: DateUtil：Java8 新的日期API
  */
 public class DateUtil {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
@@ -55,7 +55,7 @@ public class DateUtil {
     }
 
     /**
-     * 字符串转为 LocalDate
+     * 字符串根据格式转为 LocalDate
      *
      * @param dateStr 字符串日期
      * @param pattern 字符串日期格式
@@ -70,18 +70,18 @@ public class DateUtil {
      *
      * @param date    LocalDate 日期
      * @param pattern 格式
-     * @return
+     * @return 字符串日期
      */
     public static String localDate2String(LocalDate date, String pattern) {
         return date.format(DateTimeFormatter.ofPattern(pattern));
     }
 
     /**
-     * 指定格式的字符串转为 LocalDateTime
+     * 字符串日期根据指定格式转为 LocalDateTime
      *
      * @param date    字符串日期
      * @param pattern 字符串日期格式
-     * @return
+     * @return LocalDateTime
      */
     public static LocalDateTime string2LocalDateTime(String date, String pattern) {
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern(pattern));
@@ -92,14 +92,9 @@ public class DateUtil {
      *
      * @param date    LocalDateTime 日期
      * @param pattern 格式
-     * @return
+     * @return 字符串日期
      */
     public static String localDateTime2String(LocalDateTime date, String pattern) {
         return date.format(DateTimeFormatter.ofPattern(pattern));
-    }
-
-    public static void main(String[] args) {
-        // System.out.println(string2LocalDate("2022/10/1 15:30", "yyyy-MM-dd"));
-        System.out.println(localDate2String(LocalDate.now(), "yyyy-MM-dd"));
     }
 }

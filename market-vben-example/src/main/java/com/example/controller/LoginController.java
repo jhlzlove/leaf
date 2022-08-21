@@ -4,6 +4,7 @@ import com.example.common.utils.ResResult;
 import com.example.domain.LoginUser;
 import com.example.domain.SysUser;
 import com.example.service.LoginService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @desc: LoginController
  */
 @RestController
+@Api(value = "LoginController", tags = "登录模块")
 @RequestMapping("user")
 public class LoginController {
     @Autowired

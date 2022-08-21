@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 public class MarketVbenExampleApplication {
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication.run(MarketVbenExampleApplication.class, args);
-        System.out.println("swagger 地址：http://" + IpUtil.getLocalUrl() + ":6666/swagger-ui/index.html");
+        System.out.println("swagger 地址：http://" + IpUtil.getLocalUrl() + ":7777/swagger-ui/index.html");
     }
 
 }

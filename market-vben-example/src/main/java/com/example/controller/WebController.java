@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @desc: WebController
  */
 @RestController
-@Api(value = "Web")
+@Api(value = "Web", tags = "开发Api测试")
 @RequestMapping("/api")
 public class WebController {
 

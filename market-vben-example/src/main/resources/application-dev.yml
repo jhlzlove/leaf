@@ -34,11 +34,6 @@ spring:
     port: 6379
     username:
     password:
-
-# 服务端口
-server:
-  port: 6666
-
 # Mybatis
 mybatis:
   # 实体类目录
@@ -49,5 +44,4 @@ mybatis:
 logging:
   level:
     com.market.example.mapper: debug
-
 # redis

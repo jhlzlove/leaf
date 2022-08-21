@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.google.code.kaptcha.Producer;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,8 @@ import java.util.Base64;
  * @time 2022/8/12 21:52
  * @desc: VerifyCodeController
  */
-@RestController
+@Api(value = "VerifyCodeController", tags = "验证码生成")
+@RestController("verify")
 public class VerifyCodeController {
     @Autowired
     private Producer producer;
