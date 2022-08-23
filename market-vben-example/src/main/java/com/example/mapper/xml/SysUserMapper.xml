@@ -34,6 +34,15 @@
         from sys_user
         where user_name = #{username}
     </select>
+    <select id="selectAllPermissions" resultType="java.lang.String">
+        select r.role_key
+        from sys_user u,
+             sys_role r,
+             sys_user_role ur
+        where u.user_name = #{username}
+          and u.id = ur.uid
+          and r.id = ur.rid
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from sys_user
@@ -179,10 +188,5 @@
             update_by   = #{updateBy,jdbcType=VARCHAR},
             remark      = #{remark,jdbcType=VARCHAR}
         where id = #{id,jdbcType=BIGINT}
-    </update>
-    <update id="updatePassword">
-        update sys_user
-        set password = #{newPassword}
-        where user_name = #{username}
     </update>
 </mapper>

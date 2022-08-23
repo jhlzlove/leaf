@@ -10,7 +10,7 @@ public class GlobalConstants {
     public static final String APP_VERSION = "v0.1";
 
     // jwt slat
-    public static final String JWT_SALT = "jhlz";
+    public static final String JWT_KEY = "jhlz";
 
     // login user key
     public static final String LOGIN_USER_KEY = "login_user_key";

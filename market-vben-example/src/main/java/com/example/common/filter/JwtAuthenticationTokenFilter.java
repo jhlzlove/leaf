@@ -1,6 +1,12 @@
 package com.example.common.filter;
 
+import com.example.common.constant.GlobalConstants;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,19 +22,19 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 1. 获取并解析 token
-       /* String token = request.getHeader("token");
-        if (ObjectUtils.isEmpty(token)) {
+        String token = request.getHeader("token");
+        if (!ObjectUtils.isEmpty(token)) {
             filterChain.doFilter(request, response);
             return;
-        }*/
-        // 2. 从redis中获取用户信息
-        // 3. 存入 SecurityContextHolder
-        // 放行请求
-        filterChain.doFilter(request, response);
+        }
+        Claims body = Jwts.parser().setSigningKey(GlobalConstants.JWT_KEY)
+                .parseClaimsJws(token).getBody();
+        logger.info("Parse Claims：{}", body.toString());
     }
 
 

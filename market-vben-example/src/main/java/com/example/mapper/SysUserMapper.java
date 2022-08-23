@@ -1,7 +1,8 @@
 package com.example.mapper;
 
 import com.example.domain.SysUser;
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysUserMapper {
 
@@ -20,6 +21,5 @@ public interface SysUserMapper {
 
     SysUser loadByUserName(String username);
 
-    Integer updatePassword(@Param("username") String username,
-                           @Param("newPassword") String newPassword);
+    List<String> selectAllPermissions(String username);
 }

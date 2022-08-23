@@ -1,8 +1,9 @@
 # Feature
 
 - Spring Security 支持密码自定义升级
-- 集成swagger3.0
+- 使用swagger3.0
 - MySQL数据库
+- 登录采用jwt
 
 # TODO
 

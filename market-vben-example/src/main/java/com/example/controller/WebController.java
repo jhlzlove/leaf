@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.domain.LoginUser;
 import com.example.domain.SysUser;
 import com.example.service.LoginService;
 import com.example.service.impl.UserDetailServiceImpl;
@@ -8,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +43,8 @@ public class WebController {
 
     @PostMapping("login")
     @ApiOperation(value = "login", tags = "用户登录")
-    public LoginUser login(@RequestBody SysUser user) {
-        LoginUser loginUser = loginService.login(user);
-        return loginUser;
+    public UserDetails login(@RequestBody SysUser user) {
+        UserDetails userDetails = userDetailService.loadUserByUsername(user.getUserName());
+        return userDetails;
     }
 }
