@@ -1,4 +1,4 @@
-package com.example.common.response;
+package com.example.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
