@@ -1,4 +1,4 @@
-package com.example.common.exception;
+package com.example.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Getter;
  * 返回状态的定义
  * 有新的返回状态类型时，应当明确其错误码的范围
  */
-public interface ResultStatus {
+public interface RespStatus {
 
 
     /**
@@ -15,7 +15,7 @@ public interface ResultStatus {
      */
     @Getter
     @AllArgsConstructor
-    enum Common implements ResultStatus {
+    enum Common implements RespStatus {
         SUCCESS(0, "成功"),
         ERROR_UNKNOWN(-1, "未知错误"),
         ERROR_SESSION_ERROR(-2, "因页面停留超时或账号发生变动，请重新登录。"),
@@ -35,34 +35,18 @@ public interface ResultStatus {
         NOT_FOUNT_BROWSER_UUID(-17, "浏览器唯一标识不能为空"),
         NOT_FOUNT_WECHAT_LIST(-18, "微信好友集合为空");;
 
-        private int retcode;
-        private String msg;
-    }
-
-    /**
-     * 鉴权的错误码，预留10001～10020
-     */
-    @Getter
-    @AllArgsConstructor
-    enum Auth implements ResultStatus {
-        ERROR_USER_NAME(10001, "用户名错误"),
-        ERROR_PASSWORD(10001, "密码错误"),
-        PARAMS_ERROR(10001, "用户名密码错误"),
-        ERROR_DECRYPT(10004, "解密失败"),
-
-        ;
-        private int retcode;
-        private String msg;
+        private int code;
+        private String message;
     }
 
 
     /**
      * 返回码
      */
-    int getRetcode();
+    int getCode();
 
     /**
      * 错误信息，返回码为0时，该值为空
      */
-    String getMsg();
+    String getMessage();
 }

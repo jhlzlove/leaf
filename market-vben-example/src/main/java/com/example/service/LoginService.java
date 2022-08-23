@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.common.utils.ResResult;
+import com.example.domain.LoginUser;
 import com.example.domain.SysUser;
 
 /**
@@ -9,5 +9,5 @@ import com.example.domain.SysUser;
  * @desc: LoginService
  */
 public interface LoginService {
-    ResResult login(SysUser user);
+    LoginUser login(SysUser user);
 }

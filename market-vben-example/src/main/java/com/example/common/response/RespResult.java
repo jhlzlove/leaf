@@ -1,4 +1,4 @@
-package com.example.common.handle;
+package com.example.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseResult<T> {
+public class RespResult {
     /**
      * 请求结果对象
      **/
-    private T data;
+    private Object data;
 
     /**
      * 请求结果的状态码

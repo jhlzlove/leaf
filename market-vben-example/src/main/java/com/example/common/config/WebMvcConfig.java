@@ -21,12 +21,6 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-   /* @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }*/
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CustomerInterceptor())
@@ -53,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins("/**")
                 // 所有方法
                 .allowedMethods("/**")
-                .maxAge(5000);
+                .maxAge(3600);
     }
 
     @Bean

@@ -1,7 +1,7 @@
-package com.example.common.handle;
+package com.example.common.exception;
 
-import com.example.common.exception.BizException;
-import com.example.common.exception.ResultStatus;
+import com.example.common.response.RespResult;
+import com.example.common.response.RespStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +30,13 @@ public class GlobalExceptionHandler {
      * @param e 业务异常
      * @return
      */
-    @ExceptionHandler(BizException.class)
-    public ResponseEntity<?> exceptionHandler(BizException e) {
+    @ExceptionHandler(CustomerException.class)
+    public ResponseEntity<?> exceptionHandler(CustomerException e) {
         HttpStatus status = HttpStatus.OK;
-        if (e.getStatus() == ResultStatus.Common.ERROR_SESSION_ERROR) {
+        if (e.getStatus() == RespStatus.Common.ERROR_SESSION_ERROR) {
             status = HttpStatus.OK;
         }
-        ResponseResult result = new ResponseResult(null, e.getStatus().getRetcode(), e.getStatus().getMsg(), null, null);
+        RespResult result = new RespResult(null, e.getStatus().getCode(), e.getStatus().getMessage(), null, null);
         log.error(e.getMessage(), e);
         return ResponseEntity.status(status).body(result);
     }
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<?> exceptionHandler(Throwable e) {
-        ResponseResult result;
+        RespResult result;
         if (e instanceof HttpClientErrorException) {
             result = handleHttpClientErrorException((HttpClientErrorException) e);
         }
@@ -60,9 +60,9 @@ public class GlobalExceptionHandler {
         } else if (e instanceof NoHandlerFoundException) {
             result = handleNoHandlerFoundException((NoHandlerFoundException) e);
         } else if (e instanceof HttpMessageConversionException) {
-            result = buildErrorResponse(ResultStatus.Common.ERROR_PARAM_NOT_VALID, null);
+            result = buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, null);
         } else {
-            result = buildErrorResponse(ResultStatus.Common.ERROR_UNKNOWN, null);
+            result = buildErrorResponse(RespStatus.Common.ERROR_UNKNOWN, null);
         }
 
         log.error(e.getMessage(), e);
@@ -76,22 +76,22 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    private ResponseResult handleHttpClientErrorException(HttpClientErrorException e) {
-        ResultStatus resultStatus;
+    private RespResult handleHttpClientErrorException(HttpClientErrorException e) {
+        RespStatus respStatus;
         switch (e.getStatusCode()) {
             case UNAUTHORIZED:
-                resultStatus = ResultStatus.Common.ERROR_SESSION_ERROR;
+                respStatus = com.example.common.response.RespStatus.Common.ERROR_SESSION_ERROR;
                 break;
             case FORBIDDEN:
-                resultStatus = ResultStatus.Common.ERROR_SESSION_ERROR;
+                respStatus = com.example.common.response.RespStatus.Common.ERROR_SESSION_ERROR;
                 break;
             case NOT_FOUND:
-                resultStatus = ResultStatus.Common.NOT_FOUND;
+                respStatus = com.example.common.response.RespStatus.Common.NOT_FOUND;
                 break;
             default:
-                resultStatus = ResultStatus.Common.ERROR_UNKNOWN;
+                respStatus = com.example.common.response.RespStatus.Common.ERROR_UNKNOWN;
         }
-        return buildErrorResponse(resultStatus, null);
+        return buildErrorResponse(respStatus, null);
     }
 
     /**
@@ -100,29 +100,29 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    private ResponseResult handleNoHandlerFoundException(NoHandlerFoundException e) {
-        return buildErrorResponse(ResultStatus.Common.NOT_FOUND, e.getMessage());
+    private RespResult handleNoHandlerFoundException(NoHandlerFoundException e) {
+        return buildErrorResponse(RespStatus.Common.NOT_FOUND, e.getMessage());
     }
 
     /**
      * @param e 普通方法参数验证失败时, 比如NotEmpty
      */
    /* private ResponseResult handleConstraintViolationException(ConstraintViolationException e) {
-        return buildErrorResponse(ResultStatus.Common.ERROR_PARAM_NOT_VALID, e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(" / ")));
+        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(" / ")));
     }*/
 
     /**
      * @param e @RequestBody验证失败
      */
-    private ResponseResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return buildErrorResponse(ResultStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
+    private RespResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
     }
 
     /**
      * @param e @Valid实体参数验证失败时
      */
-    private ResponseResult handleBindException(BindException e) {
-        return buildErrorResponse(ResultStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
+    private RespResult handleBindException(BindException e) {
+        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
     }
 
     /**
@@ -131,8 +131,8 @@ public class GlobalExceptionHandler {
      * @param status 状态码枚举
      * @return
      */
-    private ResponseResult buildErrorResponse(ResultStatus status, String detail) {
-        return new ResponseResult(null, status.getRetcode(), status.getMsg(), detail, null);
+    private RespResult buildErrorResponse(RespStatus status, String detail) {
+        return new RespResult(null, status.getCode(), status.getMessage(), detail, null);
     }
 
 }

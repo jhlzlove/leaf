@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * 重写 LocalDateTimeDeserializer 类，对传入的 json 字符串日期进行格式化
+ * 解决 druid 连接池不支持 LocalDateTime 的问题
  */
 public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<LocalDateTime> {
     private static final long serialVersionUID = 1L;

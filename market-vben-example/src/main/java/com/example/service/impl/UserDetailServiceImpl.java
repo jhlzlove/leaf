@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.LoginUser;
 import com.example.domain.SysUser;
 import com.example.mapper.SysUserMapper;
@@ -40,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
         return new LoginUser(sysUser);
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = CustomerException.class)
     public void register(SysUser user) {
         userMapper.insertSelective(user);
     }

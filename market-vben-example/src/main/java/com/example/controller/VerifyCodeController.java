@@ -21,8 +21,13 @@ import java.util.Base64;
 @Api(value = "VerifyCodeController", tags = "验证码生成")
 @RestController("verify")
 public class VerifyCodeController {
-    @Autowired
+
     private Producer producer;
+
+    @Autowired
+    public VerifyCodeController(Producer producer) {
+        this.producer = producer;
+    }
 
     /**
      * 生成验证码

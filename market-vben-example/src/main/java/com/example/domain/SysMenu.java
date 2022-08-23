@@ -1,14 +1,14 @@
 package com.example.domain;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.Data;
 
 /**
  * sys_menu
  *
  * @author
  */
-public class SysMenu implements Serializable {
+@Data
+public class SysMenu extends BaseEntity {
     /**
      * 菜单ID
      */
@@ -79,182 +79,5 @@ public class SysMenu implements Serializable {
      */
     private String icon;
 
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
     private static final long serialVersionUID = 1L;
-
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Integer getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getComponent() {
-        return component;
-    }
-
-    public void setComponent(String component) {
-        this.component = component;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public Integer getIsFrame() {
-        return isFrame;
-    }
-
-    public void setIsFrame(Integer isFrame) {
-        this.isFrame = isFrame;
-    }
-
-    public Integer getIsCache() {
-        return isCache;
-    }
-
-    public void setIsCache(Integer isCache) {
-        this.isCache = isCache;
-    }
-
-    public String getMenuType() {
-        return menuType;
-    }
-
-    public void setMenuType(String menuType) {
-        this.menuType = menuType;
-    }
-
-    public String getVisible() {
-        return visible;
-    }
-
-    public void setVisible(String visible) {
-        this.visible = visible;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getPerms() {
-        return perms;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 }
