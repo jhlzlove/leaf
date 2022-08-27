@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.domain.SysUser;
-import com.example.service.LoginService;
 import com.example.service.impl.UserDetailServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,13 +24,11 @@ public class WebController {
 
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);
 
-    private final LoginService loginService;
     private final UserDetailServiceImpl userDetailService;
 
     // @Autowired
-    public WebController(UserDetailServiceImpl userDetailService, LoginService loginService) {
+    public WebController(UserDetailServiceImpl userDetailService) {
         this.userDetailService = userDetailService;
-        this.loginService = loginService;
     }
 
     @PostMapping("register")

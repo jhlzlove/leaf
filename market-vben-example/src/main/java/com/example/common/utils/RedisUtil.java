@@ -5,7 +5,6 @@ import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -15,10 +14,11 @@ import java.util.concurrent.TimeUnit;
  * @time 2022/8/14 21:02
  * @desc: RedisUtil
  */
-@Component
+// @Component
 public class RedisUtil {
 
     private final RedisTemplate redisTemplate;
+    
 
     /**
      * 缓存基本的对象，Integer、String、实体类等

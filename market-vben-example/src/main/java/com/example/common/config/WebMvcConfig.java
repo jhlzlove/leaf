@@ -25,7 +25,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CustomerInterceptor())
                 .excludePathPatterns(
-                        "/register",
+                        "/openapi/**",
                         "/doc.html",
                         "/swagger**/**",
                         "/webjars/**",

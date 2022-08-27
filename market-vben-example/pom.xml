@@ -68,6 +68,12 @@
             <version>0.9.1</version>
         </dependency>
 
+        <!-- 解析客户端操作系统、浏览器等 -->
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.21</version>
+        </dependency>
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -85,7 +91,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- redis -->
+        <!-- redistemplate -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
