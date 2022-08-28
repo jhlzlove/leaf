@@ -1,3 +1,3 @@
-[submodule "market-vben-example/vue-vben-admin"]
-	path = market-vben-example/vue-vben-admin
+  [submodule "market-ui/vue-vben-admin"]
+	path = market-ui/vue-vben-admin
 	url = git@jhlzgithub.com:jhlzlove/vue-vben-admin.git

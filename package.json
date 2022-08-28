@@ -1,0 +1,8 @@
+{
+  "config": {
+    "commitizen": {
+      "path": "czg",
+      "czConfig": "./cz.config.js"
+    }
+  }
+}
