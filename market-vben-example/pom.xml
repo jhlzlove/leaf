@@ -67,12 +67,17 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-
         <!-- 解析客户端操作系统、浏览器等 -->
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
             <version>1.21</version>
+        </dependency>
+        <!-- pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.3</version>
         </dependency>
         <!-- lombok -->
         <dependency>
