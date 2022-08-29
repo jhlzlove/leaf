@@ -40,8 +40,16 @@ mybatis:
   type-aliases-package: com.example.domain
   # mapper 文件
   mapper-locations: com/example/mapper/xml/*xml
+
+# pagehelper
+pagehelper:
+  auto-dialect: true
+  # 参数合理化
+  reasonable: true
+
 # 日志
 logging:
   level:
     com.market.example.mapper: debug
+
 # redis
