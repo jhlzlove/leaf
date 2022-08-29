@@ -1,9 +1,9 @@
 package com.example.mapper;
 
 import com.example.domain.SysUser;
+import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
+@Mapper
 public interface SysUserMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -21,5 +21,7 @@ public interface SysUserMapper {
 
     SysUser loadByUserName(String username);
 
-    List<String> selectAllPermissions(String username);
+    String selectAllPermissions(String username);
+
+    // SysUser getUserInfo(Long id);
 }

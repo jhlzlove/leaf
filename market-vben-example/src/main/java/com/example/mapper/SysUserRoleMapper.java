@@ -1,7 +1,9 @@
 package com.example.mapper;
 
 import com.example.domain.SysUserRole;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface SysUserRoleMapper {
     int deleteByPrimaryKey(Long id);
 

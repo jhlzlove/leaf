@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.SysMenuMapper">
     <resultMap id="BaseResultMap" type="com.example.domain.SysMenu">
-        <id column="menu_id" jdbcType="BIGINT" property="menuId"/>
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
         <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
         <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
@@ -23,7 +23,7 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
     <sql id="Base_Column_List">
-        menu_id
+        id
         , menu_name, parent_id, order_num, `path`, component, query, is_frame, is_cache,
         menu_type, visible, `status`, perms, icon, create_by, create_time, update_by, update_time,
         remark
@@ -33,30 +33,35 @@
         select
         <include refid="Base_Column_List"/>
         from sys_menu
-        where menu_id = #{menuId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="listMenu" resultType="com.example.domain.SysMenu">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from sys_menu
-        where menu_id = #{menuId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insert" keyColumn="menu_id" keyProperty="menuId" parameterType="com.example.domain.SysMenu"
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.domain.SysMenu"
             useGeneratedKeys="true">
         insert into sys_menu (menu_name, parent_id, order_num,
-        `path`, component, query,
-        is_frame, is_cache, menu_type,
-        visible, `status`, perms, icon,
-        create_by, create_time, update_by,
-        update_time, remark)
+                              `path`, component, query,
+                              is_frame, is_cache, menu_type,
+                              visible, `status`, perms, icon,
+                              create_by, create_time, update_by,
+                              update_time, remark)
         values (#{menuName,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{orderNum,jdbcType=INTEGER},
-        #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, #{query,jdbcType=VARCHAR},
-        #{isFrame,jdbcType=INTEGER}, #{isCache,jdbcType=INTEGER}, #{menuType,jdbcType=CHAR},
-        #{visible,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{perms,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
-        #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
-        #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+                #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, #{query,jdbcType=VARCHAR},
+                #{isFrame,jdbcType=INTEGER}, #{isCache,jdbcType=INTEGER}, #{menuType,jdbcType=CHAR},
+                #{visible,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{perms,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
+                #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="menu_id" keyProperty="menuId"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
             parameterType="com.example.domain.SysMenu" useGeneratedKeys="true">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -231,28 +236,28 @@
                 remark = #{remark,jdbcType=VARCHAR},
             </if>
         </set>
-        where menu_id = #{menuId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.example.domain.SysMenu">
         update sys_menu
-        set menu_name = #{menuName,jdbcType=VARCHAR},
-        parent_id = #{parentId,jdbcType=BIGINT},
-        order_num = #{orderNum,jdbcType=INTEGER},
-        `path` = #{path,jdbcType=VARCHAR},
-        component = #{component,jdbcType=VARCHAR},
-        query = #{query,jdbcType=VARCHAR},
-        is_frame = #{isFrame,jdbcType=INTEGER},
-        is_cache = #{isCache,jdbcType=INTEGER},
-        menu_type = #{menuType,jdbcType=CHAR},
-        visible = #{visible,jdbcType=CHAR},
-        `status` = #{status,jdbcType=CHAR},
-        perms = #{perms,jdbcType=VARCHAR},
-        icon = #{icon,jdbcType=VARCHAR},
-        create_by = #{createBy,jdbcType=VARCHAR},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        update_by = #{updateBy,jdbcType=VARCHAR},
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-        remark = #{remark,jdbcType=VARCHAR}
-        where menu_id = #{menuId,jdbcType=BIGINT}
+        set menu_name   = #{menuName,jdbcType=VARCHAR},
+            parent_id   = #{parentId,jdbcType=BIGINT},
+            order_num   = #{orderNum,jdbcType=INTEGER},
+            `path`      = #{path,jdbcType=VARCHAR},
+            component   = #{component,jdbcType=VARCHAR},
+            query       = #{query,jdbcType=VARCHAR},
+            is_frame    = #{isFrame,jdbcType=INTEGER},
+            is_cache    = #{isCache,jdbcType=INTEGER},
+            menu_type   = #{menuType,jdbcType=CHAR},
+            visible     = #{visible,jdbcType=CHAR},
+            `status`    = #{status,jdbcType=CHAR},
+            perms       = #{perms,jdbcType=VARCHAR},
+            icon        = #{icon,jdbcType=VARCHAR},
+            create_by   = #{createBy,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_by   = #{updateBy,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            remark      = #{remark,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
     </update>
 </mapper>
