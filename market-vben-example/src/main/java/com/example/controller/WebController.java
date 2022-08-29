@@ -44,4 +44,18 @@ public class WebController {
         UserDetails userDetails = userDetailService.loadUserByUsername(user.getUserName());
         return userDetails;
     }
+
+    @PostMapping("logout")
+    @ApiOperation(value = "logout", tags = "退出")
+    public String logout(@RequestBody SysUser user) {
+
+        return null;
+    }
+
+    @PostMapping("getUserInfo")
+    @ApiOperation(value = "getUserInfo", tags = "获取用户信息")
+    public SysUser getUserInfo(SysUser user) {
+        SysUser userInfo = userDetailService.getUserInfo(user);
+        return userInfo;
+    }
 }
