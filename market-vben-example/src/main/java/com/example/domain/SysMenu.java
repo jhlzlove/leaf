@@ -1,18 +1,19 @@
 package com.example.domain;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
  * sys_menu
- *
- * @author
+ * @author 
  */
 @Data
-public class SysMenu extends BaseEntity {
+public class SysMenu implements Serializable {
     /**
      * 菜单ID
      */
-    private Long menuId;
+    private Long id;
 
     /**
      * 菜单名称
@@ -78,6 +79,31 @@ public class SysMenu extends BaseEntity {
      * 菜单图标
      */
     private String icon;
+
+    /**
+     * 创建者
+     */
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 更新者
+     */
+    private String updateBy;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
+
+    /**
+     * 备注
+     */
+    private String remark;
 
     private static final long serialVersionUID = 1L;
 }
