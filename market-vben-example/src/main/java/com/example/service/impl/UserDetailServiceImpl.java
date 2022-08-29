@@ -18,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author clf
@@ -53,13 +55,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (ObjectUtils.isEmpty(sysUser)) {
             throw new UsernameNotFoundException("用户名不存在哦，请检查输入是否正确");
         }
-        List<String> permissions = userMapper.selectAllPermissions(username);
+        String permission = userMapper.selectAllPermissions(username);
+        List<String> permissions = Arrays.stream(permission.split(",")).collect(Collectors.toList());
         // 生成 jwt
         Map<String, Object> claims = new HashMap<>();
         claims.put(GlobalConstants.LOGIN_USER_KEY, Instant.now().getEpochSecond());
         String jwtToken = Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.RS512, GlobalConstants.JWT_KEY).compact();
+                .signWith(SignatureAlgorithm.ES512, GlobalConstants.JWT_KEY).compact();
         // 2. TODO 权限信息
         LoginUser loginUser = new LoginUser();
         loginUser.setUser(sysUser);
@@ -71,5 +74,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Transactional(rollbackFor = CustomerException.class)
     public void register(SysUser user) {
         userMapper.insertSelective(user);
+    }
+
+    public SysUser getUserInfo(SysUser user) {
+        SysUser userInfo = userMapper.selectByPrimaryKey(user.getId());
+        return userInfo;
     }
 }
