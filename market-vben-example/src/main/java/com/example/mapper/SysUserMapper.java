@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.example.domain.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface SysUserMapper {
@@ -19,7 +20,7 @@ public interface SysUserMapper {
 
     int updateByPrimaryKey(SysUser record);
 
-    SysUser loadByUserName(String username);
+    SysUser loadByUserName(@Param("username") String username);
 
     String selectAllPermissions(String username);
 

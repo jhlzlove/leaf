@@ -1,9 +1,11 @@
 package com.example.domain;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 /**
  * sys_user
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
  * @author
  */
 @Data
-public class SysUser implements Serializable {
+public class SysUser implements UserDetails {
     private Long id;
 
     /**
@@ -23,6 +25,11 @@ public class SysUser implements Serializable {
      * 密码
      */
     private String password;
+
+    /**
+     * token
+     */
+    private String token;
 
     /**
      * 删除标志(0：未删除；1：删除)
@@ -71,4 +78,38 @@ public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    /**
+     * 是否启用
+     *
+     * @return
+     */
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

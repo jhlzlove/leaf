@@ -1,5 +1,7 @@
 package com.example.domain;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -8,7 +10,13 @@ import java.time.LocalDateTime;
  * @time 2022/8/23 10:41
  * @desc: BaseEntity
  */
+@Data
 public class BaseEntity implements Serializable {
+
+    /**
+     * 主键 id
+     */
+    private Long id;
     /**
      * 创建者
      */

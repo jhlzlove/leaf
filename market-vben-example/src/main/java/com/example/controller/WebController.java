@@ -7,10 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author jhlz
@@ -38,10 +35,10 @@ public class WebController {
         return user;
     }
 
-    @PostMapping("login")
+    @PostMapping("login/{userName}")
     @ApiOperation(value = "login", tags = "用户登录")
-    public UserDetails login(@RequestBody SysUser user) {
-        UserDetails userDetails = userDetailService.loadUserByUsername(user.getUserName());
+    public UserDetails login(@PathVariable(name = "userName") String userName) {
+        UserDetails userDetails = userDetailService.loadUserByUsername(userName);
         return userDetails;
     }
 

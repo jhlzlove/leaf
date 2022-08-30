@@ -6,6 +6,7 @@
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="token" jdbcType="VARCHAR" property="token"/>
         <result column="del_flag" jdbcType="BIT" property="delFlag"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="enabled" jdbcType="BIT" property="enabled"/>
@@ -16,21 +17,21 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
+    <sql id="Base_Sql">
         id
-        , user_name, nick_name, `password`, del_flag, avatar, enabled, create_time,
+        , user_name, nick_name, `password`, token, del_flag, avatar, enabled, create_time,
         create_by, update_time, update_by, remark
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Sql"/>
         from sys_user
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="loadByUserName" resultType="com.example.domain.SysUser">
+    <select id="loadByUserName" resultType="com.example.domain.SysUser" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Sql"/>
         from sys_user
         where user_name = #{username}
     </select>
