@@ -29,7 +29,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket docket() {
-        // 使用 seagger 3.0
+        // 使用 swagger 3.0
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .enable(true)

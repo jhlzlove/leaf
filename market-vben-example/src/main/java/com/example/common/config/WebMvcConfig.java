@@ -38,6 +38,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPrefix("/api", c -> c.isAnnotationPresent(RestController.class));
     }
 
+    /**
+     * 注册拦截器
+     *
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CustomerInterceptor())

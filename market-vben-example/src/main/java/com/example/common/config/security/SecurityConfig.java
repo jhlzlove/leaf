@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     authorize
                             // 匿名访问（在登录状态下不可访问）
-                            .antMatchers("/user/login").anonymous()
+                            .antMatchers("/openapi/login").anonymous()
                             // 开放 api
                             .antMatchers("/api/**",
                                     "/doc.html",
