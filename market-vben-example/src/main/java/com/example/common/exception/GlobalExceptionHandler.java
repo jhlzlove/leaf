@@ -9,7 +9,6 @@ import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
  * 该处理将所有异常统一处理，对外提供统一的错误码和返回的格式
  */
 @Slf4j
-@ControllerAdvice
+// @ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**
