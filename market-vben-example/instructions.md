@@ -21,4 +21,22 @@
 
 ### 2. 注入方式
 
-项目使用构造注入，该方法可能会造成代码冗余过多的情况。
+项目使用构造注入，该方法可能会造成代码冗余过多的情况。从 Spring4.3 之后，如果一个类中只有一个构造函数，那么 Spring
+根据构造函数自动注入。所以在 `xxxServiceImpl` 里看到以下信息不要惊讶。
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DemoServiceImpl implements DemoService {
+    private final DemoDao demoDao;
+
+    // 这里的注解可加可不加
+    @Autowired
+    public DemoServiceImpl(DemoDao demoDao) {
+        this.demoDao = demoDao;
+    }
+}
+```
+
