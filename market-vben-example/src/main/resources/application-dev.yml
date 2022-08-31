@@ -29,27 +29,18 @@ spring:
       testWhileIdle: true
       testOnBorrow: false
       testOnReturn: false
+      # mysql 用 false | oracle 用 true
+      pool-prepared-statements: false
+  # redis
   redis:
     host: localhost
     port: 6379
     username:
     password:
-# Mybatis
-mybatis:
-  # 实体类目录
-  type-aliases-package: com.example.domain
-  # mapper 文件
-  mapper-locations: com/example/mapper/xml/*xml
-
-# pagehelper
-pagehelper:
-  auto-dialect: true
-  # 参数合理化
-  reasonable: true
+  jpa:
+    show-sql: true
 
 # 日志
 logging:
   level:
     com.market.example.mapper: debug
-
-# redis
