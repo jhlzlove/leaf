@@ -34,13 +34,9 @@
     - 尽量减少第三方库的依赖，尽量减少工具类的封装，使用 JDK 或者项目中使用的依赖库以及框架自带的工具类，例如 Spring
       框架的工具类。比如
       Base64 既可以使用 `java.util` 包下的工具类，也可以使用
-      Spring 框架提供的 `Base64Utils` 工具类，判空使用 Spring 框架的 `ObjectUtils.isEmpty()`。
-    - 虽然封装的工具类用着舒服，但是个人感觉其它api用着也行，异常处理的还是建议封装一层，不然难受。
-    - 如果后期必须使用大量封装的话，考虑引入 Hutool 或自行封装。
-
-## 说明
-
-项目使用构造注入，该方法可能会造成代码冗余过多的情况。
+      Spring 框架提供的 `Base64Utils` 工具类，判空可以使用 Spring 框架的 `ObjectUtils.isEmpty()`。
+    - 虽然封装的工具类用着舒服，但是个人感觉其它 api 用着也行，异常处理的还是建议封装一层，不然难受。
+    - 如果后期必须使用大量封装的话，考虑引入 `Hutool`。
 
 # 后端工具使用
 
@@ -70,9 +66,13 @@
 
 ```bash
 # 安装依赖
-yarn
+pnpm
 # 启动项目
-yarn dev
+pnpm dev
 # 打包
-yarn build
+pnpm build
 ```
+
+# Git
+
+使用 [czg](https://cz-git.qbb.sh/zh/cli/) 进行信息提交，当然，也可以使用 commitizen + cz-git。
