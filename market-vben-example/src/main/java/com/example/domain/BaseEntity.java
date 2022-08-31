@@ -13,10 +13,8 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity implements Serializable {
 
-    /**
-     * 主键 id
-     */
-    private Long id;
+    private static final long serialVersionUID = 1L;
+    
     /**
      * 创建者
      */

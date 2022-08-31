@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -13,7 +15,10 @@ import java.util.Collection;
  * @author
  */
 @Data
+@Entity
 public class SysUser implements UserDetails {
+
+    @Id
     private Long id;
 
     /**

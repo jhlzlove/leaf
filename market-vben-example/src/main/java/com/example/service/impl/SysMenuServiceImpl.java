@@ -1,9 +1,8 @@
 package com.example.service.impl;
 
 import com.example.domain.SysMenu;
-import com.example.mapper.SysMenuMapper;
+import com.example.repository.SysMenuDao;
 import com.example.service.SysMenuService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +15,15 @@ import java.util.List;
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
 
-    @Override
-    public List<SysMenu> getMenuList() {
-        return menuMapper.listMenu();
+    private final SysMenuDao sysMenuDao;
+
+    public SysMenuServiceImpl(SysMenuDao sysMenuDao) {
+        this.sysMenuDao = sysMenuDao;
     }
 
-    private final SysMenuMapper menuMapper;
-
-    @Autowired
-    public SysMenuServiceImpl(SysMenuMapper menuMapper) {
-        this.menuMapper = menuMapper;
+    @Override
+    public List<SysMenu> getMenuList() {
+        List<SysMenu> list = sysMenuDao.findAll();
+        return list;
     }
 }

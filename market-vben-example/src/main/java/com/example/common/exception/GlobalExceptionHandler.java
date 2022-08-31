@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -52,9 +51,7 @@ public class GlobalExceptionHandler {
         /*else if (e instanceof ConstraintViolationException) {
             result = handleConstraintViolationException((ConstraintViolationException) e);
         }*/
-        else if (e instanceof MethodArgumentNotValidException) {
-            result = handleMethodArgumentNotValidException((MethodArgumentNotValidException) e);
-        } else if (e instanceof BindException) {
+        else if (e instanceof BindException) {
             result = handleBindException((BindException) e);
         } else if (e instanceof NoHandlerFoundException) {
             result = handleNoHandlerFoundException((NoHandlerFoundException) e);
@@ -79,16 +76,16 @@ public class GlobalExceptionHandler {
         RespStatus respStatus;
         switch (e.getStatusCode()) {
             case UNAUTHORIZED:
-                respStatus = com.example.common.response.RespStatus.Common.ERROR_SESSION_ERROR;
+                respStatus = RespStatus.Common.ERROR_SESSION_ERROR;
                 break;
             case FORBIDDEN:
-                respStatus = com.example.common.response.RespStatus.Common.ERROR_SESSION_ERROR;
+                respStatus = RespStatus.Common.ERROR_SESSION_ERROR;
                 break;
             case NOT_FOUND:
-                respStatus = com.example.common.response.RespStatus.Common.NOT_FOUND;
+                respStatus = RespStatus.Common.NOT_FOUND;
                 break;
             default:
-                respStatus = com.example.common.response.RespStatus.Common.ERROR_UNKNOWN;
+                respStatus = RespStatus.Common.ERROR_UNKNOWN;
         }
         return buildErrorResponse(respStatus, null);
     }
@@ -101,20 +98,6 @@ public class GlobalExceptionHandler {
      */
     private RespResult handleNoHandlerFoundException(NoHandlerFoundException e) {
         return buildErrorResponse(RespStatus.Common.NOT_FOUND, e.getMessage());
-    }
-
-    /**
-     * @param e 普通方法参数验证失败时, 比如NotEmpty
-     */
-   /* private ResponseResult handleConstraintViolationException(ConstraintViolationException e) {
-        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(" / ")));
-    }*/
-
-    /**
-     * @param e @RequestBody验证失败
-     */
-    private RespResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
     }
 
     /**

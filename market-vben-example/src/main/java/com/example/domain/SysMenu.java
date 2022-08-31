@@ -2,14 +2,20 @@ package com.example.domain;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * sys_menu
  *
  * @author
  */
 @Data
+@Entity
 public class SysMenu extends BaseEntity {
 
+    @Id
+    private Long id;
     /**
      * 菜单名称
      */
@@ -75,5 +81,4 @@ public class SysMenu extends BaseEntity {
      */
     private String icon;
 
-    private static final long serialVersionUID = 1L;
 }
