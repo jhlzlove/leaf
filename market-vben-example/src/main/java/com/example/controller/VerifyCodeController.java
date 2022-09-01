@@ -22,13 +22,6 @@ import java.util.Base64;
 @RestController("verify")
 public class VerifyCodeController {
 
-    private Producer producer;
-
-    @Autowired
-    public VerifyCodeController(Producer producer) {
-        this.producer = producer;
-    }
-
     /**
      * 生成验证码
      *
@@ -50,4 +43,12 @@ public class VerifyCodeController {
         // 返回 base64 字符串
         return Base64.getEncoder().encodeToString(fos.toByteArray());
     }
+
+    private Producer producer;
+
+    @Autowired
+    public VerifyCodeController(Producer producer) {
+        this.producer = producer;
+    }
+
 }

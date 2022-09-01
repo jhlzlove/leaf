@@ -9,5 +9,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @desc: SysUserDao
  */
 public interface SysUserDao extends JpaRepository<SysUser, Long> {
+    /**
+     * 根据用户名查找用户
+     *
+     * @param username
+     * @return
+     */
     public abstract SysUser findSysUserByUserName(String username);
 }

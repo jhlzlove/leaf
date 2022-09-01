@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("menu")
 public class SysMenuController {
 
-
     @ApiOperation(value = "", tags = "菜单列表")
     @GetMapping("list")
     public void getMenuList() {

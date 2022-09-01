@@ -24,7 +24,7 @@ public class AppTest {
 
     @Test
     public void test() {
-        System.out.println(userService.loadUserByUsername("jhlz"));
+        logger.info("{}", userService.loadUserByUsername("jhlz"));
     }
 
     /**

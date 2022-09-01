@@ -15,15 +15,16 @@ import java.util.List;
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
 
+    @Override
+    public List<SysMenu> getMenuList() {
+        List<SysMenu> list = sysMenuDao.findAll();
+        return list;
+    }
+
     private final SysMenuDao sysMenuDao;
 
     public SysMenuServiceImpl(SysMenuDao sysMenuDao) {
         this.sysMenuDao = sysMenuDao;
     }
 
-    @Override
-    public List<SysMenu> getMenuList() {
-        List<SysMenu> list = sysMenuDao.findAll();
-        return list;
-    }
 }
