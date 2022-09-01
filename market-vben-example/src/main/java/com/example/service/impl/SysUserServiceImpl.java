@@ -1,12 +1,9 @@
 package com.example.service.impl;
 
-import com.example.common.constant.GlobalConstants;
 import com.example.common.exception.CustomerException;
 import com.example.domain.SysUser;
 import com.example.repository.SysUserDao;
 import com.example.service.SysUserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -31,8 +26,11 @@ public class SysUserServiceImpl implements SysUserService {
     private static final Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
     /**
-     * @param username
-     * @return
+     * LoginService#login 中的 authenticationManager.authenticate(token)
+     * 会调用这个方法从数据库获取用户信息
+     *
+     * @param username 用户名
+     * @return UserDetails 对象
      * @throws UsernameNotFoundException
      */
     @Override
@@ -41,16 +39,26 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser userInfo = sysUserDao.findSysUserByUserName(username);
         SysUser sysUser = Optional.ofNullable(userInfo)
                 .orElseThrow(() -> new UsernameNotFoundException("该用户不存在哦~"));
-        // 生成 jwt
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(GlobalConstants.LOGIN_USER_KEY, Instant.now().getEpochSecond());
-        String jwtToken = Jwts.builder()
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, GlobalConstants.JWT_KEY.getBytes()).compact();
-        // 设置 token
-        sysUser.setToken(jwtToken);
-        // TODO 设置角色权限
         return sysUser;
+    }
+
+    /**
+     * DelegatingPasswordEncoder 默认使用相对安全的加密方式
+     * 在用户登录认证成功后，随 Spring Security 版本升级采用的 PasswordEncoder 自动更新密码加密方式
+     *
+     * @param user        the user to modify the password for
+     * @param newPassword the password to change to, encoded by the configured
+     *                    {@code PasswordEncoder}
+     * @return
+     */
+    @Override
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        // 获取用户
+        SysUser oldUser = sysUserDao.findSysUserByUserName(user.getUsername());
+        // 更新密码
+        oldUser.setPassword(newPassword);
+        // 更新密码加密方式
+        return sysUserDao.save(oldUser);
     }
 
     @Override
@@ -66,6 +74,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysUser delete(Long id) {
         SysUser user = sysUserDao.findById(id).get();
         // bit 类型: > 0 ? true : false
@@ -75,6 +84,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysUser enabled(Long id) {
         SysUser user = sysUserDao.findById(id).get();
         boolean flag = user.getEnabled() == true ? false : true;
@@ -82,9 +92,18 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserDao.save(user);
     }
 
+    @Override
+    public SysUser update(SysUser user) {
+        SysUser sysUser = sysUserDao.findById(user.getId()).get();
+        sysUser.setPassword(user.getPassword());
+        sysUser.setUpdateTime(LocalDateTime.now());
+        return sysUserDao.save(sysUser);
+    }
+
     private final SysUserDao sysUserDao;
 
     public SysUserServiceImpl(SysUserDao sysUserDao) {
         this.sysUserDao = sysUserDao;
     }
+
 }

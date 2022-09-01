@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +16,7 @@ import java.util.Collection;
  * @author
  */
 @Data
+@Accessors(chain = true)
 @Entity
 public class SysUser implements UserDetails {
 
@@ -93,19 +95,34 @@ public class SysUser implements UserDetails {
         return userName;
     }
 
+    /**
+     * 账户没有过期？
+     *
+     * @return true ? no : yes
+     */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
+    /**
+     * 账户被锁定了？
+     *
+     * @return true ? no : yes
+     */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
+    /**
+     * 凭证信息过期了？
+     *
+     * @return true ? no : yes
+     */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     /**

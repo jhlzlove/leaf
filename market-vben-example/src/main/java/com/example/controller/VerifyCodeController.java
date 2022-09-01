@@ -1,11 +1,12 @@
 package com.example.controller;
 
+import com.example.common.annotation.ApiRestController;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ import java.util.Base64;
  * @desc: VerifyCodeController
  */
 @Api(value = "VerifyCodeController", tags = "验证码生成")
-@RestController("verify")
+@ApiRestController
 public class VerifyCodeController {
 
     /**
@@ -29,6 +30,7 @@ public class VerifyCodeController {
      * @return
      */
     @GetMapping("vc.jpg")
+    @ApiOperation(value = "verifycode", notes = "验证码生成")
     public String getVerifyCode(HttpSession session) {
         String text = producer.createText();
         session.setAttribute("kaptcha", text);

@@ -1,8 +1,7 @@
 package com.example.common.config.security;
 
 import com.example.common.filter.JwtAuthenticationTokenFilter;
-import com.example.service.impl.SysUserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.service.SysUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -30,10 +28,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // 启用方法级别的权限认证
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    @Autowired
-    private SysUserServiceImpl userDetailService;
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     /**
      * 暴露AuthenticationManager（认证管理器），登录时认证使用
@@ -52,6 +46,8 @@ public class SecurityConfig {
      * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
      * anonymous | 只允许匿名访问（未登录用户）
      * permitAll | 允许所有用户访问
+     * mvcMatchers、antMatchers 没有太大区别，可以看源码注释
+     * 由于 antMatchers 出现的比 mvcMatchers 早，这里混用，了解一下。
      *
      * @param http
      * @return
@@ -65,20 +61,17 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     authorize
                             // 匿名访问（在登录状态下不可访问）
-                            .antMatchers("/openapi/login")
-
-                            .anonymous()
                             .mvcMatchers(
-                                    "/system/login"
+                                    "/api/system/login"
                             ).anonymous()
                             // 开放 api
-                            .antMatchers("/api/**",
-                                    "/system/register",
+                            .mvcMatchers(
+                                    "/api/system/**",
                                     "/doc.html",
                                     "/swagger**/**",
                                     "/webjars/**",
-                                    "/v3/**")
-                            .permitAll()
+                                    "/v3/**"
+                            ).permitAll()
                             // 除上面以外的所有请求都需要认证
                             .anyRequest().authenticated();
                 })
@@ -94,10 +87,12 @@ public class SecurityConfig {
     /**
      * 密码加密实现
      */
+    /*
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    */
 
     /**
      * 配置跨源访问(CORS)
@@ -108,5 +103,14 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
+    }
+
+    private final SysUserService userDetailService;
+
+    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    public SecurityConfig(SysUserService sysUserService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
+        this.userDetailService = sysUserService;
+        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
     }
 }

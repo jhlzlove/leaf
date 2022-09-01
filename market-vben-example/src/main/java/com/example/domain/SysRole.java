@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @author
  */
 @Data
+@Accessors(chain = true)
 public class SysRole implements Serializable {
     /**
      * 主键id

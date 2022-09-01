@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
  * @author
  */
 @Data
+@Accessors(chain = true)
 @Entity
 public class SysMenu extends BaseEntity {
 

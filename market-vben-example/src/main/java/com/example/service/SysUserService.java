@@ -1,9 +1,10 @@
 package com.example.service;
 
 import com.example.domain.SysUser;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface SysUserService extends UserDetailsService {
+public interface SysUserService extends UserDetailsService, UserDetailsPasswordService {
     /**
      * 获取用户信息
      *
@@ -35,4 +36,12 @@ public interface SysUserService extends UserDetailsService {
      * @return
      */
     public abstract SysUser enabled(Long id);
+
+    /**
+     * 用户信息更新
+     *
+     * @param user
+     * @return
+     */
+    public abstract SysUser update(SysUser user);
 }
