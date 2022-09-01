@@ -1,36 +1,45 @@
 package com.example;
 
-import com.example.mapper.SysMenuMapper;
+import com.example.service.SysMenuService;
+import com.example.service.SysUserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author clf
  * @time 2022/8/11 18:10
  * @desc: Test
  */
-@SpringBootTest
-public class Test {
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class AppTest {
+    private static final Logger logger = LoggerFactory.getLogger(AppTest.class);
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
+    private SysUserService userService;
     @Autowired
-    private SysMenuMapper sysMenuMapper;
+    private SysMenuService menuService;
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void test() {
-        System.out.println(passwordEncoder.encode("clf"));
+        System.out.println(userService.loadUserByUsername("jhlz"));
     }
 
     /**
-     * test：
+     * test：删除账户用例
      */
-    @org.junit.jupiter.api.Test
+    @Test
+    public void testDeleteUser() {
+        Assertions.assertTrue(userService.delete(4L).getDelFlag() == true);
+    }
+
+    /**
+     * test：listMenu用例
+     */
+    @Test
     public void testListMenu() {
-        Assertions.assertTrue(sysMenuMapper.listMenu() != null);
-        System.out.println(sysMenuMapper.listMenu());
+        logger.info("{}", menuService.getMenuList());
     }
 }
