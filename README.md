@@ -23,6 +23,12 @@
 
 # 部署
 
+```bash
+# 安装依赖
+pnpm install
+# 启动
+pnpm serve
+```
 
 # 致谢
 

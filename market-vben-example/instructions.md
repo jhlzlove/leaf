@@ -4,9 +4,14 @@
 
 ## Feature
 
+2022.9.1
+controller 统一前缀请求地址可自行配置
+完成 SpringSecurity + jwt 登录，并支持 Security 采用的 PasswordEncoder 自动升级密码加密方式；
+框架搭建，配置项整理
+
 ## TODO
 
-* [ ] 生成jwt
+* [ ] 权限隔离
 * [ ] 登录验证码
 * [ ] 加入redis缓存
 

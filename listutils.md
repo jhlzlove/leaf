@@ -1,6 +1,6 @@
 # 使用工具清单
 
-## 后端
+## 一、后端
 
 后端为自己搭建开发整合。
 
@@ -16,7 +16,7 @@ lombok
 MySQL8.0
 ```
 
-## 前端
+## 二、前端
 
 前端使用一款开源框架：[Vben Admin](https://vvbin.cn/doc-next/)
 
@@ -29,8 +29,15 @@ MySQL8.0
 - [TypeScript](https://www.typescriptlang.org/)
 - [Es6](https://es6.ruanyifeng.com/)
 
-## 其它工具
+## 三、其它工具
 
 ### Git
 
 使用 [czg](https://cz-git.qbb.sh/zh/cli/) 进行信息提交，当然，也可以使用 commitizen + cz-git 等适配器。
+
+## 四、IDEA推荐插件
+
+如果您使用本项目进行开发或者提供 Pr，安装以下插件或许可以有不错的体验：
+
+- [JPA Buddy](https://plugins.jetbrains.com/plugin/15075-jpa-buddy)
+- [Easy Code](https://plugins.jetbrains.com/plugin/10954-easy-code)
