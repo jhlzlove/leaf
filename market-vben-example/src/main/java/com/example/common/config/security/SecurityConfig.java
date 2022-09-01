@@ -1,7 +1,7 @@
 package com.example.common.config.security;
 
 import com.example.common.filter.JwtAuthenticationTokenFilter;
-import com.example.service.impl.UserDetailServiceImpl;
+import com.example.service.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     @Autowired
-    private UserDetailServiceImpl userDetailService;
+    private SysUserServiceImpl userDetailService;
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
@@ -65,9 +65,15 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> {
                     authorize
                             // 匿名访问（在登录状态下不可访问）
-                            .antMatchers("/openapi/login").anonymous()
+                            .antMatchers("/openapi/login")
+
+                            .anonymous()
+                            .mvcMatchers(
+                                    "/system/login"
+                            ).anonymous()
                             // 开放 api
                             .antMatchers("/api/**",
+                                    "/system/register",
                                     "/doc.html",
                                     "/swagger**/**",
                                     "/webjars/**",

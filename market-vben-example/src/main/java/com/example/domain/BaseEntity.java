@@ -2,19 +2,24 @@ package com.example.domain;
 
 import lombok.Data;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author jhlz
  * @time 2022/8/23 10:41
- * @desc: BaseEntity
+ * @desc: BaseEntity: 公共属性抽取
  */
 @Data
-public class BaseEntity implements Serializable {
+@MappedSuperclass
+public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
+    @Id
+    private Long id;
     /**
      * 创建者
      */
@@ -39,4 +44,9 @@ public class BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
+
+    /**
+     * 逻辑删除标志
+     */
+    private Boolean delFlag;
 }

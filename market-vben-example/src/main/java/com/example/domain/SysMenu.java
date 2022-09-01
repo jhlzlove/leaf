@@ -3,7 +3,6 @@ package com.example.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 /**
  * sys_menu
@@ -14,8 +13,6 @@ import javax.persistence.Id;
 @Entity
 public class SysMenu extends BaseEntity {
 
-    @Id
-    private Long id;
     /**
      * 菜单名称
      */

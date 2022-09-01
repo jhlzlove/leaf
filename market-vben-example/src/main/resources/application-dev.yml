@@ -39,6 +39,10 @@ spring:
     password:
   jpa:
     show-sql: true
+    hibernate:
+      naming:
+        # 相当于 org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy（3.0删除）
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
 
 # 日志
 logging:

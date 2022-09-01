@@ -5,13 +5,10 @@ import com.example.common.utils.IpUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.management.*;
-import java.net.UnknownHostException;
-
 @SpringBootApplication
 public class MarketVbenExampleApplication {
 
-    public static void main(String[] args) throws UnknownHostException, ReflectionException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, MalformedObjectNameException {
+    public static void main(String[] args) {
         SpringApplication.run(MarketVbenExampleApplication.class, args);
         System.out.println("swagger 地址：http://" + IpUtil.getLocalUrl() + ":" +
                 GlobalConstants.PORT + GlobalConstants.SWAGGER_SUFFIX);
