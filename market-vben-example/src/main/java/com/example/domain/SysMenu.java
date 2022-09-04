@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * sys_menu
@@ -79,5 +81,12 @@ public class SysMenu extends BaseEntity {
      * 菜单图标
      */
     private String icon;
+
+    /**
+     * 菜单子集，也可以使用 @Transient 注解表明此属性不映射到数据库
+     * 这里使用一对多关系更加清晰
+     */
+    @OneToMany
+    private List<SysMenu> children;
 
 }

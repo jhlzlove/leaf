@@ -1,13 +1,12 @@
 package com.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -18,14 +17,12 @@ import java.util.Collection;
 @Data
 @Accessors(chain = true)
 @Entity
-public class SysUser implements UserDetails {
-
-    @Id
-    private Long id;
+public class SysUser extends BaseEntity implements UserDetails {
 
     /**
      * 用户名
      */
+    @JsonAlias("username")
     private String userName;
 
     /**
@@ -57,33 +54,6 @@ public class SysUser implements UserDetails {
      * 是否启用(0：未启用；1：启用)
      */
     private Boolean enabled;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
-    private static final long serialVersionUID = 1L;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

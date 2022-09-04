@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @desc: SysMenuDao
  */
 public interface SysMenuDao extends JpaRepository<SysMenu, Long> {
+
 }

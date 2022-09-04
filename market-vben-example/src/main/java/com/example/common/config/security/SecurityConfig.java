@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * @author clf
  * @time 2022/8/10 11:26
  * @desc: Spring Security Config
- * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Bean 为主
+ * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Chain 为主
  */
 @Configuration
 // 添加 security 过滤器
@@ -55,7 +55,9 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                // 前后端分离项目，跨站请求伪造不生效，关闭
+                .csrf().disable()
                 // 基于 token，不需要 session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests(authorize -> {
@@ -83,16 +85,6 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource());
         return http.build();
     }
-
-    /**
-     * 密码加密实现
-     */
-    /*
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    */
 
     /**
      * 配置跨源访问(CORS)

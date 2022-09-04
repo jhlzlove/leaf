@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
  * @author jhlz
  * @time 2022/8/23 10:41
  * @desc: BaseEntity: 公共属性抽取
+ * @MappedSuperclass 注解标识为公共属性类
  */
 @Data
 @MappedSuperclass
@@ -44,9 +45,4 @@ public abstract class BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
-
-    /**
-     * 逻辑删除标志
-     */
-    private Boolean delFlag;
 }

@@ -2,6 +2,8 @@ package com.example.service;
 
 import com.example.domain.SysUser;
 
+import java.util.Map;
+
 public interface LoginService {
 
     /**
@@ -10,5 +12,5 @@ public interface LoginService {
      * @param user
      * @return
      */
-    public abstract SysUser login(SysUser user);
+    public abstract Map<String, Object> login(SysUser user);
 }

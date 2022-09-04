@@ -48,3 +48,8 @@ spring:
 logging:
   level:
     com.market.example.mapper: debug
+
+# controller 请求前加入统一前缀
+api:
+  path:
+    global-prefix: api

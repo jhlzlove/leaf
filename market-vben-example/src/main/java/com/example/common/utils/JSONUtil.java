@@ -25,7 +25,7 @@ public class JSONUtil {
         try {
             return JSON.writeValueAsString(o);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("" + e);
+            throw new RuntimeException("json 序列化失败：" + e);
         }
     }
 

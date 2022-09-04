@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Map;
+
 /**
  * @author jhlz
  * @time 2022/9/1 12:56
@@ -21,7 +23,7 @@ public class LoginController {
 
     @PostMapping("login")
     @ApiOperation(value = "login", notes = "用户登录")
-    public SysUser login(@RequestBody SysUser user) {
+    public Map<String, Object> login(@RequestBody SysUser user) {
         return loginService.login(user);
     }
 

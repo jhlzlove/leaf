@@ -3,6 +3,7 @@ package com.example.common.config;
 import com.example.common.annotation.ApiRestController;
 import com.example.common.interceptor.CustomerInterceptor;
 import com.example.common.properties.ApiPathPrefix;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -81,7 +82,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();
     }
 
-    // 重写configureMessageConverters
+    /**
+     * ObjectMapper 序列化配置
+     *
+     * @param converters initially an empty list of converters
+     */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         JavaTimeModule module = new JavaTimeModule();
@@ -95,7 +100,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(module);
-
+        // jackson 序列化时，不对无效字段检查
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // add converter at the very front
         // if there are same type mappers in converters, setting in first mapper is used.
         converters.add(0, new MappingJackson2HttpMessageConverter(mapper));

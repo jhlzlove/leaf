@@ -26,7 +26,7 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public SysUser login(SysUser user) {
+    public Map<String, Object> login(SysUser user) {
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), null);
         // 认证
@@ -42,9 +42,10 @@ public class LoginServiceImpl implements LoginService {
         String jwtToken = Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS512, GlobalConstants.JWT_KEY.getBytes()).compact();
-        // 设置 token
-        loginUser.setToken(jwtToken);
-        return loginUser;
+        Map<String, Object> result = new HashMap<>();
+        result.put("userId", loginUser.getId());
+        result.put("token", jwtToken);
+        return result;
     }
 
     private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
