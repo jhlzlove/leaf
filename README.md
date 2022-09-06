@@ -24,7 +24,16 @@
 # 部署
 
 ```bash
-# 安装依赖
+# 克隆代码
+git clone https://github.com/jhlzlove/market.git --recurse-submodules
+# 或者
+git clone https://github.com/jhlzlove/market.git
+cd market
+git submodule init
+git submodule update
+
+# 前端安装依赖
+cd market-ui/vue-vben-admin
 pnpm install
 # 启动
 pnpm serve
@@ -32,4 +41,5 @@ pnpm serve
 
 # 致谢
 
-感谢：[Vben Admin](https://vvbin.cn/doc-next/) 社区提供的优秀框架。
+感谢：
+[Vben Admin](https://vvbin.cn/doc-next/) 社区提供的优秀框架。
