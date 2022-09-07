@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
  * @MappedSuperclass 注解标识为公共属性类
  */
 @Data
+@Accessors(chain = true)
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 

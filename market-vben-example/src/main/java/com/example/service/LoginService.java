@@ -1,8 +1,7 @@
 package com.example.service;
 
 import com.example.domain.SysUser;
-
-import java.util.Map;
+import com.example.domain.resp.LoginUserInfo;
 
 public interface LoginService {
 
@@ -10,7 +9,12 @@ public interface LoginService {
      * 登录
      *
      * @param user
-     * @return
+     * @return LoginUserInfo
      */
-    public abstract Map<String, Object> login(SysUser user);
+    public abstract LoginUserInfo login(SysUser user);
+
+    /**
+     * @return 用户信息
+     */
+    public abstract SysUser getUserInfo();
 }

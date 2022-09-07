@@ -1,28 +1,28 @@
 package com.example.common.exception;
 
-import com.example.common.response.RespStatus;
+import org.springframework.http.HttpStatus;
 
 /**
  * 自定义异常信息类
  */
 public class CustomerException extends RuntimeException {
 
-    private RespStatus status;
+    private HttpStatus status;
 
     public CustomerException() {
-        this.status = RespStatus.Common.ERROR_UNKNOWN;
+        this.status = HttpStatus.GONE;
     }
 
-    public CustomerException(RespStatus resultStatus) {
-        this.status = resultStatus;
+    public CustomerException(HttpStatus status) {
+        this.status = status;
     }
 
     @Override
     public String getMessage() {
-        return this.status.getMessage();
+        return super.getMessage();
     }
 
-    public RespStatus getStatus() {
+    public HttpStatus getStatus() {
         return this.status;
     }
 }

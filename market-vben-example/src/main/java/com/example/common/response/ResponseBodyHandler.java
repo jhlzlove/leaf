@@ -3,6 +3,7 @@ package com.example.common.response;
 import com.example.common.annotation.NotWrapResponse;
 import com.example.common.utils.JSONUtil;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,12 +19,11 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        Object result = new RespResult(body, RespStatus.Common.SUCCESS.getCode(),
-                RespStatus.Common.SUCCESS.getMessage(), null, null);
+        RespResult result = new RespResult(body, HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), null, null);
         if (body instanceof String) {
             // 如果原始的返回body是json字符串，则设置返回内容的类型
-            result = JSONUtil.toJSON(request);
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+            return JSONUtil.toJSON(body);
         }
         return result;
     }

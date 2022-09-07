@@ -1,18 +1,12 @@
 package com.example.common.exception;
 
 import com.example.common.response.RespResult;
-import com.example.common.response.RespStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConversionException;
-import org.springframework.validation.BindException;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import java.util.stream.Collectors;
 
 /**
  * 全局的异常处理器
@@ -31,10 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomerException.class)
     public ResponseEntity<?> exceptionHandler(CustomerException e) {
         HttpStatus status = HttpStatus.OK;
-        if (e.getStatus() == RespStatus.Common.ERROR_SESSION_ERROR) {
-            status = HttpStatus.OK;
-        }
-        RespResult result = new RespResult(null, e.getStatus().getCode(), e.getStatus().getMessage(), null, null);
+        RespResult result = new RespResult(null, status.value(), e.getMessage(), null, null);
         log.error(e.getMessage(), e);
         return ResponseEntity.status(status).body(result);
     }
@@ -44,25 +35,13 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<?> exceptionHandler(Throwable e) {
-        RespResult result;
+        RespResult result = new RespResult(null, 520, "未知错误", null, null);
         if (e instanceof HttpClientErrorException) {
             result = handleHttpClientErrorException((HttpClientErrorException) e);
-        }
-        /*else if (e instanceof ConstraintViolationException) {
-            result = handleConstraintViolationException((ConstraintViolationException) e);
-        }*/
-        else if (e instanceof BindException) {
-            result = handleBindException((BindException) e);
         } else if (e instanceof NoHandlerFoundException) {
             result = handleNoHandlerFoundException((NoHandlerFoundException) e);
-        } else if (e instanceof HttpMessageConversionException) {
-            result = buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, null);
-        } else {
-            result = buildErrorResponse(RespStatus.Common.ERROR_UNKNOWN, null);
         }
-
         log.error(e.getMessage(), e);
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
     }
 
@@ -73,19 +52,13 @@ public class GlobalExceptionHandler {
      * @return
      */
     private RespResult handleHttpClientErrorException(HttpClientErrorException e) {
-        RespStatus respStatus;
+        HttpStatus respStatus;
         switch (e.getStatusCode()) {
-            case UNAUTHORIZED:
-                respStatus = RespStatus.Common.ERROR_SESSION_ERROR;
-                break;
-            case FORBIDDEN:
-                respStatus = RespStatus.Common.ERROR_SESSION_ERROR;
-                break;
             case NOT_FOUND:
-                respStatus = RespStatus.Common.NOT_FOUND;
+                respStatus = HttpStatus.NOT_FOUND;
                 break;
             default:
-                respStatus = RespStatus.Common.ERROR_UNKNOWN;
+                respStatus = HttpStatus.BAD_REQUEST;
         }
         return buildErrorResponse(respStatus, null);
     }
@@ -97,14 +70,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     private RespResult handleNoHandlerFoundException(NoHandlerFoundException e) {
-        return buildErrorResponse(RespStatus.Common.NOT_FOUND, e.getMessage());
-    }
-
-    /**
-     * @param e @Valid实体参数验证失败时
-     */
-    private RespResult handleBindException(BindException e) {
-        return buildErrorResponse(RespStatus.Common.ERROR_PARAM_NOT_VALID, e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.joining(" / ")));
+        return buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
     /**
@@ -113,8 +79,8 @@ public class GlobalExceptionHandler {
      * @param status 状态码枚举
      * @return
      */
-    private RespResult buildErrorResponse(RespStatus status, String detail) {
-        return new RespResult(null, status.getCode(), status.getMessage(), detail, null);
+    private RespResult buildErrorResponse(HttpStatus status, String detail) {
+        return new RespResult(null, status.value(), status.getReasonPhrase(), detail, null);
     }
 
 }

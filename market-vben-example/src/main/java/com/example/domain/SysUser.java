@@ -2,12 +2,14 @@ package com.example.domain;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
-import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * sys_user
@@ -15,7 +17,6 @@ import java.util.Collection;
  * @author
  */
 @Data
-@Accessors(chain = true)
 @Entity
 public class SysUser extends BaseEntity implements UserDetails {
 
@@ -51,13 +52,21 @@ public class SysUser extends BaseEntity implements UserDetails {
     private String avatar;
 
     /**
+     * 描述
+     */
+    private String desc;
+
+    /**
      * 是否启用(0：未启用；1：启用)
      */
     private Boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+        SimpleGrantedAuthority admin = new SimpleGrantedAuthority("admin");
+        list.add(admin);
+        return list;
     }
 
     @Override

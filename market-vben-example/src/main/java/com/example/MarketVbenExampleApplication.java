@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.common.constant.GlobalConstants;
+import com.example.common.constants.GlobalConstants;
 import com.example.common.utils.IpUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -5,13 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface SysUserService extends UserDetailsService, UserDetailsPasswordService {
-    /**
-     * 获取用户信息
-     *
-     * @param user
-     * @return
-     */
-    public abstract SysUser getUserInfo(SysUser user);
 
     /**
      * 注册用户

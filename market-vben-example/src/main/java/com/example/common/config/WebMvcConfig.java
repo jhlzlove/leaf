@@ -1,8 +1,8 @@
 package com.example.common.config;
 
 import com.example.common.annotation.ApiRestController;
-import com.example.common.interceptor.CustomerInterceptor;
-import com.example.common.properties.ApiPathPrefix;
+import com.example.common.interceptors.CustomerInterceptor;
+import com.example.common.properties.CustomerProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -107,9 +107,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         converters.add(0, new MappingJackson2HttpMessageConverter(mapper));
     }
 
-    private final ApiPathPrefix apiPathPrefix;
+    private final CustomerProperties apiPathPrefix;
 
-    public WebMvcConfig(ApiPathPrefix apiPathProperties) {
+    public WebMvcConfig(CustomerProperties apiPathProperties) {
         this.apiPathPrefix = apiPathProperties;
     }
 }

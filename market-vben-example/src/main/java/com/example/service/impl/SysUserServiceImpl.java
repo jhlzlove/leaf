@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -59,12 +58,6 @@ public class SysUserServiceImpl implements SysUserService {
         oldUser.setPassword(newPassword);
         // 更新密码加密方式
         return sysUserDao.save(oldUser);
-    }
-
-    @Override
-    @Transactional(rollbackFor = CustomerException.class, propagation = Propagation.SUPPORTS)
-    public SysUser getUserInfo(SysUser user) {
-        return sysUserDao.findById(user.getId()).orElseGet(() -> new SysUser());
     }
 
     @Override

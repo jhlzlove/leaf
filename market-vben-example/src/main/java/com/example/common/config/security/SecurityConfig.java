@@ -1,6 +1,6 @@
 package com.example.common.config.security;
 
-import com.example.common.filter.JwtAuthenticationTokenFilter;
+import com.example.common.filters.JwtAuthenticationTokenFilter;
 import com.example.service.SysUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +64,8 @@ public class SecurityConfig {
                     authorize
                             // 匿名访问（在登录状态下不可访问）
                             .mvcMatchers(
-                                    "/api/system/login"
+                                    "/api/system/login",
+                                    "/system/login"
                             ).anonymous()
                             // 开放 api
                             .mvcMatchers(

@@ -53,3 +53,6 @@ logging:
 api:
   path:
     global-prefix: api
+
+token:
+  prefix: Bearer

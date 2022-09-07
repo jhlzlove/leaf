@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @desc: SysUserController
  */
 @ApiRestController
-@RequestMapping("system")
+@RequestMapping("system/user")
 @Api(value = "SysUserController", tags = "用户管理")
 public class SysUserController {
 
