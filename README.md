@@ -4,7 +4,7 @@
 一起写一个简单的例子。
 
 - [项目结构和介绍请移步](./market-vben-example/instructions.md)
-- [项目使用工具清单请移步](./listutils.md)
+- [项目使用工具清单请移步](./dev-tools.md)
 
 # 开发理念
 
@@ -32,4 +32,5 @@ pnpm serve
 
 # 致谢
 
-感谢：[Vben Admin](https://vvbin.cn/doc-next/) 社区提供的优秀框架。
+感谢：
+[Vben Admin](https://vvbin.cn/doc-next/) 社区提供的优秀框架。
