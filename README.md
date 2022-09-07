@@ -34,3 +34,4 @@ pnpm serve
 
 感谢：
 [Vben Admin](https://vvbin.cn/doc-next/) 社区提供的优秀框架。
+[JetBrains](https://jb.gg/OpenSourceSupport) 提供的优秀IDE。
