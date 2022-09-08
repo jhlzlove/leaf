@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -91,6 +92,11 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setPassword(user.getPassword());
         sysUser.setUpdateTime(LocalDateTime.now());
         return sysUserDao.save(sysUser);
+    }
+
+    @Override
+    public List<SysUser> list() {
+        return sysUserDao.findAll();
     }
 
     private final SysUserDao sysUserDao;

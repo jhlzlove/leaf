@@ -7,13 +7,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author jhlz
  * @time 2022/9/1 8:37
  * @desc: SysUserController
  */
 @ApiRestController
-@RequestMapping("system/user")
+@RequestMapping("system/account")
 @Api(value = "SysUserController", tags = "用户管理")
 public class SysUserController {
 
@@ -39,6 +41,12 @@ public class SysUserController {
     @ApiOperation(value = "update", notes = "账户更新")
     public SysUser update(@RequestBody SysUser user) {
         return userService.update(user);
+    }
+
+    @GetMapping("list")
+    @ApiOperation(value = "list", notes = "账户列表")
+    public List<SysUser> list() {
+        return userService.list();
     }
 
     private final SysUserService userService;

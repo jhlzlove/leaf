@@ -6,10 +6,12 @@ import com.example.service.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author jhlz
@@ -20,9 +22,29 @@ import java.util.Objects;
 public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
-    public List<SysMenu> getMenuList() {
+    public List<SysMenu> getMenuList(String menuName, String status) {
         List<SysMenu> allMenu = sysMenuDao.findAll();
-        List<SysMenu> result = buildMenuTree(allMenu, 0L);
+        List<SysMenu> treeMenu = buildMenuTree(allMenu, 0L);
+        List<SysMenu> result = new ArrayList<>();
+
+        if (Objects.isNull(menuName) && Objects.isNull(status)) {
+            return treeMenu;
+        }
+
+        if (!ObjectUtils.isEmpty(menuName) && !ObjectUtils.isEmpty(status)) {
+            result.addAll(allMenu.stream()
+                    .filter(r -> Objects.equals(r.getMenuName(), menuName) &&
+                            Objects.equals(r.getStatus(), status))
+                    .collect(Collectors.toList()));
+        } else if (!ObjectUtils.isEmpty(status)) {
+            result.addAll(allMenu.stream()
+                    .filter(r -> Objects.equals(r.getStatus(), status))
+                    .collect(Collectors.toList()));
+        } else if (!ObjectUtils.isEmpty(menuName)) {
+            result.addAll(allMenu.stream()
+                    .filter(r -> Objects.equals(r.getMenuName(), menuName))
+                    .collect(Collectors.toList()));
+        }
         return result;
     }
 

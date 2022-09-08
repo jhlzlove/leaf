@@ -38,9 +38,14 @@ public class LoginController {
     @GetMapping("getUserInfo")
     @ApiOperation(value = "getUserInfo", notes = "用户信息")
     public SysUser getUserInfo() {
-
         SysUser userInfo = loginService.getUserInfo();
         return userInfo;
+    }
+
+    @GetMapping("tokenExpired")
+    @ApiOperation(value = "tokenExpired", notes = "token 过期时间")
+    public SysUser tokenExpired() {
+        return null;
     }
 
     /**

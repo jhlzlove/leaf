@@ -54,5 +54,7 @@ api:
   path:
     global-prefix: api
 
-token:
-  prefix: Bearer
+# token 前缀，默认 Authorization
+#token:
+#  prefix:
+

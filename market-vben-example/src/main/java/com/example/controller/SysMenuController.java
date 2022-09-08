@@ -23,8 +23,8 @@ public class SysMenuController {
 
     @ApiOperation(value = "listmenu", notes = "菜单列表")
     @GetMapping("list")
-    public List<SysMenu> getMenuList() {
-        return menuService.getMenuList();
+    public List<SysMenu> getMenuList(String menuName, String status) {
+        return menuService.getMenuList(menuName, status);
     }
 
     private final SysMenuService menuService;

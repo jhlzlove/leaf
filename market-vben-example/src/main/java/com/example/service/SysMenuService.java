@@ -10,5 +10,5 @@ public interface SysMenuService {
      *
      * @return
      */
-    public abstract List<SysMenu> getMenuList();
+    public abstract List<SysMenu> getMenuList(String menuName, String status);
 }

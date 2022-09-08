@@ -36,10 +36,10 @@ public class AppTest {
     }
 
     /**
-     * test：listMenu用例
+     * test：获取菜单树用例
      */
     @Test
     public void testListMenu() {
-        logger.info("{}", menuService.getMenuList());
+        // logger.info("{}", menuService.getMenuList());
     }
 }

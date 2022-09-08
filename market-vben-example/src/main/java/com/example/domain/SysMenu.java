@@ -30,12 +30,12 @@ public class SysMenu extends BaseEntity {
     /**
      * 显示顺序
      */
-    private Integer orderNum;
+    private Integer orderNo;
 
     /**
      * 路由地址
      */
-    private String path;
+    private String routePath;
 
     /**
      * 组件路径
@@ -50,32 +50,32 @@ public class SysMenu extends BaseEntity {
     /**
      * 是否为外链（0是 1否）
      */
-    private Integer isFrame;
+    private Integer isExt;
 
     /**
-     * 是否缓存（0缓存 1不缓存）
+     * 是否缓存（0不缓存 1缓存）
      */
-    private Integer isCache;
+    private Integer keepalive;
 
     /**
-     * 菜单类型（M目录 C菜单 F按钮）
+     * 菜单类型（0目录 1菜单 2按钮）
      */
     private String menuType;
 
     /**
      * 菜单状态（0显示 1隐藏）
      */
-    private String visible;
+    private Integer visible;
 
     /**
      * 菜单状态（0正常 1停用）
      */
-    private String status;
+    private Integer status;
 
     /**
      * 权限标识
      */
-    private String perms;
+    private String permission;
 
     /**
      * 菜单图标

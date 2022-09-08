@@ -18,12 +18,13 @@ public class CustomerProperties {
     /**
      * 全局统一路径
      */
-    @Value("${api.path.global-prefix}")
-    private String globalPrefix = "api";
+    @Value("${api.path.global-prefix:'api'}")
+    private String globalPrefix;
 
     /**
      * token 标头
+     * 如果配置文件中没有此配置，默认值为 Authorization
      */
-    @Value("${token.prefix} ")
-    private String TOKEN_PREFIX = "Authorization ";
+    @Value("${token.prefix:Authorization} ")
+    private String TOKEN_PREFIX;
 }
