@@ -10,5 +10,11 @@ public interface SysMenuService {
      *
      * @return
      */
-    public abstract List<SysMenu> getMenuList(String menuName, String status);
+    List<SysMenu> listMenu(String menuName, String status);
+
+    SysMenu save(SysMenu menu);
+
+    void deleteById(Long id);
+
+    SysMenu update(SysMenu menu);
 }

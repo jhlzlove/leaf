@@ -47,7 +47,7 @@ spring:
 # 日志
 logging:
   level:
-    com.market.example.mapper: debug
+    com.example.repository: debug
 
 # controller 请求前加入统一前缀
 api:

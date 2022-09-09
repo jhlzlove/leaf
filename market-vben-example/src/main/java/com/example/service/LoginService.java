@@ -11,10 +11,10 @@ public interface LoginService {
      * @param user
      * @return LoginUserInfo
      */
-    public abstract LoginUserInfo login(SysUser user);
+    LoginUserInfo login(SysUser user);
 
     /**
      * @return 用户信息
      */
-    public abstract SysUser getUserInfo();
+    SysUser getUserInfo();
 }

@@ -7,6 +7,8 @@ import com.example.service.LoginService;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,6 +73,7 @@ public class LoginController {
         return Base64.getEncoder().encodeToString(fos.toByteArray());
     }
 
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private final Producer producer;
     private final LoginService loginService;
 

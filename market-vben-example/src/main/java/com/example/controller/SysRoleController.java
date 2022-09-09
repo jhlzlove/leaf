@@ -5,8 +5,7 @@ import com.example.domain.SysRole;
 import com.example.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,16 +18,35 @@ import java.util.List;
 @RequestMapping("system/role")
 @ApiRestController
 public class SysRoleController {
+
+    @GetMapping("getRoleListByPage")
+    @ApiOperation(value = "listByPage", notes = "角色分页列表")
+    public void listByPage(int page, int pageSize) {
+        sysRoleService.listByPage(page, pageSize);
+    }
+
     @GetMapping("list")
-    @ApiOperation(value = "listRole", notes = "角色列表")
-    public List<SysRole> listRole() {
+    @ApiOperation(value = "listByPage", notes = "角色分页列表")
+    public List<SysRole> list() {
         return sysRoleService.list();
     }
 
-    @GetMapping("getRoleListByPage")
-    @ApiOperation(value = "getRoleListByPage", notes = "角色分页列表")
-    public void getRoleListByPage(int page, int pageSize) {
-        sysRoleService.getRoleListByPage(page, pageSize);
+    @PostMapping
+    @ApiOperation(value = "save", notes = "添加")
+    public SysRole save(SysRole role) {
+        return sysRoleService.save(role);
+    }
+
+    @DeleteMapping
+    @ApiOperation(value = "deleteById", notes = "删除")
+    public void deleteById(Long id) {
+        sysRoleService.deleteById(id);
+    }
+
+    @PutMapping
+    @ApiOperation(value = "update", notes = "更新")
+    public SysRole update(SysRole role) {
+        return sysRoleService.update(role);
     }
 
     private final SysRoleService sysRoleService;

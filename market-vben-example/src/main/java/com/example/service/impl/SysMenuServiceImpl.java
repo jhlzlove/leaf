@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
-    public List<SysMenu> getMenuList(String menuName, String status) {
-        List<SysMenu> allMenu = sysMenuDao.findAll();
+    public List<SysMenu> listMenu(String menuName, String status) {
+        List<SysMenu> allMenu = menuDao.findAll();
         List<SysMenu> treeMenu = buildMenuTree(allMenu, 0L);
         List<SysMenu> result = new ArrayList<>();
 
@@ -48,6 +48,21 @@ public class SysMenuServiceImpl implements SysMenuService {
         return result;
     }
 
+    @Override
+    public SysMenu save(SysMenu menu) {
+        return menuDao.save(menu);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        menuDao.deleteById(id);
+    }
+
+    @Override
+    public SysMenu update(SysMenu menu) {
+        return menuDao.save(menu);
+    }
+
     /**
      * 构建菜单树
      *
@@ -67,10 +82,10 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     private static final Logger logger = LoggerFactory.getLogger(SysMenuServiceImpl.class);
-    private final SysMenuDao sysMenuDao;
+    private final SysMenuDao menuDao;
 
-    public SysMenuServiceImpl(SysMenuDao sysMenuDao) {
-        this.sysMenuDao = sysMenuDao;
+    public SysMenuServiceImpl(SysMenuDao menuDao) {
+        this.menuDao = menuDao;
     }
 
 }

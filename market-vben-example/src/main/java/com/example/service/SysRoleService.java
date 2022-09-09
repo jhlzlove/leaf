@@ -2,7 +2,6 @@ package com.example.service;
 
 import com.example.domain.SysRole;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -13,29 +12,12 @@ import java.util.List;
 public interface SysRoleService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    public abstract SysRole findById(Long id);
-
-    /**
-     * 分页查询
-     *
-     * @param sysRole     筛选条件
-     * @param pageRequest 分页对象
-     * @return 查询结果
-     */
-    public abstract Page<SysRole> findByPage(SysRole sysRole, PageRequest pageRequest);
-
-    /**
      * 新增数据
      *
      * @param sysRole 实例对象
      * @return 实例对象
      */
-    public abstract SysRole save(SysRole sysRole);
+    SysRole save(SysRole sysRole);
 
     /**
      * 修改数据
@@ -43,7 +25,7 @@ public interface SysRoleService {
      * @param sysRole 实例对象
      * @return 实例对象
      */
-    public abstract SysRole update(SysRole sysRole);
+    SysRole update(SysRole sysRole);
 
     /**
      * 通过主键删除数据
@@ -51,14 +33,7 @@ public interface SysRoleService {
      * @param id 主键
      * @return
      */
-    public abstract void deleteById(Long id);
-
-    /**
-     * 角色列表
-     *
-     * @return
-     */
-    public abstract List<SysRole> list();
+    void deleteById(Long id);
 
     /**
      * 角色分页列表
@@ -66,5 +41,12 @@ public interface SysRoleService {
      * @param page     当前页
      * @param pageSize 页数据
      */
-    public abstract void getRoleListByPage(int page, int pageSize);
+    Page<SysRole> listByPage(int page, int pageSize);
+
+    /**
+     * 角色列表
+     *
+     * @return
+     */
+    List<SysRole> list();
 }

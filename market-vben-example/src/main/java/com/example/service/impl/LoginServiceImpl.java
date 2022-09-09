@@ -66,7 +66,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     @Transactional(rollbackFor = CustomerException.class, propagation = Propagation.SUPPORTS)
     public SysUser getUserInfo() {
-        return Optional.ofNullable(LOCAL_USER.get(4)).orElseGet(() -> new SysUser());
+        return Optional.ofNullable(LOCAL_USER.get(4L)).orElseGet(() -> new SysUser());
     }
 
     private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);

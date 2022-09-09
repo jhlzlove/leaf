@@ -17,29 +17,6 @@ import java.util.List;
 public class SysRoleServiceImpl implements SysRoleService {
 
     /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    @Override
-    public SysRole findById(Long id) {
-        return this.sysRoleDao.findById(id).get();
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param sysRole     筛选条件
-     * @param pageRequest 分页对象
-     * @return 查询结果
-     */
-    @Override
-    public Page<SysRole> findByPage(SysRole sysRole, PageRequest pageRequest) {
-        return null;
-    }
-
-    /**
      * 新增数据
      *
      * @param sysRole 实例对象
@@ -75,14 +52,14 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<SysRole> list() {
-        return sysRoleDao.findAll();
+    public Page<SysRole> listByPage(int page, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        return sysRoleDao.findAll(pageRequest);
     }
 
     @Override
-    public void getRoleListByPage(int page, int pageSize) {
-        PageRequest pageRequest = PageRequest.of(page, pageSize);
-        sysRoleDao.findAll(pageRequest);
+    public List<SysRole> list() {
+        return sysRoleDao.findAll();
     }
 
     private final SysRoleDao sysRoleDao;

@@ -14,7 +14,7 @@ public interface SysUserService extends UserDetailsService, UserDetailsPasswordS
      * @param user
      * @return
      */
-    public abstract SysUser register(SysUser user);
+    SysUser register(SysUser user);
 
     /**
      * 删除用户
@@ -22,7 +22,7 @@ public interface SysUserService extends UserDetailsService, UserDetailsPasswordS
      * @param id
      * @return
      */
-    public abstract SysUser delete(Long id);
+    SysUser delete(Long id);
 
     /**
      * 启用禁用
@@ -30,7 +30,7 @@ public interface SysUserService extends UserDetailsService, UserDetailsPasswordS
      * @param id
      * @return
      */
-    public abstract SysUser enabled(Long id);
+    SysUser enabled(Long id);
 
     /**
      * 用户信息更新
@@ -38,7 +38,7 @@ public interface SysUserService extends UserDetailsService, UserDetailsPasswordS
      * @param user
      * @return
      */
-    public abstract SysUser update(SysUser user);
+    SysUser update(SysUser user);
 
-    public abstract List<SysUser> list();
+    List<SysUser> list();
 }

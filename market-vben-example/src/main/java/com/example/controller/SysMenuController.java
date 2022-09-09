@@ -6,8 +6,7 @@ import com.example.service.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,10 +20,29 @@ import java.util.List;
 @RequestMapping("system/menu")
 public class SysMenuController {
 
+    @GetMapping
     @ApiOperation(value = "listmenu", notes = "菜单列表")
-    @GetMapping("list")
     public List<SysMenu> getMenuList(String menuName, String status) {
-        return menuService.getMenuList(menuName, status);
+        return menuService.listMenu(menuName, status);
+    }
+
+
+    @PostMapping
+    @ApiOperation(value = "save", notes = "添加")
+    public SysMenu save(SysMenu menu) {
+        return menuService.save(menu);
+    }
+
+    @DeleteMapping
+    @ApiOperation(value = "deleteById", notes = "删除")
+    public void deleteById(Long id) {
+        menuService.deleteById(id);
+    }
+
+    @PutMapping
+    @ApiOperation(value = "update", notes = "更新")
+    public SysMenu update(SysMenu menu) {
+        return menuService.update(menu);
     }
 
     private final SysMenuService menuService;

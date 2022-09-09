@@ -3,6 +3,8 @@ package com.example.domain;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * @author jhlz
@@ -19,7 +21,7 @@ public class SysDept extends BaseEntity {
     /**
      * 父级id
      */
-    private Long parentId;
+    private Integer parentId;
     /**
      * 排序
      */
@@ -28,6 +30,9 @@ public class SysDept extends BaseEntity {
      * 状态（0启用 1禁用）
      */
     private Boolean status;
+
+    @OneToMany
+    private List<SysDept> children;
 
 }
 
