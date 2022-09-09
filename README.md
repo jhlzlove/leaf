@@ -24,16 +24,14 @@
 后续完善
 
 ```bash
-# 克隆代码
-git clone https://github.com/jhlzlove/market.git --recurse-submodules
-# 或者
+# 下载源代码
+# 后端
 git clone https://github.com/jhlzlove/market.git
-cd market
-git submodule init
-git submodule update
+# 前端 也可以直接 clone 后切入 market 分支，main 分支用于合并原项目
+git clone -b market https://github.com/jhlzlove/vue-vben-admin.git
 
 # 前端安装依赖
-cd market-ui/vue-vben-admin
+cd vue-vben-admin
 pnpm install
 # 启动
 pnpm serve
@@ -43,5 +41,5 @@ pnpm serve
 
 感谢：  
 [Vben Admin](https://vvbin.cn/doc-next/) 社区开发的一款优秀的前端框架。  
-[JetBrains](https://jb.gg/OpenSourceSupport) 为开源项目提供免费的 IntelliJ IDEA 等 IDE 的授权
-<img  src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
+[JetBrains](https://jb.gg/OpenSourceSupport) 为开源项目提供免费的 IntelliJ IDEA 等 IDE 的授权。  
+<img style="width:200px" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
