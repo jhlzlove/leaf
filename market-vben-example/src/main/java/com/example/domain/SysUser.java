@@ -2,14 +2,8 @@ package com.example.domain;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * sys_user
@@ -18,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Entity
-public class SysUser extends BaseEntity implements UserDetails {
+public class SysUser extends BaseEntity {
 
     /**
      * 用户名
@@ -60,57 +54,4 @@ public class SysUser extends BaseEntity implements UserDetails {
      * 是否启用(0：未启用；1：启用)
      */
     private Boolean enabled;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<>();
-        SimpleGrantedAuthority admin = new SimpleGrantedAuthority("admin");
-        list.add(admin);
-        return list;
-    }
-
-    @Override
-    public String getUsername() {
-        return userName;
-    }
-
-    /**
-     * 账户没有过期？
-     *
-     * @return true ? no : yes
-     */
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    /**
-     * 账户被锁定了？
-     *
-     * @return true ? no : yes
-     */
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    /**
-     * 凭证信息过期了？
-     *
-     * @return true ? no : yes
-     */
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    /**
-     * 是否启用
-     *
-     * @return
-     */
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
 }

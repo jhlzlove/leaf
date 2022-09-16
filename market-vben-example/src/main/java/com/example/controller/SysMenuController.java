@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.common.annotation.ApiRestController;
+import com.example.common.annotation.OperLog;
+import com.example.common.logs.OperEnum;
 import com.example.domain.SysMenu;
 import com.example.service.SysMenuService;
 import io.swagger.annotations.Api;
@@ -22,6 +24,7 @@ public class SysMenuController {
 
     @GetMapping
     @ApiOperation(value = "listmenu", notes = "菜单列表")
+    @OperLog(oper = OperEnum.MENU)
     public List<SysMenu> getMenuList(String menuName, String status) {
         return menuService.listMenu(menuName, status);
     }

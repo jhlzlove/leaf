@@ -2,8 +2,10 @@ package com.example.service;
 
 import com.example.domain.SysUser;
 import com.example.domain.resp.LoginUserInfo;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface LoginService {
+public interface LoginService extends UserDetailsService, UserDetailsPasswordService {
 
     /**
      * 登录
