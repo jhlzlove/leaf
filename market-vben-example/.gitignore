@@ -1,9 +1,3 @@
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -19,6 +13,12 @@ target/
 .springBeans
 .sts4-cache
 
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -27,17 +27,5 @@ target/
 /.nb-gradle/
 build/
 
-<<<<<<< HEAD
-######################################################################
-# Others
-*.log
-*.xml.versionsBackup
-*.swp
-
-!*/build/*.java
-!*/build/*.html
-!*/build/*.xml
-
 ### VS Code ###
 .vscode/
-

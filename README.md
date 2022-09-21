@@ -1,42 +1,45 @@
-## 平台简介
+# 简介
 
-该项目基于若依快速开发平台构建，可以在 [若依官网](http://www.ruoyi.vip) 详细了解。
+为了更好的了解一些技术的使用以及原理，甚至是一些问题，新开一个模块结合前端框架 [Vben Admin](https://vvbin.cn/doc-next/)
+一起写一个简单的例子。
 
-##  
+- [项目结构和介绍](./market-vben-example/introduce.md)
+- [项目使用工具清单](./dev-tools.md)
 
-## 开发工具
+# 开发理念
 
-大部分都和官网推荐保持一致，部分在开发中更换版本。
+- 新
+    - 新的日期处理类
+    - 技术框架使用最新版本
+    - 新语法
 
-1. jdk >= 1.8
-2. maven 3.8.4，按照若依官网描述，大于3.0.x应该就可以，浪子使用的 3.8.4 版本
-3. MySQL > 8.0
-4. Spring Boot 2.5.8
-5. Redis > 3.x
-6. Node.js >= 12，浪子使用的 16.15
-7. Node.js 安装 vue-cli,最新版安装脚手架方式 `npm i -g @vue/cli`，如果使用了 uni-app 开发其它平台程序，请安装 4.x 版本。5.x 版本的脚手架运行 uniapp:h5 会报错。
-8. 其他内容参照 [若依前后端分离版文档](http://doc.ruoyi.vip/ruoyi-vue/)
+- 少
+    - 尽量减少第三方库的依赖、减少工具类的封装，使用 JDK 或者项目中必须使用的依赖库以及框架自带的工具类。比如
+      Base64 既可以使用 `java.util` 包下的工具类，也可以使用
+      Spring 框架提供的 `Base64Utils` 工具类等。
+    - 如果后期必须使用大量封装的话，考虑引入 `Hutool`。
 
-## 系统部署
+# 部署
 
-### 后端部署
+后续完善
 
-1. 确保Java运行的相关环境： JDK、MySQL、Redis服务存在并正常运行
-2. 运行数据库文件，导入相关数据
-3. 修改 market-admin 模块 resources 目录下的 application.yml 的相关配置
-4. 修改 logback.xml 的日志存放目录
-5. 启动后端项目，后端使用的默认端口8889，可以自行修改(如果修改了启动端口，market-ui模块下的 vue.config.js 文件中的代理访问路径端口也要对应修改，否则无法访问)
+```bash
+# 下载源代码
+# 后端
+git clone https://github.com/jhlzlove/market.git
+# 前端 也可以直接 clone 后切入 market 分支，main 分支用于合并原项目
+git clone -b market https://github.com/jhlzlove/vue-vben-admin.git
 
-### 前端部署
-
-1. 进入 market-ui 模块，执行命令 `npm -i`
-2. 安装相关依赖完成后执行 `npm run dev`，默认端口 80.
-
-前后端启动完成后，访问 `http://localhost:80`(默认账户/密码 admin/admin123)，若能正确显示登录页面，并能成功登录，菜单及页面显示正常，表明环境搭建成功。
-
-```bash{.line-numbers}
-// 打包正式环境
-npm run build:prod
-// 打包预发布环境：
-npm run build:stage
+# 前端安装依赖
+cd vue-vben-admin
+pnpm install
+# 启动
+pnpm serve
 ```
+
+# 致谢
+
+感谢：  
+[Vben Admin](https://vvbin.cn/doc-next/) 社区开发的一款优秀的前端框架。  
+[JetBrains](https://jb.gg/OpenSourceSupport) 为开源项目提供免费的 IntelliJ IDEA 等 IDE 的授权。  
+<img style="width:200px" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
