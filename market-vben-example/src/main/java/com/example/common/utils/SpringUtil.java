@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.ObjectUtils;
 
 /**
- * SpringUtil:
+ * SpringUtil: 获取 Spring 工厂对象爽歪歪的类
  *
  * @author jhlz
  * @since 2022/9/16 14:17:41
@@ -58,7 +58,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
     }
 
     /**
-     * 如果BeanFactory包含一个与所给名称匹配的bean定义，则返回true
+     * BeanFactory 是否包含一个与所给名称匹配的bean定义
      *
      * @param name
      * @return boolean

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author clf
  * @time 2022/8/10 15:19
- * @desc: DateUtil：Java8 新的日期API
+ * @desc: DateUtil：LocalDate
  */
 public class DateUtil {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";

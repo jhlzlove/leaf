@@ -6,11 +6,13 @@ import com.example.repository.SysUserDao;
 import com.example.service.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author clf
@@ -31,7 +33,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = CustomerException.class)
     public SysUser delete(Long id) {
-        SysUser user = sysUserDao.findById(id).get();
+        SysUser user = sysUserDao.findById(id)
+                .orElseThrow(() -> new CustomerException(HttpStatus.NOT_FOUND));
         // bit 类型: > 0 ? true : false
         user.setDelFlag(true);
         SysUser saveUser = sysUserDao.save(user);
@@ -41,13 +44,14 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = CustomerException.class)
     public SysUser enabled(Long id) {
-        SysUser user = sysUserDao.findById(id).get();
+        SysUser user = sysUserDao.findById(id).orElseGet(() -> new SysUser());
         boolean flag = user.getEnabled() == true ? false : true;
         user.setEnabled(flag);
         return sysUserDao.save(user);
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysUser update(SysUser user) {
         SysUser sysUser = sysUserDao.findById(user.getId()).get();
         sysUser.setPassword(user.getPassword());
@@ -56,8 +60,9 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> list() {
-        return sysUserDao.findAll();
+    public Page<SysUser> list(int page, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        return sysUserDao.findAll(pageRequest);
     }
 
     private final SysUserDao sysUserDao;

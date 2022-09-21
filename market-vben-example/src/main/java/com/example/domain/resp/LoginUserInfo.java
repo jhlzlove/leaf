@@ -29,6 +29,11 @@ public class LoginUserInfo implements UserDetails {
     private String userName;
 
     /**
+     * 部门 id
+     */
+    private Long deptId;
+
+    /**
      * 密码
      */
     private String password;

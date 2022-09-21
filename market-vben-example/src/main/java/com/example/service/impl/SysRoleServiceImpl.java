@@ -1,11 +1,13 @@
 package com.example.service.impl;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.SysRole;
 import com.example.repository.SysRoleDao;
 import com.example.service.SysRoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 实例对象
      */
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysRole save(SysRole sysRole) {
         this.sysRoleDao.save(sysRole);
         return sysRole;
@@ -35,6 +38,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 实例对象
      */
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysRole update(SysRole sysRole) {
         this.sysRoleDao.save(sysRole);
         return sysRole;
@@ -47,6 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 是否成功
      */
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public void deleteById(Long id) {
         this.sysRoleDao.deleteById(id);
     }

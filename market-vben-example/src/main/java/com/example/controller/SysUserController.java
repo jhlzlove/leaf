@@ -5,9 +5,8 @@ import com.example.domain.SysUser;
 import com.example.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author jhlz
@@ -25,19 +24,19 @@ public class SysUserController {
         return userService.register(user);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     @ApiOperation(value = "delete", notes = "删除")
     public SysUser delete(@PathVariable Long id) {
         return userService.delete(id);
     }
 
-    @PutMapping("enable")
+    @PutMapping()
     @ApiOperation(value = "enable", notes = "账户启用/禁用")
     public SysUser enabled(Long id) {
         return userService.enabled(id);
     }
 
-    @PutMapping("update")
+    @PutMapping()
     @ApiOperation(value = "update", notes = "账户更新")
     public SysUser update(@RequestBody SysUser user) {
         return userService.update(user);
@@ -45,8 +44,8 @@ public class SysUserController {
 
     @GetMapping("list")
     @ApiOperation(value = "list", notes = "账户列表")
-    public List<SysUser> list() {
-        return userService.list();
+    public Page<SysUser> list(int page, int pageSize) {
+        return userService.list(page, pageSize);
     }
 
     private final SysUserService userService;

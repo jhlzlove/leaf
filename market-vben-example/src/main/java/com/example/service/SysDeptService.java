@@ -11,6 +11,14 @@ import java.util.List;
 public interface SysDeptService {
 
     /**
+     * 根据 id 查找部门
+     *
+     * @param deptId id
+     * @return 对象
+     */
+    SysDept findById(Long deptId);
+
+    /**
      * 新增数据
      *
      * @param sysDept 实例对象

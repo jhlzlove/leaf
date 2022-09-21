@@ -48,6 +48,7 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         // 获取用户
         SysUser oldUser = sysUserDao.findSysUserByUserName(user.getUsername());

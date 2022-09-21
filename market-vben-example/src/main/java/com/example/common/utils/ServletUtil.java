@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * ServletUtil:
+ * ServletUtil: Web 项目有一个方便一点儿，不是嘛？
  *
  * @author jhlz
  * @since 2022/9/16 12:01:55

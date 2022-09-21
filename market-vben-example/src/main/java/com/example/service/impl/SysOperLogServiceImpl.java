@@ -1,11 +1,13 @@
 package com.example.service.impl;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.SysOperLog;
 import com.example.repository.SysOperLogDao;
 import com.example.service.SysOperLogService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author jhlz
@@ -26,11 +28,13 @@ public class SysOperLogServiceImpl implements SysOperLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public void deleteById(Long id) {
         this.sysOperLogDao.deleteById(id);
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public void save(SysOperLog log) {
         this.sysOperLogDao.save(log);
     }

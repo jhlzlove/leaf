@@ -15,6 +15,11 @@ import javax.persistence.Entity;
 public class SysUser extends BaseEntity {
 
     /**
+     * 部门 id
+     */
+    private Long deptId;
+
+    /**
      * 用户名
      */
     @JsonAlias("username")

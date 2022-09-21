@@ -1,8 +1,7 @@
 package com.example.service;
 
 import com.example.domain.SysUser;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface SysUserService {
 
@@ -38,5 +37,12 @@ public interface SysUserService {
      */
     SysUser update(SysUser user);
 
-    List<SysUser> list();
+    /**
+     * 分页获取
+     *
+     * @param page     页数
+     * @param pageSize 页大小
+     * @return
+     */
+    Page<SysUser> list(int page, int pageSize);
 }

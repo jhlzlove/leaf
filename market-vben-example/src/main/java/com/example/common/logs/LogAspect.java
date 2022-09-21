@@ -4,8 +4,10 @@ import com.example.common.annotation.OperLog;
 import com.example.common.utils.JSONUtil;
 import com.example.common.utils.SecurityUtil;
 import com.example.common.utils.ServletUtil;
+import com.example.domain.SysDept;
 import com.example.domain.SysOperLog;
 import com.example.domain.resp.LoginUserInfo;
+import com.example.service.SysDeptService;
 import com.example.service.SysOperLogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -78,7 +80,6 @@ public class LogAspect {
             String methodName = method.getName();
             // 设置请求方法
             log.setReqMethod(className + "." + methodName + "()");
-
             // 获取请求参数数组
             Object[] params = joinPoint.getArgs();
             String param = "空";
@@ -90,12 +91,14 @@ public class LogAspect {
                 }
             }
             log.setReqParam(param);
+
             // 获取当前用户
             LoginUserInfo loginUser = SecurityUtil.getLoginUser();
-            // 设置用户信息
-            log
-                    .setOperTime(LocalDateTime.now())
-                    .setDeptName(log.getDeptName());
+            log.setOperName(loginUser.getUsername());
+            log.setOperTime(LocalDateTime.now());
+            SysDept dept = deptService.findById(loginUser.getDeptId());
+            log.setDeptName(dept.getDeptName());
+
             HttpServletRequest request = ServletUtil.getRequest();
             log.setReqUrl(request.getRequestURI());
             log.setReqMethod(request.getMethod());
@@ -173,8 +176,10 @@ public class LogAspect {
     }
 
     private final SysOperLogService logService;
+    private final SysDeptService deptService;
 
-    public LogAspect(SysOperLogService logService) {
+    public LogAspect(SysOperLogService logService, SysDeptService deptService) {
         this.logService = logService;
+        this.deptService = deptService;
     }
 }

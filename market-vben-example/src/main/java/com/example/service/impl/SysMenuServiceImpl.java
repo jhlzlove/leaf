@@ -1,11 +1,13 @@
 package com.example.service.impl;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.SysMenu;
 import com.example.repository.SysMenuDao;
 import com.example.service.SysMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -49,16 +51,19 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysMenu save(SysMenu menu) {
         return menuDao.save(menu);
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public void deleteById(Long id) {
         menuDao.deleteById(id);
     }
 
     @Override
+    @Transactional(rollbackFor = CustomerException.class)
     public SysMenu update(SysMenu menu) {
         return menuDao.save(menu);
     }

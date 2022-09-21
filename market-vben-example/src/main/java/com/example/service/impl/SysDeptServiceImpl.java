@@ -1,8 +1,10 @@
 package com.example.service.impl;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.SysDept;
 import com.example.repository.SysDeptDao;
 import com.example.service.SysDeptService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -17,6 +19,11 @@ import java.util.stream.Collectors;
  */
 @Service
 public class SysDeptServiceImpl implements SysDeptService {
+
+    @Override
+    public SysDept findById(Long deptId) {
+        return deptDao.findById(deptId).orElseThrow(() -> new CustomerException(HttpStatus.NOT_FOUND));
+    }
 
     /**
      * 新增数据

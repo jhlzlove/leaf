@@ -8,7 +8,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.*;
 
 /**
- * ThreadPoolConfig:
+ * ThreadPoolConfig: 连接池配置
+ * 不说别的，只要是 Java 项目，必须要有，哪怕不用，也要把参数什么的配上！就这么任性
  *
  * @author jhlz
  * @since 2022/9/16 12:34:00
@@ -28,6 +29,11 @@ public class ThreadPoolConfig {
     // 线程池维护线程所允许的空闲时间
     private int keepAliveSeconds = 300;
 
+    /**
+     * 为线程池起个名称，参数配上！
+     *
+     * @return
+     */
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
