@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("system/account")
 @Api(value = "SysUserController", tags = "用户管理")
 public class SysUserController {
-
     @PostMapping("register")
     @ApiOperation(value = "register", notes = "用户注册")
     public SysUser register(@RequestBody SysUser user) {
@@ -30,9 +29,9 @@ public class SysUserController {
         return userService.delete(id);
     }
 
-    @PutMapping()
+    @PutMapping("{id}")
     @ApiOperation(value = "enable", notes = "账户启用/禁用")
-    public SysUser enabled(Long id) {
+    public SysUser enabled(@PathVariable Long id) {
         return userService.enabled(id);
     }
 

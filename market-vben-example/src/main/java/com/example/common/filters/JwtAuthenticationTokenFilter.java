@@ -23,17 +23,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 1. 获取并解析 token
-        /*String token = request.getHeader("token");
-        if (ObjectUtils.isEmpty(token)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        Claims body = Jwts.parser().setSigningKey(GlobalConstants.JWT_KEY)
-                .parseClaimsJws(token).getBody();
-        logger.info("Parse Claims：{}", body.toString());*/
+        /*String token = request.getHeader("result");
+         */
         // 直接放行
         filterChain.doFilter(request, response);
     }
-
 
 }

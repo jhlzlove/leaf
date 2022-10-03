@@ -22,10 +22,6 @@ public class AppTest {
     @Autowired
     private SysMenuService menuService;
 
-    @Test
-    public void test() {
-        logger.info("{}", userService.loadUserByUsername("jhlz"));
-    }
 
     /**
      * test：删除账户用例

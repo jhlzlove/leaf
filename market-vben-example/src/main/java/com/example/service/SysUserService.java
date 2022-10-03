@@ -1,8 +1,15 @@
 package com.example.service;
 
+import com.example.common.exception.CustomerException;
 import com.example.domain.SysUser;
+import com.example.domain.resp.LoginUserInfo;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 系统用户接口
+ */
 public interface SysUserService {
 
     /**
@@ -45,4 +52,15 @@ public interface SysUserService {
      * @return
      */
     Page<SysUser> list(int page, int pageSize);
+
+    /**
+     * login
+     *
+     * @param user
+     * @return
+     */
+    LoginUserInfo login(SysUser user);
+
+    @Transactional(rollbackFor = CustomerException.class, propagation = Propagation.SUPPORTS)
+    LoginUserInfo getUserInfo();
 }

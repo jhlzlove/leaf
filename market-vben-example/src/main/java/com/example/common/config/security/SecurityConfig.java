@@ -1,7 +1,7 @@
 package com.example.common.config.security;
 
 import com.example.common.filters.JwtAuthenticationTokenFilter;
-import com.example.service.SysUserService;
+import com.example.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -81,7 +81,7 @@ public class SecurityConfig {
                 // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
-                .userDetailsService(userDetailService)
+                .userDetailsService(loginService)
                 // 配置 CORS 跨域访问
                 .cors().configurationSource(corsConfigurationSource());
         return http.build();
@@ -98,12 +98,12 @@ public class SecurityConfig {
         return source;
     }
 
-    private final SysUserService userDetailService;
+    private final LoginService loginService;
 
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    public SecurityConfig(SysUserService sysUserService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        this.userDetailService = sysUserService;
+    public SecurityConfig(LoginService loginService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
+        this.loginService = loginService;
         this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
     }
 }

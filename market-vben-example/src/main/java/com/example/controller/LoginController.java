@@ -4,6 +4,7 @@ import com.example.common.annotation.ApiRestController;
 import com.example.domain.SysUser;
 import com.example.domain.resp.LoginUserInfo;
 import com.example.service.LoginService;
+import com.example.service.SysUserService;
 import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,17 +31,16 @@ import java.util.Base64;
 @RequestMapping("system")
 @Api(value = "LoginController", tags = "登录管理")
 public class LoginController {
-
     @PostMapping("login")
     @ApiOperation(value = "login", notes = "用户登录")
     public LoginUserInfo login(@RequestBody SysUser user) {
-        return loginService.login(user);
+        return userService.login(user);
     }
 
     @GetMapping("getUserInfo")
     @ApiOperation(value = "getUserInfo", notes = "用户信息")
-    public SysUser getUserInfo() {
-        SysUser userInfo = loginService.getUserInfo();
+    public LoginUserInfo getUserInfo() {
+        LoginUserInfo userInfo = userService.getUserInfo();
         return userInfo;
     }
 
@@ -76,8 +76,10 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private final Producer producer;
     private final LoginService loginService;
+    private final SysUserService userService;
 
-    public LoginController(LoginService loginService, Producer producer) {
+    public LoginController(SysUserService userService, LoginService loginService, Producer producer) {
+        this.userService = userService;
         this.loginService = loginService;
         this.producer = producer;
     }

@@ -39,13 +39,23 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
+     * 创建自定义拦截器交给 Spring
+     *
+     * @return 自定义拦截器
+     */
+    @Bean
+    public CustomerInterceptor customerInterceptor() {
+        return new CustomerInterceptor();
+    }
+
+    /**
      * 注册拦截器
      *
      * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomerInterceptor())
+        registry.addInterceptor(customerInterceptor())
                 .excludePathPatterns(
                         "/openapi/**",
                         "/doc.html",
