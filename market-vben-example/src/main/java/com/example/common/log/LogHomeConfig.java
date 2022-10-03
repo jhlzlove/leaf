@@ -1,4 +1,4 @@
-package com.example.common.logs;
+package com.example.common.log;
 
 import ch.qos.logback.core.PropertyDefinerBase;
 

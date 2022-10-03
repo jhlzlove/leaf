@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import com.example.common.exception.CustomerException;
-import com.example.common.properties.CustomerProperties;
+import com.example.common.property.CustomerProperties;
 import com.example.domain.SysUser;
 import com.example.domain.resp.LoginUserInfo;
 import com.example.repository.SysUserDao;

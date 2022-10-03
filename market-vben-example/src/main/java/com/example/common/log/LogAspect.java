@@ -1,4 +1,4 @@
-package com.example.common.logs;
+package com.example.common.log;
 
 import com.example.common.annotation.OperLog;
 import com.example.common.utils.JSONUtil;

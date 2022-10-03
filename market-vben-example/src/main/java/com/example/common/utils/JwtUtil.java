@@ -1,6 +1,6 @@
 package com.example.common.utils;
 
-import com.example.common.constants.GlobalConstants;
+import com.example.common.constant.GlobalConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;

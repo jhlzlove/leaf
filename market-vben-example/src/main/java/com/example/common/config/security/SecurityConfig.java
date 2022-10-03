@@ -1,6 +1,6 @@
 package com.example.common.config.security;
 
-import com.example.common.filters.JwtAuthenticationTokenFilter;
+import com.example.common.filter.JwtAuthenticationTokenFilter;
 import com.example.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

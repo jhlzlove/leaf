@@ -1,4 +1,4 @@
-package com.example.common.logs;
+package com.example.common.log;
 
 public enum OperEnum {
     UNKNOWN("未知", 0, "默认未知操作"),

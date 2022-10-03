@@ -1,4 +1,4 @@
-package com.example.common.constants;
+package com.example.common.constant;
 
 /**
  * @author jhlz

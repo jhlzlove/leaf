@@ -1,4 +1,4 @@
-package com.example.common.properties;
+package com.example.common.property;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

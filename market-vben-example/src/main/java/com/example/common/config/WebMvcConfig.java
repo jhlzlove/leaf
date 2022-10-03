@@ -1,8 +1,8 @@
 package com.example.common.config;
 
 import com.example.common.annotation.ApiRestController;
-import com.example.common.interceptors.CustomerInterceptor;
-import com.example.common.properties.CustomerProperties;
+import com.example.common.interceptor.CustomerInterceptor;
+import com.example.common.property.CustomerProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

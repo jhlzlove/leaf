@@ -1,6 +1,6 @@
 package com.example.common.annotation;
 
-import com.example.common.logs.OperEnum;
+import com.example.common.log.OperEnum;
 
 import java.lang.annotation.*;
 

@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.common.annotation.ApiRestController;
 import com.example.common.annotation.OperLog;
-import com.example.common.logs.OperEnum;
+import com.example.common.log.OperEnum;
 import com.example.domain.SysMenu;
 import com.example.service.SysMenuService;
 import io.swagger.annotations.Api;

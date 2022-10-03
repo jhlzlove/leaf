@@ -1,8 +1,8 @@
 package com.example.service.impl;
 
-import com.example.common.constants.GlobalConstants;
+import com.example.common.constant.GlobalConstants;
 import com.example.common.exception.CustomerException;
-import com.example.common.properties.CustomerProperties;
+import com.example.common.property.CustomerProperties;
 import com.example.common.utils.JwtUtil;
 import com.example.domain.SysUser;
 import com.example.domain.resp.LoginUserInfo;
