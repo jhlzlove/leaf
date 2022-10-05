@@ -19,20 +19,12 @@ public interface SysDeptService {
     SysDept findById(Long deptId);
 
     /**
-     * 新增数据
+     * 添加或者修改数据
      *
      * @param sysDept 实例对象
      * @return 实例对象
      */
-    SysDept save(SysDept sysDept);
-
-    /**
-     * 修改数据
-     *
-     * @param sysDept 实例对象
-     * @return 实例对象
-     */
-    SysDept update(SysDept sysDept);
+    SysDept saveOrUpdate(SysDept sysDept);
 
     /**
      * 通过主键删除数据
@@ -47,5 +39,5 @@ public interface SysDeptService {
      *
      * @return
      */
-    List<SysDept> listDept(String deptName, Boolean status);
+    List<SysDept> listDeptTree(String deptName, Boolean status);
 }

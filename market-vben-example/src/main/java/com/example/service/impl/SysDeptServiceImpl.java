@@ -1,13 +1,16 @@
 package com.example.service.impl;
 
 import com.example.common.exception.CustomerException;
+import com.example.common.utils.SpringUtil;
 import com.example.domain.SysDept;
 import com.example.repository.SysDeptDao;
 import com.example.service.SysDeptService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,25 +29,17 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     /**
-     * 新增数据
+     * 添加或修改数据
      *
      * @param sysDept 实例对象
      * @return 实例对象
      */
     @Override
-    public SysDept save(SysDept sysDept) {
-        return deptDao.save(sysDept);
-    }
-
-    /**
-     * 修改数据
-     *
-     * @param sysDept 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public SysDept update(SysDept sysDept) {
-        return deptDao.save(sysDept);
+    public SysDept saveOrUpdate(SysDept sysDept) {
+        SysDept updateDept = deptDao.findById(sysDept.getId()).orElseGet(SysDept::new);
+        BeanUtils.copyProperties(sysDept, updateDept, SpringUtil.getNullPropertyNames(sysDept));
+        updateDept.setUpdateTime(LocalDateTime.now());
+        return deptDao.save(updateDept);
     }
 
     /**
@@ -59,7 +54,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public List<SysDept> listDept(final String deptName, final Boolean status) {
+    public List<SysDept> listDeptTree(final String deptName, final Boolean status) {
         List<SysDept> allList = deptDao.findAll();
         List<SysDept> deptList = buildDeptTree(allList, 0L);
 

@@ -2,6 +2,8 @@ package com.example.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,6 +17,8 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class SysMenu extends BaseEntity {
 
     /**

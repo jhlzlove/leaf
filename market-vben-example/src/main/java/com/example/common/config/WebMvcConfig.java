@@ -110,7 +110,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(module);
-        // jackson 序列化时，不对无效字段检查
+        // jackson 序列化时，不对无效字段（null）检查
         // 举个栗子，遇到过使用 @RequestBody 注解的对象当前端传不全时，控制台打印 not found mapping，xxx property is null...
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // add converter at the very front

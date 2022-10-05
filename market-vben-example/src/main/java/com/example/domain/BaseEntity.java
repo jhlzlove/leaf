@@ -2,9 +2,10 @@ package com.example.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,11 +18,14 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @MappedSuperclass
+@DynamicInsert
+@DynamicUpdate
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 创建者
@@ -31,6 +35,7 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
+    @Column(insertable = false)
     private LocalDateTime createTime;
 
     /**
@@ -41,6 +46,7 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 更新时间
      */
+    @Column(insertable = false)
     private LocalDateTime updateTime;
 
     /**

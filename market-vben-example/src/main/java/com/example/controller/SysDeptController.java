@@ -20,15 +20,15 @@ import java.util.List;
 public class SysDeptController {
 
     @GetMapping
-    @ApiOperation(value = "listDept", notes = "部门列表")
-    public List<SysDept> listDept(String deptName, Boolean status) {
-        return deptService.listDept(deptName, status);
+    @ApiOperation(value = "listDeptTree", notes = "部门列表")
+    public List<SysDept> listDeptTree(String deptName, Boolean status) {
+        return deptService.listDeptTree(deptName, status);
     }
 
     @PostMapping
     @ApiOperation(value = "save", notes = "添加")
-    public SysDept save(SysDept dept) {
-        return deptService.save(dept);
+    public SysDept save(@RequestBody SysDept dept) {
+        return deptService.saveOrUpdate(dept);
     }
 
     @DeleteMapping
@@ -39,8 +39,8 @@ public class SysDeptController {
 
     @PutMapping
     @ApiOperation(value = "update", notes = "更新")
-    public SysDept update(SysDept dept) {
-        return deptService.update(dept);
+    public SysDept update(@RequestBody SysDept dept) {
+        return deptService.saveOrUpdate(dept);
     }
 
     private final SysDeptService deptService;

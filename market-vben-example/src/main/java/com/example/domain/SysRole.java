@@ -1,6 +1,8 @@
 package com.example.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 
@@ -10,6 +12,8 @@ import javax.persistence.Entity;
  */
 @Data
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class SysRole extends BaseEntity {
 
     /**

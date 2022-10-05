@@ -1,6 +1,8 @@
 package com.example.common.utils;
 
 import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -8,6 +10,11 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.ObjectUtils;
+
+import java.beans.PropertyDescriptor;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * SpringUtil: 获取 Spring 工厂对象爽歪歪的类
@@ -136,5 +143,26 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      */
     public static String getRequiredProperty(String key) {
         return applicationContext.getEnvironment().getRequiredProperty(key);
+    }
+
+    /**
+     * 辅助 Spring 框架中 BeanUtils.copyProperties(Object source, Object target, String... ignoreProperties)
+     * 获取不为 null 的数据
+     *
+     * @param source
+     * @return
+     */
+    public static String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        PropertyDescriptor[] pds = src.getPropertyDescriptors();
+        Set<String> emptyNames = new HashSet<String>();
+        for (PropertyDescriptor pd : pds) {
+            // check if value of this property is null then add it to the collection
+            Object srcValue = src.getPropertyValue(pd.getName());
+            // 收集不需要copy的字段列表。此处过滤null为例
+            Optional.ofNullable(srcValue).orElseGet(() -> emptyNames.add(pd.getName()));
+        }
+        String[] result = new String[emptyNames.size()];
+        return (String[]) emptyNames.toArray(result);
     }
 }

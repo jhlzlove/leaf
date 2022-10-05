@@ -2,6 +2,8 @@ package com.example.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Accessors(chain = true)
+@DynamicUpdate
+@DynamicInsert
 public class SysOperLog {
 
     private static final long serialVersionUID = 1L;
