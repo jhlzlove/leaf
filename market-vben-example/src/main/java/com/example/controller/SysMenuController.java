@@ -33,7 +33,7 @@ public class SysMenuController {
     @PostMapping
     @ApiOperation(value = "save", notes = "添加")
     public SysMenu save(SysMenu menu) {
-        return menuService.save(menu);
+        return menuService.saveOrUpdate(menu);
     }
 
     @DeleteMapping
@@ -45,7 +45,7 @@ public class SysMenuController {
     @PutMapping
     @ApiOperation(value = "update", notes = "更新")
     public SysMenu update(SysMenu menu) {
-        return menuService.update(menu);
+        return menuService.saveOrUpdate(menu);
     }
 
     private final SysMenuService menuService;

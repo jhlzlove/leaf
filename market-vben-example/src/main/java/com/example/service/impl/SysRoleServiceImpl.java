@@ -1,9 +1,11 @@
 package com.example.service.impl;
 
 import com.example.common.exception.CustomerException;
+import com.example.common.utils.SpringUtil;
 import com.example.domain.SysRole;
 import com.example.repository.SysRoleDao;
 import com.example.service.SysRoleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,30 +20,12 @@ import java.util.List;
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
 
-    /**
-     * 新增数据
-     *
-     * @param sysRole 实例对象
-     * @return 实例对象
-     */
     @Override
     @Transactional(rollbackFor = CustomerException.class)
-    public SysRole save(SysRole sysRole) {
-        this.sysRoleDao.save(sysRole);
-        return sysRole;
-    }
-
-    /**
-     * 修改数据
-     *
-     * @param sysRole 实例对象
-     * @return 实例对象
-     */
-    @Override
-    @Transactional(rollbackFor = CustomerException.class)
-    public SysRole update(SysRole sysRole) {
-        this.sysRoleDao.save(sysRole);
-        return sysRole;
+    public SysRole saveOrUpdate(SysRole sysRole) {
+        SysRole saveOrUpdateRole = sysRoleDao.findById(sysRole.getId()).orElseGet(SysRole::new);
+        BeanUtils.copyProperties(sysRole, saveOrUpdateRole, SpringUtil.getNullPropertyNames(sysRole));
+        return sysRoleDao.save(saveOrUpdateRole);
     }
 
     /**

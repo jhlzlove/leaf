@@ -1,12 +1,10 @@
 package com.example.service.impl;
 
-import com.example.common.exception.CustomerException;
 import com.example.common.utils.SpringUtil;
 import com.example.domain.SysDept;
 import com.example.repository.SysDeptDao;
 import com.example.service.SysDeptService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -25,7 +23,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public SysDept findById(Long deptId) {
-        return deptDao.findById(deptId).orElseThrow(() -> new CustomerException(HttpStatus.NOT_FOUND));
+        return deptDao.findById(deptId).orElseGet(SysDept::new);
     }
 
     /**

@@ -12,20 +12,12 @@ import java.util.List;
 public interface SysRoleService {
 
     /**
-     * 新增数据
+     * 新增或修改数据
      *
      * @param sysRole 实例对象
      * @return 实例对象
      */
-    SysRole save(SysRole sysRole);
-
-    /**
-     * 修改数据
-     *
-     * @param sysRole 实例对象
-     * @return 实例对象
-     */
-    SysRole update(SysRole sysRole);
+    SysRole saveOrUpdate(SysRole sysRole);
 
     /**
      * 通过主键删除数据

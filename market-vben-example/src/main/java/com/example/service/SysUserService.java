@@ -18,7 +18,7 @@ public interface SysUserService {
      * @param user
      * @return
      */
-    SysUser register(SysUser user);
+    SysUser saveOrUpdate(SysUser user);
 
     /**
      * 删除用户
@@ -35,14 +35,6 @@ public interface SysUserService {
      * @return
      */
     SysUser enabled(Long id);
-
-    /**
-     * 用户信息更新
-     *
-     * @param user
-     * @return
-     */
-    SysUser update(SysUser user);
 
     /**
      * 分页获取

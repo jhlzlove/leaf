@@ -4,12 +4,14 @@ import com.example.common.constant.GlobalConstants;
 import com.example.common.exception.CustomerException;
 import com.example.common.property.CustomerProperties;
 import com.example.common.utils.JwtUtil;
+import com.example.common.utils.SpringUtil;
 import com.example.domain.SysUser;
 import com.example.domain.resp.LoginUserInfo;
 import com.example.repository.SysUserDao;
 import com.example.service.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -44,8 +46,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     @Transactional(rollbackFor = CustomerException.class)
-    public SysUser register(SysUser user) {
-        return sysUserDao.save(user);
+    public SysUser saveOrUpdate(SysUser user) {
+        SysUser saveOrUpdateUser = sysUserDao.findById(user.getId()).orElseGet(SysUser::new);
+        BeanUtils.copyProperties(user, saveOrUpdateUser, SpringUtil.getNullPropertyNames(user));
+        saveOrUpdateUser.setUpdateTime(LocalDateTime.now());
+        return sysUserDao.save(saveOrUpdateUser);
     }
 
     @Override
@@ -62,19 +67,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = CustomerException.class)
     public SysUser enabled(Long id) {
-        SysUser user = sysUserDao.findById(id).orElseGet(() -> new SysUser());
+        SysUser user = sysUserDao.findById(id)
+                .orElseThrow(() -> new CustomerException(HttpStatus.NOT_FOUND));
         boolean flag = user.getEnabled() == true ? false : true;
         user.setEnabled(flag);
         return sysUserDao.save(user);
-    }
-
-    @Override
-    @Transactional(rollbackFor = CustomerException.class)
-    public SysUser update(SysUser user) {
-        SysUser sysUser = sysUserDao.findById(user.getId()).get();
-        sysUser.setPassword(user.getPassword());
-        sysUser.setUpdateTime(LocalDateTime.now());
-        return sysUserDao.save(sysUser);
     }
 
     @Override

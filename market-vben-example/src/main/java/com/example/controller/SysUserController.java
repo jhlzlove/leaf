@@ -20,7 +20,7 @@ public class SysUserController {
     @PostMapping("register")
     @ApiOperation(value = "register", notes = "用户注册")
     public SysUser register(@RequestBody SysUser user) {
-        return userService.register(user);
+        return userService.saveOrUpdate(user);
     }
 
     @DeleteMapping("{id}")

@@ -12,9 +12,7 @@ public interface SysMenuService {
      */
     List<SysMenu> listMenu(String menuName, String status);
 
-    SysMenu save(SysMenu menu);
-
     void deleteById(Long id);
 
-    SysMenu update(SysMenu menu);
+    SysMenu saveOrUpdate(SysMenu menu);
 }
