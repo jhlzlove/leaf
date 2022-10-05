@@ -5,6 +5,7 @@
 
 - [项目结构和介绍](./market-vben-example/introduce.md)
 - [项目使用工具清单](./dev-tools.md)
+- [日志](./market-vben-example/dev-log.md)
 
 # 开发理念
 
