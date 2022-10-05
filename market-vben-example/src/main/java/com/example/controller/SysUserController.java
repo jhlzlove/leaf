@@ -38,7 +38,7 @@ public class SysUserController {
     @PutMapping()
     @ApiOperation(value = "update", notes = "账户更新")
     public SysUser update(@RequestBody SysUser user) {
-        return userService.update(user);
+        return userService.saveOrUpdate(user);
     }
 
     @GetMapping("list")

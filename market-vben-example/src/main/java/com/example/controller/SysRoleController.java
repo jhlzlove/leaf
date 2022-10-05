@@ -34,7 +34,7 @@ public class SysRoleController {
     @PostMapping
     @ApiOperation(value = "save", notes = "添加")
     public SysRole save(SysRole role) {
-        return sysRoleService.save(role);
+        return sysRoleService.saveOrUpdate(role);
     }
 
     @DeleteMapping
@@ -46,7 +46,7 @@ public class SysRoleController {
     @PutMapping
     @ApiOperation(value = "update", notes = "更新")
     public SysRole update(SysRole role) {
-        return sysRoleService.update(role);
+        return sysRoleService.saveOrUpdate(role);
     }
 
     private final SysRoleService sysRoleService;
