@@ -9,7 +9,7 @@ spring:
     druid:
       username: root
       password:
-      url: jdbc:mysql://localhost:3306/market_vben?serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/market_vben?serverTimezone=Asia/Shanghai
       # 初始连接数
       initialSize: 5
       # 最小连接池数量
