@@ -70,6 +70,7 @@ public class SecurityConfig {
                             // 开放 api
                             .mvcMatchers(
                                     "/api/system/**",
+                                    "/file/**",
                                     "/doc.html",
                                     "/swagger**/**",
                                     "/webjars/**",
