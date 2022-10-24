@@ -13,7 +13,7 @@ spring swagger3.0
 druid连接池
 jwt
 lombok
-MySQL8.0
+PostgreSQL15
 ```
 
 ## 二、前端
