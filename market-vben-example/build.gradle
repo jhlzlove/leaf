@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    // spring boot version control
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+// java version
+sourceCompatibility = '17'
+
+repositories {
+    mavenLocal()
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://maven.aliyun.com/repository/spring/' }
+    mavenCentral()
+}
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    /* java 删除的一些库 */
+    implementation('javax.xml.bind:jaxb-api:2.3.1')
+    // 登录放在最后做
+    // implementation('org.springframework.boot:spring-boot-starter-security:2.7.4')
+    /* spring web */
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    /* spring aop */
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    /* swagger 3.0 */
+    implementation('io.springfox:springfox-boot-starter:3.0.0')
+    /* spring data jpa */
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    /* lombok */
+    implementation 'org.projectlombok:lombok:1.18.24'
+    /* postgresql */
+    implementation('org.postgresql:postgresql:42.5.0')
+}
