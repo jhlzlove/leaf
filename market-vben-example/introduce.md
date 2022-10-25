@@ -6,7 +6,7 @@
 
 ## Notice
 
-### 1. 注入方式
+### 1. 关于注入方式
 
 本项目使用构造注入（构造注入的可以防止注入的对象 NPE），该方法可能会造成代码冗余过多的情况。从 Spring4.3
 之后，如果一个类中只有一个构造函数，那么 Spring
@@ -23,7 +23,7 @@ public class DemoServiceImpl implements DemoService {
 
     private final DemoDao demoDao;
 
-    // 这里的 Autowired 注解可加可不加
+    // 这里的 @Autowired 注解可加可不加
     @Autowired
     public DemoServiceImpl(DemoDao demoDao) {
         this.demoDao = demoDao;
@@ -87,3 +87,7 @@ NutsDao 的生态也很不错，不过建议和 NutsBoot 一起使用比较好�
 最后，浪子这里使用 Spring JPA，毕竟 Spring 项目嘛，一家人就是要整整齐齐！感觉对于个人开发来说很不错。如果要更换或者加入其它
 ORM 框架的时候也很方便，引入 Mybatis 或者 Mybatis-Plus 也不难，使用 Hibernate
 就更简单了。
+
+### 4. 关于版本依赖管理
+
+那当然是 Gradle 了，我不为别的，依赖看着舒服，大道至简。
