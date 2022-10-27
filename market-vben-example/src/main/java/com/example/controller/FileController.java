@@ -1,28 +1,29 @@
 package com.example.controller;
 
 import com.example.common.annotation.ApiRestController;
+import com.example.common.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * FileController:
- * 文件的上传下载
+ * 文件上传下载
  *
  * @author jhlz
  * @since 2022/10/5 16:39:06
@@ -33,45 +34,15 @@ import java.util.Iterator;
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
-    @GetMapping("download")
-    @ApiOperation(value = "fileDownload", notes = "文件下载")
-    public HttpServletResponse fileDownload(HttpServletRequest req,
-                                            HttpServletResponse resp,
-                                            String fileName) {
-        // 可下载的资源全部放在该路径
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        URL resource = classLoader.getResource("static/data/download/" + fileName);
-        // 获取绝对路径，注意：该方式的绝对路径前有 /
-        String absoluteFilePath = resource.getFile();
-        Path fileBasePath = Paths.get(absoluteFilePath.replaceFirst("/", ""));
-        logger.info("下载的文件名：{}", fileBasePath.getFileName());
-
-        File file = fileBasePath.toFile();
-        // try-with-resources
-        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-             BufferedOutputStream bos = new BufferedOutputStream(resp.getOutputStream());
-        ) {
-            // 设置 response 的Header
-            resp.setCharacterEncoding("UTF-8");
-            resp.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes()));
-            resp.addHeader("Content-Length", "" + file.length());
-            resp.setContentType("application/octet-stream");
-            byte[] buffer = new byte[1024];
-            int b;
-            while ((b = bis.read(buffer)) != -1) {
-                bos.write(buffer, 0, b);// 将缓冲区的数据输出到浏览器
-            }
-            bos.flush();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return resp;
-    }
-
+    /**
+     * request 方式上传
+     *
+     * @param req
+     * @param resp
+     * @param file
+     */
     @PostMapping("upload")
-    @ApiOperation(value = "upload", notes = "文件上传")
+    @ApiOperation(value = "Request 方式上传", notes = "文件上传")
     public void upload(HttpServletRequest req, HttpServletResponse resp, String file) {
         try {
             req.setCharacterEncoding("UTF-8");
@@ -92,6 +63,40 @@ public class FileController {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } catch (IOException | ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("MultipartFile")
+    @ApiOperation(value = "多文件上传", notes = "多文件上传")
+    public void uploadMultipartFile(@RequestParam("files") MultipartFile[] files) {
+        for (MultipartFile file : files) {
+            upload(file);
+        }
+    }
+
+    /**
+     * Spring MVC 3.1 MultipartFile 方式上传文件
+     *
+     * @param file
+     */
+    private void upload(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        logger.debug(" File name is {}", fileName);
+        String[] fileSplit = fileName.split("\\.");
+        String extensionName = fileSplit[fileSplit.length - 1];
+        logger.debug(" File extension name is {}", extensionName);
+
+        String rename = DateUtil.localDateTime2String(LocalDateTime.now(), "yyyyMMddHHmmsss");
+        String finalName = rename + "." + extensionName;
+        try {
+            File filePath = new File("market-vben-example/src/main/resources/static/data/upload/");
+            if (!filePath.exists()) {
+                filePath.mkdirs();
+            }
+            File saveFile = new File(filePath + finalName);
+            file.transferTo(saveFile);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

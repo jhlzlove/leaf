@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author clf
- * @time 2022/8/10 16:58
- * @desc: CustomerInterceptor
+ * @since 2022/8/10 16:58
  */
 public class CustomerInterceptor implements HandlerInterceptor {
     @Override

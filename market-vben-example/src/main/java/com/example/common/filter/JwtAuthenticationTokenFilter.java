@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author clf
- * @time 2022/8/13 18:55
- * @desc: JwtAuthenticationTokenFilter Token认证过滤器
+ * JwtAuthenticationTokenFilter Token认证过滤器
+ *
+ * @author jhlz
+ * @since 2022/8/13 18:55
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
@@ -22,9 +23,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 1. 获取并解析 token
-        String token = request.getHeader("result");
-        logger.info("result: {}", token);
         // 直接放行
         filterChain.doFilter(request, response);
     }

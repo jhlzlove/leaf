@@ -11,20 +11,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- * 统一对 Controller 层返回的结果做包装
+ * Controller 接口返回数据统一处理
  */
 @RestControllerAdvice
-public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
+public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        RespResult result = new RespResult(body, ResponseStatus.OK.value(), ResponseStatus.OK.getReasonPhrase(), null, null);
         if (body instanceof String) {
-            // 如果原始的返回body是json字符串，则设置返回内容的类型
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
             return JSONUtil.toJSON(body);
         }
-        return result;
+        return RespResult.success(body);
     }
 
     /**

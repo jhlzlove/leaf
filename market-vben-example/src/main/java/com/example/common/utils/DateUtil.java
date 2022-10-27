@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author clf
- * @time 2022/8/10 15:19
- * @desc: DateUtil：LocalDate
+ * jsr310 日期格式工具类
+ *
+ * @author jhlz
+ * @since 2022/8/10 15:19
  */
 public class DateUtil {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";

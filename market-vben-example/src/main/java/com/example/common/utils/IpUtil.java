@@ -7,9 +7,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * @author clf
- * @time 2022/8/11 18:28
- * @desc: IpUtil
+ * @author jhlz
+ * @since 2022/8/11 18:28
  */
 public class IpUtil {
 

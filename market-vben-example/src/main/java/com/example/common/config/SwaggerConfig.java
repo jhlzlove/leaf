@@ -13,11 +13,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author clf
- * @time 2022/8/10 16:26
- * @desc: SwaggerConfig
- * 开启 EnableWebMvc注解，
+ * SwaggerConfig开启 EnableWebMvc注解，
  * 否则会报错：Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException: Cannot invoke "org.springframework.web.servlet.mvc.condition.PatternsRequestCondition.getPatterns()" because "this.condition" is null
+ *
+ * @author jhlz
+ * @since 2022/8/10 16:26
  */
 @Component
 @EnableWebMvc

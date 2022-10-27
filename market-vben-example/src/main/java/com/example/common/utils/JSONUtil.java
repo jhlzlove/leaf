@@ -6,9 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 /**
+ * 基于 Spring 使用的 jackson 封装的 JSONUtil
+ *
  * @author jhlz
  * @time 2022/8/19 18:52
- * @desc: JSONUtil 基于 Spring 使用的 jackson 封装的 JSONUtil
  */
 public class JSONUtil {
 

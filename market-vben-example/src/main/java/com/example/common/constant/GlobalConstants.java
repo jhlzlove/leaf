@@ -1,9 +1,10 @@
 package com.example.common.constant;
 
 /**
+ * GlobalConstants 全局常量信息类
+ *
  * @author jhlz
  * @time 2022/8/10 17:19
- * @desc: GlobalConstants 全局常量信息类
  */
 public class GlobalConstants {
     /**

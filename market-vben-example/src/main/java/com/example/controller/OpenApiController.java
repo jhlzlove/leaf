@@ -1,10 +1,10 @@
 package com.example.controller;
 
-import com.example.common.annotation.ApiRestController;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author jhlz
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @desc: WebController
  * 公共 API
  */
-@ApiRestController
-@RequestMapping("/openapi")
-@Api(value = "Web", tags = "OpenApi测试")
+@RestController
+@RequestMapping("/api")
+@Api(value = "OpenApiController", tags = "OpenApi")
 public class OpenApiController {
 
-    private static final Logger logger = LoggerFactory.getLogger(OpenApiController.class);
+    private static final Logger log = LoggerFactory.getLogger(OpenApiController.class);
 }

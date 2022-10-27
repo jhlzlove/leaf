@@ -22,6 +22,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Web 配置
+ *
+ * @author jhlz
+ * @since 2022/8/10 16:26
+ */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
