@@ -1,12 +1,7 @@
 package com.example;
 
-import com.example.service.SysMenuService;
-import com.example.service.SysUserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -17,25 +12,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class AppTest {
     private static final Logger logger = LoggerFactory.getLogger(AppTest.class);
-    @Autowired
-    private SysUserService userService;
-    @Autowired
-    private SysMenuService menuService;
-
-
-    /**
-     * test：删除账户用例
-     */
-    @Test
-    public void testDeleteUser() {
-        Assertions.assertTrue(userService.delete(4L).getDelFlag() == true);
-    }
-
-    /**
-     * test：获取菜单树用例
-     */
-    @Test
-    public void testListMenu() {
-        // logger.info("{}", menuService.getMenuList());
-    }
+    
 }

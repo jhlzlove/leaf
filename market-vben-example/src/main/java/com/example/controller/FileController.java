@@ -30,7 +30,7 @@ import java.util.Iterator;
  */
 @ApiRestController
 @RequestMapping("file")
-@Api(value = "FileController", tags = "文件上传下载管理")
+@Api(value = "文件管理", tags = "文件上传下载管理")
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
@@ -46,7 +46,6 @@ public class FileController {
     public void upload(HttpServletRequest req, HttpServletResponse resp, String file) {
         try {
             req.setCharacterEncoding("UTF-8");
-
             Collection<Part> parts = req.getParts();
             Iterator<Part> fileIterator = parts.iterator();
             fileIterator.forEachRemaining(f -> {
@@ -59,7 +58,6 @@ public class FileController {
                 }
                 // uploadFiles(f, "market-vben-example/src/main/resources/data", f.getName(), Instant.now().toString());
             });
-            req.getInputStream();
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } catch (IOException | ServletException e) {
