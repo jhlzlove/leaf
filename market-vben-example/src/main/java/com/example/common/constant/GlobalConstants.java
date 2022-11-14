@@ -23,11 +23,6 @@ public class GlobalConstants {
     public static final String LOGIN_USER_KEY = "login_user_key";
 
     /**
-     * port
-     */
-    public static final int PORT = 7777;
-
-    /**
      * swagger 后缀
      */
     public static final String SWAGGER_SUFFIX = "/swagger-ui/index.html";
