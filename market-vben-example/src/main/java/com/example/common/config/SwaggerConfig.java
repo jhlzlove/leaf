@@ -13,8 +13,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * SwaggerConfig开启 EnableWebMvc注解，
- * 否则会报错：Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException: Cannot invoke "org.springframework.web.servlet.mvc.condition.PatternsRequestCondition.getPatterns()" because "this.condition" is null
+ * Swagger 3
  *
  * @author jhlz
  * @since 2022/8/10 16:26
@@ -27,7 +26,7 @@ public class SwaggerConfig {
     /**
      * swagger 没有配置前端 ui，所以访问 http://localhost:port/doc.html 无效
      * 需要的可以自己添加喜欢的依赖，例如 swagger-ui、knife 等
-     * 3.0 默认文档访问 http://localhost:port/swagger-ui/index,html，使用 Apifox 输入此地址导入接口
+     * 3.0 默认文档访问 http://localhost:port/swagger-ui/index.html，使用 Apifox 输入此地址导入接口
      *
      * @return
      */

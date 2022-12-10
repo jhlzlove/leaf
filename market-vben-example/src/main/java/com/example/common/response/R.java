@@ -1,5 +1,6 @@
 package com.example.common.response;
 
+import com.example.common.utils.JSONUtil;
 import lombok.Data;
 
 import java.util.Optional;
@@ -11,7 +12,7 @@ import java.util.Optional;
  * @since 2022/10/3 16:19:42
  */
 @Data
-public class RespResult {
+public class R {
     /**
      * 结果对象
      **/
@@ -27,7 +28,7 @@ public class RespResult {
      **/
     private String message;
 
-    public RespResult() {
+    public R() {
     }
 
     /**
@@ -35,25 +36,25 @@ public class RespResult {
      *
      * @return
      */
-    public static RespResult success() {
+    public static R success() {
         return success(RespStatus.SUCCESS);
     }
 
-    public static RespResult success(RespStatus status) {
+    public static R success(RespStatus status) {
         return success(status.getCode(), success().getMessage());
     }
 
-    public static RespResult success(int code, String message) {
+    public static R success(int code, String message) {
         return success(code, message, null);
     }
 
-    public static RespResult success(Object data) {
-        RespResult resp = success(RespStatus.SUCCESS.getCode(), RespStatus.SUCCESS.getMessage(), data);
+    public static R success(Object data) {
+        R resp = success(RespStatus.SUCCESS.getCode(), RespStatus.SUCCESS.getMessage(), data);
         return resp;
     }
 
-    public static RespResult success(int code, String message, Object data) {
-        RespResult resp = new RespResult();
+    public static R success(int code, String message, Object data) {
+        R resp = new R();
         resp.setCode(code);
         resp.setMessage(message);
         Optional.ofNullable(data).ifPresent(d -> resp.setData(d));
@@ -65,18 +66,23 @@ public class RespResult {
      *
      * @return
      */
-    public static RespResult error() {
+    public static R error() {
         return error(RespStatus.ERROR);
     }
 
-    public static RespResult error(RespStatus status) {
+    public static R error(RespStatus status) {
         return error(status.getCode(), status.getMessage());
     }
 
-    public static RespResult error(int code, String message) {
-        RespResult resp = new RespResult();
+    public static R error(int code, String message) {
+        R resp = new R();
         resp.setCode(code);
         resp.setMessage(message);
         return resp;
+    }
+
+    @Override
+    public String toString() {
+        return JSONUtil.toJsonString(this);
     }
 }

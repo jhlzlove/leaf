@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 /**
- * LogAspect:
+ * 日志切面
  *
  * @author jhlz
  * @since 2022/9/16 10:08:28
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LogAspect {
-
 
     /**
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
@@ -28,7 +27,7 @@ public class LogAspect {
     /**
      * 设置操作异常切入点记录异常日志 扫描所有controller包下操作
      */
-    @Pointcut("execution(* com.example.controller.*.*(..))")
+    @Pointcut("execution(* com.example.*.controller.*.*(..))")
     public void exceptionLogPointCut() {
     }
 

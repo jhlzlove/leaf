@@ -1,12 +1,12 @@
-package com.example.common.log;
+package com.example.common.config;
 
 import ch.qos.logback.core.PropertyDefinerBase;
 
 /**
+ * 继承 logback 的 PropertyDefinerBase 实现动态确定 logs 的存放路径
+ *
  * @author jhlz
  * @time 2022/8/29 9:47
- * @desc: LogHomeConfig
- * 继承 logback 的 PropertyDefinerBase 实现动态确定 logs 的存放路径
  */
 public class LogHomeConfig extends PropertyDefinerBase {
     @Override
@@ -15,6 +15,7 @@ public class LogHomeConfig extends PropertyDefinerBase {
         String username = System.getProperty("user.name");
         // 获取操作系统
         String os = System.getProperty("os.name");
-        return os.toLowerCase().contains("window") ? "D:/market/logs" : "/home/" + username + "/market/logs";
+        return os.toLowerCase().contains("window") ?
+                "./market/logs" : "/home/" + username + "/market/logs";
     }
 }

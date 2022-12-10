@@ -43,13 +43,4 @@ logging:
   level:
     # SQL 语句显示参数
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.example.repository: debug
-
-# controller 请求前加入统一前缀
-api:
-  path:
-    global-prefix: api
-
-# token 前缀，默认 Authorization
-#token:
-#  prefix:
+    com.example.system.repository: debug

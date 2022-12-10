@@ -1,7 +1,7 @@
-package com.example.controller;
+package com.example.system.controller;
 
 import com.example.common.annotation.ApiRestController;
-import com.example.common.utils.DateUtil;
+import com.example.common.utils.LocaDateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -85,7 +85,7 @@ public class FileController {
         String extensionName = fileSplit[fileSplit.length - 1];
         logger.debug(" File extension name is {}", extensionName);
 
-        String rename = DateUtil.localDateTime2String(LocalDateTime.now(), "yyyyMMddHHmmsss");
+        String rename = LocaDateUtil.localDateTimeToString(LocalDateTime.now(), "yyyyMMddHHmmsss");
         String finalName = rename + "." + extensionName;
         try {
             File filePath = new File("market-vben-example/src/main/resources/static/data/upload/");

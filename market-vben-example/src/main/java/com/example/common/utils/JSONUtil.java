@@ -22,7 +22,7 @@ public class JSONUtil {
      * @param o 需要转换的数据
      * @return
      */
-    public static String toJSON(Object o) {
+    public static String toJsonString(Object o) {
         try {
             return JSON.writeValueAsString(o);
         } catch (JsonProcessingException e) {

@@ -1,6 +1,12 @@
 package com.example.common.log;
 
-public enum OperEnum {
+/**
+ * 操作模块枚举
+ *
+ * @author: jhlz
+ * @since: 2022/12/10 16:03:57
+ */
+public enum OperationEnum {
     UNKNOWN("未知", 0, "默认未知操作"),
     LOGIN("登录模块", 1, "用户登录"),
     MENU("菜单模块", 0, "菜单列表");
@@ -18,7 +24,7 @@ public enum OperEnum {
      */
     private String desc;
 
-    OperEnum(String module, Integer type, String desc) {
+    OperationEnum(String module, Integer type, String desc) {
         this.module = module;
         this.type = type;
         this.desc = desc;

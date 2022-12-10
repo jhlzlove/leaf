@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.system.controller;
 
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;

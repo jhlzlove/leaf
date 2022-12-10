@@ -1,8 +1,6 @@
 package com.example.common.config;
 
-import com.example.common.annotation.ApiRestController;
 import com.example.common.interceptor.CustomerInterceptor;
-import com.example.common.property.CustomerProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -15,7 +13,6 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDateTime;
@@ -30,19 +27,6 @@ import java.util.List;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
-    /**
-     * 针对特定注解在请求地址前面统一添加前缀
-     * 原：http://localhost:port/sys/xxxx
-     * 添加后：http://localhost:port/api/sys/xxxx
-     *
-     * @param configurer
-     */
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer
-                .addPathPrefix(apiPathPrefix.getGlobalPrefix(), c -> c.isAnnotationPresent(ApiRestController.class));
-    }
 
     /**
      * 创建自定义拦截器交给 Spring
@@ -125,9 +109,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         converters.add(0, new MappingJackson2HttpMessageConverter(mapper));
     }
 
-    private final CustomerProperties apiPathPrefix;
-
-    public WebMvcConfig(CustomerProperties apiPathProperties) {
-        this.apiPathPrefix = apiPathProperties;
-    }
 }
