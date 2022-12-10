@@ -11,10 +11,13 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-    // 依赖下载源
+    // 下载源设置
     mavenLocal()
     maven { url 'https://maven.aliyun.com/repository/public/' }
     maven { url 'https://maven.aliyun.com/repository/spring/' }
+    // 如果项目中需要从 http 下载依赖，打开下面的设置
+    // allowInsecureProtocol = true
+    // maven { url 'http://maven.nexus.com/xxxx'}
     mavenCentral()
 }
 dependencies {
@@ -22,8 +25,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     /* java 高版本删除的一些库 */
     implementation('javax.xml.bind:jaxb-api:2.3.1')
-    // 登录放在最后做
-    /* spring security */
+    /* spring security 放在最后做，开发过程中需要频繁修改 */
     // implementation('org.springframework.boot:spring-boot-starter-security:2.7.4')
     /* spring web */
     implementation('org.springframework.boot:spring-boot-starter-web')
@@ -36,7 +38,7 @@ dependencies {
     /* lombok */
     implementation 'org.projectlombok:lombok:1.18.24'
     /* postgresql */
-    implementation('org.postgresql:postgresql:42.5.0')
+    implementation('org.postgresql:postgresql:42.5.1')
     /* java jwt */
     // https://mvnrepository.com/artifact/com.auth0/java-jwt
     implementation 'com.auth0:java-jwt:4.2.1'
