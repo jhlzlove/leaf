@@ -26,9 +26,7 @@ public class LocaDateUtil {
      * @return LocalDate 对象
      */
     public static LocalDate stringToLocalDate(String dateStr, String pattern) {
-        if (!StringUtils.hasLength(pattern)) {
-            pattern = DATE_PATTERN;
-        }
+        pattern = StringUtils.hasLength(pattern) ? pattern : DATE_PATTERN;
         return LocalDate.parse(dateStr, ofPattern(pattern));
     }
 
@@ -40,9 +38,7 @@ public class LocaDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateToString(LocalDate date, String pattern) {
-        if (!StringUtils.hasLength(pattern)) {
-            pattern = DATE_PATTERN;
-        }
+        pattern = StringUtils.hasLength(pattern) ? pattern : DATE_PATTERN;
         return date.format(ofPattern(pattern));
     }
 
@@ -54,9 +50,7 @@ public class LocaDateUtil {
      * @return LocalDateTime 对象
      */
     public static LocalDateTime stringToLocalDateTime(String date, String pattern) {
-        if (!StringUtils.hasLength(pattern)) {
-            pattern = DATE_TIME_PATTERN;
-        }
+        pattern = StringUtils.hasLength(pattern) ? pattern : DATE_TIME_PATTERN;
         return LocalDateTime.parse(date, ofPattern(pattern));
     }
 
@@ -68,9 +62,7 @@ public class LocaDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateTimeToString(LocalDateTime date, String pattern) {
-        if (!StringUtils.hasLength(pattern)) {
-            pattern = DATE_TIME_PATTERN;
-        }
+        pattern = StringUtils.hasLength(pattern) ? pattern : DATE_TIME_PATTERN;
         return date.format(ofPattern(pattern));
     }
 
