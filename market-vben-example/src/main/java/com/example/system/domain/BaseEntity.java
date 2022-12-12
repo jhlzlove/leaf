@@ -1,9 +1,6 @@
 package com.example.system.domain;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -13,12 +10,14 @@ import java.time.LocalDateTime;
  * @since: 2022/11/26 15:33:42
  */
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public class BaseEntity {
 
     /**
      * 主键 id
+     * 使用数据库的自增模式 GenerationType.IDENTITY
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     /**

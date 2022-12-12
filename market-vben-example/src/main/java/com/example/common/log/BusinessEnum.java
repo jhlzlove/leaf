@@ -1,15 +1,16 @@
 package com.example.common.log;
 
 /**
- * 操作模块枚举
+ * 业务模块枚举说明
  *
  * @author: jhlz
  * @since: 2022/12/10 16:03:57
  */
-public enum OperationEnum {
+public enum BusinessEnum {
     UNKNOWN("未知", 0, "默认未知操作"),
     LOGIN("登录模块", 1, "用户登录"),
-    MENU("菜单模块", 0, "菜单列表");
+    MENU("菜单模块", 0, "菜单列表"),
+    ;
 
     /**
      * 模块标题
@@ -24,7 +25,7 @@ public enum OperationEnum {
      */
     private String desc;
 
-    OperationEnum(String module, Integer type, String desc) {
+    BusinessEnum(String module, Integer type, String desc) {
         this.module = module;
         this.type = type;
         this.desc = desc;

@@ -37,10 +37,10 @@ public class R {
      * @return
      */
     public static R success() {
-        return success(RespStatus.SUCCESS);
+        return success(ResponseStatus.SUCCESS);
     }
 
-    public static R success(RespStatus status) {
+    public static R success(ResponseStatus status) {
         return success(status.getCode(), success().getMessage());
     }
 
@@ -49,7 +49,7 @@ public class R {
     }
 
     public static R success(Object data) {
-        R resp = success(RespStatus.SUCCESS.getCode(), RespStatus.SUCCESS.getMessage(), data);
+        R resp = success(ResponseStatus.SUCCESS.getCode(), ResponseStatus.SUCCESS.getMessage(), data);
         return resp;
     }
 
@@ -67,10 +67,10 @@ public class R {
      * @return
      */
     public static R error() {
-        return error(RespStatus.ERROR);
+        return error(ResponseStatus.ERROR);
     }
 
-    public static R error(RespStatus status) {
+    public static R error(ResponseStatus status) {
         return error(status.getCode(), status.getMessage());
     }
 

@@ -1,12 +1,19 @@
 package com.example.system.service.impl;
 
+import com.example.common.utils.SpringUtil;
 import com.example.system.domain.User;
 import com.example.system.repository.UserRepository;
 import com.example.system.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * 用户信息表(User)表服务实现类
@@ -25,20 +32,24 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User queryById(Long id) {
-        return this.userRepository.findById(id).orElseGet(User::new);
+        return userRepository.findById(id).orElseGet(User::new);
     }
 
     /**
      * 分页查询
      *
-     * @param user        筛选条件
-     * @param pageRequest 分页对象
+     * @param user      筛选条件
+     * @param pageIndex 第几页
+     * @param pageSize  每页记录数
      * @return 查询结果
      */
     @Override
-    public Page<User> queryByPage(User user, PageRequest pageRequest) {
-        long total = this.userRepository.count();
-        return new PageImpl<>(this.userRepository.findAll(), pageRequest, total);
+    public Page<User> queryByPage(User user, int pageIndex, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize);
+        Page<User> all = userRepository.findAll(pageRequest);
+        log.info("{}", all);
+        log.info("总数：{}", all.getTotalElements());
+        return new PageImpl<>(userRepository.findAll(), pageRequest, all.getTotalElements());
     }
 
     /**
@@ -49,21 +60,29 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User insertOrUpdate(User user) {
-        User u = this.userRepository.save(user);
-        return u;
+        Optional<User> oldUser = userRepository.findById(user.getId());
+        // 没有找到直接保存，找到就更新
+        if (oldUser.isEmpty()) {
+            return userRepository.save(user);
+        } else {
+            User newUser = oldUser.get();
+            BeanUtils.copyProperties(user, newUser, SpringUtil.getNullPropertyNames(user));
+            newUser.setUpdateTime(LocalDateTime.now());
+            return userRepository.save(newUser);
+        }
     }
 
     /**
      * 通过主键删除数据
      *
      * @param id 主键
-     * @return 是否成功
      */
     @Override
     public void deleteById(Long id) {
-        this.userRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {

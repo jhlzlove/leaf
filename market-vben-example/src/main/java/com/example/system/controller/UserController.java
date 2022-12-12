@@ -5,7 +5,6 @@ import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @author jhlz
  * @since 2022-12-11 13:46:28
  */
-@Api(value = "user 管理模块", tags = "dev")
+@Api(value = "user 管理模块", tags = "用户模块")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -21,14 +20,15 @@ public class UserController {
     /**
      * 分页查询
      *
-     * @param user        筛选条件
-     * @param pageRequest 分页对象
+     * @param user      筛选条件
+     * @param pageIndex 第几页
+     * @param pageSize  每页记录数
      * @return 查询结果
      */
     @GetMapping
-    @ApiOperation(tags = "dev", value = "short desc", notes = "interface operation details")
-    public ResponseEntity<Page<User>> queryByPage(User user, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.userService.queryByPage(user, pageRequest));
+    @ApiOperation(value = "用户数据分页", notes = "interface operation details")
+    public ResponseEntity<Page<User>> queryByPage(User user, int pageIndex, int pageSize) {
+        return ResponseEntity.ok(userService.queryByPage(user, pageIndex, pageSize));
     }
 
     /**
@@ -38,9 +38,9 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    @ApiOperation(tags = "dev", value = "short desc", notes = "interface operation details")
+    @ApiOperation(value = "获取指定用户", notes = "interface operation details")
     public ResponseEntity<User> queryById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.userService.queryById(id));
+        return ResponseEntity.ok(userService.queryById(id));
     }
 
     /**
@@ -50,9 +50,9 @@ public class UserController {
      * @return 新增结果
      */
     @PostMapping
-    @ApiOperation(tags = "dev", value = "short desc", notes = "interface operation details")
-    public ResponseEntity<User> add(User user) {
-        return ResponseEntity.ok(this.userService.insertOrUpdate(user));
+    @ApiOperation(value = "添加用户", notes = "interface operation details")
+    public ResponseEntity<User> add(@RequestBody User user) {
+        return ResponseEntity.ok(userService.insertOrUpdate(user));
     }
 
     /**
@@ -62,9 +62,9 @@ public class UserController {
      * @return 编辑结果
      */
     @PutMapping
-    @ApiOperation(tags = "dev", value = "short desc", notes = "interface operation details")
-    public ResponseEntity<User> edit(User user) {
-        return ResponseEntity.ok(this.userService.insertOrUpdate(user));
+    @ApiOperation(value = "编辑用户", notes = "interface operation details")
+    public ResponseEntity<User> edit(@RequestBody User user) {
+        return ResponseEntity.ok(userService.insertOrUpdate(user));
     }
 
     /**
@@ -73,10 +73,10 @@ public class UserController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    @ApiOperation(tags = "dev", value = "short desc", notes = "interface operation details")
-    public ResponseEntity<String> deleteById(Long id) {
-        this.userService.deleteById(id);
+    @DeleteMapping("{id}")
+    @ApiOperation(value = "删除用户", notes = "interface operation details")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
+        userService.deleteById(id);
         return ResponseEntity.ok("nice");
     }
 

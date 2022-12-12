@@ -1,5 +1,8 @@
 package com.example.system.domain;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,7 +13,9 @@ import java.time.LocalDateTime;
  * @author jhlz
  * @since 2022-12-11 13:46:28
  */
-@Entity
+@Entity(name = "vben_user")
+@DynamicInsert
+@DynamicUpdate
 public class User extends BaseEntity implements Serializable {
 
     /**
@@ -20,7 +25,7 @@ public class User extends BaseEntity implements Serializable {
     /**
      * 出生日期
      */
-    private String birthday;
+    private LocalDateTime birthday;
     /**
      * 身份证号
      */
@@ -79,11 +84,11 @@ public class User extends BaseEntity implements Serializable {
         this.name = name;
     }
 
-    public String getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 

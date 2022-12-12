@@ -25,9 +25,9 @@ public class LogAspect {
     }
 
     /**
-     * 设置操作异常切入点记录异常日志 扫描所有controller包下操作
+     * 设置操作异常切入点记录异常日志
      */
-    @Pointcut("execution(* com.example.*.controller.*.*(..))")
+    @Pointcut("execution(* com.example.system..*.*(..))")
     public void exceptionLogPointCut() {
     }
 

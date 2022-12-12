@@ -1,6 +1,6 @@
 package com.example.common.annotation;
 
-import com.example.common.log.OperationEnum;
+import com.example.common.log.BusinessEnum;
 
 import java.lang.annotation.*;
 
@@ -31,6 +31,6 @@ public @interface OperationLog {
      *
      * @return
      */
-    OperationEnum oper() default OperationEnum.UNKNOWN;
+    BusinessEnum operation() default BusinessEnum.UNKNOWN;
 
 }

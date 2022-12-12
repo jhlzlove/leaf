@@ -16,6 +16,6 @@ public class LogHomeConfig extends PropertyDefinerBase {
         // 获取操作系统
         String os = System.getProperty("os.name");
         return os.toLowerCase().contains("window") ?
-                "./market/logs" : "/home/" + username + "/market/logs";
+                "./logs" : "/home/" + username + "/market/logs";
     }
 }

@@ -2,7 +2,6 @@ package com.example.system.service;
 
 import com.example.system.domain.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * 用户信息表(User)表服务接口
@@ -23,11 +22,12 @@ public interface UserService {
     /**
      * 分页查询
      *
-     * @param user        筛选条件
-     * @param pageRequest 分页对象
+     * @param user      筛选条件
+     * @param pageIndex 第几页
+     * @param pageSize  每页记录数
      * @return 查询结果
      */
-    Page<User> queryByPage(User user, PageRequest pageRequest);
+    Page<User> queryByPage(User user, int pageIndex, int pageSize);
 
     /**
      * 新增数据
