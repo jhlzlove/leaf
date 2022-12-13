@@ -11,6 +11,8 @@ import java.util.Objects;
  * @since 2022/10/3 16:19:24
  */
 public enum ResponseStatus {
+
+
     SUCCESS(200, "请求成功！"),
     ERROR(500, "请求失败！"),
     NOT_FOUND(404, "找不到资源！"),

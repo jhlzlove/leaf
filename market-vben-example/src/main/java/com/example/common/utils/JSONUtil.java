@@ -2,11 +2,14 @@ package com.example.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.json.JacksonJsonParser;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
- * 基于 Spring 使用的 jackson 封装的 JSONUtil
+ * 基于 Spring 使用的 jackson 简单封装的 JSONUtil
  *
  * @author jhlz
  * @time 2022/8/19 18:52
@@ -22,7 +25,7 @@ public class JSONUtil {
      * @param o 需要转换的数据
      * @return
      */
-    public static String toJsonString(Object o) {
+    public static String toJSONString(Object o) {
         try {
             return JSON.writeValueAsString(o);
         } catch (JsonProcessingException e) {
@@ -33,15 +36,39 @@ public class JSONUtil {
     /**
      * JSON 转对象
      *
-     * @param jsonStr json字符串
-     * @param clazz   对象类
+     * @param json  json字符串
+     * @param clazz 对象类
      * @return
      */
-    public static Object parserObject(String jsonStr, Class<?> clazz) {
+    public static Object parseObject(String json, Class<?> clazz) {
         try {
-            return JSON.readValue(jsonStr, clazz);
+            return JSON.readValue(json, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * json 转 list
+     *
+     * @param json json 字符串
+     * @return List<Object>
+     */
+    public static List<Object> parseArray(String json) {
+        JacksonJsonParser jacksonJsonParser = new JacksonJsonParser();
+        List<Object> list = jacksonJsonParser.parseList(json);
+        return list;
+    }
+
+    /**
+     * json 转 map
+     *
+     * @param json json 字符串
+     * @return Map<String, Object>
+     */
+    public static Map<String, Object> parseMap(String json) {
+        JacksonJsonParser jacksonJsonParser = new JacksonJsonParser();
+        Map<String, Object> objects = jacksonJsonParser.parseMap(json);
+        return objects;
     }
 }

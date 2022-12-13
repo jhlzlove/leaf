@@ -10,6 +10,12 @@ public enum BusinessEnum {
     UNKNOWN("未知", 0, "默认未知操作"),
     LOGIN("登录模块", 1, "用户登录"),
     MENU("菜单模块", 0, "菜单列表"),
+    // ---------------------- 用户 ---------------------------
+    LIST_USER("系统用户管理", 0, "用户分页列表信息"),
+    GET_USER("系统用户管理", 0, "根据 id 获取用户"),
+    ADD_USER("系统用户管理", 1, "添加用户"),
+    UPDATE_USER("系统用户管理", 2, "更新用户"),
+    DELETE_USER("系统用户管理", 3, "删除用户"),
     ;
 
     /**
@@ -53,5 +59,14 @@ public enum BusinessEnum {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessEnum{" +
+                "module='" + module + '\'' +
+                ", type=" + type +
+                ", desc='" + desc + '\'' +
+                '}';
     }
 }

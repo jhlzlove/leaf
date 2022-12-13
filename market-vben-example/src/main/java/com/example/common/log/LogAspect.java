@@ -1,11 +1,17 @@
 package com.example.common.log;
 
+import com.example.common.annotation.OperationLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * 日志切面
@@ -17,11 +23,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
+    private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
+
     /**
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
      */
     @Pointcut("@annotation(com.example.common.annotation.OperationLog)")
     public void logPointCut() {
+        log.info("---------------------- 正常操作日志 -------------------------");
     }
 
     /**
@@ -29,6 +38,7 @@ public class LogAspect {
      */
     @Pointcut("execution(* com.example.system..*.*(..))")
     public void exceptionLogPointCut() {
+        log.info("---------------------- 异常操作日志 -------------------------");
     }
 
     /**
@@ -39,7 +49,20 @@ public class LogAspect {
      */
     @AfterReturning(value = "logPointCut()", returning = "result")
     public void saveOperationLog(JoinPoint joinPoint, Object result) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        // 请求的模块信息
+        OperationLog operationLog = method.getAnnotation(OperationLog.class);
+        BusinessEnum operation = operationLog.operation();
+        log.info("operation : {}", operation);
 
+        // 请求类
+        Class<?> clazz = method.getDeclaringClass();
+        // 请求方法
+        String methodName = method.getName();
+        // 请求参数
+        Object[] args = joinPoint.getArgs();
+        log.info("请求类：{}, 请求方法：{}, 请求参数： {}", clazz, methodName, args);
 
     }
 

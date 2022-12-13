@@ -3,6 +3,7 @@ package com.example.common.response;
 import com.example.common.utils.JSONUtil;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Optional;
  * @since 2022/10/3 16:19:42
  */
 @Data
-public class R {
+public class R implements Serializable {
     /**
      * 结果对象
      **/
@@ -83,6 +84,6 @@ public class R {
 
     @Override
     public String toString() {
-        return JSONUtil.toJsonString(this);
+        return JSONUtil.toJSONString(this);
     }
 }

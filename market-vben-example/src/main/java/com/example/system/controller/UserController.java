@@ -1,5 +1,7 @@
 package com.example.system.controller;
 
+import com.example.common.annotation.OperationLog;
+import com.example.common.log.BusinessEnum;
 import com.example.system.domain.User;
 import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -25,8 +27,9 @@ public class UserController {
      * @param pageSize  每页记录数
      * @return 查询结果
      */
+    @OperationLog(operation = BusinessEnum.LIST_USER)
     @GetMapping
-    @ApiOperation(value = "用户数据分页", notes = "interface operation details")
+    @ApiOperation(value = "用户数据分页", notes = "分页展示用户数据")
     public ResponseEntity<Page<User>> queryByPage(User user, int pageIndex, int pageSize) {
         return ResponseEntity.ok(userService.queryByPage(user, pageIndex, pageSize));
     }
@@ -37,6 +40,7 @@ public class UserController {
      * @param id 主键
      * @return 单条数据
      */
+    @OperationLog(operation = BusinessEnum.GET_USER)
     @GetMapping("{id}")
     @ApiOperation(value = "获取指定用户", notes = "interface operation details")
     public ResponseEntity<User> queryById(@PathVariable("id") Long id) {
@@ -49,6 +53,7 @@ public class UserController {
      * @param user 实体
      * @return 新增结果
      */
+    @OperationLog(operation = BusinessEnum.ADD_USER)
     @PostMapping
     @ApiOperation(value = "添加用户", notes = "interface operation details")
     public ResponseEntity<User> add(@RequestBody User user) {
@@ -61,6 +66,7 @@ public class UserController {
      * @param user 实体
      * @return 编辑结果
      */
+    @OperationLog(operation = BusinessEnum.UPDATE_USER)
     @PutMapping
     @ApiOperation(value = "编辑用户", notes = "interface operation details")
     public ResponseEntity<User> edit(@RequestBody User user) {
@@ -73,6 +79,7 @@ public class UserController {
      * @param id 主键
      * @return 删除是否成功
      */
+    @OperationLog(operation = BusinessEnum.DELETE_USER)
     @DeleteMapping("{id}")
     @ApiOperation(value = "删除用户", notes = "interface operation details")
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
