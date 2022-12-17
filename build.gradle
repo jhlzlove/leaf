@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    // spring boot version control
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+// java version
+sourceCompatibility = '17'
+
+repositories {
+    // 下载源设置
+    mavenLocal()
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://maven.aliyun.com/repository/spring/' }
+    // 如果项目中需要从 http 下载依赖，打开下面的设置
+    // allowInsecureProtocol = true
+    // maven { url 'http://maven.nexus.com/xxxx'}
+    mavenCentral()
+}
+dependencies {
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    /* java 高版本删除的一些库 */
+    implementation('javax.xml.bind:jaxb-api:2.3.1')
+    /* spring security 放在最后做，开发过程中需要频繁修改 */
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    /* spring web */
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    /* spring aop */
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    /* swagger 3.0 */
+    implementation('io.springfox:springfox-boot-starter:3.0.0')
+    /* spring data jpa */
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    /* lombok */
+    implementation 'org.projectlombok:lombok:1.18.24'
+    /* postgresql */
+    implementation('org.postgresql:postgresql:42.5.1')
+    /* java jwt */
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation 'com.auth0:java-jwt:4.2.1'
+    /* jasypt */
+    // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+
+
+}
