@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,24 +16,22 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
- * @author jhlz
- * @time 2022/8/10 11:26
- * @desc: Spring Security Config
+ * Spring Security Config
  * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Chain 为主
+ * @author jhlz
+ * @since 2022/8/10 11:26
  */
 @Configuration
 // 添加 security 过滤器
 @EnableWebSecurity
 // 启用方法级别的权限认证
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity()
 public class SecurityConfig {
 
     /**
      * 暴露AuthenticationManager（认证管理器），登录时认证使用
      *
-     * @param authenticationConfiguration
-     * @return
-     * @throws Exception
+     * @return AuthenticationManager
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -48,9 +46,8 @@ public class SecurityConfig {
      * mvcMatchers、antMatchers 没有太大区别，可以看源码注释
      * 由于 antMatchers 出现的比 mvcMatchers 早，这里混用，了解一下。
      *
-     * @param http
-     * @return
-     * @throws Exception
+     * @param http http
+     * @return SecurityFilterChain
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -61,7 +58,9 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 开发阶段放行所有请求
-                .authorizeRequests(authorize -> authorize.mvcMatchers("/**").permitAll())
+                .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/**")
+                                .permitAll())
                 // .authorizeRequests(authorize -> {
                 //     authorize
                 //             // 匿名访问（在登录状态下不可访问）
@@ -93,7 +92,7 @@ public class SecurityConfig {
     /**
      * 配置跨源访问(CORS)
      *
-     * @return
+     * @return CorsConfigurationSource
      */
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -106,7 +105,6 @@ public class SecurityConfig {
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     public SecurityConfig(JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        // LoginService loginService,
         // this.loginService = loginService;
         this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
     }

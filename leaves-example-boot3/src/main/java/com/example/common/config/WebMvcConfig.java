@@ -41,7 +41,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 注册拦截器
      *
-     * @param registry
+     * @param registry registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -58,7 +58,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 跨域访问（CORS）
      *
-     * @param registry
+     * @param registry registry
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {

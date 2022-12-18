@@ -1,7 +1,6 @@
 package com.example.common.response;
 
 import com.example.common.utils.JSONUtil;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -12,7 +11,6 @@ import java.util.Optional;
  * @author jhlz
  * @since 2022/10/3 16:19:42
  */
-@Data
 public class R implements Serializable {
     /**
      * 结果对象
@@ -85,5 +83,32 @@ public class R implements Serializable {
     @Override
     public String toString() {
         return JSONUtil.toJSONString(this);
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public R setData(Object data) {
+        this.data = data;
+        return this;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public R setCode(int code) {
+        this.code = code;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public R setMessage(String message) {
+        this.message = message;
+        return this;
     }
 }

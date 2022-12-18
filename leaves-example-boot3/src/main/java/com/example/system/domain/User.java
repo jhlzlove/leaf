@@ -1,9 +1,9 @@
 package com.example.system.domain;
 
+import jakarta.persistence.Entity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

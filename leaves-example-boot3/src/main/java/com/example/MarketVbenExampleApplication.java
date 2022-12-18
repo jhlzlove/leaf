@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.common.constant.GlobalConstants;
 import com.example.common.utils.EnvironmentUtil;
 import com.example.common.utils.IpUtil;
 import org.slf4j.Logger;
@@ -15,7 +14,7 @@ public class MarketVbenExampleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MarketVbenExampleApplication.class, args);
-        log.info("swagger 地址：http://{}:{}/{}", IpUtil.getLocalUrl(), EnvironmentUtil.getPort(), GlobalConstants.SWAGGER_SUFFIX);
+        log.info("swagger 地址：http://{}:{}", IpUtil.getLocalUrl(), EnvironmentUtil.getPort());
 
     }
 }

@@ -6,7 +6,7 @@ import ch.qos.logback.core.PropertyDefinerBase;
  * 继承 logback 的 PropertyDefinerBase 实现动态确定 logs 的存放路径
  *
  * @author jhlz
- * @time 2022/8/29 9:47
+ * @since 2022/8/29 9:47
  */
 public class LogHomeConfig extends PropertyDefinerBase {
     @Override

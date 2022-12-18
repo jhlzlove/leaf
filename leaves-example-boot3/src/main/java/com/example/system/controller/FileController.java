@@ -2,8 +2,10 @@ package com.example.system.controller;
 
 import com.example.common.annotation.ApiRestController;
 import com.example.common.utils.LocaDateUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +28,6 @@ import java.util.Iterator;
  */
 @ApiRestController
 @RequestMapping("file")
-@Api(value = "文件管理", tags = "文件上传下载管理")
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
@@ -42,7 +39,6 @@ public class FileController {
      * @param file
      */
     @PostMapping("upload")
-    @ApiOperation(value = "Request 方式上传", notes = "文件上传")
     public void upload(HttpServletRequest req, HttpServletResponse resp, String file) {
         try {
             req.setCharacterEncoding("UTF-8");
@@ -66,7 +62,6 @@ public class FileController {
     }
 
     @PostMapping("MultipartFile")
-    @ApiOperation(value = "多文件上传", notes = "多文件上传")
     public void uploadMultipartFile(@RequestParam("files") MultipartFile[] files) {
         for (MultipartFile file : files) {
             upload(file);

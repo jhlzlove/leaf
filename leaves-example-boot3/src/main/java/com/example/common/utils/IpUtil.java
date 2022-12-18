@@ -1,8 +1,8 @@
 package com.example.common.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.util.ObjectUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 

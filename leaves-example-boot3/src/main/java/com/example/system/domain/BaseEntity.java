@@ -1,6 +1,7 @@
 package com.example.system.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
