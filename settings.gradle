@@ -1,2 +1,3 @@
-//rootProject.name = 'leaves-example-boot3'
 rootProject.name = 'market'
+include 'leaves-example-boot3'
+
