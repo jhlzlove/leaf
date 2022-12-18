@@ -3,9 +3,9 @@
 ### 1. 后端
 
 - JDK17
-- NodeJs16
+- SpringBoot3
 - PostgreSQL15
-- Redis(暂时不用)
+- Apifox
 
 #### 依赖
 
