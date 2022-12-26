@@ -1,12 +1,15 @@
 package com.example.system.domain;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 登录请求体
+ *
  * @author jhlz
  * @since 2022/12/20 20:48
  */
@@ -14,6 +17,16 @@ public class LoginUser implements UserDetails {
 
     private User user;
 
+    private List<String> permissions;
+
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public LoginUser setPermissions(List<String> permissions) {
+        this.permissions = permissions;
+        return this;
+    }
 
     public User getUser() {
         return user;
@@ -26,7 +39,9 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return permissions.stream()
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 
     @Override

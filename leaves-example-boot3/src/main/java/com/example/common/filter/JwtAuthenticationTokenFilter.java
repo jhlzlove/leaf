@@ -47,6 +47,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (!StringUtils.hasText(subject)) {
             User user = userRepository.findById(Long.parseLong(subject))
                     .orElseThrow(() -> new GlobalException(BusinessException.FAILED_AUTHORIZATION));
+
+            // TODO 获取该用户的权限
+
             // 此处必须使用 三个参数 的构造方法，否则认证败
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user, null, null);

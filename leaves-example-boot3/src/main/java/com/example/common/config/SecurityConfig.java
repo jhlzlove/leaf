@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 /**
  * Spring Security Config
  * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Chain 为主
+ *
  * @author jhlz
  * @since 2022/8/10 11:26
  */
@@ -26,7 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // 添加 security 过滤器
 @EnableWebSecurity
 // 启用方法级别的权限认证
-@EnableMethodSecurity()
+@EnableMethodSecurity
 public class SecurityConfig {
 
     /**
@@ -38,11 +39,6 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-    // @Bean
-    // PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
 
     /**
      * Security 5.7 Spring Boot Security 2.7 之后新的写法
@@ -65,11 +61,11 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 开发阶段放行所有请求
                 .authorizeHttpRequests((request) ->
-                        {
-                            request.requestMatchers("/login")
-                                    .permitAll()
-                                    .anyRequest().authenticated();
-                        })
+                {
+                    request.requestMatchers("/login")
+                            .permitAll()
+                            .anyRequest().authenticated();
+                })
                 // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
