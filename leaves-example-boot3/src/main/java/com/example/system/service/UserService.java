@@ -20,6 +20,14 @@ public interface UserService {
     User queryById(Long id);
 
     /**
+     * 通过 username 查询单条数据
+     *
+     * @param username 用户名
+     * @return 实例对象
+     */
+    User queryByUserName(String username);
+
+    /**
      * 分页查询
      *
      * @param user      筛选条件

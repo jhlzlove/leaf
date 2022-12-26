@@ -26,7 +26,7 @@ import java.util.concurrent.*;
  */
 public class ThreadPoolConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(ThreadPoolConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(ThreadPoolConfig.class);
     // 核心线程池大小
     private int corePoolSize = 50;
 
@@ -97,7 +97,7 @@ public class ThreadPoolConfig {
             }
         }
         if (t != null) {
-            logger.error(t.getMessage(), t);
+            log.error(t.getMessage(), t);
         }
     }
 }

@@ -1,0 +1,36 @@
+20:08:02.471 [main] INFO  c.e.s.JdkApiTest - [testMd5,37] - class path resource [static/upload/out.txt]
+20:08:36.594 [main] INFO  c.e.s.JdkApiTest - [testMd5,38] - class path resource [classpath*:static/upload/out.txt]
+20:08:56.968 [main] INFO  c.e.s.JdkApiTest - [testMd5,38] - class path resource [classpath*:static/data/upload/out.txt]
+20:09:15.870 [main] INFO  c.e.s.JdkApiTest - [testMd5,38] - class path resource [static/data/upload/out.txt]
+20:09:42.632 [main] INFO  c.e.s.JdkApiTest - [testMd5,38] - class path resource [static/data/upload/out.txt]
+20:10:18.038 [main] INFO  c.e.s.JdkApiTest - [testMd5,39] - class path resource [static/data/upload/out.txt]
+20:10:57.743 [main] INFO  c.e.s.JdkApiTest - [testMd5,39] - class path resource [static/data/upload/out.txt]
+20:11:34.982 [main] INFO  c.e.s.JdkApiTest - [testMd5,39] - class path resource [classpath*:static/data/upload/out.txt]
+20:11:53.938 [main] INFO  c.e.s.JdkApiTest - [testMd5,39] - class path resource [static/data/upload/out.txt]
+20:13:05.816 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [static/data/upload/out.txt]
+20:13:05.826 [main] INFO  c.e.s.JdkApiTest - [testMd5,52] - 115d885c3aa1ac1dd76515948ae24eca
+20:13:45.113 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [static/data/upload/out1.txt]
+20:13:45.122 [main] INFO  c.e.s.JdkApiTest - [testMd5,52] - 115d885c3aa1ac1dd76515948ae24eca
+20:14:04.882 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [static/data/upload/out1.txt]
+20:14:04.890 [main] INFO  c.e.s.JdkApiTest - [testMd5,52] - 338ab31d97eb464aff4893ea9de830ed
+20:14:21.859 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [static/data/upload/out3.txt]
+20:14:21.868 [main] INFO  c.e.s.JdkApiTest - [testMd5,52] - 338ab31d97eb464aff4893ea9de830ed
+20:17:11.804 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [classpath:static/data/upload/out3.txt]
+20:17:37.858 [main] INFO  c.e.s.JdkApiTest - [testMd5,40] - class path resource [classpath:static/data/upload/out3.txt]
+20:19:09.919 [main] INFO  c.e.s.JdkApiTest - [testMd5,51] - class path resource [classpath:static/data/upload/out3.txt]
+20:24:21.588 [main] INFO  c.e.s.JdkApiTest - [testMd5,46] - 春未老，风细柳斜斜，试上超然台上看。
+半濠春水一城花，烟雨暗千家。
+寒食后，酒醒却咨嗟。
+休对故人思故国，且将新火试新茶，诗酒趁年华
+20:24:21.590 [main] INFO  c.e.s.JdkApiTest - [testMd5,51] - class path resource [static/data/upload/out3.txt]
+20:24:21.595 [main] INFO  c.e.s.JdkApiTest - [testMd5,63] - 338ab31d97eb464aff4893ea9de830ed
+20:28:16.174 [main] INFO  c.e.s.JdkApiTest - [testMd5,44] - 春未老，风细柳斜斜，试上超然台上看。
+半濠春水一城花，烟雨暗千家。
+寒食后，酒醒却咨嗟。
+休对故人思故国，且将新火试新茶，诗酒趁年华
+20:28:16.179 [main] INFO  c.e.s.JdkApiTest - [testMd5,56] - 338ab31d97eb464aff4893ea9de830ed
+21:01:20.655 [main] INFO  c.e.s.JdkApiTest - [testMd5,44] - 春未老，风细柳斜斜，试上超然台上看。
+半濠春水一城花，烟雨暗千家。
+寒食后，酒醒却咨嗟。
+休对故人思故国，且将新火试新茶，诗酒趁年华
+21:01:20.660 [main] INFO  c.e.s.JdkApiTest - [testMd5,56] - 338ab31d97eb464aff4893ea9de830ed

@@ -188,5 +188,23 @@ public class User extends BaseEntity implements Serializable {
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        return builder.append("User{name='" + name + "', ")
+                .append("birthday='" + birthday + "', ")
+                .append("identityCard='" + identityCard + "', ")
+                .append("age='" + age + "', ")
+                .append("address='" + address + "', ")
+                .append("phone='" + phone + "', ")
+                .append("userName='" + userName + "', ")
+                .append("password='" + password + "', ")
+                .append("lastLogin='" + lastLogin + "', ")
+                .append("loginDevice='" + loginDevice + "', ")
+                .append("nickName='" + nickName + "', ")
+                .append("avatar='" + avatar + "', ")
+                .append("gender='" + gender + "'}")
+                .toString();
+    }
 }
 

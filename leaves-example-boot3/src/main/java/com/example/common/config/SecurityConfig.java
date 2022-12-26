@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -38,6 +39,11 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    // @Bean
+    // PasswordEncoder passwordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
+
     /**
      * Security 5.7 Spring Boot Security 2.7 之后新的写法
      * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
@@ -58,32 +64,16 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // 开发阶段放行所有请求
-                .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/**")
-                                .permitAll())
-                // .authorizeRequests(authorize -> {
-                //     authorize
-                //             // 匿名访问（在登录状态下不可访问）
-                //             .mvcMatchers(
-                //                     "/api/system/login",
-                //                     "/system/login"
-                //             ).anonymous()
-                //             // 开放 api
-                //             .mvcMatchers(
-                //                     "/api/system/**",
-                //                     "/api/file/**",
-                //                     "/doc.html",
-                //                     "/swagger**/**",
-                //                     "/webjars/**",
-                //                     "/v3/**"
-                //             ).permitAll()
-                //             // 除上面以外的所有请求都需要认证
-                //             .anyRequest().authenticated();
-                // })
+                .authorizeHttpRequests((request) ->
+                        {
+                            request.requestMatchers("/login")
+                                    .permitAll()
+                                    .anyRequest().authenticated();
+                        })
                 // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
-                // .userDetailsService(loginService)
+                .userDetailsService(userDetailsService)
                 // 配置 CORS 跨域访问
                 .cors().configurationSource(corsConfigurationSource());
         return http.build();
@@ -100,12 +90,11 @@ public class SecurityConfig {
         return source;
     }
 
-    // private final LoginService loginService;
-
+    private final UserDetailsService userDetailsService;
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-    public SecurityConfig(JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        // this.loginService = loginService;
+    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
+        this.userDetailsService = userDetailsService;
         this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
     }
 }

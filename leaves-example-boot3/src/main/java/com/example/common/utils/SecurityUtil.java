@@ -1,5 +1,6 @@
 package com.example.common.utils;
 
+import com.example.system.domain.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,9 +18,9 @@ public class SecurityUtil {
      *
      * @return 登录用户
      */
-    public static Object getLoginUser() {
+    public static LoginUser getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getPrincipal();
+        return (LoginUser) authentication.getPrincipal();
     }
 
     /**

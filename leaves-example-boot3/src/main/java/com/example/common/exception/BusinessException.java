@@ -7,6 +7,7 @@ public enum BusinessException {
     UNKNOWN(100000, "未知异常!"),
     NOT_AUTHENTICATION(100001, "用户未认证！"),
     NOT_AUTHORIZATION(100002, "无权访问该资源！"),
+    FAILED_AUTHORIZATION(100003, "登录失败！"),
     ;
 
     /**

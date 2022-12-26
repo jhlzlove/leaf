@@ -1,12 +1,21 @@
 package com.example.common.filter;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.common.exception.BusinessException;
+import com.example.common.exception.GlobalException;
+import com.example.common.utils.JwtUtil;
+import com.example.system.domain.User;
+import com.example.system.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -23,7 +32,34 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 直接放行
+        // 获取 token
+        String token = request.getHeader("token");
+        // 如果 token 为空，放行，进入其它过滤器链执行
+        if (!StringUtils.hasText(token)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // 否则，解析 token
+        DecodedJWT decodedJWT = JwtUtil.getDecodedJWT(token);
+        String subject = decodedJWT.getSubject();
+        // 获取用户
+        if (!StringUtils.hasText(subject)) {
+            User user = userRepository.findById(Long.parseLong(subject))
+                    .orElseThrow(() -> new GlobalException(BusinessException.FAILED_AUTHORIZATION));
+            // 此处必须使用 三个参数 的构造方法，否则认证败
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(user, null, null);
+            // 存入 SecurityContextHolder
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+        // 放行
         filterChain.doFilter(request, response);
+    }
+
+    private final UserRepository userRepository;
+
+    public JwtAuthenticationTokenFilter(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }

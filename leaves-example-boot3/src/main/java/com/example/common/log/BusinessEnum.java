@@ -9,6 +9,7 @@ package com.example.common.log;
 public enum BusinessEnum {
     UNKNOWN("未知", 0, "默认未知操作"),
     LOGIN("登录模块", 1, "用户登录"),
+    LOGOUT("登录模块", 1, "用户登出"),
     MENU("菜单模块", 0, "菜单列表"),
     // ---------------------- 用户 ---------------------------
     LIST_USER("系统用户管理", 0, "用户分页列表信息"),

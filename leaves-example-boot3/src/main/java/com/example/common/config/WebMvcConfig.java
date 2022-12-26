@@ -29,7 +29,7 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
-     * 创建自定义拦截器交给 Spring
+     * 创建自定义拦截器交给 Spring 管理
      *
      * @return 自定义拦截器
      */

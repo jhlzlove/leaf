@@ -7,73 +7,44 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.time.Instant;
 import java.util.Map;
 
 /**
  * @author jhlz
- * @time 2022/9/7 23:03
+ * @since 2022/9/7 23:03
  */
 public class JwtUtil {
 
-    // 密钥
-    private String secretKey = "firefly";
+    // 签名
+    private static final String SIGNATURE = "jhlz";
+    // 过期时间 单位：秒
+    private static final long EXPIRED_TIME = 1800;
 
-    // 过期时间
-    private Long expirationTimeInSecond = 1000L * 60 * 30;
 
-    // header
-    private Map<String, Object> headerClaims = new HashMap<>();
-
-    // payload
-    private Map<String, Object> payloadClaims = new HashMap<>();
-
-    private static final JwtUtil jwtOperator = new JwtUtil();
-
-    private JwtUtil() {
+    public static String createToken(String subject) {
+        return generatorToken(null, null, subject);
     }
 
-    public static JwtUtil getInstance() {
-        return jwtOperator;
+    public static String createToken(Map<String, Object> headers, Map<String, Object> payload, String subject) {
+        return generatorToken(headers, payload, subject);
     }
-
-    public JwtUtil withSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-        return this;
-    }
-
-    public JwtUtil withTimeOut(Long expirationTimeInSecond) {
-        this.expirationTimeInSecond = expirationTimeInSecond;
-        return this;
-    }
-
-    public JwtUtil withHeader(Map<String, Object> headerClaims) {
-        this.headerClaims = headerClaims;
-        return this;
-    }
-
-    public JwtUtil withPayload(Map<String, Object> payloadClaims) {
-        this.payloadClaims = payloadClaims;
-        return this;
-    }
-
     /**
      * 创建token
      *
      * @return
      */
-    public String createToken() {
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        String token = JWT.create()
-                .withExpiresAt(new Date(System.currentTimeMillis() + expirationTimeInSecond))
+    private static String generatorToken(Map<String, Object> headers, Map<String, Object> payload, String subject) {
+        // Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        return JWT.create()
+                .withExpiresAt(Instant.now().plusSeconds(EXPIRED_TIME))
+                .withSubject(subject)
                 // Header
-                .withHeader(headerClaims)
+                .withHeader(headers)
                 // Payload
-                .withPayload(payloadClaims)
+                .withPayload(payload)
                 // Signature
-                .sign(algorithm);
-        return token;
+                .sign(Algorithm.HMAC256(SIGNATURE));
     }
 
     /**
@@ -82,7 +53,7 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public Boolean verifyToken(String token) {
+    public static Boolean verifyToken(String token) {
         try {
             getDecodedJWT(token);
         } catch (JWTVerificationException exception) {
@@ -98,7 +69,7 @@ public class JwtUtil {
      * @param claimName
      * @return
      */
-    public Claim getHeaderClaims(String token, String claimName) {
+    public static Claim getHeaderClaims(String token, String claimName) {
         DecodedJWT jwt = getDecodedJWT(token);
         return jwt.getHeaderClaim(claimName);
     }
@@ -109,7 +80,7 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public Map<String, Claim> getPayload(String token) {
+    public static Map<String, Claim> getPayload(String token) {
         DecodedJWT jwt = getDecodedJWT(token);
         Map<String, Claim> claims = jwt.getClaims();
         return claims;
@@ -122,7 +93,7 @@ public class JwtUtil {
      * @param claimsName
      * @return
      */
-    public Claim getPayloadClaims(String token, String claimsName) {
+    public static Claim getPayloadClaims(String token, String claimsName) {
         DecodedJWT jwt = getDecodedJWT(token);
         Claim claim = jwt.getClaim(claimsName);
         return claim;
@@ -134,9 +105,10 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    private DecodedJWT getDecodedJWT(String token) {
-        Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        JWTVerifier verifier = JWT.require(algorithm)
+    public static DecodedJWT getDecodedJWT(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(SIGNATURE);
+        JWTVerifier verifier = JWT
+                .require(algorithm)
                 .build();
         return verifier.verify(token);
     }

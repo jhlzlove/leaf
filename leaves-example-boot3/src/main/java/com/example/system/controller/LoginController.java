@@ -1,6 +1,11 @@
 package com.example.system.controller;
 
+import com.example.common.annotation.OperationLog;
+import com.example.common.log.BusinessEnum;
+import com.example.system.domain.User;
+import com.example.system.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,12 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @PostMapping("login")
-    public void login(String userName, String password) {
-
+    @OperationLog(operation = BusinessEnum.LOGIN)
+    public String login(@RequestBody User user) {
+        return loginService.login(user);
     }
 
     @PostMapping("logout")
-    public void logout(String userName, String password) {
-
+    @OperationLog(operation = BusinessEnum.LOGOUT)
+    public void logout() {
+        loginService.logout();
     }
+
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
 }

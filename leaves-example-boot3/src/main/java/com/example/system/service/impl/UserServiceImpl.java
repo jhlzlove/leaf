@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElseGet(User::new);
     }
 
+    @Override
+    public User queryByUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
+
     /**
      * 分页查询
      *

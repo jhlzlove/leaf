@@ -5,7 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -18,6 +27,41 @@ import java.util.Date;
 public class JdkApiTest {
     private static final Logger logger = LoggerFactory.getLogger(JdkApiTest.class);
 
+    /**
+     * test: Md5 example
+     */
+    @Test
+    public void testMd5() {
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            // String path = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + "static/data/upload/out3.txt";
+            // ResourceLoader.CLASSPATH_URL_PREFIX +
+            Resource resource = new ClassPathResource( "static\\data\\upload\\out3.txt");
+            try {
+                byte[] bdata = FileCopyUtils.copyToByteArray(resource.getInputStream());
+                String content = new String(bdata, StandardCharsets.UTF_8);
+                md5.update(bdata);
+                logger.info(content);
+            } catch (IOException e) {
+                logger.error("IOException", e);
+            }
+            System.out.println("classPathResource.getDescription() = " + resource.getDescription());
+            System.out.println("classPathResource.getFile() = " + resource.getFile());
+            System.out.println("classPathResource.getFilename() = " + resource.getFilename());
+            System.out.println("classPathResource.getURL() = " + resource.getURL());
+            System.out.println("classPathResource.getURI() = " + resource.getURI());
+
+
+            String secret = new BigInteger(1, md5.digest()).toString(16);
+            logger.info("{}", secret);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * test: ObjectMapperJSon example
      */
@@ -46,7 +90,7 @@ public class JdkApiTest {
         System.out.println("系统名称：" + os);
         System.out.println("系统架构：" + System.getProperty("os.arch"));
         System.out.println("系统版本：" + System.getProperty("os.version"));
-        System.out.println(os.toLowerCase().contains("linux") ? "D:/market/logs" : "/home/" + username + "/logs");
+        System.out.println(os.toLowerCase().contains("linux") ? "./logs" : "/home/" + username + "/logs");
     }
 
     /**
