@@ -1,26 +1,11 @@
-## 一、environment
+## 一、开发工具
 
 ### 1. 后端
 
-- JDK17
-- SpringBoot3
-- PostgreSQL15
-- Apifox
-
-#### 依赖
-
-见[后端依赖清单](https://github.com/jhlzlove/market/blob/dev/market-vben-example/build.gradle)
-
-### 2. 前端
-
-前端使用一款开源框架：[Vben Admin](https://vvbin.cn/doc-next/)
-
-- [Vben Admin 官方文档](https://vvbin.cn/doc-next/guide/introduction.html)
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/)
-- [Vitejs](https://vitejs.dev/)
-- [Vue-Router](https://router.vuejs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Es6](https://es6.ruanyifeng.com/)
+- JDK 17.0+
+- Gradle 7.5+
+- SpringBoot 3.0+
+- PostgreSQL 15.0+
 
 ## 二、推荐插件
 

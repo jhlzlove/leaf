@@ -1,11 +1,18 @@
-# Project Introduction
+# 项目说明
 
-## Notice
+## 1. [为什么使用构造注入？](https://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle/#beans-setter-injection)
 
-### 1. 关于注入方式
+以下内容摘自 Spring 官网：
+> The Spring team generally advocates constructor injection as it enables one to implement application components as
+> immutable objects and to ensure that required dependencies are not null. Furthermore constructor-injected components
+> are
+> always returned to client (calling) code in a fully initialized state. As a side note, a large number of constructor
+> arguments is a bad code smell, implying that the class likely has too many responsibilities and should be refactored
+> to
+> better address proper separation of concerns.
 
-本项目使用构造注入（构造注入的可以防止注入的对象 NPE），该方法可能会造成代码冗余过多的情况。从 Spring4.3
-之后，如果一个类中只有一个构造函数，那么 Spring 将根据构造函数自动注入。所以在 `xxxServiceImpl` 里看到以下信息不要惊讶。
+机翻一下：
+Spring团队通常提倡构造函数注入，因为它使人们能够将应用程序组件实现为不可变对象，并确保所需的依赖项不为空。此外，构造函数注入的组件总是以完全初始化的状态返回到客户端（调用）代码。顺便说一句，大量的构造函数参数是一种糟糕的代码气味，这意味着类可能有太多的责任，应该进行重构，以更好地解决关注点的适当分离。
 
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,54 +35,6 @@ public class DemoServiceImpl implements DemoService {
 
 > 为了看代码比较方便，类中所有需要注入的对象全部放在该类的最后。
 
-### 2. Database
+## 2. 数据库的选择
 
-选择 Postgresql 只是想学学，很多大佬都说好，我开发经验少，想用用体验一下。
-
-### 4. 新的语法
-
-#### Optional
-
-这个类型作用有限，最好是确定 null 没有意义的时候让它出现在你的代码中，否则不需要使用。另外，最好不要让它称为一个入参类型。
-
-## 个人的一些想法
-
-### 1. 关于工具类、封装
-
-第三方集成交由使用者完成。
-
-### 2. 关于 Spring xml 配置
-
-长话短说：xml 配置是一个项目配置清单，只不过这个清单可能特别的冗长，维护时让人脑壳痛。
-
-从 Spring4.x 版本开始，Spring 已经不推荐使用 xml 配置了，而是推荐 Java 配置，Java 配置也是 Spring Boot
-推荐的配置方式。不过很多前辈、大牛，都很了解 xml 配置这种方式，这种方式对新手不是那么容易接受，至少浪子刚开始的时候确实如此。
-
-不过得益于时代发展和技术更新，浪子工作的时候基本都是 Spring Boot 项目，一线城市都是要求掌握 Spring Cloud(
-Cloud也没什么，就是组件多了而已，~~其实是维护排查问题困难、麻烦~~)。对于 `xml` 配置的方式进行项目开发接触不是太多。后面随着学习的深入，再看到这种项目浪子觉得其实
-spring 的 `xml` 是一个非常好的组件清单（你可以把它看成一个文档）;维护者接手这个项目只要看一眼这个 `xml`
-就能搞清楚系统的组件的“架构（包括依赖关系）”。不过 `xml`
-文件没有类型检查，如果导入了一个错误的类，可能你需要找很长时间的错误(不过我们有智能 IDE！但字符串拼写还是有可能漏查的)，并且这个
-“清单” 非常的长！Oh my god！。
-
-如果使用注解的话，那么这些关系配置都会散落在系统的各个角落，理清组件间的关系也是需要一定的时间的，尤其是对于规模较大的项目，除非你有非常好的文档或者约定。
-
-### 3. 关于 ORM
-
-项目开发初期，或者入门人员自己编写的 Demo 案例，很多时候数据库属性不会设计的很完美，在开发的过程中需要频繁的删除或者修改字段。如果是使用的
-mybatis，那就需要我们频繁的去对我们的代码做修改。在使用 lombok 的情况下我们对实体所做的就是添加属性，如果自定义的响应（例如
-DTO、VO）或者手写的 SQL 语句中需要用到新增的字段属性，那么这些文件也需要修改。
-
-另一方面，手写的 SQL 如果特别多的话，后期维护也是比较头疼的一件事。可能有人说，如果 SQL 较多的话我使用多个 `sqlMapper.xml`
-文件按照功能分开，让它们的 `namespace` 都指向同一个 Dao 接口不也是可以的？没错，是可以，但是上面频繁的修改依旧是免不了的；如果映射做的不好，漏了哪个字段还需要修改、重启多次去测试。
-
-使用 MP(Mybatis Plus) 的话是一个不错的选择，如果你的 SQL 能力比较强，这两种方式无论使用哪种都是可以的。切记，实际项目中技术选型唯手熟尔。
-
-其实也可以考虑使用 Hibernate，生态完善，功能强大，而且社区更新快。NutsDao 也很不错，不过建议和 NutsBoot 一起使用比较好。
-
-浪子采用了 Spring Data JPA，毕竟 Spring 项目嘛，一家人就是要整整齐齐！使用手感还不错！ :smile: 如果要更换或者加入其它 ORM
-框架的时候也很方便，引入 Mybatis 或者 Mybatis-Plus 也不难，使用 Hibernate 就更简单了。
-
-### 4. 关于版本依赖管理
-
-使用这个就是学习一下 Gradle，无须比较，都很好用。
+开源的两大数据库，都接触一下试试呗。道听途说不如亲身体验。
