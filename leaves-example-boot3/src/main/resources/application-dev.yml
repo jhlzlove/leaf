@@ -4,7 +4,7 @@ server:
 spring:
   application:
     # 应用名称
-    name: market-vben-example
+    name: leaves-example-boot3
   # 数据源
   datasource:
     # hikari 连接池
@@ -47,7 +47,6 @@ jasypt:
 logging:
   level:
     # SQL 语句显示参数
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.example.system.repository: debug
+    com.leaves.system.repository: debug
     org.hibernate.stat: debug
     org.hibernate.sql: debug
