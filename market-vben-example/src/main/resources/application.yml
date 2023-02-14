@@ -1,4 +1,0 @@
-# 选择使用的配置文件
-spring:
-  profiles:
-    active: dev

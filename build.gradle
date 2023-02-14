@@ -5,7 +5,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group 'com.example'
+group 'com.leaf'
 version '1.0-SNAPSHOT'
 // java version
 sourceCompatibility = '17'
@@ -25,14 +25,17 @@ allprojects {
         options.encoding = 'UTF-8'
     }
 
-    // 依赖设置
+    // 依赖下载源设置
     repositories {
+        // 本地 maven 仓库
         mavenLocal()
+        // 阿里云仓库
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'https://maven.aliyun.com/repository/spring/' }
         // 如果项目中需要从 http 下载依赖，打开下面的设置
         // allowInsecureProtocol = true
         // maven { url 'http://maven.nexus.com/xxxx'}
+        // maven 仓库
         mavenCentral()
     }
 
@@ -61,7 +64,13 @@ allprojects {
     }
 }
 
+// 子工程配置
 subprojects {
-    // 为什么为空？因为这是一个单模块项目
-    // 如果想要多模块，自行配置即可
+    // 为什么为空？因为目前这是一个单模块项目
+    // 如果喜欢，想要多模块开发，自行配置即可
+    // -------------- 题外话 -------------------
+    // 多模块开发，我很讨厌，找个东西都要扒拉半天，得亏 idea 智能，双击 Shift 天下无敌，让文件无处可逃。
+    // 但是打开的文件树还是很恶心。
+    // 单模块分包开发，可以；微服务采用多模块开发，没问题！
+    // 不采用微服务，多模块开发？！Oh my god，浪子很难受
 }

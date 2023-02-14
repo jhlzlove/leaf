@@ -1,0 +1,39 @@
+16:21:23.367 [main] INFO  c.l.MarketVbenExampleApplication - [logStarting,51] - Starting MarketVbenExampleApplication using Java 17.0.6 with PID 23396 (D:\Projects\JavaProjects\Sutdy\market\leave-example-boot3\build\classes\java\main started by jhlz in D:\Projects\JavaProjects\Sutdy\market)
+16:21:23.371 [main] INFO  c.l.MarketVbenExampleApplication - [logStartupProfileInfo,636] - The following 1 profile is active: "dev"
+16:21:24.709 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-7777"]
+16:21:24.710 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:21:24.710 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.1]
+16:21:24.798 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:21:24.903 [main] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+16:21:25.057 [main] INFO  c.z.h.p.HikariPool - [checkFailFast,565] - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5122e4bf
+16:21:25.059 [main] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+16:21:25.102 [main] INFO  o.h.j.i.u.LogHelper - [logPersistenceUnitInformation,31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+16:21:25.195 [main] INFO  o.hibernate.Version - [logVersion,44] - HHH000412: Hibernate ORM core version 6.1.5.Final
+16:21:25.598 [main] INFO  SQL dialect - [logSelectedDialect,66] - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+16:21:26.268 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - [initiateService,51] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+16:21:27.184 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-7777"]
+16:21:27.243 [main] INFO  c.l.MarketVbenExampleApplication - [logStarted,57] - Started MarketVbenExampleApplication in 4.234 seconds (process running for 5.393)
+16:21:27.247 [main] INFO  c.l.MarketVbenExampleApplication - [main,17] - swagger 地址：http://192.168.12.35:7777
+16:22:28.695 [http-nio-7777-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:22:28.798 [http-nio-7777-exec-1] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=0, desc='根据 id 获取用户'}
+16:22:28.799 [http-nio-7777-exec-1] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:22:28.799 [http-nio-7777-exec-1] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：queryById, 请求参数： [1]
+16:22:39.613 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=0, desc='根据 id 获取用户'}
+16:22:39.613 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:22:39.614 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：queryById, 请求参数： [1]
+16:53:57.865 [http-nio-7777-exec-8] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=0, desc='根据 id 获取用户'}
+16:53:57.865 [http-nio-7777-exec-8] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:53:57.865 [http-nio-7777-exec-8] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：queryById, 请求参数： [1]
+16:54:09.470 [http-nio-7777-exec-9] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=0, desc='根据 id 获取用户'}
+16:54:09.472 [http-nio-7777-exec-9] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:54:09.472 [http-nio-7777-exec-9] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：queryById, 请求参数： [2]
+16:57:19.092 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=2, desc='更新用户'}
+16:57:19.093 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:57:19.094 [http-nio-7777-exec-6] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：edit, 请求参数： [User{name='null', birthday='null', identityCard='null', age='20', address='道域阴阳学宗', phone='12345678911', userName='jhlz', password='123456', lastLogin='null', loginDevice='null', nickName='荻花题叶', avatar='null', gender='null'}]
+16:59:14.333 [http-nio-7777-exec-7] INFO  c.l.s.s.i.UserServiceImpl - [queryByPage,55] - Page 2 of 1 containing UNKNOWN instances
+16:59:14.334 [http-nio-7777-exec-7] INFO  c.l.s.s.i.UserServiceImpl - [queryByPage,56] - 总数：1
+16:59:14.339 [http-nio-7777-exec-7] INFO  c.l.c.log.LogAspect - [saveOperationLog,57] - operation : BusinessEnum{module='系统用户管理', type=0, desc='用户分页列表信息'}
+16:59:14.340 [http-nio-7777-exec-7] INFO  c.l.c.log.LogAspect - [saveOperationLog,65] - ---------------------------操作内容------------------------
+16:59:14.340 [http-nio-7777-exec-7] INFO  c.l.c.log.LogAspect - [saveOperationLog,66] - 请求类：com.lease.system.controller.UserController, 请求方法：queryByPage, 请求参数： [User{name='null', birthday='null', identityCard='null', age='null', address='null', phone='null', userName='null', password='null', lastLogin='null', loginDevice='null', nickName='null', avatar='null', gender='null'}, 1, 5]
+17:45:06.749 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+17:45:06.751 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.

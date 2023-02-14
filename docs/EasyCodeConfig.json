@@ -1,0 +1,94 @@
+{
+  "author" : "jhlz",
+  "version" : "1.2.7",
+  "userSecure" : "",
+  "currTypeMapperGroupName" : "Default",
+  "currTemplateGroupName" : "spring-data-jpa",
+  "currColumnConfigGroupName" : "Default",
+  "currGlobalConfigGroupName" : "Default",
+  "typeMapper" : {
+    "Default" : {
+      "name" : "Default",
+      "elementList" : [ {
+        "matchType" : "REGEX",
+        "columnType" : "varchar(\\(\\d+\\))?",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "char(\\(\\d+\\))?",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(tiny|medium|long)*text",
+        "javaType" : "java.lang.String"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "decimal(\\(\\d+,\\d+\\))?",
+        "javaType" : "java.lang.Double"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "integer",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "(tiny|small|medium)*int(\\(\\d+\\))?",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "int4",
+        "javaType" : "java.lang.Integer"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "int8",
+        "javaType" : "java.lang.Long"
+      }, {
+        "matchType" : "REGEX",
+        "columnType" : "bigint(\\(\\d+\\))?",
+        "javaType" : "java.lang.Long"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "date",
+        "javaType" : "java.util.LocalDate"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "datetime",
+        "javaType" : "java.util.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "timestamp",
+        "javaType" : "java.util.LocalDateTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "time",
+        "javaType" : "java.time.LocalTime"
+      }, {
+        "matchType" : "ORDINARY",
+        "columnType" : "boolean",
+        "javaType" : "java.lang.Boolean"
+      } ]
+    }
+  },
+  "template" : {
+    "spring-data-jpa" : {
+      "name" : "spring-data-jpa",
+      "elementList" : [ {
+        "name" : "controller.java.vm",
+        "code" : "##导入宏定义、设置包名、类名、文件名##导入宏定义\n$!{define.vm}\n#setPackageSuffix(\"controller\")\n#setTableSuffix(\"Controller\")\n#save(\"/controller\", \"Controller.java\")\n\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n#end\n##定义服务名\n#set($serviceSortType = $!tool.append($!tableInfo.name, \"Service\"))\n#set($serviceType = $!tool.append($!tableInfo.savePackageName, \".service.\", $serviceSortType))\n#set($serviceVarName = $!tool.firstLowerCase($serviceSortType))\n\n#set($entityShortType = $!tableInfo.name)\n#set($entityType = $!tableInfo.psiClassObj.getQualifiedName())\n#set($entityVarName = $!tool.firstLowerCase($!tableInfo.name))\n#set($pkType = $!pk.type)\n\nimport $pkType;\nimport $entityType;\nimport $serviceType;\nimport lombok.AllArgsConstructor;\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.Pageable;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.PostMapping;\nimport org.springframework.web.bind.annotation.RequestBody;\nimport org.springframework.web.bind.annotation.RequestMapping;\nimport org.springframework.web.bind.annotation.RestController;\n\n\n/**\n * $!{tableInfo.comment}控制层\n *\n * @author $!author\n * @since $!time.currTime()\n */\n@RestController\n@RequestMapping(\"/$!tool.firstLowerCase($!tableInfo.name)\")\npublic class $!{tableName} {\n\n\tprivate $serviceSortType $serviceVarName;\n\n\t/**\n\t * 获取$!{tableInfo.comment}列表(分页)\n\t */\n\t@GetMapping(\"/list\")\n\tpublic Page<$entityShortType> list(Pageable page) {\n\t\treturn null;\n\t}\n\n\t/**\n\t * 获取$!{tableInfo.comment}\n\t */\n\t@GetMapping(\"/get\")\n\tpublic $entityShortType get($!pk.shortType id) {\n\t\treturn ${serviceVarName}.findById(id);\n\t}\n\n\t/**\n\t * 添加$!{tableInfo.comment}\n\t */\n\t@PostMapping(\"/add\")\n\tpublic void add(@RequestBody $entityShortType $entityVarName) {\n\t\t${serviceVarName}.save($entityVarName);\n\t}\n\n\n\t/**\n\t * 修改$!{tableInfo.comment}\n\t */\n\t@PostMapping(\"/update\")\n\tpublic void update(@RequestBody $entityShortType $entityVarName) {\n\t\t${serviceVarName}.save($entityVarName);\n\t}\n\n\t/**\n\t * 删除$!{tableInfo.comment}\n\t */\n\t@PostMapping(\"/delete\")\n\tpublic void delete($!pk.shortType id) {\n\t\t${serviceVarName}.deleteById(id);\n\t}\n\n}\n"
+      }, {
+        "name" : "entity.java.vm",
+        "code" : "##引入宏定义\n$!{define.vm}\n\n##使用宏定义设置回调（保存位置与文件后缀）\n#save(\"/entity\", \".java\")\n\n##使用宏定义设置包后缀\n#setPackageSuffix(\"entity\")\n\n##使用全局变量实现默认包导入\n$!{autoImport.vm}\nimport java.io.Serializable;\n\n##使用宏定义实现类注释信息\n#tableComment(\"实体类\")\npublic class $!{tableInfo.name} implements Serializable {\n    private static final long serialVersionUID = $!tool.serial();\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})/**\n     * ${column.comment}\n     */#end\n\n    private $!{tool.getClsNameByFullName($column.type)} $!{column.name};\n#end\n\n#foreach($column in $tableInfo.fullColumn)\n##使用宏定义实现get,set方法\n#getSetMethod($column)\n#end\n\n}\n"
+      }, {
+        "name" : "repository.java.vm",
+        "code" : "##导入宏定义、设置包名、类名、文件名##导入宏定义\n$!{define.vm}\n#setPackageSuffix(\"repository\")\n#setTableSuffix(\"Repository\")\n#save(\"/repository\", \"Repository.java\")\n\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n#end\n##实体类名、主键类名\n#set($entityShortType = $!tableInfo.name)\n#set($entityType = $!tableInfo.psiClassObj.getQualifiedName())\n#set($pkShortType = $!pk.shortType)\n#set($pkType = $!pk.type)\n\nimport $pkType;\nimport $entityType;\nimport org.springframework.data.mongodb.repository.MongoRepository;\n\n\n/**\n * $!{tableInfo.comment}持久层\n *\n * @author $!author\n * @since $!time.currTime()\n */\npublic interface $!{tableName} extends JpaRepository<$entityShortType, $pkShortType> {\n\n}\n"
+      }, {
+        "name" : "service.java.vm",
+        "code" : "##导入宏定义、设置包名、类名、文件名##导入宏定义\n$!{define.vm}\n#setPackageSuffix(\"service\")\n#setTableSuffix(\"Service\")\n#save(\"/service\", \"Service.java\")\n\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n#end\n##实体类名、主键类名\n#set($entityShortType = $!tableInfo.name)\n#set($entityType = $!tableInfo.psiClassObj.getQualifiedName())\n#set($entityVarName = $!tool.firstLowerCase($!tableInfo.name))\n#set($pkShortType = $!pk.shortType)\n#set($pkType = $!pk.type)\n\nimport $pkType;\nimport $entityType;\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.Pageable;\nimport java.util.Collection;\nimport java.util.List;\n\n\n/**\n * $!{tableInfo.comment}业务层\n *\n * @author $!author\n * @since $!time.currTime()\n */\npublic interface $!{tableName} {\n\n    void save($entityShortType $entityVarName);\n\n    void deleteById($pkShortType id);\n\n    $entityShortType findById($pkShortType id);\n\n    List<$entityShortType> findById(Collection<$pkShortType> ids);\n\n    Page<$entityShortType> list(Pageable page);\n\n}\n"
+      }, {
+        "name" : "serviceImpl.java.vm",
+        "code" : "##导入宏定义、设置包名、类名、文件名\n$!{define.vm}\n#setPackageSuffix(\"service.impl\")\n#setTableSuffix(\"ServiceImpl\")\n#save(\"/service/impl\", \"ServiceImpl.java\")\n\n##拿到主键\n#if(!$tableInfo.pkColumn.isEmpty())\n    #set($pk = $tableInfo.pkColumn.get(0))\n#end\n##业务层类名、持久层类名、实体名\n#set($serviceSortType = $!tool.append($!tableInfo.name, \"Service\"))\n#set($serviceType = $!tool.append($!tableInfo.savePackageName, \".service.\", $serviceSortType))\n#set($repositorySortType = $!tool.append($!tableInfo.name, \"Repository\"))\n#set($repositoryType = $!tool.append($!tableInfo.savePackageName, \".repository.\", $repositorySortType))\n#set($repositoryVarName = $!tool.firstLowerCase($!repositorySortType))\n#set($entityShortType = $!tableInfo.name)\n#set($entityType = $!tableInfo.psiClassObj.getQualifiedName())\n#set($entityVarName = $!tool.firstLowerCase($!tableInfo.name))\n#set($pkShortType = $!pk.shortType)\n#set($pkType = $!pk.type)\n\nimport $pkType;\nimport $entityType;\nimport $serviceType;\nimport $repositoryType;\nimport org.springframework.stereotype.Service;\nimport javax.annotation.Resource;\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.Pageable;\nimport java.util.Collection;\nimport java.util.List;\nimport java.util.stream.Collectors;\nimport java.util.stream.StreamSupport;\n\n\n/**\n * $!{tableInfo.comment}业务层\n *\n * @author $!author\n * @since $!time.currTime()\n */\n@Service\npublic class $!{tableName} implements $!serviceSortType {\n\n\t@Resource\n    private $repositorySortType $repositoryVarName;\n\n    @Override\n    public void save($entityShortType $entityVarName) {\n        $!{repositoryVarName}.save($entityVarName);\n    }\n\n    @Override\n    public void deleteById($pkShortType id) {\n        $!{repositoryVarName}.delete(id);\n    }\n\n    @Override\n    public $entityShortType findById($pkShortType id) {\n        return $!{repositoryVarName}.findOne(id);\n    }\n\n    @Override\n    public List<$entityShortType> findById(Collection<$pkShortType> ids) {\n        Iterable<$entityShortType> iterable = $!{repositoryVarName}.findAll(ids);\n        return StreamSupport.stream(iterable.spliterator(), false)\n                .collect(Collectors.toList());\n    }\n\n    @Override\n    public Page<$entityShortType> list(Pageable page) {\n        return $!{repositoryVarName}.findAll(page);\n    }\n\n}\n"
+      } ]
+    }
+  },
+  "columnConfig" : { },
+  "globalConfig" : { }
+}
