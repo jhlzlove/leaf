@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @author jhlz
  * @since 2022-12-26 18:04:55
  */
-@Entity(name = "lease_role")
+@Entity(name = "role")
 @DynamicInsert
 @DynamicUpdate
 public class Role implements Serializable {

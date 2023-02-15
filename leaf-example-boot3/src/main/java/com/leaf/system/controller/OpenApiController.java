@@ -16,4 +16,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class OpenApiController {
 
     private static final Logger log = LoggerFactory.getLogger(OpenApiController.class);
+
 }

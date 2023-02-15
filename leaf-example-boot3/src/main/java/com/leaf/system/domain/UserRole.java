@@ -10,7 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
  * @author jhlz
  * @since 2022-12-26 21:28:53
  */
-@Entity(name = "lease_user_role")
+@Entity(name = "user_role")
 @DynamicInsert
 @DynamicUpdate
 public class UserRole extends BaseEntity {

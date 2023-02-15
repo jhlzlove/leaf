@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @author jhlz
  * @since 2022-12-11 13:46:28
  */
-@Entity(name = "lease_user")
+@Entity(name = "user")
 @DynamicInsert
 @DynamicUpdate
 public class User extends BaseEntity implements Serializable {
