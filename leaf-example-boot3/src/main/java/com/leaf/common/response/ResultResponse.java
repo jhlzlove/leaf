@@ -1,9 +1,9 @@
 package com.leaf.common.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leaf.common.utils.JSONUtil;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 /**
  * 返回结果简单封装
@@ -12,10 +12,6 @@ import java.util.Optional;
  * @since 2022/10/3 16:19:42
  */
 public class ResultResponse implements Serializable {
-    /**
-     * 结果对象
-     **/
-    private Object data;
 
     /**
      * 状态码
@@ -27,7 +23,19 @@ public class ResultResponse implements Serializable {
      **/
     private String message;
 
+    /**
+     * 结果对象
+     **/
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Object data;
+
     public ResultResponse() {
+    }
+
+    public ResultResponse(int code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
     /**
@@ -53,11 +61,7 @@ public class ResultResponse implements Serializable {
     }
 
     public static ResultResponse success(int code, String message, Object data) {
-        ResultResponse resp = new ResultResponse();
-        resp.setCode(code);
-        resp.setMessage(message);
-        Optional.ofNullable(data).ifPresent(d -> resp.setData(d));
-        return resp;
+        return new ResultResponse(code, message, data);
     }
 
     /**

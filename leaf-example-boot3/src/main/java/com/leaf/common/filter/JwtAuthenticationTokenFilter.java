@@ -4,8 +4,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.leaf.common.exception.BusinessException;
 import com.leaf.common.exception.GlobalException;
 import com.leaf.common.utils.JwtUtil;
-import com.leaf.system.domain.User;
-import com.leaf.system.repository.UserRepository;
+import com.leaf.system.entity.LeafUser;
+import com.leaf.system.repository.LeafUserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,9 +32,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 获取 token
+        // 1. 获取 token
         String token = request.getHeader("token");
-        // 如果 token 为空，放行，进入其它过滤器链执行
+        // 2. 验证 token
+        // 如果 token 为空，没有登录状态，放行不再执行后面的代码，进入其它过滤器链执行，可以重定向到登录地址
         if (!StringUtils.hasText(token)) {
             filterChain.doFilter(request, response);
             return;
@@ -43,26 +44,28 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 否则，解析 token
         DecodedJWT decodedJWT = JwtUtil.getDecodedJWT(token);
         String subject = decodedJWT.getSubject();
-        // 获取用户
+        // 3. 解析 token 信息获取用户标识
         if (!StringUtils.hasText(subject)) {
-            User user = userRepository.findById(Long.parseLong(subject))
+            LeafUser user = userRepository.findById(Long.parseLong(subject))
                     .orElseThrow(() -> new GlobalException(BusinessException.FAILED_AUTHORIZATION));
 
             // TODO 获取该用户的权限
 
-            // 此处必须使用 三个参数 的构造方法，否则认证败
+            // 4. 此处必须使用三个参数（用户名，密码，角色）的构造方法，否则认证失败
+            // 该方法可以按照 用户名，密码，角色 的顺序，也可以直接把用户放到第一个参数，其它两个参数为 null；
+            // 如果有角色把第二个参数设为 null 即可
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(user, null, null);
-            // 存入 SecurityContextHolder
+            // 5. 把认证信息存入 SecurityContextHolder
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        // 放行
+        // 6. 放行
         filterChain.doFilter(request, response);
     }
 
-    private final UserRepository userRepository;
+    private final LeafUserRepository userRepository;
 
-    public JwtAuthenticationTokenFilter(UserRepository userRepository) {
+    public JwtAuthenticationTokenFilter(LeafUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 }

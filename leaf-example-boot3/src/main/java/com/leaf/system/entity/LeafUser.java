@@ -3,8 +3,8 @@ package com.leaf.system.entity;
 import jakarta.persistence.*;
 
 import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户信息表(LeafUser)实体类
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @since 2023-02-15 14:25:31
  */
 @Entity(name = "leaf_user")
-public class LeafUser implements Serializable {
+public class LeafUser extends BaseEntity {
     @Serial
     private static final long serialVersionUID = -83128214293345737L;
 
@@ -23,7 +23,6 @@ public class LeafUser implements Serializable {
     /**
      * 姓名
      */
-    @Transient
     private String realName;
     /**
      * 登录账户
@@ -33,27 +32,12 @@ public class LeafUser implements Serializable {
      * 登录密码
      */
     private String password;
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-    /**
-     * 创建人
-     */
-    private String createBy;
-    /**
-     * 更新人
-     */
-    private String updateBy;
-    /**
-     * 备注
-     */
-    private String remark;
 
+    @Transient
+    private List<LeafRole> roles;
+
+    @Transient
+    private List<LeafDept> depts;
 
     public Long getId() {
         return id;
@@ -87,45 +71,43 @@ public class LeafUser implements Serializable {
         this.password = password;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public List<LeafRole> getRoles() {
+        return roles;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setRoles(List<LeafRole> roles) {
+        this.roles = roles;
     }
 
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
+    public List<LeafDept> getDepts() {
+        return depts;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
+    public void setDepts(List<LeafDept> depts) {
+        this.depts = depts;
     }
 
-    public String getCreateBy() {
-        return createBy;
+    @Override
+    public String toString() {
+        return "LeafUser{" +
+                "id=" + id +
+                ", realName='" + realName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LeafUser leafUser = (LeafUser) o;
+        return Objects.equals(id, leafUser.id) && Objects.equals(realName, leafUser.realName) && Objects.equals(username, leafUser.username) && Objects.equals(password, leafUser.password);
     }
 
-    public String getUpdateBy() {
-        return updateBy;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, realName, username, password);
     }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
 }
 

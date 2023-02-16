@@ -1,21 +1,14 @@
 package com.leaf.system.service.impl;
 
-import com.leaf.system.domain.LoginUser;
-import com.leaf.system.domain.Role;
-import com.leaf.system.domain.User;
-import com.leaf.system.domain.UserRole;
-import com.leaf.system.repository.UserRepository;
-import com.leaf.system.service.RoleService;
-import com.leaf.system.service.UserRoleService;
+import com.leaf.system.entity.LeafUser;
+import com.leaf.system.entity.LoginUser;
+import com.leaf.system.repository.LeafUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 认证数据源读取
@@ -34,30 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
-        // TODO 用户权限信息
-        List<UserRole> userRoles =
-                userRoleService.listByUserId(user.getId());
-        List<Long> roleIds =
-                userRoles.stream().map(UserRole::getRoleId).toList();
-        List<Role> roleList = new ArrayList<>();
-        roleIds.forEach(r -> roleList.add(roleService.queryById(r)));
-        List<String> permissionList =
-                roleList.stream().map(Role::getRoleCode).toList();
+        LeafUser user = userRepository.findByUsername(username);
 
         LoginUser loginUser = new LoginUser();
-        loginUser.setUser(user).setPermissions(permissionList);
-        return loginUser;
+        return loginUser.setUser(user);
     }
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-    private final UserRepository userRepository;
-    private final UserRoleService userRoleService;
-    private final RoleService roleService;
+    private final LeafUserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository, UserRoleService userRoleService, RoleService roleService) {
+    public UserDetailsServiceImpl(LeafUserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userRoleService = userRoleService;
-        this.roleService = roleService;
     }
 }

@@ -1,7 +1,6 @@
 package com.leaf.common.response;
 
 import com.leaf.common.annotation.NotWrapResponse;
-import com.leaf.common.utils.JSONUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof String) {
-            response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-            return JSONUtil.toJSONString(body);
+            return body;
         }
         return ResultResponse.success(body);
     }

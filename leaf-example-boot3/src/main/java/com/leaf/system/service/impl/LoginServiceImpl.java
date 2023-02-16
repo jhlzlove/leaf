@@ -1,9 +1,8 @@
 package com.leaf.system.service.impl;
 
 import com.leaf.common.utils.JwtUtil;
-import com.leaf.system.domain.LoginUser;
-import com.leaf.system.domain.User;
-import com.leaf.system.repository.UserRepository;
+import com.leaf.system.entity.LeafUser;
+import com.leaf.system.entity.LoginUser;
 import com.leaf.system.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Objects;
 
 /**
  * 登录接口实现
@@ -25,12 +24,14 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public String login(User user) {
+    public String login(LeafUser user) {
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        // 调用认证方法
         Authentication authenticate = authenticationManager.authenticate(authentication);
-        Optional.ofNullable(authenticate)
-                .orElseThrow(() -> new UsernameNotFoundException("Not found user"));
+        if (Objects.isNull(authenticate)) {
+            throw new UsernameNotFoundException("Not found user");
+        }
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         Long id = loginUser.getUser().getId();
         String token = JwtUtil.createToken(id.toString());
@@ -44,11 +45,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);
-    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
 
-    public LoginServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager) {
-        this.userRepository = userRepository;
+    public LoginServiceImpl(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 

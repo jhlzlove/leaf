@@ -2,7 +2,7 @@ package com.leaf.system.controller;
 
 import com.leaf.common.annotation.OperationLog;
 import com.leaf.common.log.BusinessEnum;
-import com.leaf.system.domain.User;
+import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ public class LoginController {
 
     @PostMapping("login")
     @OperationLog(operation = BusinessEnum.LOGIN)
-    public String login(@RequestBody User user) {
+    public String login(@RequestBody LeafUser user) {
         return loginService.login(user);
     }
 

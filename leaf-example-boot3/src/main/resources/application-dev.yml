@@ -4,7 +4,7 @@ server:
 spring:
   application:
     # 应用名称
-    name: leaves-example-boot3
+    name: leaf-example-boot3
   # 数据源
   datasource:
     # hikari 连接池

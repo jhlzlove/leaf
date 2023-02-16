@@ -16,14 +16,42 @@ import java.util.List;
  */
 public interface LeafUserService {
 
-    Page<LeafUser> listPage(Pageable page);
+    /**
+     * 分页列表
+     *
+     * @param user 条件参数
+     * @param page 分页参数
+     * @return 符合条件的分页数据
+     */
+    Page<LeafUser> listPage(LeafUser user, Pageable page);
 
+    /**
+     * 根据 ID 获取详情
+     *
+     * @param id id
+     * @return
+     */
     LeafUser findById(Long id);
 
-    LeafUser save(LeafUser leafUser);
+    /**
+     * 添加数据
+     *
+     * @param leafUser 添加对象
+     */
+    void save(LeafUser leafUser);
 
-    LeafUser update(LeafUser leafUser);
+    /**
+     * 更新数据
+     *
+     * @param leafUser 更新对象
+     */
+    void update(LeafUser leafUser);
 
+    /**
+     * 删除数据
+     *
+     * @param ids 删除数据的 id 集合
+     */
     void remove(List<Long> ids);
 }
 

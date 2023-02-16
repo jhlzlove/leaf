@@ -1,6 +1,6 @@
 package com.leaf.common.utils;
 
-import com.leaf.system.domain.LoginUser;
+import com.leaf.system.entity.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

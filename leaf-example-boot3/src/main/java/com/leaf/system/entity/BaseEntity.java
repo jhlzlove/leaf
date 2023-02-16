@@ -1,61 +1,59 @@
-package com.leaf.system.domain;
+package com.leaf.system.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 公共属性类
  *
- * @author: jhlz
- * @since: 2022/11/26 15:33:42
+ * @author jhlz
+ * @since 2022/11/26 15:33:42
  */
 @MappedSuperclass
-public class BaseEntity {
-
-    /**
-     * 主键 id
-     * 使用数据库的自增模式 GenerationType.IDENTITY
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+@EntityListeners(AuditingEntityListener.class)
+public class BaseEntity implements Serializable {
 
     /**
      * 创建时间
      */
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @CreatedDate
+    @Column(name = "create_time")
     protected LocalDateTime createTime;
 
     /**
      * 更新时间
      */
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    @Column(name = "update_time")
     protected LocalDateTime updateTime;
 
     /**
      * 创建人
      */
-    @Transient
+    @CreatedBy
+    @Column(name = "create_by")
     protected String createBy;
 
     /**
      * 更新人
      */
-    @Transient
+    @LastModifiedBy
+    @Column(name = "update_by")
     protected String updateBy;
 
     /**
      * 备注
      */
     protected String remark;
-
-    public Long getId() {
-        return id;
-    }
-
-    public BaseEntity setId(Long id) {
-        this.id = id;
-        return this;
-    }
 
     public LocalDateTime getCreateTime() {
         return createTime;

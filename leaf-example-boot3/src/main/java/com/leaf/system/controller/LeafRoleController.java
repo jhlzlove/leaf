@@ -17,7 +17,7 @@ import java.util.List;
  * @since 2023-02-15 14:25:31
  */
 @RestController
-@RequestMapping("/leafRole")
+@RequestMapping("/role")
 public class LeafRoleController {
 
     /**

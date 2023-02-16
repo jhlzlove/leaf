@@ -12,5 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface LeafUserRepository extends JpaRepository<LeafUser, Long> {
 
+    LeafUser findByUsername(String username);
 }
 

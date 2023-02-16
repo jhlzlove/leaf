@@ -1,6 +1,6 @@
 package com.leaf.system.service;
 
-import com.leaf.system.domain.User;
+import com.leaf.system.entity.LeafUser;
 
 /**
  * 登录接口
@@ -16,7 +16,7 @@ public interface LoginService {
      * @param user 账户信息
      * @return token
      */
-    String login(User user);
+    String login(LeafUser user);
 
     /**
      * 登出

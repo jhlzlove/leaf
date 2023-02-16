@@ -18,15 +18,16 @@ import java.util.List;
  * @since 2023-02-15 14:25:31
  */
 @RestController
-@RequestMapping("/leafUser")
+@RequestMapping("/user")
 public class LeafUserController {
 
     /**
      * 获取用户信息表列表(分页)
      */
     @GetMapping
-    public Page<LeafUser> listPage(@PageableDefault(page = 0, size = 20) Pageable page) {
-        return leafUserService.listPage(page);
+    public Page<LeafUser> listPage(@RequestBody LeafUser user,
+                                   @PageableDefault(page = 0, size = 20) Pageable page) {
+        return leafUserService.listPage(user, page);
     }
 
     /**
@@ -41,8 +42,8 @@ public class LeafUserController {
      * 添加用户信息表
      */
     @PostMapping
-    public LeafUser add(@RequestBody LeafUser leafUser) {
-        return leafUserService.save(leafUser);
+    public void add(@RequestBody LeafUser leafUser) {
+        leafUserService.save(leafUser);
     }
 
 
