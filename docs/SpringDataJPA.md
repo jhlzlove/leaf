@@ -111,8 +111,14 @@ class UserController {
         return leafUserService.listPage(page);
     }
 }
-
 ```
+
+### @EntityListeners、@EnableJpaAuditing
+
+开启 JPA
+审计功能，可以在我们的操作中自动的更新一些公共字段：创建者、更新者、创建时间、更新时间，这样我们无须在程序中手动设置。使用该功能，需要在 `Application`
+启动类上加入 `@EnableJpaAuditing` 开启。
+具体使用详见：https://www.baeldung.com/database-auditing-jpa
 
 ## 2. 持久层
 

@@ -148,3 +148,12 @@ public class DemoServiceImpl implements DemoService {
 ```
 
 > 为了看代码比较方便，类中所有需要注入的对象全部放在该类的最后。
+
+## [Spring MVC PathPattern、AntPathMatcher](https://spring.io/blog/2020/06/30/url-matching-with-pathpattern-in-spring-mvc)
+
+`PathPattern` 是 Spring 5.0 提供的，在 Spring 6.0 中又有了改进。本项目全部使用 `PathPattern`，`AntPathMatcher`
+是之前的路径匹配器。如果是新项目的话，推荐使用 Spring 提供的 `PathPattern`。
+
+另外，如果项目中没有配置 `spring.mvc.pathmatch.matching-strategy` ，默认使用的也是 `PathPatternParser`。
+
+Spring Security 5.7 之后的写法改变，包括路径的写法，无须显示调用 `antMatcher`、`mvcMatcher`。
