@@ -60,6 +60,9 @@ allprojects {
         /* jasypt */
         // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
         implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+        // 缩略图
+        implementation 'net.coobird:thumbnailator:0.4.19'
+
 
     }
 }
