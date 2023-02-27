@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     // spring boot version control
-    id 'org.springframework.boot' version '3.0.0'
+    id 'org.springframework.boot' version '3.0.3'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -74,3 +74,4 @@ subprojects {
     // 单模块分包开发，可以；微服务采用多模块开发，没问题！
     // 不采用微服务，多模块开发？！Oh my god，浪子很难受
 }
+
