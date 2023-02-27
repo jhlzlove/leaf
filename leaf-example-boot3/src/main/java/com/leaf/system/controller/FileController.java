@@ -1,7 +1,7 @@
 package com.leaf.system.controller;
 
 import com.leaf.common.annotation.ApiRestController;
-import com.leaf.common.utils.LocaDateUtil;
+import com.leaf.common.util.LocaDateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

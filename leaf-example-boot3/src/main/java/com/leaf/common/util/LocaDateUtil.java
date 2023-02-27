@@ -1,4 +1,4 @@
-package com.leaf.common.utils;
+package com.leaf.common.util;
 
 import org.springframework.util.StringUtils;
 

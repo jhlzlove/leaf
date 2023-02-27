@@ -1,7 +1,7 @@
 package com.leaf;
 
-import com.leaf.common.utils.EnvironmentUtil;
-import com.leaf.common.utils.IpUtil;
+import com.leaf.common.util.EnvironmentUtil;
+import com.leaf.common.util.IpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

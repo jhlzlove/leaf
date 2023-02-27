@@ -1,4 +1,4 @@
-package com.leaf.common.utils;
+package com.leaf.common.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.util.ObjectUtils;

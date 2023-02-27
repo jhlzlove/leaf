@@ -3,7 +3,7 @@ package com.leaf.common.filter;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.leaf.common.exception.BusinessException;
 import com.leaf.common.exception.GlobalException;
-import com.leaf.common.utils.JwtUtil;
+import com.leaf.common.util.JwtUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.repository.LeafUserRepository;
 import jakarta.servlet.FilterChain;

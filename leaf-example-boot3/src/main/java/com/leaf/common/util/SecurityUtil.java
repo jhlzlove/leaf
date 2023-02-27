@@ -1,4 +1,4 @@
-package com.leaf.common.utils;
+package com.leaf.common.util;
 
 import com.leaf.system.entity.LoginUser;
 import org.springframework.security.core.Authentication;

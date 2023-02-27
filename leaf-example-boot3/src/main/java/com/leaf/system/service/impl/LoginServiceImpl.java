@@ -1,6 +1,6 @@
 package com.leaf.system.service.impl;
 
-import com.leaf.common.utils.JwtUtil;
+import com.leaf.common.util.JwtUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.entity.LoginUser;
 import com.leaf.system.service.LoginService;

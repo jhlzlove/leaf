@@ -4,16 +4,16 @@ server:
 spring:
   application:
     # 应用名称
-    name: market-vben-example
+    name: leaf-example-boot3
   # 数据源
   datasource:
     # hikari 连接池
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/vben_market?serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/leaf_market?serverTimezone=Asia/Shanghai
     hikari:
       username: postgres
-      password: postgres
+      password:
       # 最大连接池数量
       maximum-pool-size: 20
       # 配置一个连接在池中最大生存的时间，单位是毫秒
@@ -47,7 +47,6 @@ jasypt:
 logging:
   level:
     # SQL 语句显示参数
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.example.system.repository: debug
+    com.leaf.system.repository: debug
     org.hibernate.stat: debug
     org.hibernate.sql: debug

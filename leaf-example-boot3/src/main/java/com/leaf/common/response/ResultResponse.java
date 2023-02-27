@@ -1,7 +1,7 @@
 package com.leaf.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.leaf.common.utils.JSONUtil;
+import com.leaf.common.util.JSONUtil;
 
 import java.io.Serializable;
 

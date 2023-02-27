@@ -1,4 +1,4 @@
-package com.leaf.common.utils;
+package com.leaf.common.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

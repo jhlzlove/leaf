@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.utils.HttpUtil;
+import com.leaf.common.util.HttpUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
