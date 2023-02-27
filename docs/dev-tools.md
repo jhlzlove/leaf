@@ -1,7 +1,7 @@
 ## 一、开发工具
 
 - JDK 17.0+
-- Gradle 7.5+
+- Gradle 7.4+
 - SpringBoot 3.0+
 - PostgreSQL 15.0+
 
