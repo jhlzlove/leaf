@@ -157,3 +157,8 @@ public class DemoServiceImpl implements DemoService {
 另外，如果项目中没有配置 `spring.mvc.pathmatch.matching-strategy` ，默认使用的也是 `PathPatternParser`。
 
 Spring Security 5.7 之后的写法改变，包括路径的写法，无须显示调用 `antMatcher`、`mvcMatcher`。
+
+## Eclipse Collections
+
+官网指路：https://www.eclipse.org/collections/
+使用请看这篇文章：https://www.baeldung.com/eclipse-collections
