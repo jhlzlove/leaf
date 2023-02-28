@@ -42,9 +42,7 @@ allprojects {
     // 依赖
     dependencies {
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        /* java 高版本删除的一些库 */
-        implementation('javax.xml.bind:jaxb-api:2.3.1')
-        /* spring security 放在最后做，开发过程中需要频繁修改 */
+        /* spring security */
         implementation('org.springframework.boot:spring-boot-starter-security')
         /* spring web */
         implementation('org.springframework.boot:spring-boot-starter-web')
@@ -52,6 +50,11 @@ allprojects {
         implementation('org.springframework.boot:spring-boot-starter-aop')
         /* spring data jpa */
         implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+        /* validation */
+        implementation('org.springframework.boot:spring-boot-starter-validation')
+        /* eclipse collections */
+        implementation 'org.eclipse.collections:eclipse-collections-api:11.1.0'
+        implementation 'org.eclipse.collections:eclipse-collections:11.1.0'
         /* postgresql */
         implementation('org.postgresql:postgresql:42.5.1')
         /* java jwt */
@@ -60,9 +63,8 @@ allprojects {
         /* jasypt */
         // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
         implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
-        // 缩略图
+        /* 缩略图 */
         implementation 'net.coobird:thumbnailator:0.4.19'
-
 
     }
 }
