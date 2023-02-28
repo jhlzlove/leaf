@@ -149,8 +149,8 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      * 辅助 Spring 框架中 BeanUtils.copyProperties(Object source, Object target, String... ignoreProperties)
      * 获取不为 null 的数据
      *
-     * @param source
-     * @return
+     * @param source 源目标
+     * @return null 字段属性数组
      */
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
@@ -159,7 +159,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
         for (PropertyDescriptor pd : pds) {
             // check if value of this property is null then add it to the collection
             Object srcValue = src.getPropertyValue(pd.getName());
-            // 收集不需要copy的字段列表。此处过滤null为例
+            // 收集不需要copy的字段列表。此处过滤 null 为例
             Optional.ofNullable(srcValue).orElseGet(() -> emptyNames.add(pd.getName()));
         }
         String[] result = new String[emptyNames.size()];

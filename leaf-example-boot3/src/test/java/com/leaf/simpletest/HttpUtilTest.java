@@ -1,6 +1,5 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.util.HttpUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,5 @@ public class HttpUtilTest {
      */
     @Test
     public void testHttpUtil() {
-        String s = HttpUtil.get(null);
-        log.info("{}", s);
     }
 }

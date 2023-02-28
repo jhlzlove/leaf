@@ -62,6 +62,7 @@ public class SecurityConfig {
                 // 开发阶段放行所有请求
                 .authorizeHttpRequests((request) ->
                 {
+                    // 开启所有接口
                     request.requestMatchers("/**")
                             .permitAll()
                             .anyRequest().authenticated();

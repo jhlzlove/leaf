@@ -1,9 +1,5 @@
 package com.leaf.common.response;
 
-import org.springframework.util.Assert;
-
-import java.util.Objects;
-
 /**
  * 响应状态枚举
  *
@@ -12,9 +8,8 @@ import java.util.Objects;
  */
 public enum ResultEnum {
 
-
-    SUCCESS(200, "请求成功！"),
-    ERROR(500, "请求失败！"),
+    SUCCESS(200, "操作成功！"),
+    ERROR(500, "操作失败！"),
     NOT_FOUND(404, "找不到资源！"),
     ;
 
@@ -27,16 +22,6 @@ public enum ResultEnum {
      * 状态说明
      */
     private String message;
-
-    public String ofValue(int code) {
-        Assert.notNull(code, "code must is not null!");
-        for (ResultEnum status : ResultEnum.values()) {
-            if (Objects.equals(code, status.getCode())) {
-                return status.getMessage();
-            }
-        }
-        return null;
-    }
 
     ResultEnum(int code, String message) {
         this.code = code;

@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * 注意：使用其它接口工具导入 swagger 接口进行自动化或者批量测试时，不以该对象为主，而是以 controller 中实际返回的对象为主。
  * 这样会造成使用的工具数据校验失败，可以选择关闭工具的返回结果校验或者 controller 的每个方法的返回值都为封装的对象
  */
-@RestControllerAdvice
-public class ResponseHandler implements ResponseBodyAdvice<Object> {
+@RestControllerAdvice("*.*.*.controller")
+public class ResultResponseHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {

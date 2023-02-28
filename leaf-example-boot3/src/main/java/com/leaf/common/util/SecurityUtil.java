@@ -45,4 +45,11 @@ public class SecurityUtil {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
+    /**
+     * 从当前线程中显式清除上下文值
+     */
+    public static void clear() {
+        SecurityContextHolder.clearContext();
+    }
 }

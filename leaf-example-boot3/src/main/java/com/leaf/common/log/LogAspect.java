@@ -1,6 +1,7 @@
 package com.leaf.common.log;
 
 import com.leaf.common.annotation.OperationLog;
+import com.leaf.common.business.BusinessEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -89,11 +90,11 @@ public class LogAspect {
      * @param elements         堆栈信息
      */
     public String stackTraceToString(String exceptionName, String exceptionMessage, StackTraceElement[] elements) {
-        StringBuffer strbuff = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (StackTraceElement stet : elements) {
-            strbuff.append(stet + "\n");
+            sb.append(stet).append("\n");
         }
-        String message = exceptionName + ":" + exceptionMessage + "\n\t" + strbuff.toString();
+        String message = exceptionName + ":" + exceptionMessage + "\n\t" + sb;
         if (message.length() > 2000)
             message = message.substring(0, 500) + "..........." + message.substring(message.length() - 1500, message.length() - 1);
         return message;

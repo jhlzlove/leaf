@@ -28,16 +28,7 @@ public class ThreadPoolConfig {
 
     private static final Logger log = LoggerFactory.getLogger(ThreadPoolConfig.class);
     // 核心线程池大小
-    private int corePoolSize = 50;
-
-    // 最大可创建的线程数
-    private int maxPoolSize = 200;
-
-    // 队列最大长度
-    private int queueCapacity = 1000;
-
-    // 线程池维护线程所允许的空闲时间
-    private int keepAliveSeconds = 300;
+    private final int corePoolSize = 50;
 
     /**
      * 为线程池起个名称，参数配上！
@@ -47,9 +38,15 @@ public class ThreadPoolConfig {
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        // 最大可创建的线程数
+        int maxPoolSize = 200;
         executor.setMaxPoolSize(maxPoolSize);
         executor.setCorePoolSize(corePoolSize);
+        // 队列最大长度
+        int queueCapacity = 1000;
         executor.setQueueCapacity(queueCapacity);
+        // 线程池维护线程所允许的空闲时间
+        int keepAliveSeconds = 300;
         executor.setKeepAliveSeconds(keepAliveSeconds);
         // 线程池对拒绝任务(无线程可用)的处理策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());

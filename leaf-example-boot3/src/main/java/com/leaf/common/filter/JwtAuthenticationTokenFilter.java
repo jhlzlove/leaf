@@ -21,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * JwtAuthenticationTokenFilter Token认证过滤器
+ * JwtAuthenticationTokenFilter Token 认证过滤器
  *
  * @author jhlz
  * @since 2022/8/13 18:55

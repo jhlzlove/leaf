@@ -1,6 +1,7 @@
 package com.leaf.system.service.impl;
 
 import com.leaf.common.util.JwtUtil;
+import com.leaf.common.util.SecurityUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.entity.LoginUser;
 import com.leaf.system.service.LoginService;
@@ -35,13 +36,13 @@ public class LoginServiceImpl implements LoginService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         Long id = loginUser.getUser().getId();
         String token = JwtUtil.createToken(id.toString());
-        log.info(" token {}", token);
+        log.info("token is {}", token);
         return token;
     }
 
     @Override
     public void logout() {
-
+        SecurityUtil.clear();
     }
 
     private static final Logger log = LoggerFactory.getLogger(LoginServiceImpl.class);

@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * @author jhlz
  * @since 2022/8/10 15:19
  */
-public class LocaDateUtil {
+public class LocalDateUtil {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DATE_PATTERN = "yyyy-MM-dd";

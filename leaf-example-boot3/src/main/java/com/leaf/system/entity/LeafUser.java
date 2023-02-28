@@ -1,6 +1,8 @@
 package com.leaf.system.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.io.Serial;
 import java.util.List;
@@ -27,10 +29,12 @@ public class LeafUser extends BaseEntity {
     /**
      * 登录账户
      */
+    @NotBlank(message = "用户名不能为空且不能包含空格！")
     private String username;
     /**
      * 登录密码
      */
+    @NotEmpty
     private String password;
 
     @Transient

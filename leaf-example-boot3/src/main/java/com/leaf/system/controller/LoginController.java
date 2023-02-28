@@ -1,7 +1,8 @@
 package com.leaf.system.controller;
 
 import com.leaf.common.annotation.OperationLog;
-import com.leaf.common.log.BusinessEnum;
+import com.leaf.common.business.BusinessEnum;
+import com.leaf.common.response.ResultResponse;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LoginService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,16 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @OperationLog(operation = BusinessEnum.LOGIN)
-    public String login(@RequestBody LeafUser user) {
-        return loginService.login(user);
+    public ResultResponse login(@RequestBody LeafUser user) {
+        return ResultResponse.success(loginService.login(user));
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     @OperationLog(operation = BusinessEnum.LOGOUT)
-    public void logout() {
+    public ResultResponse logout() {
         loginService.logout();
+        return ResultResponse.success();
     }
 
     private final LoginService loginService;

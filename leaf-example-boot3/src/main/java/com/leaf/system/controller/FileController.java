@@ -1,7 +1,7 @@
 package com.leaf.system.controller;
 
 import com.leaf.common.annotation.ApiRestController;
-import com.leaf.common.util.LocaDateUtil;
+import com.leaf.common.util.LocalDateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -80,7 +80,7 @@ public class FileController {
         String extensionName = fileSplit[fileSplit.length - 1];
         logger.debug(" File extension name is {}", extensionName);
 
-        String rename = LocaDateUtil.localDateTimeToString(LocalDateTime.now(), "yyyyMMddHHmmsss");
+        String rename = LocalDateUtil.localDateTimeToString(LocalDateTime.now(), "yyyyMMddHHmmsss");
         String finalName = rename + "." + extensionName;
         try {
             File filePath = new File("market-vben-example/src/main/resources/static/data/upload/");

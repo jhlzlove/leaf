@@ -45,14 +45,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(customerInterceptor())
-                .excludePathPatterns(
-                        "/openapi/**",
-                        "/file/**",
-                        "/doc.html",
-                        "/swagger**/**",
-                        "/webjars/**",
-                        "/v3/**");
+        registry.addInterceptor(customerInterceptor());
     }
 
     /**
@@ -77,7 +70,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public ObjectMapper serializingObjectMapper() {
         JavaTimeModule module = new JavaTimeModule();
         // 这里导包的时候选择自己定义的LocalDateTimeDeserializer
-        LocalDateTimeDeserializer dateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTimeDeserializer dateTimeDeserializer =
+                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         module.addDeserializer(LocalDateTime.class, dateTimeDeserializer);
         return Jackson2ObjectMapperBuilder.json().modules(module)
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS).build();

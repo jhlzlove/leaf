@@ -20,13 +20,12 @@ public class EnvironmentUtil implements EnvironmentAware {
      * @return
      */
     public static String getPort() {
-        String port = environment.getProperty("server.port");
-        return port;
+        return environment.getProperty("server.port");
     }
 
     @Override
     public void setEnvironment(@NonNull Environment environment) {
-        this.environment = environment;
+        EnvironmentUtil.environment = environment;
     }
 
     private static Environment environment;

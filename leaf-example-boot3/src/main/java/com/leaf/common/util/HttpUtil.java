@@ -1,5 +1,9 @@
 package com.leaf.common.util;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -7,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -17,24 +20,53 @@ import java.util.concurrent.ExecutionException;
 public class HttpUtil {
 
     public static String get(String url) {
-        return get(url, null);
-    }
-
-    public static String get(String url, Map<String, String> headers) {
-        HttpRequest request = buildGetRequest(url, headers);
-
         try {
             return HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString()).body();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+                    .send(HttpRequest.newBuilder(URI.create(url)).GET().build(),
+                            HttpResponse.BodyHandlers.ofString()).body();
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static String getAsync(String url) {
-        return getAsync(url, null);
+    private static String get(String url, Map<String, String> headers) {
+        HttpRequest request = buildGetRequest(url, headers, null);
+
+        try {
+            return HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString()).body();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String get(String url, String... headers) {
+        HttpRequest request = buildGetRequest(url, null, headers);
+
+        try {
+            return HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString()).body();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 构建 GET 请求
+     *
+     * @param url
+     * @param headers
+     * @param headerStr
+     * @return
+     */
+    private static HttpRequest buildGetRequest(String url,
+                                               @Nullable Map<String, String> headers,
+                                               @Nullable String... headerStr) {
+        Objects.requireNonNull(url, "url must not be null!");
+        HttpRequest.Builder builder = HttpRequest.newBuilder().GET();
+        if (!CollectionUtils.isEmpty(headers)) headers.forEach(builder::setHeader);
+        if (!ObjectUtils.isEmpty(headerStr)) builder.headers(headerStr);
+        return builder.build();
     }
 
     public static String getAsync(String url, Map<String, String> headers) {
@@ -43,94 +75,30 @@ public class HttpUtil {
             return HttpClient.newHttpClient()
                     .sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .get().body();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static String post(String url, Map<String, String> headers) {
-        HttpRequest request = buildPostRequest(url, headers);
-
+    public static String getAsync(String url, String... headers) {
+        HttpRequest request = buildGetRequest(url, null, headers);
         try {
             return HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString()).body();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+                    .sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .get().body();
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * 构建 get 请求
-     *
-     * @param url     url 字符串
-     * @param headers 请求头信息
-     * @return
-     */
-    private static HttpRequest buildGetRequest(String url, Map<String, String> headers) {
-        Objects.requireNonNull(url, "url 不能为 null！");
-        HttpRequest.Builder builder = HttpRequest.newBuilder();
-        // 设置请求头
-        Optional.ofNullable(headers).ifPresent((h) -> {
-            for (Map.Entry<String, String> header : h.entrySet()) {
-                builder.setHeader(header.getKey(), header.getValue());
-            }
-        });
-        // 构建请求
-        return builder
-                .uri(URI.create(url)).GET()
-                .build();
-    }
-
-    private static HttpRequest buildGetRequest(String url, String... headers) {
-        Objects.requireNonNull(url, "url 不能为 null！");
-        HttpRequest.Builder builder = HttpRequest.newBuilder();
-        // 设置请求头
-        Optional.ofNullable(headers).ifPresent((h) -> {
-            builder.headers(h);
-        });
-        // 构建请求
-        return builder
-                .uri(URI.create(url)).GET()
-                .build();
-    }
-
-    /**
-     * 构建 post 请求
-     *
-     * @param url     url 字符串
-     * @param headers 请求头信息
-     * @return
-     */
-    private static HttpRequest buildPostRequest(String url, Map<String, String> headers) {
-        Objects.requireNonNull(url, "url 不能为 null！");
-        HttpRequest.Builder builder = HttpRequest.newBuilder();
-        // 设置请求头
-        Optional.ofNullable(headers).ifPresent((h) -> {
-            for (Map.Entry<String, String> header : h.entrySet()) {
-                builder.setHeader(header.getKey(), header.getValue());
-            }
-        });
-
-        // 构建请求
-        return builder.uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.noBody())
-                .build();
-    }
-
-    private static HttpRequest buildPostRequest(String url, String... headers) {
-        Objects.requireNonNull(url, "url 不能为 null！");
-        HttpRequest.Builder builder = HttpRequest.newBuilder();
-        // 设置请求头
-        Optional.ofNullable(headers).ifPresent((h) -> {
-            builder.headers(h);
-        });
-        // 构建请求
-        return builder.uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.noBody())
-                .build();
+    public static String getAsync(String url) {
+        HttpRequest request = buildGetRequest(url, null);
+        try {
+            return HttpClient.newHttpClient()
+                    .sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .get().body();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

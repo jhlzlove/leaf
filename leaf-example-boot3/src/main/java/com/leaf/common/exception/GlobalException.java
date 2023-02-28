@@ -8,7 +8,7 @@ package com.leaf.common.exception;
  */
 public class GlobalException extends RuntimeException {
 
-    private BusinessException exception;
+    private final BusinessException exception;
 
     @Override
     public String getMessage() {

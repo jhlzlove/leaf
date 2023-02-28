@@ -1,5 +1,7 @@
 package com.leaf.webtest;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
@@ -16,6 +18,16 @@ public class WebTest {
     private RouterFunction<ServerResponse> routingFunction() {
         return route(GET("/t?st"),
                 serverRequest -> ok().body(("Path /t?st is accessed")));
+    }
+
+    /**
+     * test: passwordEncoder_SpringSecurity example
+     */
+    @Test
+    public void passwordEncoder_SpringSecurityTest() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String password = passwordEncoder.encode("admin");
+        System.out.println(password);
     }
 
 }
