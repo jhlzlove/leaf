@@ -99,7 +99,7 @@ public class UserController {
 
 ## 关于Optional的使用
 
-本项目强制只在返回值中使用该类，返回的 `Null` 是否有用，或是抛出异常，或是构造新的空值对象类都能满足。
+本项目强制在返回值、级联对象调用（obj.getObjA().getObjB()）时使用该类，无论返回的 `null` 是否有意义（有用），或是抛出异常，或是构造新的空值对象类都能满足。
 
 ## java-comment
 
