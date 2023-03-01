@@ -1,7 +1,7 @@
 package com.leaf;
 
-import com.leaf.common.util.EnvironmentUtil;
 import com.leaf.common.util.IpUtil;
+import com.leaf.common.util.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +14,6 @@ public class MarketVbenExampleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MarketVbenExampleApplication.class, args);
-        log.info("http://{}:{}", IpUtil.getLocalUrl(), EnvironmentUtil.getPort());
+        log.info("http://{}:{}", IpUtil.getLocalUrl(), SpringUtil.getPort());
     }
 }

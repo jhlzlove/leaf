@@ -22,4 +22,12 @@ public interface LoginService {
      * 登出
      */
     void logout();
+
+    /**
+     * 注册用户
+     *
+     * @param user 用户信息
+     * @return 用户信息
+     */
+    LeafUser register(LeafUser user);
 }

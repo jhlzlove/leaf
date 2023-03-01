@@ -37,9 +37,9 @@ public class LeafUserServiceImpl implements LeafUserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(LeafUser user) {
+    public LeafUser save(LeafUser user) {
         log.info("add target: {}", user);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override

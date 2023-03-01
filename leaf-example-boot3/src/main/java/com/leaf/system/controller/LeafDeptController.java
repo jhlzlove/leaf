@@ -24,8 +24,8 @@ public class LeafDeptController {
      * 获取部门信息表列表(分页)
      */
     @GetMapping
-    public Page<LeafDept> listPage(Pageable page) {
-
+    public Page<LeafDept> listPage(Pageable page, @RequestBody LeafDept dept) {
+        leafDeptService.listPage(page, dept);
         return null;
     }
 

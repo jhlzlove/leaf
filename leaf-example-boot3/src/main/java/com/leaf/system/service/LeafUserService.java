@@ -38,7 +38,7 @@ public interface LeafUserService {
      *
      * @param leafUser 添加对象
      */
-    void save(LeafUser leafUser);
+    LeafUser save(LeafUser leafUser);
 
     /**
      * 更新数据

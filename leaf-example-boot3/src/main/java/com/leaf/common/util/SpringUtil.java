@@ -9,6 +9,10 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.beans.PropertyDescriptor;
@@ -22,7 +26,8 @@ import java.util.Set;
  * @author jhlz
  * @since 2022/9/16 14:17:41
  */
-public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProcessor {
+@Component
+public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProcessor, EnvironmentAware {
     /**
      * Spring应用上下文环境
      */
@@ -139,7 +144,8 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      * 获取配置文件中的值
      *
      * @param key 配置文件的key
-     * @return 当前的配置文件的值
+     * @return 根据 key 获取的配置文件中的 value
+     * @see #getPort()
      */
     public static String getRequiredProperty(String key) {
         return applicationContext.getEnvironment().getRequiredProperty(key);
@@ -165,4 +171,21 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
         String[] result = new String[emptyNames.size()];
         return (String[]) emptyNames.toArray(result);
     }
+
+    /**
+     * 端口号
+     *
+     * @return 系统运行时的端口号
+     * @see #getRequiredProperty(String key)
+     */
+    public static String getPort() {
+        return environment.getProperty("server.port");
+    }
+
+    @Override
+    public void setEnvironment(@NonNull Environment environment) {
+        SpringUtil.environment = environment;
+    }
+
+    private static Environment environment;
 }

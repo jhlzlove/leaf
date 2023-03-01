@@ -15,9 +15,19 @@ import java.util.List;
  */
 public class LoginUser implements UserDetails {
 
-    private LeafUser user;
+    private String username;
+
+    private String password;
 
     private List<String> permissions;
+
+    public LoginUser() {
+    }
+
+    public LoginUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public List<String> getPermissions() {
         return permissions;
@@ -28,14 +38,6 @@ public class LoginUser implements UserDetails {
         return this;
     }
 
-    public LeafUser getUser() {
-        return user;
-    }
-
-    public LoginUser setUser(LeafUser user) {
-        this.user = user;
-        return this;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -44,14 +46,22 @@ public class LoginUser implements UserDetails {
                 .toList();
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return this.username;
     }
 
     @Override
@@ -77,7 +87,9 @@ public class LoginUser implements UserDetails {
     @Override
     public String toString() {
         return "LoginUser{" +
-                "user=" + user +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", permissions=" + permissions +
                 '}';
     }
 }

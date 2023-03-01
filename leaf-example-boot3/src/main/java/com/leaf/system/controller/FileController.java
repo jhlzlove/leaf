@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Iterator;
@@ -27,9 +26,9 @@ import java.util.Iterator;
  * @since 2022/10/5 16:39:06
  */
 @ApiRestController
-@RequestMapping("file")
+@RequestMapping("/file")
 public class FileController {
-    private static final Logger logger = LoggerFactory.getLogger(FileController.class);
+    private static final Logger log = LoggerFactory.getLogger(FileController.class);
 
     /**
      * request 方式上传
@@ -38,24 +37,22 @@ public class FileController {
      * @param resp
      * @param file
      */
-    @PostMapping("upload")
+    @PostMapping("/upload")
     public void upload(HttpServletRequest req, HttpServletResponse resp, String file) {
         try {
             req.setCharacterEncoding("UTF-8");
             Collection<Part> parts = req.getParts();
             Iterator<Part> fileIterator = parts.iterator();
             fileIterator.forEachRemaining(f -> {
-                logger.info("类型名称：{}", f.getName());
-                logger.info("提交的文件名称：{}", f.getSubmittedFileName());
+                log.info("类型名称：{}", f.getName());
+                log.info("提交的文件名称：{}", f.getSubmittedFileName());
                 try {
-                    logger.info("上传的文件流{}", f.getInputStream());
+                    log.info("上传的文件流{}", f.getInputStream());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 // uploadFiles(f, "market-vben-example/src/main/resources/data", f.getName(), Instant.now().toString());
             });
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
         } catch (IOException | ServletException e) {
             throw new RuntimeException(e);
         }
@@ -75,15 +72,15 @@ public class FileController {
      */
     private void upload(MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        logger.debug(" File name is {}", fileName);
+        log.debug(" File name is {}", fileName);
         String[] fileSplit = fileName.split("\\.");
         String extensionName = fileSplit[fileSplit.length - 1];
-        logger.debug(" File extension name is {}", extensionName);
+        log.debug(" File extension name is {}", extensionName);
 
         String rename = LocalDateUtil.localDateTimeToString(LocalDateTime.now(), "yyyyMMddHHmmsss");
         String finalName = rename + "." + extensionName;
         try {
-            File filePath = new File("market-vben-example/src/main/resources/static/data/upload/");
+            File filePath = new File("./src/main/resources/static/data/upload/");
             if (!filePath.exists()) {
                 filePath.mkdirs();
             }

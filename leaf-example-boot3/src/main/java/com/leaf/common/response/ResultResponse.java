@@ -12,17 +12,11 @@ import java.io.Serializable;
  * @since 2022/10/3 16:19:42
  */
 public record ResultResponse(
-        /**
-         * 状态码
-         */
+        /* 状态码 */
         int code,
-        /**
-         * 信息
-         */
+        /* 信息 */
         String message,
-        /**
-         * 数据
-         */
+        /* 数据 */
         @JsonInclude(value = JsonInclude.Include.NON_NULL)
         Object data
 ) implements Serializable {

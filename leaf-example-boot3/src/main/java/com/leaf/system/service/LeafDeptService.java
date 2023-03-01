@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface LeafDeptService {
 
-    Page<LeafDept> listPage(Pageable page);
+    Page<LeafDept> listPage(Pageable page, LeafDept dept);
 
     LeafDept findById(Long id);
 

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author: jhlz
- * @since: 2022/12/14 19:43:14
+ * @author jhlz
+ * @since 2022/12/14 19:43:14
  */
 @RestController
 public class LoginController {
@@ -20,6 +20,12 @@ public class LoginController {
     @OperationLog(operation = BusinessEnum.LOGIN)
     public ResultResponse login(@RequestBody LeafUser user) {
         return ResultResponse.success(loginService.login(user));
+    }
+
+    @PostMapping("/register")
+    @OperationLog(operation = BusinessEnum.ADD_USER)
+    public ResultResponse register(@RequestBody LeafUser user) {
+        return ResultResponse.success(loginService.register(user));
     }
 
     @PostMapping("/logout")

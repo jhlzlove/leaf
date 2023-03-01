@@ -1,5 +1,7 @@
 package com.leaf.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(LocalDateUtil.class);
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String TIME_PATTERN = "HH:mm:ss";
@@ -23,7 +26,7 @@ public class LocalDateUtil {
      *
      * @param dateStr 字符串日期
      * @param pattern 字符串日期格式，默认为 yyyy-MM-dd
-     * @return LocalDate 对象
+     * @return LocalDate 日期
      */
     public static LocalDate stringToLocalDate(String dateStr, String pattern) {
         String format = StringUtils.hasLength(pattern) ? pattern : DATE_PATTERN;

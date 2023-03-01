@@ -6,9 +6,12 @@ import com.leaf.system.repository.LeafUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * 认证数据源读取
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @since 2022/12/23 17:06
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserDetailsPasswordService {
     /**
      * 从数据库获取用户
      *
@@ -28,9 +31,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LeafUser user = userRepository.findByUsername(username);
+        if (Objects.isNull(user)) {
+            throw new UsernameNotFoundException("用户名不存在！");
+        }
+        return new LoginUser(user.getUsername(), user.getPassword());
+    }
 
-        LoginUser loginUser = new LoginUser();
-        return loginUser.setUser(user);
+    @Override
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        String username = user.getUsername();
+        LeafUser leafUser = userRepository.findByUsername(username);
+        if (Objects.nonNull(leafUser)) {
+            LeafUser save = userRepository.save(leafUser);
+            leafUser.setPassword(newPassword);
+            return new LoginUser(save.getUsername(), save.getPassword());
+        }
+        return null;
     }
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);

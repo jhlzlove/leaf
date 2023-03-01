@@ -4,6 +4,7 @@ package com.leaf.system.service.impl;
 import com.leaf.system.entity.LeafDept;
 import com.leaf.system.repository.LeafDeptRepository;
 import com.leaf.system.service.LeafDeptService;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class LeafDeptServiceImpl implements LeafDeptService {
     }
 
     @Override
-    public Page<LeafDept> listPage(Pageable page) {
-        return leafDeptRepository.findAll(page);
+    public Page<LeafDept> listPage(Pageable page, LeafDept dept) {
+        return leafDeptRepository.findAll(Example.of(dept), page);
     }
 
     @Override
