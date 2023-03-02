@@ -10,6 +10,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 *-local.yml
+logs/
+gradle/
 
 ### STS ###
 .apt_generated
