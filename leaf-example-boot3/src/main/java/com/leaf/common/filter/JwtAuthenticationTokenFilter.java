@@ -28,7 +28,7 @@ import java.util.Objects;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,9 +1,9 @@
 package com.leaf.system.controller;
 
 
+import com.leaf.common.response.ResultResponse;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LeafUserService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +25,9 @@ public class LeafUserController {
      * 获取用户信息表列表(分页)
      */
     @GetMapping
-    public Page<LeafUser> listPage(@RequestBody LeafUser user,
+    public ResultResponse listPage(@RequestBody(required = false) LeafUser user,
                                    @PageableDefault(page = 0, size = 20) Pageable page) {
-        return leafUserService.listPage(user, page);
+        return ResultResponse.success(leafUserService.listPage(user, page));
     }
 
     /**

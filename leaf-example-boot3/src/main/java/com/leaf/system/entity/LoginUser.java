@@ -1,7 +1,6 @@
 package com.leaf.system.entity;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -41,9 +40,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return permissions.stream()
-                .map(SimpleGrantedAuthority::new)
-                .toList();
+        return null;
     }
 
     public void setUsername(String username) {

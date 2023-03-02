@@ -59,12 +59,13 @@ public class SecurityConfig {
                 // 基于 token，不需要 session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // 开发阶段放行所有请求
                 .authorizeHttpRequests((request) ->
                 {
-                    // 开启所有接口
-                    request.requestMatchers("/**")
-                            .permitAll()
+                    // 暂时开启所有接口测试
+                    // 登录接口放行
+                    request.requestMatchers("/login").permitAll()
+                            // 匿名允许注册用户
+                            .requestMatchers("/register").anonymous()
                             .anyRequest().authenticated();
                 })
                 // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前

@@ -1,0 +1,52 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    # 应用名称
+    name: leaf-example-boot3
+  # 数据源
+  datasource:
+    # hikari 连接池
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/leaf_market?serverTimezone=Asia/Shanghai
+    hikari:
+      username: postgres
+      password:
+      # 最大连接池数量
+      maximum-pool-size: 20
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      max-lifetime: 60000
+      # 存活时间
+      keepalive-time: 6000
+  jpa:
+    show-sql: true
+    hibernate:
+      generate_statistics: true
+      naming:
+        # 相当于 org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy（3.0删除）
+        # 驼峰与下划线映射
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    # jpa 属性配置
+    properties:
+      hibernate:
+        # 格式化控制台打印 SQL
+        format_sql: true
+#        jdbc:
+#          batch_size: 50
+#        # 检测批处理是否打开 它可能不生效
+#        generate_statistics: true
+
+# 加密
+jasypt:
+  encryptor:
+    password: jhlz
+
+# 日志
+logging:
+  level:
+    # SQL 语句显示参数
+    com.leaf.system.repository: debug
+    org.hibernate.stat: debug
+    org.hibernate.sql: debug
