@@ -3,6 +3,7 @@ package com.leaf.system.repository;
 
 import com.leaf.system.entity.LeafUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +16,8 @@ import org.springframework.stereotype.Repository;
 public interface LeafUserRepository extends JpaRepository<LeafUser, Long> {
 
     LeafUser findByUsername(String username);
+
+    @Query(value = "update leaf_user set password = ?2 where username = ?1")
+    Integer updatePasswordByUsername(String username, String newPassword);
 }
 

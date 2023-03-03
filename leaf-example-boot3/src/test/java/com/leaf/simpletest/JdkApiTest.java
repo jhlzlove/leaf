@@ -28,6 +28,13 @@ public class JdkApiTest {
     private static final Logger logger = LoggerFactory.getLogger(JdkApiTest.class);
 
     /**
+     * test: eclipseCollections example
+     */
+    @Test
+    public void eclipseCollectionsTest() {
+    }
+
+    /**
      * test: Md5 example
      */
     @Test

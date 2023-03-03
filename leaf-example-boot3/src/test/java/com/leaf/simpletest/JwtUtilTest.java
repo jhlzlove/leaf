@@ -1,11 +1,13 @@
 package com.leaf.simpletest;
 
 import com.leaf.common.util.JwtUtil;
+import org.eclipse.collections.api.factory.Maps;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * JwtUtil test
@@ -22,7 +24,7 @@ public class JwtUtilTest {
      */
     @Test
     public void createTokenTest() {
-        HashMap<String, Object> payload = new HashMap<>();
+        Map<String, Object> payload = Maps.mutable.empty();
         HashMap<String, Object> headers = new HashMap<>();
         payload.put("name", "江湖浪子");
         payload.put("token", 123);

@@ -40,11 +40,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserDetailsPa
     @Override
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         String username = user.getUsername();
-        LeafUser leafUser = userRepository.findByUsername(username);
-        if (Objects.nonNull(leafUser)) {
-            LeafUser save = userRepository.save(leafUser);
-            leafUser.setPassword(newPassword);
-            return new LoginUser(save.getUsername(), save.getPassword());
+        Integer b = userRepository.updatePasswordByUsername(username, newPassword);
+        if (b >= 1) {
+            LoginUser loginUser = (LoginUser) user;
+            loginUser.setPassword(newPassword);
+            return loginUser;
         }
         return null;
     }

@@ -6,6 +6,7 @@ import com.leaf.system.entity.LeafUser;
 import com.leaf.system.entity.LoginUser;
 import com.leaf.system.service.LeafUserService;
 import com.leaf.system.service.LoginService;
+import org.eclipse.collections.api.factory.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,7 +30,7 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public String login(LeafUser user) {
+    public Map<String, ?> login(LeafUser user) {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         // 调用认证方法
@@ -39,12 +39,15 @@ public class LoginServiceImpl implements LoginService {
             throw new UsernameNotFoundException("Not found user");
         }
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-        Map<String, Object> payload = new HashMap<String, Object>(3);
+        final Map<String, Object> payload = Maps.mutable.empty();
         payload.put("name", loginUser.getUsername());
         // 生成 token
-        String token = JwtUtil.createToken(payload);
+        long expiredTIme = 1800L;
+        String token = JwtUtil.createToken(payload, expiredTIme);
         log.info("token is {}", token);
-        return token;
+        Map<String, ?> res =
+                Maps.immutable.of("token", token, "expiredTime", expiredTIme).castToMap();
+        return res;
     }
 
     @Override
