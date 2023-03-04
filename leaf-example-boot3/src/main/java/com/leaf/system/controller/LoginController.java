@@ -3,15 +3,15 @@ package com.leaf.system.controller;
 import com.leaf.common.annotation.OperationLog;
 import com.leaf.common.business.BusinessEnum;
 import com.leaf.common.response.ResultResponse;
+import com.leaf.common.util.JwtUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LoginService;
+import org.eclipse.collections.api.factory.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @author jhlz
@@ -23,9 +23,10 @@ public class LoginController {
     @PostMapping("/login")
     @OperationLog(operation = BusinessEnum.LOGIN)
     public ResultResponse login(@RequestBody LeafUser user) {
-        Map<String, ?> res = loginService.login(user);
-        log.info("login success! username: {}", res.get("name"));
-        return ResultResponse.success(res);
+        String token = loginService.login(user);
+        log.info("login success! username: {}", JwtUtil.getPayloadClaims(token, "name"));
+        return ResultResponse.success(Maps.immutable.of("token", token, "expiredTime",
+                JwtUtil.getExpiresAtAsInstant(token)).toImmutable());
     }
 
     @PostMapping("/register")

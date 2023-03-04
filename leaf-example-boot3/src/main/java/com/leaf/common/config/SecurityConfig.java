@@ -53,7 +53,7 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 // 前后端分离项目，跨站请求伪造不生效，关闭
                 .csrf().disable()
                 // 基于 token，不需要 session
@@ -61,20 +61,20 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests((request) ->
                 {
-                    // 暂时开启所有接口测试
-                    // 登录接口放行
-                    request.requestMatchers("/login").permitAll()
-                            // 匿名允许注册用户
+                    // 总得有一个入口吧，看他能玩出什么花样
+                    request.requestMatchers("/login", "/openapi/**").permitAll()
+                            // 招商引资也是必须滴
                             .requestMatchers("/register").anonymous()
                             .anyRequest().authenticated();
                 })
+                // 第一次面试都没过去，就不要浪费时间了！呜呜呜，像极了我的面试
                 // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
                 .userDetailsService(userDetailsService)
                 // 配置 CORS 跨域访问
-                .cors().configurationSource(corsConfigurationSource());
-        return http.build();
+                .cors().configurationSource(corsConfigurationSource())
+                .and().build();
     }
 
     /**

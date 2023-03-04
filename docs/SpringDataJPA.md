@@ -120,6 +120,15 @@ class UserController {
 启动类上加入 `@EnableJpaAuditing` 开启。
 具体使用详见：https://www.baeldung.com/database-auditing-jpa
 
+### @Modifying、@Query
+
+在 Spring Data Jpa 中，使用 `@Modifying` 注解的方法，自身或者调用方至少其中之一必须添加事务确保数据的四大特性，如果不添加事务控制则会输出以下内容且不执行该
+SQL：
+
+```bash
+Executing an update/delete query
+```
+
 ## 2. 持久层
 
 持久层类可以实现两个接口：`JpaRepository<T, O>`, `CrudRepository<T, O>`，开发中任意选择。`JpaRepository`

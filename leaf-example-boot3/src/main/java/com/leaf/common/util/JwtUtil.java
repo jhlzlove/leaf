@@ -19,11 +19,14 @@ import java.util.Objects;
  */
 public class JwtUtil {
 
-    // 签名
+    /**
+     * 签名，生成和解析默认都带此信息。如果不需要或者不想带去掉即可，注意生成和解析方法都要修改
+     */
     private static final String SIGNATURE = "leaf";
-    // 过期时间 单位：秒
+    /**
+     * 过期时间 单位：秒
+     */
     private static final long EXPIRED_TIME = 1800L;
-
 
     public static String createToken(final String subject) {
         return generatorToken(null, null, subject, null);

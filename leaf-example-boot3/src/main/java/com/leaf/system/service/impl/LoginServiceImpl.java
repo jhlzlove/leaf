@@ -1,5 +1,6 @@
 package com.leaf.system.service.impl;
 
+import com.leaf.common.constant.LeafConstants;
 import com.leaf.common.util.JwtUtil;
 import com.leaf.common.util.SecurityUtil;
 import com.leaf.system.entity.LeafUser;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -30,7 +32,7 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
 
     @Override
-    public Map<String, ?> login(LeafUser user) {
+    public String login(LeafUser user) {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         // 调用认证方法
@@ -39,16 +41,12 @@ public class LoginServiceImpl implements LoginService {
             throw new UsernameNotFoundException("Not found user");
         }
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+        // 放个用户名吧，挺有用的
         final Map<String, Object> payload = Maps.mutable.empty();
-        payload.put("name", loginUser.getUsername());
+        payload.put(LeafConstants.LOGIN_JWT_NAME_KEY, loginUser.getUsername());
         // 生成 token 并设置过期时间
         long expiredTIme = 1800L;
-        String token = JwtUtil.createToken(payload, expiredTIme);
-        log.info("token is {}", token);
-        Map<String, ?> res =
-                Maps.immutable.of("token", token, "expiredTime", expiredTIme)
-                        .castToMap();
-        return res;
+        return JwtUtil.createToken(payload, expiredTIme);
     }
 
     @Override
@@ -57,6 +55,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public LeafUser register(LeafUser user) {
         Assert.notNull(user, "LeafUser must be not null!");
         Assert.notNull(user.getPassword(), "password must be not null!");

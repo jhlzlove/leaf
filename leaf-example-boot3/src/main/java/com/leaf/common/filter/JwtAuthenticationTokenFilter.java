@@ -1,5 +1,7 @@
 package com.leaf.common.filter;
 
+import com.leaf.common.constant.LeafConstants;
+import com.leaf.common.constant.LeafProperties;
 import com.leaf.common.exception.BusinessException;
 import com.leaf.common.exception.GlobalException;
 import com.leaf.common.util.JwtUtil;
@@ -9,8 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -28,46 +29,61 @@ import java.util.Objects;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 1. 获取 token
-        String token = request.getHeader("token");
-        // 2. 如果 token 为空，没有登录状态，放行不再执行后面的代码，进入其它过滤器链执行，可以重定向到登录地址
-        if (!StringUtils.hasText(token)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+    protected void doFilterInternal(HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
+        // 1. 获取 token 头
+        String tokenHeader = request.getHeader(leafProperties.getHeader());
+        // 2. 不为空进行下一步验证
+        if (StringUtils.hasText(tokenHeader)) {
+            String token = getToken(tokenHeader);
+            // 3. 有效期内喝完体验更好哦，哦，不对，验证 token 以及是否过期
+            if (JwtUtil.verifyToken(token) && !JwtUtil.isExpired(token)) {
+                // 4. 解析 token 信息获取用户信息（此处的 key 值为自定义的值）
+                String username =
+                        JwtUtil.getPayloadClaims(token, LeafConstants.LOGIN_JWT_NAME_KEY).asString();
+                if (StringUtils.hasText(username)) {
+                    LeafUser user = userRepository.findByUsername(username);
+                    if (Objects.isNull(user)) {
+                        throw new GlobalException(BusinessException.FAILED_AUTHORIZATION);
+                    }
 
-        // 3. 否则，验证 token
-        if (JwtUtil.verifyToken(token) && !JwtUtil.isExpired(token)) {
-            // 4. 解析 token 信息获取用户信息（此处的 key 值取决于用户登录时生成 token 的方式）
-            String username = JwtUtil.getPayloadClaims(token, "name").asString();
-            if (StringUtils.hasText(username)) {
-                LeafUser user = userRepository.findByUsername(username);
-                if (Objects.isNull(user)) {
-                    throw new GlobalException(BusinessException.FAILED_AUTHORIZATION);
+                    // TODO 获取该用户的权限
+
+                    // 4. 此处必须使用三个参数（用户名，密码，角色）的构造方法，否则认证失败
+                    // 该方法可以按照 用户名，密码，角色 的顺序，也可以直接把用户放到第一个参数，其它两个参数为 null；
+                    // 如果有角色把第二个参数设为 null 即可
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(user, null, null);
+                    // 5. 把认证信息存入 SecurityContextHolder
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
-
-                // TODO 获取该用户的权限
-
-                // 4. 此处必须使用三个参数（用户名，密码，角色）的构造方法，否则认证失败
-                // 该方法可以按照 用户名，密码，角色 的顺序，也可以直接把用户放到第一个参数，其它两个参数为 null；
-                // 如果有角色把第二个参数设为 null 即可
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(user, null, null);
-                // 5. 把认证信息存入 SecurityContextHolder
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-        // 6. 放行
+        // 6. 其它情况都是非法偷渡的，不过我们很大度，放它们走吧。须知，天网恢恢，疏而不失。
+        // 放行，进入其它过滤器链执行对应的逻辑
         filterChain.doFilter(request, response);
     }
 
-    private final LeafUserRepository userRepository;
+    /**
+     * token 处理
+     *
+     * @param token 请求头获取的 token
+     * @return 处理后的 token
+     */
+    private static String getToken(final String token) {
+        return token.startsWith(LeafConstants.TOKEN_PREFIX_KEY) ?
+                token.replace(LeafConstants.TOKEN_PREFIX_KEY, "") : token;
+    }
 
-    public JwtAuthenticationTokenFilter(LeafUserRepository userRepository) {
+    private final LeafUserRepository userRepository;
+    private final LeafProperties leafProperties;
+
+    public JwtAuthenticationTokenFilter(LeafUserRepository userRepository,
+                                        LeafProperties leafProperties) {
         this.userRepository = userRepository;
+        this.leafProperties = leafProperties;
     }
 }

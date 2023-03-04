@@ -1,7 +1,9 @@
 package com.leaf.system.controller;
 
+import com.leaf.common.constant.LeafProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022/8/10 11:45
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/openapi")
 public class OpenApiController {
 
-    private static final Logger log = LoggerFactory.getLogger(OpenApiController.class);
 
+    @GetMapping("/test")
+    public void get() {
+        System.out.println(leafProperties.getVersion());
+        System.out.println(leafProperties.getHeader());
+    }
+
+
+    private static final Logger log = LoggerFactory.getLogger(OpenApiController.class);
+    private final LeafProperties leafProperties;
+
+    public OpenApiController(LeafProperties leafProperties) {
+        this.leafProperties = leafProperties;
+    }
 }

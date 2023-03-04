@@ -32,6 +32,5 @@ public class JwtUtilTest {
 
         JwtUtil.createToken(payload);
 
-
     }
 }
