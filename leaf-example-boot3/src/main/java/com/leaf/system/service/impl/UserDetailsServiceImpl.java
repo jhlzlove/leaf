@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -38,7 +39,9 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserDetailsPa
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDetails updatePassword(UserDetails user, String newPassword) {
+
         String username = user.getUsername();
         Integer b = userRepository.updatePasswordByUsername(username, newPassword);
         if (b >= 1) {

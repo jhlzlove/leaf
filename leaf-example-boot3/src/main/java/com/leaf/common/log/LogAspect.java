@@ -78,6 +78,20 @@ public class LogAspect {
     public void saveExceptionOperationLog(JoinPoint joinPoint, Exception e) {
 
         log.info("------------------异常操作--------------------");
+        /* MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        Method method = signature.getMethod();
+        // 请求的模块信息
+        OperationLog operationLog = method.getAnnotation(OperationLog.class);
+        BusinessEnum operation = operationLog.operation();
+        log.info("operation : {}", operation);
+
+        // 请求类
+        Class<?> clazz = method.getDeclaringClass();
+        // 请求方法
+        String methodName = method.getName();
+        // 请求参数
+        Object[] args = joinPoint.getArgs();
+        log.info("请求类：{}, 请求方法：{}, 请求参数： {}", clazz.getName(), methodName, args); */
 
         log.info("{}", e.getMessage());
     }

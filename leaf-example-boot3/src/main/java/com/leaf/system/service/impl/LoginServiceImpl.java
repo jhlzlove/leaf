@@ -41,12 +41,13 @@ public class LoginServiceImpl implements LoginService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         final Map<String, Object> payload = Maps.mutable.empty();
         payload.put("name", loginUser.getUsername());
-        // 生成 token
+        // 生成 token 并设置过期时间
         long expiredTIme = 1800L;
         String token = JwtUtil.createToken(payload, expiredTIme);
         log.info("token is {}", token);
         Map<String, ?> res =
-                Maps.immutable.of("token", token, "expiredTime", expiredTIme).castToMap();
+                Maps.immutable.of("token", token, "expiredTime", expiredTIme)
+                        .castToMap();
         return res;
     }
 
@@ -60,7 +61,9 @@ public class LoginServiceImpl implements LoginService {
         Assert.notNull(user, "LeafUser must be not null!");
         Assert.notNull(user.getPassword(), "password must be not null!");
         Assert.isTrue(StringUtils.containsWhitespace(user.getUsername()), "username must be not contains whitespace!");
-
+        // 世界并不和平，信息也不能确保绝对安全，我们只能尽力保证隐私
+        String encryptPassword = SecurityUtil.encryptPassword(user.getPassword());
+        user.setPassword(encryptPassword);
         return userService.save(user);
     }
 

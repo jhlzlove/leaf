@@ -43,10 +43,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 3. 否则，验证 token
         if (JwtUtil.verifyToken(token) && !JwtUtil.isExpired(token)) {
             // 4. 解析 token 信息获取用户信息（此处的 key 值取决于用户登录时生成 token 的方式）
-            Long id = JwtUtil.getPayloadClaims(token, "uuid").asLong();
-            if (Objects.nonNull(id)) {
-                LeafUser user = userRepository.findById(id)
-                        .orElseThrow(() -> new GlobalException(BusinessException.FAILED_AUTHORIZATION));
+            String username = JwtUtil.getPayloadClaims(token, "name").asString();
+            if (StringUtils.hasText(username)) {
+                LeafUser user = userRepository.findByUsername(username);
+                if (Objects.isNull(user)) {
+                    throw new GlobalException(BusinessException.FAILED_AUTHORIZATION);
+                }
 
                 // TODO 获取该用户的权限
 

@@ -4,6 +4,8 @@ package com.leaf.system.controller;
 import com.leaf.common.response.ResultResponse;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LeafUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,11 @@ public class LeafUserController {
      */
     @GetMapping("/{id}")
     public LeafUser queryById(@PathVariable Long id) {
-        return leafUserService.findById(id);
+        log.info("id {}", id);
+        LeafUser byId = leafUserService.findById(id);
+        System.out.println(byId);
+        return byId;
+
     }
 
     /**
@@ -63,6 +69,7 @@ public class LeafUserController {
         leafUserService.remove(ids);
     }
 
+    private static final Logger log = LoggerFactory.getLogger(LeafUserController.class);
     private final LeafUserService leafUserService;
 
     public LeafUserController(LeafUserService leafUserService) {
