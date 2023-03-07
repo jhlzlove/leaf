@@ -34,6 +34,14 @@ public interface LeafUserService {
     LeafUser findById(Long id);
 
     /**
+     * 根据 username 获取详情
+     *
+     * @param username username
+     * @return LeafUser 对象
+     */
+    LeafUser findByUsername(String username);
+
+    /**
      * 添加数据
      *
      * @param leafUser 添加对象

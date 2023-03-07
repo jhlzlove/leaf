@@ -5,6 +5,8 @@ import com.leaf.system.entity.LeafRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 角色信息表持久层
  *
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LeafRoleRepository extends JpaRepository<LeafRole, Long> {
+
+    List<LeafRole> findByUserId(Long userId);
 
 }
 

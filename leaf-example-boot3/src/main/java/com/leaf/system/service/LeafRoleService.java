@@ -25,5 +25,12 @@ public interface LeafRoleService {
     void update(LeafRole leafRole);
 
     void remove(List<Long> ids);
+
+    /**
+     * 根据 userId 获取该用户角色列表
+     *
+     * @return 角色列表
+     */
+    List<LeafRole> findByUserId(Long userId);
 }
 

@@ -44,6 +44,11 @@ public class LeafRoleServiceImpl implements LeafRoleService {
         leafRoleRepository.deleteAllById(ids);
     }
 
+    @Override
+    public List<LeafRole> findByUserId(Long userId) {
+        return leafRoleRepository.findByUserId(userId);
+    }
+
     private final LeafRoleRepository leafRoleRepository;
 
     public LeafRoleServiceImpl(LeafRoleRepository leafRoleRepository) {

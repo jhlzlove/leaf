@@ -30,6 +30,11 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
+    public LeafUser findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public Page<LeafUser> listPage(LeafUser user, Pageable page) {
         List<LeafUser> list = userRepository.findAll(Example.of(user));
         return new PageImpl<>(list, page, list.size());

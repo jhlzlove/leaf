@@ -17,7 +17,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author jhlz
@@ -31,7 +34,16 @@ public class JdkApiTest {
      * test: eclipseCollections example
      */
     @Test
-    public void eclipseCollectionsTest() {
+    public void collectionsTest() {
+
+
+        List<Object> list = Collections.singletonList(123);
+        System.out.println(list);
+
+
+        Map<Object, Object> map = Collections.singletonMap("1", 2);
+        System.out.println(map);
+
     }
 
     /**

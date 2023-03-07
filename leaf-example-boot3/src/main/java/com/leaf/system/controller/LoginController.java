@@ -2,16 +2,19 @@ package com.leaf.system.controller;
 
 import com.leaf.common.annotation.OperationLog;
 import com.leaf.common.business.BusinessEnum;
+import com.leaf.common.constant.LeafConstants;
 import com.leaf.common.response.ResultResponse;
 import com.leaf.common.util.JwtUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LoginService;
-import org.eclipse.collections.api.factory.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author jhlz
@@ -24,9 +27,11 @@ public class LoginController {
     @OperationLog(operation = BusinessEnum.LOGIN)
     public ResultResponse login(@RequestBody LeafUser user) {
         String token = loginService.login(user);
-        log.info("login success! username: {}", JwtUtil.getPayloadClaims(token, "name"));
-        return ResultResponse.success(Maps.immutable.of("token", token, "expiredTime",
-                JwtUtil.getExpiresAtAsInstant(token)).toImmutable());
+        log.info("login success! username: {}", JwtUtil.getPayloadClaims(token, LeafConstants.LOGIN_JWT_NAME_KEY));
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("token", token);
+        map.put("expiredTime", JwtUtil.getExpiresAtAsInstant(token));
+        return ResultResponse.success(map);
     }
 
     @PostMapping("/register")

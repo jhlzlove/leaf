@@ -1,11 +1,8 @@
 package com.leaf.system.entity;
 
-import org.eclipse.collections.api.factory.Lists;
-import org.eclipse.collections.api.list.MutableList;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,18 +34,13 @@ public class LoginUser implements UserDetails {
         return roles;
     }
 
-    public void setRoles(MutableList<LeafRole> roles) {
+    public void setRoles(List<LeafRole> roles) {
         this.roles = roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (CollectionUtils.isEmpty(roles)) {
-            LeafRole leafRole = new LeafRole();
-            leafRole.setZhName("ADMIN");
-            roles.add(leafRole);
-        }
-        MutableList<SimpleGrantedAuthority> result = Lists.mutable.empty();
+        List<SimpleGrantedAuthority> result = new ArrayList<SimpleGrantedAuthority>();
         roles.forEach(r -> {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getZhName());
             result.add(authority);
