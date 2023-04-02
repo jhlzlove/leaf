@@ -87,15 +87,11 @@ public class UserController {
 
 ## 日期
 
-本系统全面使用 jsr310 标准日期。
+项目只使用 jsr310 标准日期。
 
-## 普通工具类
+## 关于工具类
 
-基本都使用 JDK 原生的的 API 或者 Spring 提供的工具类，减少依赖，降低工具类泛滥。
-
-## 全局异常和全局状态响应
-
-全局异常信息和全局状态响应分开。
+基本都使用 JDK 原生的的 API 或者 Spring 提供的工具类 API，减少依赖，降低工具类泛滥。业务框架不应该封装过多工具，够用就好，具体使用什么应该交由用户决定。
 
 ## 关于Optional的使用
 
@@ -111,8 +107,9 @@ emmm，刚开发时喜欢的不得了，非常喜欢使用，接口注释都写�
 帮我省去了很多空间。后来慢慢的，使用了 `apifox`、`apipost` 等工具，再使用 swagger
 的话，总感觉有点儿多余。侵入性倒是没什么，打包体积咱也不担心，单纯感觉多余。当然，如果是中途进了项目组的话，前面的人没有写好接口文档的话，那咱们维护、开发就惨了。
 
-所以浪子现在感觉那是留给平常偷懒的工具，本项目不引入相关依赖 ~~（少写了一些配置类，爽啊 :smile:）~~，使用 `apifox`
-做接口开发、维护、调试，接口功能完善后随项目一同上传。
+所以浪子现在感觉那是留给平常偷懒的工具。不过如果不用的话，就得花时间维护接口文档了，如果代码中改了，在文档中也要修改。
+本项目不引入相关依赖 ~~（少写了一些配置类，爽啊 :smile:）~~，使用 `apifox`
+做接口开发、维护、调试，接口功能完善后文档随项目一同上传。
 
 ## [为什么使用构造注入？](https://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle/#beans-setter-injection)
 
@@ -156,4 +153,10 @@ public class DemoServiceImpl implements DemoService {
 
 另外，如果项目中没有配置 `spring.mvc.pathmatch.matching-strategy` ，默认使用的也是 `PathPatternParser`。
 
-Spring Security 5.7 之后的写法改变，包括路径的写法，无须显式调用 `antMatcher`、`mvcMatcher`。
+Spring Security 5.7 之后的写法改变，包括路径的写法，无须显示调用 `antMatcher`、`mvcMatcher`。
+
+## Eclipse Collections
+
+据说非常好用，引用了一下，用的地方不是很多，如果不需要可以移除依赖。
+官网指路：https://www.eclipse.org/collections/
+使用请看这篇文章：https://www.baeldung.com/eclipse-collections

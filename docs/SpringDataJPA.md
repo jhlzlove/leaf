@@ -98,7 +98,7 @@ public abstract class BaseEntity implements Serializable {
 
 ### @PageableDefault
 
-将 `Pageable` 注入控制器方法时设置默认值的注释，其默认值为 page = 0, size = 10。您也可以使用 `SortDefault `
+将 `Pageable` 注入控制器方法时设置默认值的注释，其默认值为 page = 0, size = 10。您也可以使用 `SortDefault`
 或 `SortDefault.SortDefaults` 来代替配置 `sort()` 和 `direction()`。
 
 ```java
@@ -107,8 +107,8 @@ class UserController {
      * 如果没有传入 Pageable 对象的 page、size 值，则默认设置为 page=0，size=20
      */
     @GetMapping
-    public Page<LeafUser> listPage(@PageableDefault(page = 0, size = 20) Pageable page) {
-        return leafUserService.listPage(page);
+    public Page<User> listPage(@PageableDefault(page = 0, size = 20) Pageable page) {
+        return userService.listPage(page);
     }
 }
 ```
