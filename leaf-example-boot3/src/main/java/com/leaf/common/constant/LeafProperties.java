@@ -23,11 +23,18 @@ public class LeafProperties {
     @Value("${leaf.version}")
     private String version;
 
+    @Value("${leaf.api-prefix}")
+    private String apiPrefix;
+
     public String getHeader() {
         return StringUtils.hasText(header) ? header : "Authorizaton";
     }
 
     public String getVersion() {
         return version;
+    }
+
+    public String getApiPrefix() {
+        return apiPrefix;
     }
 }
