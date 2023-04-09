@@ -1,4 +1,16 @@
-## 构建多模块
+## 项目标记
+
+### SpringBoot 3.0
+
+命名空间 javax -> jakarta 的改变
+在Jakarta EE 9中，无论您在哪里接触Servlet API，JPA，Bean Validation等，都会发现这个改变.
+
+Jakarta EE 9是一个新的顶级包，取代了 Java EE 中的 javax 顶级包。例如，JakartaEE8 中的 Servlet 规范使用 `javax.servlet`
+包，但在EE9中已更改为 `jakarta.servlet`。
+一般来说，不可能在同一个项目中混合使用 Java EE 和 Jakarta EE API。您需要确保您自己的代码以及所有第三方库都使用 `jakarta.*`
+包导入。大多数维护良好的库都在生成Jakarta EE 9兼容的变体。例如 Hibernate、Thymeleaf、Tomcat、Jetty 和 Undertow 都已经这样做了。
+
+### 构建多模块
 
 本项目已经是多模块的雏形（这是一个多模块的项目，但是把所有文件都放到了一个模块，浪子不太喜欢多模块，文件树太长）。但是该项目框架采用 `多模块思想`
 ，使用文件夹分层分级，方便有需要的少侠后续重构。
@@ -31,7 +43,7 @@ subprojects {
 
 至于各个模块的依赖配置，类似 `Maven`，在每个模块下都有一个 `build.gradle` 文件，在里面配置各自的内容即可。
 
-## 使用 ResponseBodyAdvice 封装返回结果集
+### 使用 ResponseBodyAdvice 封装返回结果集
 
 一般我们在返回到前端的结果都会经过一层封装，该类大多必包含 `code`、`data`、`msg` 三个属性。然后在 `controller`
 层的返回值都使用该类封装后再返回。
@@ -77,41 +89,40 @@ public class UserController {
 }
 ```
 
-## JSON 工具类
-
-只是基于 ObjectMapper 封装了简单的几个方法，推荐使用 Alibaba 的 fastjson2。
-
-## Http 网络工具
-
-使用 JDK 的 HttpClient 封装的工具类，如果你喜欢使用 RestTemplate，也可以替换或者加入进来。
-
-## 日期
-
-项目只使用 jsr310 标准日期。
-
-## 关于工具类
+### 工具类
 
 基本都使用 JDK 原生的的 API 或者 Spring 提供的工具类 API，减少依赖，降低工具类泛滥。业务框架不应该封装过多工具，够用就好，具体使用什么应该交由用户决定。
 
-## 关于Optional的使用
+本项目只是简单的基于 JDK 或者 Spring 中使用的 API 封装了几个工具类，后续使用可以自行选择自己喜欢的第三方库，封装的清单如下：
 
-本项目强制在返回值、级联对象调用（obj.getObjA().getObjB()）时使用该类，无论返回的 `null` 是否有意义（有用），或是抛出异常，或是构造新的空值对象类都能满足。
+- 基于 ObjectMapper 封装了 JSON 工具；
+- 基于 JDK 的 HttpClient、HttpRequest、HttpResponse 封装的网络工具；
+- 基于 JDK jsr310 日期封装的 LocalDateUtil 工具；
 
-## java-comment
+除上面的工具类之外，其它工具只是为了项目的便捷性，一般的 Java Web 项目只要使用了 Spring 全家桶，都会封装一些，所以这些完全可以被替换，只要把本项目使用的
+API 替换掉即可。
+
+### Optional
+
+本项目强制在返回值、级联对象调用（obj.getObjA().getObjB()）时使用该类。
+在返回值中，无论返回的 `null` 是否有意义（有用），或是抛出异常，或是构造新的空值对象类都能满足；
+在获取级联对象时，可以减少 if 的嵌套代码，使代码看起来更简短；
+
+### java-comment
 
 i think you need read it: https://www.geeksforgeeks.org/comments-in-java/
 
-## 关于Swagger、Spring Doc等工具
+### Swagger、Spring Doc等接口文档
 
-emmm，刚开发时喜欢的不得了，非常喜欢使用，接口注释都写在里面，不用 JavaDoc
-帮我省去了很多空间。后来慢慢的，使用了 `apifox`、`apipost` 等工具，再使用 swagger
-的话，总感觉有点儿多余。侵入性倒是没什么，打包体积咱也不担心，单纯感觉多余。当然，如果是中途进了项目组的话，前面的人没有写好接口文档的话，那咱们维护、开发就惨了。
+emmm，刚开发时喜欢的不得了，非常喜欢使用，接口的相关注释都写在里面，不使用 JavaDoc
+帮我省去了很多空间，小屏幕也可以欣赏更多的代码。后来慢慢的，使用了 `apifox`、`apipost` 等工具，再使用 swagger
+的话，总感觉有点儿多余（虽然导入很方便，看个人喜好喽）。侵入性倒是没什么，打包体积咱也不担心，单纯感觉多余。当然如果不使用，对于中途进了项目组的少侠来说，前面的人没有写好接口文档的话，那维护、开发就惨了。
 
-所以浪子现在感觉那是留给平常偷懒的工具。不过如果不用的话，就得花时间维护接口文档了，如果代码中改了，在文档中也要修改。
+所以浪子现在觉得那是留给平常偷懒的工具。不过如果不用的话，就得花时间维护接口文档了：如果代码中改了，在文档中也要相应修改。
 本项目不引入相关依赖 ~~（少写了一些配置类，爽啊 :smile:）~~，使用 `apifox`
 做接口开发、维护、调试，接口功能完善后文档随项目一同上传。
 
-## [为什么使用构造注入？](https://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle/#beans-setter-injection)
+### [为什么使用构造注入？](https://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/htmlsingle/#beans-setter-injection)
 
 以下内容摘自 Spring 官网：
 > The Spring team generally advocates constructor injection as it enables one to implement application components as
@@ -146,7 +157,7 @@ public class DemoServiceImpl implements DemoService {
 
 > 为了看代码比较方便，类中所有需要注入的对象全部放在该类的最后。
 
-## [Spring MVC PathPattern、AntPathMatcher](https://spring.io/blog/2020/06/30/url-matching-with-pathpattern-in-spring-mvc)
+### [Spring MVC PathPattern、AntPathMatcher](https://spring.io/blog/2020/06/30/url-matching-with-pathpattern-in-spring-mvc)
 
 `PathPattern` 是 Spring 5.0 提供的，在 Spring 6.0 中又有了改进。本项目全部使用 `PathPattern`，`AntPathMatcher`
 是之前的路径匹配器。如果是新项目的话，推荐使用 Spring 提供的 `PathPattern`。
@@ -154,9 +165,3 @@ public class DemoServiceImpl implements DemoService {
 另外，如果项目中没有配置 `spring.mvc.pathmatch.matching-strategy` ，默认使用的也是 `PathPatternParser`。
 
 Spring Security 5.7 之后的写法改变，包括路径的写法，无须显示调用 `antMatcher`、`mvcMatcher`。
-
-## Eclipse Collections
-
-据说非常好用，引用了一下，用的地方不是很多，如果不需要可以移除依赖。
-官网指路：https://www.eclipse.org/collections/
-使用请看这篇文章：https://www.baeldung.com/eclipse-collections
