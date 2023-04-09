@@ -6,7 +6,7 @@ package com.leaf.common.response;
  * @author jhlz
  * @since 2022/10/3 16:19:24
  */
-public enum ResultEnum {
+public enum ResponseEnum {
 
     SUCCESS(200, "操作成功！"),
     ERROR(500, "操作失败！"),
@@ -23,7 +23,7 @@ public enum ResultEnum {
      */
     private String message;
 
-    ResultEnum(int code, String message) {
+    ResponseEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -32,7 +32,7 @@ public enum ResultEnum {
         return code;
     }
 
-    public ResultEnum setCode(int code) {
+    public ResponseEnum setCode(int code) {
         this.code = code;
         return this;
     }
@@ -41,7 +41,7 @@ public enum ResultEnum {
         return message;
     }
 
-    public ResultEnum setMessage(String message) {
+    public ResponseEnum setMessage(String message) {
         this.message = message;
         return this;
     }

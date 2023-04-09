@@ -46,7 +46,8 @@ public class LeafRoleServiceImpl implements LeafRoleService {
 
     @Override
     public List<LeafRole> findByUserId(Long userId) {
-        return leafRoleRepository.findByUserId(userId);
+        // return leafRoleRepository.findByUserId(userId);
+        return null;
     }
 
     private final LeafRoleRepository leafRoleRepository;

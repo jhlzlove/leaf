@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.response.ResultResponse;
+import com.leaf.common.response.Response;
 import com.leaf.system.entity.UserRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,9 +45,9 @@ public class RecordTest {
      */
     @Test
     public void responseRecordTest() {
-        ResultResponse resultResponse = new ResultResponse(100, "123");
+        Response resultResponse = new Response(100, "123");
         System.out.println(resultResponse);
 
-        System.out.println(ResultResponse.success());
+        System.out.println(Response.success());
     }
 }

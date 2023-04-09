@@ -20,14 +20,20 @@ public class LeafProperties {
     @Value("${leaf.header}")
     private String header;
 
+    /**
+     * 系统版本
+     */
     @Value("${leaf.version}")
     private String version;
 
+    /**
+     * 统一访问前缀
+     */
     @Value("${leaf.api-prefix}")
     private String apiPrefix;
 
     public String getHeader() {
-        return StringUtils.hasText(header) ? header : "Authorizaton";
+        return StringUtils.hasText(header) ? header : "Authorization";
     }
 
     public String getVersion() {

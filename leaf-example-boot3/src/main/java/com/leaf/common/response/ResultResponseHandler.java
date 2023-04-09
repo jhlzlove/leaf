@@ -23,7 +23,7 @@ public class ResultResponseHandler implements ResponseBodyAdvice<Object> {
         if (body instanceof String) {
             return body;
         }
-        return ResultResponse.success(body);
+        return Response.success(body);
     }
 
     /**
@@ -35,7 +35,7 @@ public class ResultResponseHandler implements ResponseBodyAdvice<Object> {
      */
     @Override
     public boolean supports(MethodParameter returnType, @NonNull Class converterType) {
-        return !returnType.getParameterType().isAssignableFrom(ResultResponse.class)
+        return !returnType.getParameterType().isAssignableFrom(Response.class)
                 && !returnType.getParameterType().isAssignableFrom(ResponseEntity.class)
                 && !returnType.hasMethodAnnotation(NotWrapResponse.class);
     }

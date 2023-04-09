@@ -3,7 +3,7 @@ package com.leaf.system.controller;
 import com.leaf.common.annotation.OperationLog;
 import com.leaf.common.business.BusinessEnum;
 import com.leaf.common.constant.LeafConstants;
-import com.leaf.common.response.ResultResponse;
+import com.leaf.common.response.Response;
 import com.leaf.common.util.JwtUtil;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LoginService;
@@ -25,26 +25,26 @@ public class LoginController {
 
     @PostMapping("/login")
     @OperationLog(operation = BusinessEnum.LOGIN)
-    public ResultResponse login(@RequestBody LeafUser user) {
+    public Response login(@RequestBody LeafUser user) {
         String token = loginService.login(user);
         log.info("login success! username: {}", JwtUtil.getPayloadClaims(token, LeafConstants.LOGIN_JWT_NAME_KEY));
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("token", token);
         map.put("expiredTime", JwtUtil.getExpiresAtAsInstant(token));
-        return ResultResponse.success(map);
+        return Response.success(map);
     }
 
     @PostMapping("/register")
     @OperationLog(operation = BusinessEnum.ADD_USER)
-    public ResultResponse register(@RequestBody LeafUser user) {
-        return ResultResponse.success(loginService.register(user));
+    public Response register(@RequestBody LeafUser user) {
+        return Response.success(loginService.register(user));
     }
 
     @PostMapping("/logout")
     @OperationLog(operation = BusinessEnum.LOGOUT)
-    public ResultResponse logout() {
+    public Response logout() {
         loginService.logout();
-        return ResultResponse.success();
+        return Response.success();
     }
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);

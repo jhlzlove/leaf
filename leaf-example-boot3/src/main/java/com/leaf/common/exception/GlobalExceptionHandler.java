@@ -1,6 +1,6 @@
 package com.leaf.common.exception;
 
-import com.leaf.common.response.ResultResponse;
+import com.leaf.common.response.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -28,11 +28,11 @@ public class GlobalExceptionHandler {
      * @return ResultResponse
      */
     @ExceptionHandler(GlobalException.class)
-    public ResultResponse exceptionHandler(HttpServletRequest req, GlobalException e) {
+    public Response exceptionHandler(HttpServletRequest req, GlobalException e) {
         BusinessException be = e.getException();
         BusinessException exception =
                 Objects.isNull(be) ? BusinessException.UNKNOWN : be;
-        return ResultResponse.error(exception.getCode(), exception.getMessage());
+        return Response.error(exception.getCode(), exception.getMessage());
     }
 
     /**
@@ -44,6 +44,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ProblemDetail exceptionHandler(HttpServletRequest req, Exception e) {
+
         return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 

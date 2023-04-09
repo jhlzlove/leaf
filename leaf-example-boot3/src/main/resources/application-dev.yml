@@ -10,10 +10,10 @@ spring:
     # hikari 连接池
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/leaf_market?serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/postgres?serverTimezone=Asia/Shanghai
     hikari:
       username: postgres
-      password:
+      password: postgres
       # 最大连接池数量
       maximum-pool-size: 20
       # 配置一个连接在池中最大生存的时间，单位是毫秒
@@ -41,7 +41,7 @@ spring:
 # 加密
 jasypt:
   encryptor:
-    password: jhlz
+    password: leaf
 
 # 日志
 logging:
@@ -50,3 +50,11 @@ logging:
     com.leaf.system.repository: debug
     org.hibernate.stat: debug
     org.hibernate.sql: debug
+
+############################# 项目自定义配置 #############################
+leaf:
+  # version
+  version: v1.0.0
+  # header tag：默认 Authorization 可以改为 token 以及其它自己喜欢的标识,重要的是前后端统一
+  header: Authorization
+  api-prefix: api

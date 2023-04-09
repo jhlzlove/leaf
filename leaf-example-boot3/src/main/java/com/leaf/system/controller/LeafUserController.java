@@ -1,7 +1,7 @@
 package com.leaf.system.controller;
 
 
-import com.leaf.common.response.ResultResponse;
+import com.leaf.common.response.Response;
 import com.leaf.system.entity.LeafUser;
 import com.leaf.system.service.LeafUserService;
 import org.slf4j.Logger;
@@ -27,9 +27,9 @@ public class LeafUserController {
      * 获取用户信息表列表(分页)
      */
     @GetMapping
-    public ResultResponse listPage(@RequestBody(required = false) LeafUser user,
-                                   @PageableDefault(page = 0, size = 20) Pageable page) {
-        return ResultResponse.success(leafUserService.listPage(user, page));
+    public Response listPage(@RequestBody(required = false) LeafUser user,
+                             @PageableDefault(page = 0, size = 20) Pageable page) {
+        return Response.success(leafUserService.listPage(user, page));
     }
 
     /**

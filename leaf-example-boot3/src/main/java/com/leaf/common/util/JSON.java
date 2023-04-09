@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 基于 Spring 使用的 jackson 简单封装的 JSONUtil
+ * 基于 Spring 使用的 jackson 简单封装的 JSON 工具类
  *
  * @author jhlz
  * @time 2022/8/19 18:52
  */
-public class JSONUtil {
+public class JSON {
 
     // 先不配置 jackson 的配置项，直接定义
     private final static ObjectMapper JSON = new ObjectMapper();
