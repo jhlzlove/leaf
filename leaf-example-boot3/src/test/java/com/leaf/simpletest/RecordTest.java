@@ -1,7 +1,7 @@
 package com.leaf.simpletest;
 
 import com.leaf.common.response.Response;
-import com.leaf.system.entity.UserRecord;
+import com.leaf.system.domain.UserRecord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

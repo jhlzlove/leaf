@@ -1,9 +1,7 @@
-package repository;
+package com.leaf.system.repository;
 
 
-import java.lang.Long;
-
-import .entity.LeafUser;
+import com.leaf.system.domain.LeafUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LeafUserRepository extends JpaRepository<LeafUser, Long> {
 
+    LeafUser findByUsername(String username);
 }
 

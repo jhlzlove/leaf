@@ -1,4 +1,4 @@
-package domain;
+package com.leaf.system.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,9 +7,10 @@ import jakarta.persistence.Id;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.time.LocalDateTime;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 /**
@@ -24,7 +25,8 @@ import java.io.Serializable;
 public class LeafDict implements Serializable {
     @Serial
     private static final long serialVersionUID = 131002912756133624L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dictId;
     /**
      * 字典键

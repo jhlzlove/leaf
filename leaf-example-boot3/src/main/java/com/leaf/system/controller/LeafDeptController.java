@@ -1,9 +1,7 @@
 package com.leaf.system.controller;
 
 
-import java.lang.Long;
-
-import com.leaf.system.entity.LeafDept;
+import com.leaf.system.domain.LeafDept;
 import com.leaf.system.service.LeafDeptService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

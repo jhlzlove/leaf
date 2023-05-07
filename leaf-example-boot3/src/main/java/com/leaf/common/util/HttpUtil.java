@@ -14,8 +14,10 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
- * @author: jhlz
- * @since: 2022/12/14 19:59:03
+ * 基于 JDK 的网络小工具
+ *
+ * @author jhlz
+ * @since 2022/12/14 19:59
  */
 public class HttpUtil {
 

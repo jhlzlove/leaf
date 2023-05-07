@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 /**
  * 项目自定义配置选项
  * 奇怪哦，什么时候可以使用 record 哦
+ * 不过确实，Record 类已经足够简单明了，不需要使用额外的注解进行辅助描述。
  *
  * @author jhlz
  * @since 2023/3/4 15:27

@@ -31,7 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     /**
-     * 暴露AuthenticationManager（认证管理器），登录时认证使用
+     * 暴露AuthenticationManager（认证管理器）
      *
      * @return AuthenticationManager
      */
@@ -45,8 +45,7 @@ public class SecurityConfig {
      * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
      * anonymous | 只允许匿名访问（未登录用户）
      * permitAll | 允许所有用户访问
-     * mvcMatchers、antMatchers 没有太大区别，可以看源码注释
-     * 由于 antMatchers 出现的比 mvcMatchers 早，这里混用，了解一下。
+     * mvcMatchers、antMatchers 没有太大区别，可以看源码注释，boot3 推荐使用新版 mvcMatchers
      *
      * @param http http
      * @return SecurityFilterChain
@@ -62,7 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((request) ->
                 {
                     // 总得有一个入口吧，看他能玩出什么花样
-                    request.requestMatchers("/login", "/openapi/**").permitAll()
+                    request.requestMatchers("/login", "/openapi/**", "/test/**").permitAll()
                             // 招商引资也是必须滴
                             .requestMatchers("/register").anonymous()
                             .anyRequest().authenticated();

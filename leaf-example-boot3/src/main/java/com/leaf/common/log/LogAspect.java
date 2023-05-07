@@ -1,6 +1,6 @@
 package com.leaf.common.log;
 
-import com.leaf.common.annotation.OperationLog;
+import com.leaf.common.annotation.LeafLog;
 import com.leaf.common.business.BusinessEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -11,8 +11,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * 日志切面
@@ -29,9 +31,8 @@ public class LogAspect {
     /**
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
      */
-    @Pointcut("@annotation(com.leaf.common.annotation.OperationLog)")
+    @Pointcut("@annotation(com.leaf.common.annotation.LeafLog)")
     public void logPointCut() {
-        log.info("---------------------- 正常操作日志 -------------------------");
     }
 
     /**
@@ -39,7 +40,6 @@ public class LogAspect {
      */
     @Pointcut("execution(* com.leaf.system..*.*(..))")
     public void exceptionLogPointCut() {
-        log.info("---------------------- 异常操作日志 -------------------------");
     }
 
     /**
@@ -50,10 +50,13 @@ public class LogAspect {
      */
     @AfterReturning(value = "logPointCut()", returning = "result")
     public void saveOperationLog(JoinPoint joinPoint, Object result) {
+        log.info("---------------------- 正常操作日志 -------------------------");
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         // 请求的模块信息
-        OperationLog operationLog = method.getAnnotation(OperationLog.class);
+        LeafLog operationLog = method.getAnnotation(LeafLog.class);
+        if (StringUtils.hasText(operationLog.module()))
+            log.info("{}", operationLog.module());
         BusinessEnum operation = operationLog.operation();
         log.info("operation : {}", operation);
 
@@ -64,7 +67,7 @@ public class LogAspect {
         // 请求参数
         Object[] args = joinPoint.getArgs();
         log.info("---------------------------操作内容------------------------");
-        log.info("请求类：{}, 请求方法：{}, 请求参数： {}", clazz.getName(), methodName, args);
+        log.info("请求类：{}, 请求方法：{}, 请求参数： {}", clazz.getName(), methodName, Arrays.asList(args));
 
     }
 
@@ -76,8 +79,7 @@ public class LogAspect {
      */
     @AfterThrowing(pointcut = "exceptionLogPointCut()", throwing = "e")
     public void saveExceptionOperationLog(JoinPoint joinPoint, Exception e) {
-
-        log.info("------------------异常操作--------------------");
+        log.info("---------------------- 异常操作日志 -------------------------");
         /* MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         // 请求的模块信息

@@ -1,23 +1,15 @@
 package com.leaf.system.service.impl;
 
 
-import java.lang.Long;
-
-import com.leaf.system.entity.LeafDept;
-import com.leaf.system.service.LeafDeptService;
+import com.leaf.system.domain.LeafDept;
 import com.leaf.system.repository.LeafDeptRepository;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-
+import com.leaf.system.service.LeafDeptService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -40,8 +32,9 @@ public class LeafDeptServiceImpl implements LeafDeptService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LeafDept save(LeafDept leafDept) {
-        leafDeptRepository.save(leafDept);
+    public boolean save(LeafDept leafDept) {
+        LeafDept save = leafDeptRepository.save(leafDept);
+        return save == null;
     }
 
     @Override

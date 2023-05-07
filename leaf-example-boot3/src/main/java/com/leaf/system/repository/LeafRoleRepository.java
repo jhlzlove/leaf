@@ -1,9 +1,7 @@
-package repository;
+package com.leaf.system.repository;
 
 
-import java.lang.Long;
-
-import .entity.LeafRole;
+import com.leaf.system.domain.LeafRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

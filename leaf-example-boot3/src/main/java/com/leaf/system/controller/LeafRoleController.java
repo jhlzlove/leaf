@@ -1,10 +1,8 @@
-package controller;
+package com.leaf.system.controller;
 
 
-import java.lang.Long;
-
-import .entity.LeafRole;
-import .service.LeafRoleService;
+import com.leaf.system.domain.LeafRole;
+import com.leaf.system.service.LeafRoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

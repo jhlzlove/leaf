@@ -1,9 +1,7 @@
-package repository;
+package com.leaf.system.repository;
 
 
-import java.lang.Long;
-
-import .entity.LeafDict;
+import com.leaf.system.domain.LeafDict;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

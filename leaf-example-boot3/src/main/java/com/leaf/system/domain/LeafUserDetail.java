@@ -1,4 +1,4 @@
-package domain;
+package com.leaf.system.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
@@ -23,7 +24,8 @@ import java.io.Serializable;
 public class LeafUserDetail implements Serializable {
     @Serial
     private static final long serialVersionUID = 334244628484997516L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userDetailId;
     /**
      * 用户编码

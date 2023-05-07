@@ -14,8 +14,8 @@ import java.util.Objects;
 /**
  * 全局异常信息处理
  *
- * @author: jhlz
- * @since: 2022/12/13 20:40:10
+ * @author jhlz
+ * @since 2022/12/13 20:40:10
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

@@ -1,10 +1,8 @@
-package controller;
+package com.leaf.system.controller;
 
 
-import java.lang.Long;
-
-import .entity.LeafMenu;
-import .service.LeafMenuService;
+import com.leaf.system.domain.LeafMenu;
+import com.leaf.system.service.LeafMenuService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

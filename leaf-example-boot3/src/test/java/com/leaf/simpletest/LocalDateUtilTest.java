@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * LocalDateUtil test
@@ -17,6 +19,18 @@ import java.time.LocalDateTime;
 public class LocalDateUtilTest {
 
     private static final Logger log = LoggerFactory.getLogger(LocalDateUtilTest.class);
+
+    private final Clock clock = Clock.system(ZoneId.of("UTC+8"));
+
+    /**
+     * test: printLocalDateTime example
+     */
+    @Test
+
+    public void printLocalDateTimeTest() {
+        log.info("{}", LocalDateTime.now(clock));
+
+    }
 
     /**
      * test: stringToLocalDate example

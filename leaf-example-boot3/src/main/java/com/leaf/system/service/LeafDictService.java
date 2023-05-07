@@ -1,13 +1,10 @@
-package service;
+package com.leaf.system.service;
 
 
-import java.lang.Long;
-
-import .entity.LeafDict;
+import com.leaf.system.domain.LeafDict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -41,7 +38,7 @@ public interface LeafDictService {
      *
      * @param leafDict 添加数据内容
      */
-    void save(LeafDict leafDict);
+    LeafDict save(LeafDict leafDict);
 
     /**
      * 更新数据

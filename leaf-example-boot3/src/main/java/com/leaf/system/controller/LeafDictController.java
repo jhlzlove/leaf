@@ -1,10 +1,8 @@
-package controller;
+package com.leaf.system.controller;
 
 
-import java.lang.Long;
-
-import .entity.LeafDict;
-import .service.LeafDictService;
+import com.leaf.system.domain.LeafDict;
+import com.leaf.system.service.LeafDictService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

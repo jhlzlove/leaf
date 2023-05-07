@@ -8,12 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MarketVbenExampleApplication {
+public class LeafApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(MarketVbenExampleApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(LeafApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(MarketVbenExampleApplication.class, args);
+        SpringApplication.run(LeafApplication.class, args);
         log.info("http://{}:{}", IpUtil.getLocalUrl(), SpringUtil.getPort());
     }
 }

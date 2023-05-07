@@ -10,26 +10,19 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD) // 注解放置的目标位置
 @Retention(RetentionPolicy.RUNTIME) // 注解在哪个阶段执行
 @Documented
-public @interface OperationLog {
+public @interface LeafLog {
 
     /**
      * 操作模块
      *
-     * @return
+     * @return 日志模块
      */
     String module() default "";
 
     /**
-     * 操作类型（0其它 1新增 2修改 3删除）
-     *
-     * @return
-     */
-    int businessType() default 0;
-
-    /**
      * 操作说明
      *
-     * @return
+     * @return BusinessEnum 枚举
      */
     BusinessEnum operation() default BusinessEnum.UNKNOWN;
 

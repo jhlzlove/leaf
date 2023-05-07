@@ -1,4 +1,4 @@
-package com.leaf.system.entity;
+package com.leaf.system.domain;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;

@@ -7,9 +7,10 @@ import jakarta.persistence.Id;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.time.LocalDateTime;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 /**
@@ -25,6 +26,8 @@ public class LeafDept implements Serializable {
     @Serial
     private static final long serialVersionUID = -99755446519962889L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptId;
     /**
      * 部门编码

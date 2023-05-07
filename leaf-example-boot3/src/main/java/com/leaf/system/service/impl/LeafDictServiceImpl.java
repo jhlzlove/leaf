@@ -1,23 +1,15 @@
-package service.impl;
+package com.leaf.system.service.impl;
 
 
-import java.lang.Long;
-
-import .entity.LeafDict;
-import .service.LeafDictService;
-import .repository.LeafDictRepository;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-
+import com.leaf.system.domain.LeafDict;
+import com.leaf.system.repository.LeafDictRepository;
+import com.leaf.system.service.LeafDictService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -41,7 +33,7 @@ public class LeafDictServiceImpl implements LeafDictService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LeafDict save(LeafDict leafDict) {
-        leafDictRepository.save(leafDict);
+        return leafDictRepository.save(leafDict);
     }
 
     @Override

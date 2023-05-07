@@ -1,10 +1,8 @@
-package controller;
+package com.leaf.system.controller;
 
 
-import java.lang.Long;
-
-import .entity.LeafUserDetail;
-import .service.LeafUserDetailService;
+import com.leaf.system.domain.LeafUserDetail;
+import com.leaf.system.service.LeafUserDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;

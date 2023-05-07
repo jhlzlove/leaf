@@ -1,4 +1,4 @@
-package com.leaf.system.entity;
+package com.leaf.system.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,23 +1,15 @@
-package service.impl;
+package com.leaf.system.service.impl;
 
 
-import java.lang.Long;
-
-import .entity.LeafUserDetail;
-import .service.LeafUserDetailService;
-import .repository.LeafUserDetailRepository;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-
+import com.leaf.system.domain.LeafUserDetail;
+import com.leaf.system.repository.LeafUserDetailRepository;
+import com.leaf.system.service.LeafUserDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -41,7 +33,7 @@ public class LeafUserDetailServiceImpl implements LeafUserDetailService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LeafUserDetail save(LeafUserDetail leafUserDetail) {
-        leafUserDetailRepository.save(leafUserDetail);
+        return leafUserDetailRepository.save(leafUserDetail);
     }
 
     @Override

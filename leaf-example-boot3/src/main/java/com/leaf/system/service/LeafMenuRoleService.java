@@ -1,13 +1,10 @@
-package service;
+package com.leaf.system.service;
 
 
-import java.lang.Long;
-
-import .entity.LeafMenuRole;
+import com.leaf.system.domain.LeafMenuRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -41,7 +38,7 @@ public interface LeafMenuRoleService {
      *
      * @param leafMenuRole 添加数据内容
      */
-    void save(LeafMenuRole leafMenuRole);
+    LeafMenuRole save(LeafMenuRole leafMenuRole);
 
     /**
      * 更新数据

@@ -1,23 +1,15 @@
-package service.impl;
+package com.leaf.system.service.impl;
 
 
-import java.lang.Long;
-
-import .entity.LeafMenuRole;
-import .service.LeafMenuRoleService;
-import .repository.LeafMenuRoleRepository;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-
+import com.leaf.system.domain.LeafMenuRole;
+import com.leaf.system.repository.LeafMenuRoleRepository;
+import com.leaf.system.service.LeafMenuRoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -41,7 +33,7 @@ public class LeafMenuRoleServiceImpl implements LeafMenuRoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LeafMenuRole save(LeafMenuRole leafMenuRole) {
-        leafMenuRoleRepository.save(leafMenuRole);
+        return leafMenuRoleRepository.save(leafMenuRole);
     }
 
     @Override

@@ -1,13 +1,10 @@
-package service;
+package com.leaf.system.service;
 
 
-import java.lang.Long;
-
-import .entity.LeafUser;
+import com.leaf.system.domain.LeafUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -41,7 +38,7 @@ public interface LeafUserService {
      *
      * @param leafUser 添加数据内容
      */
-    void save(LeafUser leafUser);
+    LeafUser save(LeafUser leafUser);
 
     /**
      * 更新数据

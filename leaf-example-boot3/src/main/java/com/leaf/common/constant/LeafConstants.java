@@ -4,7 +4,7 @@ package com.leaf.common.constant;
  * 全局常量信息类
  *
  * @author jhlz
- * @time 2022/8/10 17:19
+ * @since 2022/8/10 17:19
  */
 public class LeafConstants {
 

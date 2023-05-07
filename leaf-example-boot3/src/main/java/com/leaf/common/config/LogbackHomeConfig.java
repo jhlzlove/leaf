@@ -8,7 +8,7 @@ import ch.qos.logback.core.PropertyDefinerBase;
  * @author jhlz
  * @since 2022/8/29 9:47
  */
-public class LogHomeConfig extends PropertyDefinerBase {
+public class LogbackHomeConfig extends PropertyDefinerBase {
     @Override
     public String getPropertyValue() {
         // 获取用户名

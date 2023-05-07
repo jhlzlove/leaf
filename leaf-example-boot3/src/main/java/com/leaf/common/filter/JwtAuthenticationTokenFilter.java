@@ -5,7 +5,7 @@ import com.leaf.common.constant.LeafProperties;
 import com.leaf.common.exception.BusinessException;
 import com.leaf.common.exception.GlobalException;
 import com.leaf.common.util.JwtUtil;
-import com.leaf.system.entity.LeafUser;
+import com.leaf.system.domain.LeafUser;
 import com.leaf.system.repository.LeafUserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.leaf.system.entity;
+package com.leaf.system.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,7 +42,7 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> result = new ArrayList<SimpleGrantedAuthority>();
         roles.forEach(r -> {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getZhName());
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getRoleCode());
             result.add(authority);
         });
         return result;

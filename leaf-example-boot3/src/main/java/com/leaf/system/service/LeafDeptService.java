@@ -1,13 +1,10 @@
 package com.leaf.system.service;
 
 
-import java.lang.Long;
-
-import com.leaf.system.entity.LeafDept;
+import com.leaf.system.domain.LeafDept;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -41,7 +38,7 @@ public interface LeafDeptService {
      *
      * @param leafDept 添加数据内容
      */
-    void save(LeafDept leafDept);
+    boolean save(LeafDept leafDept);
 
     /**
      * 更新数据
