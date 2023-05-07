@@ -58,7 +58,7 @@ public class User {
 ### @DynamicInsert、@DynamicUpdate(Spring6.0 已弃用)
 
 @DynamicInsert：指定注释实体的SQL插入语句是动态生成的，只插入实体对象的非空属性列。如果实体在第一次持久化时可能具有许多空属性，那么这可能会提高性能。但是，在运行时生成SQL会产生一定的成本。
-@DynamicUpdate：动态更新，只更新改变的列值，若不指定，调用更新接口会根据传入的对象的所有字段进行更新（对于没有传的字段，会以
+@DynamicUpdate：动态更新，只更新改变的列值，若不开启（false），调用更新接口会根据传入的对象的所有字段进行更新（对于没有传的字段，会以
 null 值覆盖更新）。
 
 ```java
@@ -127,6 +127,19 @@ SQL：
 
 ```bash
 Executing an update/delete query
+```
+
+### @EnableJpaRepositories、@Repository
+
+这两个注解和 MyBatis 的 @MapperScan 和 @Mapper 的关系是一样的，本项目使用的局部。
+
+```java
+
+@SpringBootApplication
+@EnableJpaRepositories(basePackages = "com.leaf.system.repository")
+public class LeafApplication {
+    ...
+}
 ```
 
 ## 2. 持久层

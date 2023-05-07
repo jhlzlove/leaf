@@ -192,16 +192,3 @@ public class StudentBean implements Serializable {
     private List<Subject> subjectList;
 }
 ```
-
-### @EnableJpaRepositories、@Repository
-
-这两个注解和 MyBatis 的 @MapperScan 和 @Mapper 的关系是一样的，本项目使用的局部。
-
-```java
-
-@SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.leaf.system.repository")
-public class LeafApplication {
-    ...
-}
-```
