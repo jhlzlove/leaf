@@ -1,57 +1,52 @@
-package com.leaf.system.service;
+package service;
 
 
-import com.leaf.system.entity.LeafUser;
+import java.lang.Long;
+
+import .entity.LeafUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Collection;
 import java.util.List;
 
 
 /**
- * 用户信息表业务层
+ * 用户登录信息表业务层
  *
  * @author jhlz
- * @since 2023-02-15 14:25:32
+ * @since 2023-05-07 14:29:04
  */
 public interface LeafUserService {
 
     /**
      * 分页列表
      *
-     * @param user 条件参数
-     * @param page 分页参数
+     * @param leafUser 条件参数
+     * @param page     分页参数
      * @return 符合条件的分页数据
      */
-    Page<LeafUser> listPage(LeafUser user, Pageable page);
+    Page<LeafUser> listPage(LeafUser leafUser, Pageable page);
 
     /**
      * 根据 ID 获取详情
      *
      * @param id id
-     * @return
+     * @return 详情对象
      */
     LeafUser findById(Long id);
 
     /**
-     * 根据 username 获取详情
-     *
-     * @param username username
-     * @return LeafUser 对象
-     */
-    LeafUser findByUsername(String username);
-
-    /**
      * 添加数据
      *
-     * @param leafUser 添加对象
+     * @param leafUser 添加数据内容
      */
-    LeafUser save(LeafUser leafUser);
+    void save(LeafUser leafUser);
 
     /**
      * 更新数据
      *
-     * @param leafUser 更新对象
+     * @param leafUser 更新的数据内容
      */
     void update(LeafUser leafUser);
 

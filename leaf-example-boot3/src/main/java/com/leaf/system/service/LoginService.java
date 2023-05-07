@@ -1,33 +1,8 @@
-package com.leaf.system.service;
-
-import com.leaf.system.entity.LeafUser;
-
-/**
- * 登录接口
- *
+package com.leaf.system.service;/**
+ * 
  * @author jhlz
- * @since 2022/12/20 21:38
+ * @version 1.0.0
+ * @since 2023/5/7 14:55
  */
-public interface LoginService {
-
-    /**
-     * 登录接口
-     *
-     * @param user 账户信息
-     * @return token
-     */
-    String login(LeafUser user);
-
-    /**
-     * 登出
-     */
-    void logout();
-
-    /**
-     * 注册用户
-     *
-     * @param user 用户信息
-     * @return 用户信息
-     */
-    LeafUser register(LeafUser user);
+public class LoginService {
 }

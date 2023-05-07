@@ -1,36 +1,60 @@
-package com.leaf.system.service;
+package service;
 
 
-import com.leaf.system.entity.LeafRole;
+import java.lang.Long;
+
+import .entity.LeafRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Collection;
 import java.util.List;
 
 
 /**
- * 角色信息表业务层
+ * 角色表业务层
  *
  * @author jhlz
- * @since 2023-02-15 14:25:31
+ * @since 2023-05-07 14:29:04
  */
 public interface LeafRoleService {
 
-    Page<LeafRole> listPage(Pageable page);
-
-    LeafRole findById(Long id);
-
-    void save(LeafRole leafRole);
-
-    void update(LeafRole leafRole);
-
-    void remove(List<Long> ids);
+    /**
+     * 分页列表
+     *
+     * @param leafRole 条件参数
+     * @param page     分页参数
+     * @return 符合条件的分页数据
+     */
+    Page<LeafRole> listPage(LeafRole leafRole, Pageable page);
 
     /**
-     * 根据 userId 获取该用户角色列表
+     * 根据 ID 获取详情
      *
-     * @return 角色列表
+     * @param id id
+     * @return 详情对象
      */
-    List<LeafRole> findByUserId(Long userId);
+    LeafRole findById(Long id);
+
+    /**
+     * 添加数据
+     *
+     * @param leafRole 添加数据内容
+     */
+    void save(LeafRole leafRole);
+
+    /**
+     * 更新数据
+     *
+     * @param leafRole 更新的数据内容
+     */
+    void update(LeafRole leafRole);
+
+    /**
+     * 删除数据
+     *
+     * @param ids 删除数据的 id 集合
+     */
+    void remove(List<Long> ids);
 }
 

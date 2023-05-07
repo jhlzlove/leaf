@@ -1,35 +1,38 @@
-package com.leaf.system.controller;
+package controller;
 
 
-import com.leaf.system.entity.LeafRole;
-import com.leaf.system.service.LeafRoleService;
+import java.lang.Long;
+
+import .entity.LeafRole;
+import .service.LeafRoleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 /**
- * 角色信息表控制层
+ * 角色表控制层
  *
  * @author jhlz
- * @since 2023-02-15 14:25:31
+ * @since 2023-05-07 14:29:04
  */
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/leafRole")
 public class LeafRoleController {
 
     /**
-     * 获取角色信息表列表(分页)
+     * 获取角色表列表(分页)
      */
     @GetMapping
-    public Page<LeafRole> listPage(Pageable page) {
+    public Page<LeafRole> listPage(@RequestBody LeafRole leafRole,
+                                   @PageableDefault(page = 0, size = 10) Pageable page) {
         return null;
     }
 
     /**
-     * 获取角色信息表
+     * 获取角色表
      */
     @GetMapping("/{id}")
     public LeafRole queryById(@PathVariable Long id) {
@@ -37,7 +40,7 @@ public class LeafRoleController {
     }
 
     /**
-     * 添加角色信息表
+     * 添加角色表
      */
     @PostMapping
     public void add(@RequestBody LeafRole leafRole) {
@@ -46,7 +49,7 @@ public class LeafRoleController {
 
 
     /**
-     * 修改角色信息表
+     * 修改角色表
      */
     @PutMapping
     public void edit(@RequestBody LeafRole leafRole) {
@@ -54,7 +57,7 @@ public class LeafRoleController {
     }
 
     /**
-     * 删除角色信息表
+     * 删除角色表
      */
     @DeleteMapping("/{ids}")
     public void delete(@PathVariable List<Long> ids) {

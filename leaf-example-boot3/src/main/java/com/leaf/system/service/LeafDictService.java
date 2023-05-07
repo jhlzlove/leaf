@@ -1,9 +1,9 @@
-package com.leaf.system.service;
+package service;
 
 
 import java.lang.Long;
 
-import com.leaf.system.entity.LeafDept;
+import .entity.LeafDict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,21 +12,21 @@ import java.util.List;
 
 
 /**
- * 部门表业务层
+ * 字典表业务层
  *
  * @author jhlz
  * @since 2023-05-07 14:29:03
  */
-public interface LeafDeptService {
+public interface LeafDictService {
 
     /**
      * 分页列表
      *
-     * @param leafDept 条件参数
+     * @param leafDict 条件参数
      * @param page     分页参数
      * @return 符合条件的分页数据
      */
-    Page<LeafDept> listPage(LeafDept leafDept, Pageable page);
+    Page<LeafDict> listPage(LeafDict leafDict, Pageable page);
 
     /**
      * 根据 ID 获取详情
@@ -34,21 +34,21 @@ public interface LeafDeptService {
      * @param id id
      * @return 详情对象
      */
-    LeafDept findById(Long id);
+    LeafDict findById(Long id);
 
     /**
      * 添加数据
      *
-     * @param leafDept 添加数据内容
+     * @param leafDict 添加数据内容
      */
-    void save(LeafDept leafDept);
+    void save(LeafDict leafDict);
 
     /**
      * 更新数据
      *
-     * @param leafDept 更新的数据内容
+     * @param leafDict 更新的数据内容
      */
-    void update(LeafDept leafDept);
+    void update(LeafDict leafDict);
 
     /**
      * 删除数据

@@ -1,51 +1,46 @@
-package com.leaf.system.controller;
+package controller;
 
 
-import com.leaf.common.response.Response;
-import com.leaf.system.entity.LeafUser;
-import com.leaf.system.service.LeafUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.lang.Long;
+
+import .entity.LeafUser;
+import .service.LeafUserService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 /**
- * 用户信息表控制层
+ * 用户登录信息表控制层
  *
  * @author jhlz
- * @since 2023-02-15 14:25:31
+ * @since 2023-05-07 14:29:04
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/leafUser")
 public class LeafUserController {
 
     /**
-     * 获取用户信息表列表(分页)
+     * 获取用户登录信息表列表(分页)
      */
     @GetMapping
-    public Response listPage(@RequestBody(required = false) LeafUser user,
-                             @PageableDefault(page = 0, size = 20) Pageable page) {
-        return Response.success(leafUserService.listPage(user, page));
+    public Page<LeafUser> listPage(@RequestBody LeafUser leafUser,
+                                   @PageableDefault(page = 0, size = 10) Pageable page) {
+        return null;
     }
 
     /**
-     * 获取用户信息表
+     * 获取用户登录信息表
      */
     @GetMapping("/{id}")
     public LeafUser queryById(@PathVariable Long id) {
-        log.info("id {}", id);
-        LeafUser byId = leafUserService.findById(id);
-        System.out.println(byId);
-        return byId;
-
+        return leafUserService.findById(id);
     }
 
     /**
-     * 添加用户信息表
+     * 添加用户登录信息表
      */
     @PostMapping
     public void add(@RequestBody LeafUser leafUser) {
@@ -54,7 +49,7 @@ public class LeafUserController {
 
 
     /**
-     * 修改用户信息表
+     * 修改用户登录信息表
      */
     @PutMapping
     public void edit(@RequestBody LeafUser leafUser) {
@@ -62,14 +57,13 @@ public class LeafUserController {
     }
 
     /**
-     * 删除用户信息表
+     * 删除用户登录信息表
      */
     @DeleteMapping("/{ids}")
     public void delete(@PathVariable List<Long> ids) {
         leafUserService.remove(ids);
     }
 
-    private static final Logger log = LoggerFactory.getLogger(LeafUserController.class);
     private final LeafUserService leafUserService;
 
     public LeafUserController(LeafUserService leafUserService) {

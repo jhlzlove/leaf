@@ -1,72 +1,65 @@
-package com.leaf.system.service.impl;
+package service.impl;
 
-import com.leaf.system.entity.LeafUser;
-import com.leaf.system.repository.LeafUserRepository;
-import com.leaf.system.service.LeafUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+
+import java.lang.Long;
+
+import .entity.LeafUser;
+import .service.LeafUserService;
+import .repository.LeafUserRepository;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 /**
- * 用户信息表业务层
+ * 用户登录信息表业务层
  *
  * @author jhlz
- * @since 2023-02-15 14:25:32
+ * @since 2023-05-07 14:29:04
  */
 @Service
 public class LeafUserServiceImpl implements LeafUserService {
     @Override
+    public Page<LeafUser> listPage(LeafUser leafUser, Pageable page) {
+        return leafUserRepository.findAll(page);
+    }
+
+    @Override
     public LeafUser findById(Long id) {
-        return userRepository.findById(id).orElseThrow();
-    }
-
-    @Override
-    public LeafUser findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public Page<LeafUser> listPage(LeafUser user, Pageable page) {
-        List<LeafUser> list = userRepository.findAll(Example.of(user));
-        return new PageImpl<>(list, page, list.size());
+        return leafUserRepository.findById(id).orElseThrow();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LeafUser save(LeafUser user) {
-        log.info("add target: {}", user);
-        return userRepository.save(user);
+    public LeafUser save(LeafUser leafUser) {
+        leafUserRepository.save(leafUser);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(LeafUser user) {
-        log.info("update target: {}", user);
-        userRepository.findById(user.getId()).ifPresent(u -> userRepository.save(user));
+    public void update(LeafUser leafUser) {
+        leafUserRepository.save(leafUser);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void remove(List<Long> ids) {
-        List<Long> targetIds = ids.stream().filter(Objects::nonNull).toList();
-        log.info("删除的用户 ids {}", targetIds);
-        userRepository.deleteAllById(targetIds);
+        leafUserRepository.deleteAllById(ids);
     }
 
-    private static final Logger log = LoggerFactory.getLogger(LeafUserServiceImpl.class);
-    private final LeafUserRepository userRepository;
+    private final LeafUserRepository leafUserRepository;
 
-    public LeafUserServiceImpl(LeafUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LeafUserServiceImpl(LeafUserRepository leafUserRepository) {
+        this.leafUserRepository = leafUserRepository;
     }
 }
 
