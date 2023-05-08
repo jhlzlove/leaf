@@ -6,7 +6,7 @@ import com.leaf.common.constant.LeafConstants;
 import com.leaf.common.response.Response;
 import com.leaf.common.util.JwtUtil;
 import com.leaf.system.domain.LeafUser;
-import com.leaf.system.service.LoginService;
+import com.leaf.system.service.LeafUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +26,7 @@ public class LoginController {
     @PostMapping("/login")
     @LeafLog(operation = BusinessEnum.LOGIN)
     public Response login(@RequestBody LeafUser user) {
-        String token = loginService.login(user);
+        String token = userService.login(user);
         log.info("login success! username: {}", JwtUtil.getPayloadClaims(token, LeafConstants.LOGIN_JWT_NAME_KEY));
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("token", token);
@@ -49,10 +49,10 @@ public class LoginController {
     }
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-    private final LoginService loginService;
+    private final LeafUserService userService;
 
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
+    public LoginController(LeafUserService userService) {
+        this.userService = userService;
     }
 
 }

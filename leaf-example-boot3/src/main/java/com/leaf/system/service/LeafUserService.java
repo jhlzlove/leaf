@@ -53,5 +53,13 @@ public interface LeafUserService {
      * @param ids 删除数据的 id 集合
      */
     void remove(List<Long> ids);
+
+    /**
+     * 登录
+     *
+     * @param user 登录对象
+     * @return token
+     */
+    String login(LeafUser user);
 }
 

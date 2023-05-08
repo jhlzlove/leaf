@@ -26,7 +26,7 @@ public class LeafUserController {
     @GetMapping
     public Page<LeafUser> listPage(@RequestBody LeafUser leafUser,
                                    @PageableDefault(page = 0, size = 10) Pageable page) {
-        return null;
+        return leafUserService.listPage(leafUser, page);
     }
 
     /**

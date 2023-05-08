@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @SpringBootApplication
 public class LeafApplication {
@@ -14,6 +15,8 @@ public class LeafApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LeafApplication.class, args);
+        // 开启 Spring Security 子线程共享信息策略
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
         log.info("http://{}:{}", IpUtil.getLocalUrl(), SpringUtil.getPort());
     }
 }

@@ -1,15 +1,18 @@
 package com.leaf.system.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -22,7 +25,7 @@ import java.util.Objects;
 @Entity(name = "leaf_user")
 @DynamicInsert
 @DynamicUpdate
-public class LeafUser implements Serializable {
+public class LeafUser implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 433113171858975273L;
     @Id
@@ -85,6 +88,16 @@ public class LeafUser implements Serializable {
      */
     private String remark;
 
+    @Transient
+    private List<LeafRole> roles = new ArrayList<>();
+
+    public List<LeafRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<LeafRole> roles) {
+        this.roles = roles;
+    }
 
     public Long getUserId() {
         return userId;
@@ -94,14 +107,46 @@ public class LeafUser implements Serializable {
         this.userId = userId;
     }
 
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return status == 1;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> result = new ArrayList<SimpleGrantedAuthority>();
+        roles.forEach(r -> {
+            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getRoleCode());
+            result.add(authority);
+        });
+        return result;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
