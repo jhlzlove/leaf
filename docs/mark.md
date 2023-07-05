@@ -168,8 +168,9 @@ Spring Security 5.7 之后的写法改变，包括路径的写法，无须显示
 
 ### @Valid @Validated
 
-- @Valid 不支持分组验证，@Validated 支持，@Validated 是 @Valid 的扩展。
-- @Valid 使用在对象属性中，可以递归校验对象属性是否符合要求
+- @Valid 是 jakarta 包下的，而 @Validated 是 Spring 提供的；
+- @Valid 不支持分组验证，@Validated 支持，@Validated 是 @Valid 的扩展；
+- @Valid 使用在对象属性中，可以递归校验对象属性是否符合要求；
 
 ```java
 public class Subject {
