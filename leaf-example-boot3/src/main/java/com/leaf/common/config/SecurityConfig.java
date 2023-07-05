@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -53,11 +52,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                // 前后端分离项目，跨站请求伪造不生效，关闭
-                .csrf().disable()
+                // .csrf().disable()
                 // 基于 token，不需要 session
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                // .sessionManagement()
+                // .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests((request) ->
                 {
                     // 总得有一个入口吧，看他能玩出什么花样
@@ -72,8 +70,8 @@ public class SecurityConfig {
                 // 设置自定义认证数据源
                 .userDetailsService(userDetailsService)
                 // 配置 CORS 跨域访问
-                .cors().configurationSource(corsConfigurationSource())
-                .and().build();
+                // .cors().configurationSource(corsConfigurationSource())
+                .build();
     }
 
     /**
