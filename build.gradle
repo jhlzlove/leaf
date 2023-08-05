@@ -2,11 +2,11 @@ plugins {
     // Java 插件
     id 'java'
     // spring boot version control
-    id 'org.springframework.boot' version '3.1.0'
+    id 'org.springframework.boot' version '3.1.2'
     // 该插件用于管理 Spring Boot 项目中依赖项的版本。
     // 它是 Spring Boot 官方提供的 Gradle 插件之一，可以帮助开发人员更轻松地管理项目依赖项。
     // 该插件的作用是统一管理项目依赖项的版本，使项目的依赖项版本更加清晰明确，避免出现依赖冲突。
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'io.spring.dependency-management' version '1.1.2'
 }
 
 group 'com.leaf'
