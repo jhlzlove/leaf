@@ -45,6 +45,7 @@ spring:
       hibernate:
         # 格式化控制台打印的 SQL
         format_sql: true
+    open-in-view: false
 #        jdbc:
 #          batch_size: 50
 #        # 检测批处理是否打开 它可能不生效

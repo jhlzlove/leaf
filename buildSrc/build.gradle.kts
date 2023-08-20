@@ -1,6 +1,5 @@
 plugins {
-    java
-    kotlin("jvm") version "1.8.22"
+    `kotlin-dsl`
 }
 
 repositories {
