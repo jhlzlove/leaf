@@ -193,3 +193,12 @@ public class StudentBean implements Serializable {
     private List<Subject> subjectList;
 }
 ```
+
+### @JsonView
+
+可以在已经存在的实体的属性中选择性的创建返回的对象视图。
+
+### buildSrc
+
+`build.gradle.kts` 的依赖版本管理模块。目前（2023.8.20） `kts` 还不支持类似 `ext` 的方式，可以使用 extra 和 buildSrc
+的方式，本项目使用后者。
