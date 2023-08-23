@@ -1,14 +1,8 @@
-本项目是对自己从事 Java 编程的总结，主要采用 Java 以及框架的新版本搭建。
+![Static Badge](https://img.shields.io/badge/leaf-green)
 
-## Todo
+本项目是对自己从事 Java 开发编程经验的总结，主要采用 Java 以及最新的 Spring Boot 框架进行开发。
 
-要做的东西还有很多，随着我自己的开发经验一点儿一点儿改进。
-
-## Feature
-
-## Build
-
-后续完善
+后面接触到了 kotlin，感觉挺不错，那就一起试试!
 
 # Thanks
 
