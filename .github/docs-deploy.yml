@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@pages
+        uses: actions/checkout@dev
 
       - name: deploy
         run: ./deploy.sh
