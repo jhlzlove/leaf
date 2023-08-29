@@ -13,8 +13,8 @@ target/
 logs/
 gradle/
 node_modules
-**/.gradle
-**/build
+**/.gradle/
+**/build/
 
 
 ### STS ###
