@@ -1,15 +1,12 @@
 {
   "scripts": {
     "docs:dev": "set NODE_OPTIONS=--openssl-legacy-provider && vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "set NODE_OPTIONS=--openssl-legacy-provider && vuepress build docs"
   },
   "config": {
     "commitizen": {
       "path": "czg",
       "czConfig": "./cz.config.js"
     }
-  },
-  "dependencies": {
-    "vuepress": "^1.9.10"
   }
 }

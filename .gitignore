@@ -9,13 +9,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-*-local.yml
 logs/
 gradle/
-node_modules
-**/.gradle
+**/.gradle/
 **/build/
-
+**/out/
 
 ### STS ###
 .apt_generated
