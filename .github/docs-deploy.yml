@@ -1,17 +1,17 @@
-name: deploy project docs
-
-on:
-  push:
-    # 分支
-    branches: [ dev ]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@dev
-
-      - name: deploy
-        run: ./deploy.sh
-        shell: bash
+#name: deploy project docs
+#
+#on:
+#  push:
+#    # 分支
+#    branches: [ dev ]
+#
+#jobs:
+#  build-and-deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@dev
+#
+#      - name: deploy
+#        run: ./deploy.sh
+#        shell: bash
