@@ -14,6 +14,8 @@ gradle/
 **/.gradle/
 **/build/
 **/out/
+node_modules
+
 
 ### STS ###
 .apt_generated
