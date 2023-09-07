@@ -20,11 +20,6 @@ public record Response(
         @JsonInclude(value = JsonInclude.Include.NON_NULL)
         Object data
 ) implements Serializable {
-
-    public Response(int code, String message) {
-        this(code, message, null);
-    }
-
     public static Response success() {
         return success(ResponseEnum.SUCCESS, null);
     }
@@ -33,24 +28,20 @@ public record Response(
         return new Response(code, message, data);
     }
 
-    public static Response success(int code, String message) {
-        return new Response(code, message);
-    }
-
     public static Response success(Object data) {
         return success(ResponseEnum.SUCCESS, data);
     }
 
     public static Response success(ResponseEnum resultEnum, Object data) {
-        return new Response(resultEnum.getCode(), resultEnum.getMessage(), data);
+        return success(resultEnum.getCode(), resultEnum.getMessage(), data);
     }
 
     public static Response error(ResponseEnum resultEnum) {
-        return new Response(resultEnum.getCode(), resultEnum.getMessage(), null);
+        return success(resultEnum.getCode(), resultEnum.getMessage(), null);
     }
 
     public static Response error(int code, String message) {
-        return new Response(code, message, null);
+        return success(code, message, null);
     }
 
     public static Response error() {

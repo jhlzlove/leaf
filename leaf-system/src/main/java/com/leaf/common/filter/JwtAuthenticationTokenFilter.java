@@ -1,9 +1,9 @@
 package com.leaf.common.filter;
 
 import com.leaf.common.constant.LeafConstants;
-import com.leaf.common.constant.LeafProperties;
 import com.leaf.common.exception.BusinessException;
 import com.leaf.common.exception.GlobalException;
+import com.leaf.common.property.LeafProperties;
 import com.leaf.common.util.JwtUtil;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.repository.LeafUserRepository;

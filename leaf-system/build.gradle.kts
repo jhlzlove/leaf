@@ -13,6 +13,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     /* validation */
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    /* springdoc */
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.2.0")
     /* postgresql */
     implementation("org.postgresql:postgresql:${pgVersion}")
     /* java jwt */

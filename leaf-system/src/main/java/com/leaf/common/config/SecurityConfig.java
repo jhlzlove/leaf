@@ -8,12 +8,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Spring Security Config
@@ -28,6 +27,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // 启用方法级别的权限认证
 @EnableMethodSecurity
 public class SecurityConfig {
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
+    }
 
     /**
      * 暴露AuthenticationManager（认证管理器）
@@ -52,16 +58,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                // .csrf().disable()
-                // 基于 token，不需要 session
-                // .sessionManagement()
-                // .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests((request) ->
-                {
-                    // 总得有一个入口吧，看他能玩出什么花样
-                    request.requestMatchers("/login", "/openapi/**", "/test/**").permitAll()
-                            // 招商引资也是必须滴
-                            .requestMatchers("/register").anonymous()
+                // 关闭 csrf
+                .csrf(AbstractHttpConfigurer::disable)
+                // 不需要 session
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((request) -> {
+                    request.requestMatchers("/login", "/api/login").anonymous()
+                            .requestMatchers("/v3/api-docs**").permitAll()
+                            .requestMatchers("/register", "/api/register", "/open/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 // 第一次面试都没过去，就不要浪费时间了！呜呜呜，像极了我的面试
@@ -69,27 +73,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
                 .userDetailsService(userDetailsService)
-                // 配置 CORS 跨域访问
-                // .cors().configurationSource(corsConfigurationSource())
+                // 退出 https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html
+                .logout(logout -> logout.logoutUrl("/logout").permitAll())
                 .build();
     }
 
-    /**
-     * 配置跨源访问(CORS)
-     *
-     * @return CorsConfigurationSource
-     */
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
-
-    private final UserDetailsService userDetailsService;
-    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
-    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        this.userDetailsService = userDetailsService;
-        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
-    }
 }

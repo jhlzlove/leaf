@@ -53,6 +53,7 @@ public class BaseEntity implements Serializable {
     /**
      * 备注
      */
+    @Column(name = "remark")
     protected String remark;
 
     public LocalDateTime getCreateTime() {

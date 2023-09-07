@@ -3,9 +3,8 @@ package com.leaf.system.service.impl;
 
 import com.leaf.common.constant.LeafConstants;
 import com.leaf.common.util.JwtUtil;
-import com.leaf.system.domain.LeafRole;
 import com.leaf.system.domain.LeafUser;
-import com.leaf.system.repository.LeafRoleRepository;
+import com.leaf.system.domain.record.LoginUserRecord;
 import com.leaf.system.repository.LeafUserRepository;
 import com.leaf.system.service.LeafUserService;
 import org.slf4j.Logger;
@@ -33,6 +32,14 @@ import java.util.Map;
  */
 @Service
 public class LeafUserServiceImpl implements LeafUserService, UserDetailsService, UserDetailsPasswordService {
+
+    private static final Logger log = LoggerFactory.getLogger(LeafUserServiceImpl.class);
+    private final LeafUserRepository leafUserRepository;
+
+    public LeafUserServiceImpl(LeafUserRepository leafUserRepository) {
+        this.leafUserRepository = leafUserRepository;
+    }
+
     @Override
     public Page<LeafUser> listPage(LeafUser leafUser, Pageable page) {
         return leafUserRepository.findAll(page);
@@ -62,18 +69,18 @@ public class LeafUserServiceImpl implements LeafUserService, UserDetailsService,
     }
 
     @Override
-    public String login(LeafUser user) {
+    public String login(LoginUserRecord user) {
         // 1. 查询用户
-        LeafUser leafUser = leafUserRepository.findByUsername(user.getUsername());
+        LeafUser leafUser = leafUserRepository.findByUsername(user.username());
         // 2. 查询用户角色（权限）
-        List<LeafRole> roles = roleRepository.findAllByUserId(user.getUserId());
-        leafUser.setRoles(roles);
+        // List<LeafRole> roles = roleRepository.findAllByUserId(user.getUserId());
+        // leafUser.setRoles(roles);
         // 3. 设置权限
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(user, null, leafUser.getAuthorities());
         // 4. 生成 token 返回
         Map<String, Object> payload = new HashMap<>();
-        payload.put(LeafConstants.LOGIN_JWT_NAME_KEY, user.getUserId());
+        payload.put(LeafConstants.LOGIN_JWT_NAME_KEY, leafUser.getUserId());
         String token = JwtUtil.createToken(payload);
         log.info("生成token ： {}", token);
         return token;
@@ -98,15 +105,6 @@ public class LeafUserServiceImpl implements LeafUserService, UserDetailsService,
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return leafUserRepository.findByUsername(username);
-    }
-
-    private static final Logger log = LoggerFactory.getLogger(LeafUserServiceImpl.class);
-    private final LeafUserRepository leafUserRepository;
-    private final LeafRoleRepository roleRepository;
-
-    public LeafUserServiceImpl(LeafUserRepository leafUserRepository, LeafRoleRepository roleRepository) {
-        this.leafUserRepository = leafUserRepository;
-        this.roleRepository = roleRepository;
     }
 
 

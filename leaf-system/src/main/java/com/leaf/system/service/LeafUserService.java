@@ -2,6 +2,7 @@ package com.leaf.system.service;
 
 
 import com.leaf.system.domain.LeafUser;
+import com.leaf.system.domain.record.LoginUserRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -60,6 +61,6 @@ public interface LeafUserService {
      * @param user 登录对象
      * @return token
      */
-    String login(LeafUser user);
+    String login(LoginUserRecord user);
 }
 

@@ -1,12 +1,12 @@
 package com.leaf.common.util;
 
-import com.leaf.system.domain.LoginUser;
+import com.leaf.system.domain.LeafUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * SecurityUtil:
+ * Spring Security 工具类
  *
  * @author jhlz
  * @since 2022/9/16 11:07:52
@@ -18,9 +18,9 @@ public class SecurityUtil {
      *
      * @return 登录用户
      */
-    public static LoginUser getLoginUser() {
+    public static LeafUser getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (LoginUser) authentication.getPrincipal();
+        return (LeafUser) authentication.getPrincipal();
     }
 
     /**

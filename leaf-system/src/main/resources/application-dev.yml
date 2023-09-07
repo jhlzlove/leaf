@@ -19,7 +19,7 @@ spring:
     # hikari 连接池
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/leaf?serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/leaf_master?serverTimezone=Asia/Shanghai
     hikari:
       username: postgres
       password: postgres
@@ -67,4 +67,4 @@ leaf:
   version: v1.0.0
   # header tag：默认 Authorization 可以改为 token 以及其它自己喜欢的标识,重要的是前后端统一
   header: Authorization
-  api-prefix: api
+  api-prefix:
