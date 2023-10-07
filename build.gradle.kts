@@ -1,29 +1,28 @@
-import org.gradle.jvm.tasks.Jar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     java
     // spring boot version control
-    id("org.springframework.boot") version "3.1.2"
+    id("org.springframework.boot") version "3.1.4"
     // Spring Boot 官方提供的 Gradle 插件之一，可以帮助开发人员更轻松地管理项目依赖项。统一管理项目依赖项的版本，使项目的依赖项版本更加清晰明确，避免出现依赖冲突。
-    id("io.spring.dependency-management") version "1.1.2"
+    id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    idea
 }
 
+version = "1.0.0"
 group = "com.leaf"
-version = "0.0.1"
 
 allprojects {
     // 所有项目使用的插件
     apply {
-        plugin("kotlin")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
+        plugin("java")
     }
+
     java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     // 依赖下载源
     repositories {
@@ -45,23 +44,11 @@ allprojects {
     }
 
     tasks {
-        // kt 编译选项
-        withType<KotlinCompile> {
-            kotlinOptions {
-                freeCompilerArgs = listOf("-Xplugin=org.jetbrains.kotlin.allopen:" +
-                        "annotation=org.springframework.stereotype.Service")
-                freeCompilerArgs += "-Xjsr305=strict"
-                jvmTarget = "17"
-            }
-        }
         // java 编译器编译字符集
         withType<JavaCompile> {
             options.encoding = "UTF-8"
+            // 从版本 4 开始，Spring 完全支持基于 编译器标志的 -parameters Java 8 参数名称发现。通过在生成中使用此标志作为调试信息的替代方法，可以省 @Param 略命名参数的注释。
             options.compilerArgs.add("-parameters")
-        }
-
-        withType<Jar> {
-            enabled = true
         }
     }
 }
