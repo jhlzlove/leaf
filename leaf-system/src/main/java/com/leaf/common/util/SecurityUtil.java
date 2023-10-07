@@ -1,6 +1,7 @@
 package com.leaf.common.util;
 
 import com.leaf.system.domain.LeafUser;
+import com.leaf.system.domain.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +21,11 @@ public class SecurityUtil {
      */
     public static LeafUser getLoginUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (LeafUser) authentication.getPrincipal();
+        return ((LoginUser) authentication.getPrincipal()).getUser();
+    }
+
+    public static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
     /**

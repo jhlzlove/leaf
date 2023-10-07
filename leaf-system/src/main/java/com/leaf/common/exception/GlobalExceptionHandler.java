@@ -1,14 +1,18 @@
 package com.leaf.common.exception;
 
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.leaf.common.business.BusinessException;
 import com.leaf.common.response.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.naming.NoPermissionException;
 import java.util.Objects;
 
 /**
@@ -30,9 +34,32 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(GlobalException.class)
     public Response exceptionHandler(HttpServletRequest req, GlobalException e) {
         BusinessException be = e.getException();
-        BusinessException exception =
-                Objects.isNull(be) ? BusinessException.UNKNOWN : be;
-        return Response.error(exception.getCode(), exception.getMessage());
+        BusinessException exception = Objects.isNull(be) ? BusinessException.UNKNOWN : be;
+        return Response.error(exception.getCode(), "请求：{} 错误！" + req.getRequestURI() + exception.getMessage());
+    }
+
+    /**
+     * security 相关
+     *
+     * @param req
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({BadCredentialsException.class})
+    public ProblemDetail securityHandler(HttpServletRequest req, Exception e) {
+        if (e instanceof BadCredentialsException) {
+            return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "密码错误！");
+        }
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    /**
+     * jwt 相关
+     */
+    @ExceptionHandler({JWTVerificationException.class, AlgorithmMismatchException.class,
+            TokenExpiredException.class, InvalidClaimException.class})
+    public ProblemDetail jwtHandler(HttpServletRequest req, Exception e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     /**
@@ -44,13 +71,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ProblemDetail exceptionHandler(HttpServletRequest req, Exception e) {
-
-        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
-
-    @ExceptionHandler({NoPermissionException.class,
-            UsernameNotFoundException.class})
-    public ProblemDetail permissionExceptionHandler(HttpServletRequest req, Exception e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 }

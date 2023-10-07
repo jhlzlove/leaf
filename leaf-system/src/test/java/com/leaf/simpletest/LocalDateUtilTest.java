@@ -1,6 +1,7 @@
 package com.leaf.simpletest;
 
 import com.leaf.common.util.LocalDateUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,11 @@ public class LocalDateUtilTest {
     public void printLocalDateTimeTest() {
         log.info("{}", LocalDateTime.now());
         log.info("{}", LocalDateTime.now(clock));
-        log.info("{}", Instant.now());
+        Instant now = Instant.now();
+        Instant instant = now.plusSeconds(10);
+        Assertions.assertTrue(instant.isAfter(now));
+        log.info("{}", now);
+        log.info("{}", instant);
     }
 
     /**

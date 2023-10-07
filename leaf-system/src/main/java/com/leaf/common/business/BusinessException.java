@@ -1,13 +1,16 @@
-package com.leaf.common.exception;
+package com.leaf.common.business;
 
 /**
  * 业务异常信息枚举
  */
 public enum BusinessException {
     UNKNOWN(100000, "未知异常!"),
-    NOT_AUTHENTICATION(100001, "用户未认证！"),
+    NOT_AUTHENTICATION(501, "用户未登录！"),
+    TOKEN_AUTHENTICATION(100001, "token 验证失败！"),
+    TOKEN_EXPIRED(100002, "token 验证失败！"),
     NOT_AUTHORIZATION(100002, "无权访问该资源！"),
     FAILED_AUTHORIZATION(100003, "登录失败！"),
+    TIMEOUT_AUTHORIZATION(100004, "登录超时！"),
     ;
 
     /**

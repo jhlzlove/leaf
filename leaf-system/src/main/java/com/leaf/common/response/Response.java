@@ -1,7 +1,9 @@
 package com.leaf.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.leaf.common.business.BusinessException;
 import com.leaf.common.util.JSON;
+import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
@@ -16,36 +18,55 @@ public record Response(
         int code,
         /* 信息 */
         String message,
+        /* 信息描述 */
+        String description,
         /* 数据 */
         @JsonInclude(value = JsonInclude.Include.NON_NULL)
         Object data
 ) implements Serializable {
-    public static Response success() {
-        return success(ResponseEnum.SUCCESS, null);
+    public static Response ok() {
+        return ok(null);
     }
 
-    public static Response success(int code, String message, Object data) {
-        return new Response(code, message, data);
+    public static Response ok(Object data) {
+        return ok(200, "操作成功！", data);
     }
 
-    public static Response success(Object data) {
-        return success(ResponseEnum.SUCCESS, data);
+    public static Response ok(HttpStatus status, String message) {
+        return ok(status.value(), message, status.getReasonPhrase(), null);
     }
 
-    public static Response success(ResponseEnum resultEnum, Object data) {
-        return success(resultEnum.getCode(), resultEnum.getMessage(), data);
+    public static Response ok(int code, String message, Object data) {
+        return ok(code, message, null, data);
     }
 
-    public static Response error(ResponseEnum resultEnum) {
-        return success(resultEnum.getCode(), resultEnum.getMessage(), null);
+    public static Response error(BusinessException exception) {
+        return ok(exception.getCode(), exception.getMessage(), null);
     }
 
     public static Response error(int code, String message) {
-        return success(code, message, null);
+        return ok(code, message, null);
+    }
+
+    public static Response error(int code, String message, String description) {
+        return ok(code, message, description, null);
     }
 
     public static Response error() {
-        return error(ResponseEnum.ERROR);
+        return ok(500, "操作失败！", null, null);
+    }
+
+    /**
+     * 返回信息构造
+     *
+     * @param code    响应码
+     * @param message 响应信息
+     * @param message 响应信息详情
+     * @param data    响应数据
+     * @return Response 对象
+     */
+    private static Response ok(int code, String message, String description, Object data) {
+        return new Response(code, message, description, data);
     }
 
     @Override

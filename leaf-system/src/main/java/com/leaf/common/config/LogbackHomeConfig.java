@@ -16,6 +16,6 @@ public class LogbackHomeConfig extends PropertyDefinerBase {
         // 获取操作系统
         String os = System.getProperty("os.name");
         return os.toLowerCase().contains("window") ?
-                "./logs" : "/home/" + username + "/market/logs";
+                "./logs" : "/home/" + username + "/leaf/logs";
     }
 }

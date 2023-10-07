@@ -1,5 +1,7 @@
 package com.leaf.common.exception;
 
+import com.leaf.common.business.BusinessException;
+
 /**
  * 自定义异常信息类
  *

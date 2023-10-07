@@ -2,7 +2,6 @@ package com.leaf.system.service;
 
 
 import com.leaf.system.domain.LeafUser;
-import com.leaf.system.domain.record.LoginUserRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -37,9 +36,9 @@ public interface LeafUserService {
     /**
      * 添加数据
      *
-     * @param leafUser 添加数据内容
+     * @param request 添加数据内容
      */
-    LeafUser save(LeafUser leafUser);
+    LeafUser save(LeafUser request);
 
     /**
      * 更新数据
@@ -55,12 +54,5 @@ public interface LeafUserService {
      */
     void remove(List<Long> ids);
 
-    /**
-     * 登录
-     *
-     * @param user 登录对象
-     * @return token
-     */
-    String login(LoginUserRecord user);
 }
 

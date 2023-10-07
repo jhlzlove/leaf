@@ -1,6 +1,7 @@
 package com.leaf.system.controller;
 
 
+import com.leaf.common.response.Response;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.service.LeafUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,8 +56,8 @@ public class LeafUserController {
      */
     @PostMapping
     @Operation(summary = "添加用户", description = "")
-    public void add(@RequestBody LeafUser leafUser) {
-        leafUserService.save(leafUser);
+    public void add(@RequestBody LeafUser request) {
+        leafUserService.save(request);
     }
 
 
@@ -66,7 +67,6 @@ public class LeafUserController {
     @PutMapping
     @Operation(summary = "修改用户", description = "")
     public void edit(@RequestBody LeafUser leafUser) {
-        log.info("用户更新");
         leafUserService.update(leafUser);
     }
 
@@ -75,8 +75,9 @@ public class LeafUserController {
      */
     @DeleteMapping("/{ids}")
     @Operation(summary = "删除用户", description = "")
-    public void delete(@PathVariable List<Long> ids) {
+    public Response delete(@PathVariable List<Long> ids) {
         leafUserService.remove(ids);
+        return Response.ok();
     }
 }
 

@@ -23,7 +23,7 @@ public class SpringResponseEntityTest {
     public void spring_ResponseEntityTest() {
         ResponseEntity<String> entity = ResponseEntity.status(200).body("诗酒趁年华");
         ResponseEntity<String> response1 = ResponseEntity.status(HttpStatus.BAD_REQUEST).header("b", "1").body("请求失败！");
-        ResponseEntity<Response> ok = ResponseEntity.ok(Response.success());
+        ResponseEntity<Response> ok = ResponseEntity.ok(Response.ok());
         System.out.println(ok);
         System.out.println(JSON.toJSONString(ok));
 

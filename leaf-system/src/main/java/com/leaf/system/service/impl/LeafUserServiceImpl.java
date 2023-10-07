@@ -1,27 +1,18 @@
 package com.leaf.system.service.impl;
 
 
-import com.leaf.common.constant.LeafConstants;
-import com.leaf.common.util.JwtUtil;
 import com.leaf.system.domain.LeafUser;
-import com.leaf.system.domain.record.LoginUserRecord;
 import com.leaf.system.repository.LeafUserRepository;
 import com.leaf.system.service.LeafUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsPasswordService;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -31,7 +22,7 @@ import java.util.Map;
  * @since 2023-05-07 14:29:04
  */
 @Service
-public class LeafUserServiceImpl implements LeafUserService, UserDetailsService, UserDetailsPasswordService {
+public class LeafUserServiceImpl implements LeafUserService {
 
     private static final Logger log = LoggerFactory.getLogger(LeafUserServiceImpl.class);
     private final LeafUserRepository leafUserRepository;
@@ -42,7 +33,7 @@ public class LeafUserServiceImpl implements LeafUserService, UserDetailsService,
 
     @Override
     public Page<LeafUser> listPage(LeafUser leafUser, Pageable page) {
-        return leafUserRepository.findAll(page);
+        return leafUserRepository.findAll(Example.of(leafUser), page);
     }
 
     @Override
@@ -52,8 +43,9 @@ public class LeafUserServiceImpl implements LeafUserService, UserDetailsService,
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LeafUser save(LeafUser leafUser) {
-        return leafUserRepository.save(leafUser);
+    public LeafUser save(LeafUser request) {
+        return leafUserRepository.save(request);
+        // return leafUserRepository.saveUser(request);
     }
 
     @Override
@@ -67,46 +59,5 @@ public class LeafUserServiceImpl implements LeafUserService, UserDetailsService,
     public void remove(List<Long> ids) {
         leafUserRepository.deleteAllById(ids);
     }
-
-    @Override
-    public String login(LoginUserRecord user) {
-        // 1. 查询用户
-        LeafUser leafUser = leafUserRepository.findByUsername(user.username());
-        // 2. 查询用户角色（权限）
-        // List<LeafRole> roles = roleRepository.findAllByUserId(user.getUserId());
-        // leafUser.setRoles(roles);
-        // 3. 设置权限
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user, null, leafUser.getAuthorities());
-        // 4. 生成 token 返回
-        Map<String, Object> payload = new HashMap<>();
-        payload.put(LeafConstants.LOGIN_JWT_NAME_KEY, leafUser.getUserId());
-        String token = JwtUtil.createToken(payload);
-        log.info("生成token ： {}", token);
-        return token;
-    }
-
-    /**
-     * 自动更新 PasswordEncoder 加密方式
-     *
-     * @param user        the user to modify the password for
-     * @param newPassword the password to change to, encoded by the configured
-     *                    {@code PasswordEncoder}
-     * @return UserDetails 实现
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public UserDetails updatePassword(UserDetails user, String newPassword) {
-        boolean b = leafUserRepository.updatePasswordByUsername(user.getUsername(), newPassword);
-        if (b) ((LeafUser) user).setPassword(newPassword);
-        return user;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return leafUserRepository.findByUsername(username);
-    }
-
-
 }
 

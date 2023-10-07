@@ -1,12 +1,9 @@
 package com.leaf.common.config;
 
-import com.leaf.common.interceptor.CustomerInterceptor;
 import com.leaf.common.property.LeafProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,20 +26,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
      *
      * @return 自定义拦截器
      */
-    @Bean
-    public CustomerInterceptor customerInterceptor() {
-        return new CustomerInterceptor();
-    }
+    // @Bean
+    // public CustomerInterceptor customerInterceptor() {
+    //     return new CustomerInterceptor();
+    // }
 
     /**
      * 注册拦截器
      *
      * @param registry registry
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(customerInterceptor());
-    }
+    // @Override
+    // public void addInterceptors(InterceptorRegistry registry) {
+    //     registry.addInterceptor(customerInterceptor());
+    // }
 
     /**
      * 跨域访问（CORS）

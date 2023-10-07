@@ -2,7 +2,6 @@ package com.leaf.common.property;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 /**
  * 项目自定义配置选项
@@ -14,12 +13,6 @@ import org.springframework.util.StringUtils;
  */
 @Component
 public class LeafProperties {
-    /**
-     * 认证头标识 默认 Authorization，可以改为 token 以及其它自己喜欢的标识
-     * 重要的是前后端统一 ^~^
-     */
-    @Value("${leaf.header}")
-    private String header;
 
     /**
      * 系统版本
@@ -32,10 +25,6 @@ public class LeafProperties {
      */
     @Value("${leaf.api-prefix}")
     private String apiPrefix;
-
-    public String getHeader() {
-        return StringUtils.hasText(header) ? header : "Authorization";
-    }
 
     public String getVersion() {
         return version;

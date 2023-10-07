@@ -4,9 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;
@@ -19,44 +24,25 @@ import java.util.Objects;
  */
 public class JwtUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
     /**
      * 签名，生成和解析默认都带此信息。如果不需要或者不想带去掉即可，注意生成和解析方法都要修改
      */
     private static final String SIGNATURE = "leaf";
     /**
-     * 过期时间 单位：秒
+     * 过期时间 单位：秒，默认 30 分钟
      */
     private static final long EXPIRED_TIME = 1800L;
 
-    public static String createToken(final String subject) {
-        return generatorToken(null, null, subject, null);
-    }
-
     /**
-     * 生成 token 设置过期时间
+     * 根据 payload 和 subject 生成 token
      *
-     * @param payload    负载信息
-     * @param expireTime 过期时间间隔，单位：s
+     * @param payload 负载信息
+     * @param subject 主体信息
      * @return token
      */
-    public static String createToken(final Map<String, Object> payload,
-                                     final Long expireTime) {
-        return generatorToken(null, payload, null, expireTime);
-    }
-
-    public static String createToken(final Map<String, Object> payload) {
-        return generatorToken(null, payload, null, null);
-    }
-
-    public static String createToken(final Map<String, Object> payload,
-                                     final String subject) {
+    public static String createToken(final Map<String, Object> payload, final String subject) {
         return generatorToken(null, payload, subject, null);
-    }
-
-    public static String createToken(final Map<String, Object> headers,
-                                     final Map<String, Object> payload, final
-                                     String subject) {
-        return generatorToken(headers, payload, subject, null);
     }
 
     /**
@@ -68,10 +54,8 @@ public class JwtUtil {
      * @param expireTime 过期时间
      * @return token
      */
-    private static String generatorToken(final Map<String, Object> headers,
-                                         final Map<String, Object> payload,
-                                         final String subject,
-                                         final Long expireTime) {
+    private static String
+    generatorToken(Map<String, Object> headers, Map<String, Object> payload, String subject, Long expireTime) {
         JWTCreator.Builder builder = JWT.create();
         if (StringUtils.hasText(subject)) builder.withSubject(subject);
         if (Objects.nonNull(expireTime))
@@ -96,20 +80,20 @@ public class JwtUtil {
     public static boolean verifyToken(final String token) {
         try {
             getDecodedJWT(token);
-        } catch (JWTVerificationException exception) {
-            return false;
+            return true;
+        } catch (AlgorithmMismatchException e) {
+            log.error("token 算法不匹配：{}", e.getMessage());
+            throw new AlgorithmMismatchException(e.getMessage());
+        } catch (TokenExpiredException e) {
+            log.error("token 过期：{}", e.getMessage());
+            throw new TokenExpiredException(e.getMessage(), e.getExpiredOn());
+        } catch (InvalidClaimException e) {
+            log.error("token Claim 异常：{}", e.getMessage());
+            throw new InvalidClaimException(e.getMessage());
+        } catch (JWTVerificationException e) {
+            log.error("token 解析异常：{}", e.getMessage());
+            throw new JWTVerificationException(e.getMessage());
         }
-        return true;
-    }
-
-    /**
-     * token 是否过期
-     *
-     * @param token token
-     * @return true：过期；false：未过期
-     */
-    public static boolean isExpired(final String token) {
-        return Instant.now().compareTo(getExpiresAtAsInstant(token)) > 0;
     }
 
     /**
@@ -151,11 +135,21 @@ public class JwtUtil {
      * @param token token
      * @return DecodedJWT
      */
-    public static DecodedJWT getDecodedJWT(final String token) {
+    private static DecodedJWT getDecodedJWT(final String token) {
         Algorithm algorithm = Algorithm.HMAC256(SIGNATURE);
         JWTVerifier verifier = JWT
                 .require(algorithm)
                 .build();
         return verifier.verify(token);
+    }
+
+    /**
+     * 获取主体信息
+     *
+     * @param token token 字符串
+     * @return subject
+     */
+    public static String getSubject(final String token) {
+        return getDecodedJWT(token).getSubject();
     }
 }

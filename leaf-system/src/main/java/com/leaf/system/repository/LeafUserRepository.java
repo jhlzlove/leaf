@@ -20,6 +20,9 @@ public interface LeafUserRepository extends JpaRepository<LeafUser, Long> {
 
     @Modifying
     @Query("update leaf_user set password = ?2 where username = ?1")
-    boolean updatePasswordByUsername(String username, String newPassword);
+    int updatePasswordByUsername(String username, String newPassword);
+
+    @Query(nativeQuery = true, value = "insert into leaf_user(username, password, nick_name, avatar) values (:#{user.username()}, :#{user.password()}, :#{user.nickName()}, :#{user.avatar()})")
+    LeafUser saveUser(LeafUser user);
 }
 

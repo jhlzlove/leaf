@@ -1,17 +1,11 @@
 package com.leaf.system.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 
 /**
@@ -23,10 +17,11 @@ import java.util.Collection;
 @Entity(name = "leaf_user")
 @DynamicInsert
 @DynamicUpdate
-public class LeafUser extends BaseEntity implements UserDetails {
+public class LeafUser extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     /**
@@ -46,13 +41,14 @@ public class LeafUser extends BaseEntity implements UserDetails {
      */
     private String avatar;
     /**
-     * 状态：1正常，0禁用
+     * 状态：0 正常，1 禁用
      */
     private Integer status;
     /**
-     * 是否删除：1 正常；0 删除
+     * 是否删除：0 正常；1 删除
      */
     private Integer delFlag;
+
 
     public Long getUserId() {
         return userId;
@@ -62,46 +58,14 @@ public class LeafUser extends BaseEntity implements UserDetails {
         this.userId = userId;
     }
 
-    @Override
     public String getUsername() {
         return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return status == 1;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // List<SimpleGrantedAuthority> result = new ArrayList<SimpleGrantedAuthority>();
-        // roles.forEach(r -> {
-        //     SimpleGrantedAuthority authority = new SimpleGrantedAuthority(r.getRoleCode());
-        //     result.add(authority);
-        // });
-        return null;
-    }
-
-    @Override
     public String getPassword() {
         return password;
     }

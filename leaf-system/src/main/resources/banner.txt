@@ -1,4 +1,4 @@
-Version ：${leaf.version}
+Leaf Version ：${leaf.version}
 SpringBoot Version: ${spring-boot.version}
                          _           _
  _ __ ___    __ _  _ __ | | __  ___ | |_

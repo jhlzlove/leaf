@@ -1,7 +1,7 @@
 package com.leaf.system.controller;
 
-import com.leaf.common.annotation.ApiRestController;
 import com.leaf.common.util.LocalDateUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ import java.util.Iterator;
  * @author jhlz
  * @since 2022/10/5 16:39:06
  */
-@ApiRestController
+@Tag(name = "文件管理")
 @RequestMapping("/file")
 public class FileController {
     private static final Logger log = LoggerFactory.getLogger(FileController.class);

@@ -1,11 +1,13 @@
 package com.leaf.common.config;
 
 import com.leaf.common.filter.JwtAuthenticationTokenFilter;
+import com.leaf.common.response.Response;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -13,6 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Spring Security Config
@@ -25,7 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 // 添加 security 过滤器
 @EnableWebSecurity
 // 启用方法级别的权限认证
-@EnableMethodSecurity
+// @EnableMethodSecurity
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
@@ -36,7 +44,7 @@ public class SecurityConfig {
     }
 
     /**
-     * 暴露AuthenticationManager（认证管理器）
+     * 创建 AuthenticationManager（认证管理器）交由 Spring 管理，可以注入使用，例如登录接口
      *
      * @return AuthenticationManager
      */
@@ -46,11 +54,8 @@ public class SecurityConfig {
     }
 
     /**
-     * Security 5.7 Spring Boot Security 2.7 之后新的写法
+     * Security 6.x、Spring Boot Security 2.7 之后新的写法: Lambda 表达式不再使用 and()
      * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
-     * anonymous | 只允许匿名访问（未登录用户）
-     * permitAll | 允许所有用户访问
-     * mvcMatchers、antMatchers 没有太大区别，可以看源码注释，boot3 推荐使用新版 mvcMatchers
      *
      * @param http http
      * @return SecurityFilterChain
@@ -60,22 +65,47 @@ public class SecurityConfig {
         return http
                 // 关闭 csrf
                 .csrf(AbstractHttpConfigurer::disable)
-                // 不需要 session
+                // 不创建 session
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/login", "/api/login").anonymous()
-                            .requestMatchers("/v3/api-docs**").permitAll()
-                            .requestMatchers("/register", "/api/register", "/open/**").permitAll()
-                            .anyRequest().authenticated();
-                })
-                // 第一次面试都没过去，就不要浪费时间了！呜呜呜，像极了我的面试
-                // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
+                // 以 api 开头的请求规则
+                .authorizeHttpRequests(
+                        (auth) -> {
+                            // PathRequest.toStaticResources().atCommonLocations()
+                            auth.requestMatchers("/api/login").anonymous()
+                                    .requestMatchers("/api/v3/**", "/api/register").permitAll()
+                                    .anyRequest().authenticated();
+                        })
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
                 .userDetailsService(userDetailsService)
-                // 退出 https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html
-                .logout(logout -> logout.logoutUrl("/logout").permitAll())
+                // 认证和权限不足处理，这里简单返回
+                // 一般自己实现 AuthenticationEntryPoint、AccessDeniedHandler 两个接口然后注册到 security 中
+                .exceptionHandling(
+                        e -> e.authenticationEntryPoint(((request, response, exception) -> {
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+                            String message = "用户认证异常：" + request.getAttribute("description");
+                            Response error =
+                                    Response.error(HttpStatus.UNAUTHORIZED.value(), message, exception.getMessage());
+                            response.getWriter().write(error.toString());
+                        }))
+                )
                 .build();
     }
 
+    /**
+     * Spring Security 跨域配置
+     *
+     * @return CorsConfigurationSource
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*")); // 设置允许访问的来源
+        configuration.setAllowedMethods(List.of("*")); // 设置允许的方法
+        configuration.setAllowedHeaders(List.of("*")); // 设置允许的头
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
