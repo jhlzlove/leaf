@@ -74,7 +74,7 @@ export default {
                 ],
             },
 
-
+            // index.md README.md 可以不用写
             '/en/': {
                 selectLanguageName: 'English',
                 sidebar: [
