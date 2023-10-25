@@ -9,7 +9,7 @@ export default {
         // 作为特例，默认语言可以使用 '/' 作为其路径。
         '/': {
             lang: 'zh-CN',
-            title: '小叶子',
+            title: 'Leaf Project',
             description: '江湖浪子开源的一个小项目，使用 vuepress2 搭建的文档说明',
         },
         '/en': {
