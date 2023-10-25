@@ -1,6 +1,4 @@
----
-title: SpringDataJPA
----
+# SpringDataJPA
 
 ## 1. 注解
 
