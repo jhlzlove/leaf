@@ -1,8 +1,8 @@
-import {defaultTheme} from '@vuepress/theme-default'
+import {defaultTheme} from "vuepress";
 
 export default {
     base: '/leaf/',
-    head: [['link', {rel: 'icon', href: '/image/logo.png'}]],
+    head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
     // 文档多语言时主页显示标题和介绍
     locales: {
         // 键名是该语言所属的子路径
@@ -20,7 +20,7 @@ export default {
     },
     theme: defaultTheme({
         // public 文件路径，也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
-        logo: '/image/logo.png',
+        logo: '/images/logo.png',
         // GitHub 仓库，也可以设置为一个 URL，例如：https://gitlab.com/foo/bar
         repo: 'jhlzlove/leaf',
         // 源文件所在分支
