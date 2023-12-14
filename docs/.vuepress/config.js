@@ -49,15 +49,17 @@ export default {
                         children: [
                             '/guide/',
                             '/guide/1-数据库结构.md',
+                            '/guide/2-总结.md',
                         ],
                     },
                     {
                         text: '进阶',
                         children: [
-                            '/advanced/Jackson.md',
-                            '/advanced/SpringDataJPA.md',
-                            '/advanced/权限管理.md',
-                            '/advanced/项目总结.md',
+                            '/advanced/1-Gradle.md',
+                            '/advanced/2-Logback.md',
+                            '/advanced/3-Jackson.md',
+                            '/advanced/4-SpringDataJPA.md',
+                            '/advanced/5-权限管理.md',
                         ],
                     },
                     {

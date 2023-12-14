@@ -4,13 +4,16 @@
 
 ### 1. 开发工具
 
-开始阅读本文档之前，请确保具有以下工具或者环境。
+本项目使用工具的版本如下
 
-- JDK 17.0+
-- Gradle 8.x+
-- SpringBoot 3.1+
-- PostgreSQL 15.0+
-- Redis 5.x+
+- JDK 21
+- Gradle 8.5
+- SpringBoot 3.2
+- PostgreSQL 16
+- Redis 7.0.14
+- Nodejs 20.10.0 LTS
+- Czg 1.7.1
+- 自己喜欢的 IDE
 
 :::tip
 一般来说，像 IDE 这种工具的版本对写代码影响不大，VIM 都可以写代码，就别纠结这些了，选自己喜欢的。
@@ -18,25 +21,23 @@
 
 ### 2. 项目结构
 
-#### 2.1 根目录
+#### 2.1 根目录及其子模块
 
 ```bash
-├── build.gradle.kts        # 父项目 gradle.kts 脚本
-├── buildSrc                # kt 构建相关文件，*.gradle.kts 依赖版本控制 等
-│   ├── build.gradle.kts
-│   └── src
+├── build.gradle.kts        # 父项目构建脚本
 ├── cz.config.js            # czg 配置文件
-├── docs                    # 相关文档
+├── docs                    # 文档相关
+├── leaf-common             # 常规模块，可以直接抽出去为任意项目使用
 ├── leaf-system             # 系统模块
 │   ├── build.gradle.kts
 │   └── src
-├── package.json            # npm 脚本文件
+├── package.json            # node 脚本文件
 └── settings.gradle.kts     # 项目多模块设置
 ```
 
 :::warning build.gradle.kts
-`build.gradle.kts` 的依赖版本管理模块。目前（2023.8.20） `kts` 还不支持类似 `ext` 的方式，可以使用 extra 和 buildSrc
-的方式，本项目使用后者。
+目前（2023.8.20） `kts` 还不支持类似 `ext` 的方式，可以使用 extra 和 buildSrc 的方式。gradle 7 开启了 version catalog
+预览，gradle 8 正式启用，使用过程中还不是很好用，此项目还未使用以上方式管理。
 :::
 
 #### 2.2 系统模块（leaf-system）
@@ -89,57 +90,99 @@
 
 ### 1. 后端部署
 
-本项目使用 Gradle 作为依赖管理工具，但不推荐本地安装 Gradle，尤其是使用 JetBrains IDEA 的用户。
+#### Gradle
 
-那么如何处理呢？直接添加环境变量 `GRADLE_USER_HOME`，设置为你想存储 Gradle 的路径位置，重启电脑。
-然后在该路径下创建 `init.gradle.kts` 文件，添加的内容和下面的一样。
+本项目使用 Gradle 作为依赖管理工具，所以第一步先安装 Gradle。不知道为什么，从 2023 年 9 月份吧，应该是。gradle
+在国内的下载速度又不行了，推荐从镜像网下载 [Gradle-8.5-all.zip](https://mirrors.cloud.tencent.com/gradle/)
 
-设置此环境变量后，IDEA 自动下载的所有 gradle 版本和相关的依赖都会下载到此位置。
+:::warning
+使用 JetBrains IDEA 旧版本（2023.2 以下）的用户是否在本地安装配置 Gradle 并无太大区别，早期版本对本地的 gradle
+支持并不好。对于早期版本的用户，推荐设置 `GRADLE_USER_HOME` 环境变量设置一个空间较大的路径，后面使用 IDEA 的时候所有 gradle
+的安装包、依赖都会下载到此目录。
 
-如果不设置 `GRADLE_USER_HOME` 环境变量的话，创建 `~/.gradle/init.gradle.kts` 文件并添加以下内容：
+强烈推荐使用最新版的 IDEA，社区版也是可以的！！！
+:::
 
-```kotlin ~/.gradle/init.gradle.kts
-fun RepositoryHandler.enableMirror() {
-    all {
-        if (this is MavenArtifactRepository) {
-            val originalUrl = this.url.toString().removeSuffix("/")
-            urlMappings[originalUrl]?.let {
-                logger.lifecycle("Repository[$url] is mirrored to $it")
-                this.setUrl(it)
+接下来配置一下依赖下载的源地址，这里采用腾讯的镜像。
+
+- 如果是使用本地安装的 Gradle，在安装路径创建 `init.gradle.kts` 文件，添加以下内容：
+
+    ```kotlin init.gradle.kts
+    fun RepositoryHandler.enableMirror() {
+        all {
+            if (this is MavenArtifactRepository) {
+                val originalUrl = this.url.toString().removeSuffix("/")
+                urlMappings[originalUrl]?.let {
+                    logger.lifecycle("Repository[$url] is mirrored to $it")
+                    this.setUrl(it)
+                }
             }
         }
     }
-}
-
-val urlMappings = mapOf(
-    "https://repo.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-    "https://repo1.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-    "https://dl.google.com/dl/android/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-    "https://plugins.gradle.org/m2" to "https://mirrors.tencent.com/nexus/repository/gradle-plugins/"
-)
-
-gradle.allprojects {
-    buildscript {
+    
+    val urlMappings = mapOf(
+        "https://repo.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
+        "https://repo1.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
+        "https://dl.google.com/dl/android/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
+        "https://plugins.gradle.org/m2" to "https://mirrors.tencent.com/nexus/repository/gradle-plugins/"
+    )
+    
+    gradle.allprojects {
+        buildscript {
+            repositories.enableMirror()
+        }
         repositories.enableMirror()
     }
-    repositories.enableMirror()
-}
+    
+    gradle.beforeSettings {
+        pluginManagement.repositories.enableMirror()
+        dependencyResolutionManagement.repositories.enableMirror()
+    }
+    ```
 
-gradle.beforeSettings {
-    pluginManagement.repositories.enableMirror()
-    dependencyResolutionManagement.repositories.enableMirror()
-}
-```
+- 如果是 **只创建** 了 `GRADLE_USER_HOME` 环境变量的，在配置的路径下创建 `init.gradle.kts` 文件，添加的内容和上面的内容一致。
 
-这样 Gradle 就算配置完成了。
+:::tip
+`~/.gradle` 是 IDEA 默认下载的位置。`GRADLE_HOME`、`GRADLE_USER_HOME` 是不同的环境变量。一般 `GRADLE_HOME` 为本地安装
+Gradle 的路径配置。
 
-下载项目：
+gradle 寻找自定义下载源地址的文件路径如下，以排过顺序：
 
 ```bash
-git clone https://github.com/jhlzlove/leaf.git
+# 排列顺序即加载顺序 * 代表可以为任意名称
+~/.gradle/init.gradle
+~/.gradle/init.d/*.gradle
+GRADLE_HOME/init.d/*.gradle
+GRADLE_USER_HOME/init.gradle
+GRADLE_USER_HOME/init.d/*.gradle
+
+# Gradle 查找依赖的顺序
+# M2_HOME 是 Maven 的安装路径环境变量
+~/.m2/settings.xml
+M2_HOME/conf/settings.xml
+~/.m2/repository
+```
+
+:::
+
+#### 下载项目
+
+如果你只是想学习或者使用该项目：
+
+```bash
+git clone --depth 1 https://github.com/jhlzlove/leaf.git 
+```
+
+如果你想参与该项目的开发完善：
+
+```bash
+git clone https://github.com/jhlzlove/leaf.git 
 ```
 
 修改 `leaf/leaf-system/src/main/resources/application-dev.yml` 配置文件的内容，确保连接信息和自己的本机信息一致。
+
+- application-dev.yml：开发环境配置
+- application-prod.yml：生产环境配置
 
 ### 2. 前端部署
 

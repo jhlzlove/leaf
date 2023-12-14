@@ -1,8 +1,8 @@
-package com.leaf.common.response;
+package code.simple.response;
 
+import code.simple.util.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leaf.common.business.BusinessException;
-import com.leaf.common.util.JSON;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -71,6 +71,6 @@ public record Response(
 
     @Override
     public String toString() {
-        return JSON.toJSONString(this);
+        return JSON.toJson(this);
     }
 }

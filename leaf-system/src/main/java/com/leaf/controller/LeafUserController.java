@@ -1,7 +1,7 @@
 package com.leaf.system.controller;
 
 
-import com.leaf.common.response.Response;
+import code.leaf.response.Response;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.service.LeafUserService;
 import io.swagger.v3.oas.annotations.Operation;

@@ -1,4 +1,4 @@
-package com.leaf.common.util;
+package code.simple.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;

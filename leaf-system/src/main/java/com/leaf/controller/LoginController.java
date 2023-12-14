@@ -1,8 +1,6 @@
 package com.leaf.system.controller;
 
-import com.leaf.common.annotation.LeafLog;
-import com.leaf.common.business.BusinessEnum;
-import com.leaf.common.response.Response;
+import code.leaf.response.Response;
 import com.leaf.system.domain.record.LoginUserRecord;
 import com.leaf.system.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,14 +27,12 @@ public class LoginController {
 
     @Operation(summary = "登录", description = "用户登录，获取 Token")
     @PostMapping("/login")
-    @LeafLog(operation = BusinessEnum.LOGIN)
     public Response login(@RequestBody LoginUserRecord user) {
         return loginService.login(user);
     }
 
     @Operation(summary = "注册")
     @PostMapping("/register")
-    @LeafLog(operation = BusinessEnum.ADD_USER)
     public Response register(@RequestBody LoginUserRecord user) {
         return loginService.register(user);
     }

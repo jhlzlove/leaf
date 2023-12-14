@@ -1,4 +1,4 @@
-package com.leaf.common.util;
+package code.simple.util;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
