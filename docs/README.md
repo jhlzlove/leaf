@@ -1,16 +1,16 @@
 ---
 home: true
-heroImage: image/logo.png
+heroImage: /images/logo_80x80.png
 actions:
   - text: 开始探索之旅 →
     link: /guide/README.md
 features:
   - title: 简洁至上
-    details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-  - title: Vue 驱动
-    details: 享受 Vue 的开发体验，可以在 Markdown 中使用 Vue 组件，又可以使用 Vue 来开发自定义主题。
-  - title: 高性能
-    details: VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面被加载的时候，将作为 SPA 运行。
+    details: 力图用最简单、简洁的方式完成基础框架。
+  - title: Spring 全家桶驱动
+    details: 沉浸式享受 Spring 的开发体验，完全使用 Spring 内置功能，又可以让用户基于 Spring 来扩展自定义功能。
+  - title: 多模块
+    details: Leaf 多模块项目尽量可以让单一模块直接复制粘贴到另一个毫不相干的项目，无需修改即可使用，真正发挥多模块的优点。
 footerHtml: true
 footer: <a href="https://jhlzlove.github.io">[ Copyright © 2023-latest jhlz. X ]</a>
 ---

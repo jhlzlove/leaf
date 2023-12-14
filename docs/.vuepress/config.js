@@ -2,8 +2,9 @@ import {defaultTheme} from "vuepress";
 
 export default {
     base: '/leaf/',
+    // 文档 icon
     head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
-    // 文档多语言时主页显示标题和介绍
+    // 文档采用多语言时，主页配置的标题和介绍
     locales: {
         // 键名是该语言所属的子路径
         // 作为特例，默认语言可以使用 '/' 作为其路径。
@@ -43,6 +44,7 @@ export default {
                 toggleColorMode: '常夜切换',
                 // 默认值： 'Back to home'
                 backToHome: '返回首页',
+                selectLanguageText: '选择语言',
                 sidebar: [
                     {
                         text: '指南',
