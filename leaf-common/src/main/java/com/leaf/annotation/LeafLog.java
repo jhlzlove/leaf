@@ -1,6 +1,6 @@
-package com.leaf.common.annotation;
+package com.leaf.annotation;
 
-import com.leaf.common.business.BusinessEnum;
+import com.leaf.business.BusinessEnum;
 
 import java.lang.annotation.*;
 

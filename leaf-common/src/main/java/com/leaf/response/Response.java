@@ -1,8 +1,8 @@
-package code.simple.response;
+package com.leaf.response;
 
-import code.simple.util.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.leaf.common.business.BusinessException;
+import com.leaf.business.BusinessException;
+import com.leaf.util.JSON;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 public record Response(
         /* 状态码 */
-        int code,
+        int status,
         /* 信息 */
         String message,
         /* 信息描述 */
@@ -42,6 +42,10 @@ public record Response(
 
     public static Response error(BusinessException exception) {
         return ok(exception.getCode(), exception.getMessage(), null);
+    }
+
+    public static Response error(String message) {
+        return ok(HttpStatus.NOT_FOUND.value(), message, null);
     }
 
     public static Response error(int code, String message) {

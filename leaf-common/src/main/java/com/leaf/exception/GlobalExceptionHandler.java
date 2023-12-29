@@ -1,15 +1,14 @@
-package com.leaf.common.exception;
+package com.leaf.exception;
 
-import code.leaf.response.Response;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.leaf.common.business.BusinessException;
+import com.leaf.business.BusinessException;
+import com.leaf.response.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -36,21 +35,6 @@ public class GlobalExceptionHandler {
         BusinessException be = e.getException();
         BusinessException exception = Objects.isNull(be) ? BusinessException.UNKNOWN : be;
         return Response.error(exception.getCode(), "请求：{} 错误！" + req.getRequestURI() + exception.getMessage());
-    }
-
-    /**
-     * security 相关
-     *
-     * @param req
-     * @param e
-     * @return
-     */
-    @ExceptionHandler({BadCredentialsException.class})
-    public ProblemDetail securityHandler(HttpServletRequest req, Exception e) {
-        if (e instanceof BadCredentialsException) {
-            return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "密码错误！");
-        }
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     /**

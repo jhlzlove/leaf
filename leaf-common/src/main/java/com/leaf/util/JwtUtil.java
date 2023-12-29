@@ -1,4 +1,4 @@
-package code.simple.util;
+package com.leaf.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Objects;
 
@@ -103,7 +104,7 @@ public class JwtUtil {
      * @return Instant 时间
      */
     public static Instant getExpiresAtAsInstant(final String token) {
-        return getDecodedJWT(token).getExpiresAtAsInstant();
+        return getDecodedJWT(token).getExpiresAtAsInstant().plus(8, ChronoUnit.HOURS);
     }
 
     /**

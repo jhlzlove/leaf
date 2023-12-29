@@ -1,4 +1,4 @@
-package com.leaf.common.business;
+package com.leaf.business;
 
 /**
  * 业务异常信息枚举

@@ -1,4 +1,4 @@
-package com.leaf.common.business;
+package com.leaf.business;
 
 /**
  * 业务模块枚举，这样便于维护吧。但是如果业务很多，文件会很长；但是接口打日志可以直接使用，统一管理

@@ -1,4 +1,4 @@
-package com.leaf.common.util;
+package com.leaf.util;
 
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeanWrapper;
@@ -9,16 +9,13 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.beans.PropertyDescriptor;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * SpringUtil: 获取 Spring 工厂对象爽歪歪的类
@@ -27,7 +24,7 @@ import java.util.Set;
  * @since 2022/9/16 14:17:41
  */
 @Component
-public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProcessor, EnvironmentAware {
+public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProcessor {
     /**
      * Spring应用上下文环境
      */
@@ -50,7 +47,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      *
      * @param name
      * @return Object 一个以所给名字注册的bean的实例
-     * @throws org.springframework.beans.BeansException
+     * @throws BeansException
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) throws BeansException {
@@ -62,7 +59,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      *
      * @param clz
      * @return
-     * @throws org.springframework.beans.BeansException
+     * @throws BeansException
      */
     public static <T> T getBean(Class<T> clz) throws BeansException {
         T result = (T) beanFactory.getBean(clz);
@@ -84,7 +81,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      *
      * @param name
      * @return boolean
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      */
     public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.isSingleton(name);
@@ -93,7 +90,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
     /**
      * @param name
      * @return Class 注册对象的类型
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      */
     public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.getType(name);
@@ -104,7 +101,7 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      *
      * @param name
      * @return
-     * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
+     * @throws NoSuchBeanDefinitionException
      */
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
         return beanFactory.getAliases(name);
@@ -153,23 +150,37 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
 
     /**
      * 辅助 Spring 框架中 BeanUtils.copyProperties(Object source, Object target, String... ignoreProperties)
-     * 获取不为 null 的数据
+     * 获取 source 中为 null 的字段数组，复制时忽略
      *
      * @param source 源目标
      * @return null 字段属性数组
+     * @see SpringUtil#getNonNullPropertyNames(Object)
      */
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         PropertyDescriptor[] pds = src.getPropertyDescriptors();
-        Set<String> emptyNames = new HashSet<String>();
-        for (PropertyDescriptor pd : pds) {
-            // check if value of this property is null then add it to the collection
-            Object srcValue = src.getPropertyValue(pd.getName());
-            // 收集不需要copy的字段列表。此处过滤 null 为例
-            Optional.ofNullable(srcValue).orElseGet(() -> emptyNames.add(pd.getName()));
-        }
-        String[] result = new String[emptyNames.size()];
-        return (String[]) emptyNames.toArray(result);
+        return Arrays.stream(pds)
+                .map(PropertyDescriptor::getName)
+                .filter(name -> src.getPropertyValue(name) == null)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .toArray(String[]::new);
+    }
+
+    /**
+     * 获取 source 中不为 null 的属性
+     *
+     * @param source 源对象
+     * @return 不为 null 的属性数组
+     * @see SpringUtil#getNullPropertyNames(Object)
+     */
+    public static String[] getNonNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        PropertyDescriptor[] pds = src.getPropertyDescriptors();
+        return Arrays.stream(pds)
+                .map(PropertyDescriptor::getName)
+                .filter(name -> src.getPropertyValue(name) != null)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .toArray(String[]::new);
     }
 
     /**
@@ -179,13 +190,6 @@ public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProce
      * @see #getRequiredProperty(String key)
      */
     public static String getPort() {
-        return environment.getProperty("server.port");
+        return getRequiredProperty("server.port");
     }
-
-    @Override
-    public void setEnvironment(@NonNull Environment environment) {
-        SpringUtil.environment = environment;
-    }
-
-    private static Environment environment;
 }

@@ -1,4 +1,6 @@
-package com.leaf.common.constant;
+package com.leaf.constant;
+
+import java.io.File;
 
 /**
  * 全局常量信息
@@ -9,6 +11,9 @@ package com.leaf.common.constant;
  */
 public class LeafConstants {
 
+    public static final String LEAF = "leaf_";
+    // 文件上传路径
+    public static final String UPLOAD_PATH = "data" + File.separator + "upload";
     /**
      * login success generate with token username key
      */
