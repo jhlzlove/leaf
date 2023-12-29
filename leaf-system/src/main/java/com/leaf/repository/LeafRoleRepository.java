@@ -1,6 +1,6 @@
-package com.leaf.system.repository;
+package com.leaf.repository;
 
-import com.leaf.system.domain.LeafRole;
+import com.leaf.domain.LeafRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

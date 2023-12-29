@@ -1,14 +1,15 @@
-package com.leaf.system.service.impl;
+package com.leaf.service.impl;
 
-import com.leaf.system.domain.LeafUser;
-import com.leaf.system.domain.LoginUser;
-import com.leaf.system.repository.LeafUserRepository;
+import com.leaf.domain.LeafUser;
+import com.leaf.domain.LoginUser;
+import com.leaf.repository.LeafUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LeafUser user = leafUserRepository.findByUsername(username);
+        Assert.notNull(user, "username 为 ｛ " + username + " ｝ 的用户不存在！");
         return new LoginUser(user, List.of("admin"));
     }
 }

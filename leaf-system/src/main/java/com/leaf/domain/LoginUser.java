@@ -1,4 +1,4 @@
-package com.leaf.system.domain;
+package com.leaf.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

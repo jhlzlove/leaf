@@ -1,25 +1,24 @@
-package com.leaf.system.service.impl;
+package com.leaf.service.impl;
 
-import code.leaf.constant.LeafConstants;
-import code.leaf.response.Response;
-import code.leaf.util.JwtUtil;
-import com.leaf.system.domain.LeafUser;
-import com.leaf.system.domain.record.LoginUserRecord;
-import com.leaf.system.service.LeafUserService;
-import com.leaf.system.service.LoginService;
+import com.leaf.constant.LeafConstants;
+import com.leaf.domain.LeafUser;
+import com.leaf.domain.record.LoginUserRecord;
+import com.leaf.response.Response;
+import com.leaf.service.LeafUserService;
+import com.leaf.service.LoginService;
+import com.leaf.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author jhlz
@@ -42,13 +41,10 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Response login(LoginUserRecord user) {
 
-        Authentication authenticate = authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken.unauthenticated(user.username(), user.password())
-        );
+        // Authentication authenticate = authenticationManager.authenticate(
+        //         UsernamePasswordAuthenticationToken.unauthenticated(user.username(), user.password())
+        // );
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.username());
-        if (Objects.isNull(userDetails)) {
-            throw new UsernameNotFoundException("该用户不存在！");
-        }
         // 4. 生成 token 返回
         Map<String, Object> payload = new HashMap<String, Object>();
         payload.put(LeafConstants.JWT_PAYLOAD, userDetails.getUsername());
@@ -68,10 +64,16 @@ public class LoginServiceImpl implements LoginService {
     public Response register(LoginUserRecord user) {
         LeafUser leafUser = new LeafUser();
         leafUser.setUsername(user.username());
-        // leafUser.setPassword(passwordEncoder.encode(user.password()));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        leafUser.setPassword(passwordEncoder.encode(user.password()));
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        String nickName = user.nickName() == null ? LeafConstants.LEAF + uuid : user.nickName();
+        leafUser.setNickName(nickName);
+        leafUser.setUserCode(uuid);
         leafUser.setStatus(0);
         leafUser.setDelFlag(0);
-        return Response.ok(userService.save(leafUser));
+        LeafUser result = userService.save(leafUser);
+        return Objects.isNull(result) ? Response.error() : Response.ok();
     }
 
 }

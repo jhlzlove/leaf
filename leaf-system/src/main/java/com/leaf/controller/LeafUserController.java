@@ -1,9 +1,9 @@
-package com.leaf.system.controller;
+package com.leaf.controller;
 
 
-import code.leaf.response.Response;
-import com.leaf.system.domain.LeafUser;
-import com.leaf.system.service.LeafUserService;
+import com.leaf.domain.LeafUser;
+import com.leaf.response.Response;
+import com.leaf.service.LeafUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
@@ -37,16 +37,17 @@ public class LeafUserController {
      */
     @GetMapping
     @Operation(summary = "用户分页列表", description = "默认分页从 0 开始，每页 10 条数据")
-    public Page<LeafUser> listPage(@RequestBody LeafUser leafUser,
-                                   @PageableDefault(page = 0, size = 10) Pageable page) {
-        return leafUserService.listPage(leafUser, page);
+    public Response listPage(@RequestBody(required = false) LeafUser leafUser,
+                             @PageableDefault(page = 0, size = 10) Pageable page) {
+        Page<LeafUser> result = leafUserService.listPage(leafUser, page);
+        return Response.ok(result);
     }
 
     /**
      * 获取用户登录信息表
      */
     @GetMapping("/{id}")
-    @Operation(summary = "根据用户id获取指定用户", description = "默认分页从 0 开始，每页 10 条数据")
+    @Operation(summary = "根据用户id获取指定用户")
     public LeafUser queryById(@PathVariable Long id) {
         return leafUserService.findById(id);
     }
@@ -55,7 +56,7 @@ public class LeafUserController {
      * 添加用户登录信息表
      */
     @PostMapping
-    @Operation(summary = "添加用户", description = "")
+    @Operation(summary = "添加用户", description = "相当于注册用户")
     public void add(@RequestBody LeafUser request) {
         leafUserService.save(request);
     }
@@ -66,15 +67,15 @@ public class LeafUserController {
      */
     @PutMapping
     @Operation(summary = "修改用户", description = "")
-    public void edit(@RequestBody LeafUser leafUser) {
-        leafUserService.update(leafUser);
+    public Response edit(@RequestBody LeafUser leafUser) {
+        return leafUserService.update(leafUser);
     }
 
     /**
      * 删除用户登录信息表
      */
     @DeleteMapping("/{ids}")
-    @Operation(summary = "删除用户", description = "")
+    @Operation(summary = "删除用户", description = "非逻辑删除")
     public Response delete(@PathVariable List<Long> ids) {
         leafUserService.remove(ids);
         return Response.ok();

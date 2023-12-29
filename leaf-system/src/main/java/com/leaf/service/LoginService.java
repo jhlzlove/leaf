@@ -1,7 +1,7 @@
-package com.leaf.system.service;
+package com.leaf.service;
 
-import code.leaf.response.Response;
-import com.leaf.system.domain.record.LoginUserRecord;
+import com.leaf.domain.record.LoginUserRecord;
+import com.leaf.response.Response;
 
 /**
  * @author jhlz

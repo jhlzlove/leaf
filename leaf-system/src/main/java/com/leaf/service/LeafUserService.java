@@ -1,7 +1,8 @@
-package com.leaf.system.service;
+package com.leaf.service;
 
 
-import com.leaf.system.domain.LeafUser;
+import com.leaf.domain.LeafUser;
+import com.leaf.response.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -45,7 +46,7 @@ public interface LeafUserService {
      *
      * @param leafUser 更新的数据内容
      */
-    void update(LeafUser leafUser);
+    Response update(LeafUser leafUser);
 
     /**
      * 删除数据

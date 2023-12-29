@@ -34,8 +34,9 @@ spring:
   jpa:
     # 显示 SQL
     show-sql: true
+    open-in-view: false
+    # generate-ddl: true
     hibernate:
-      generate_statistics: true
       # 命名策略
       naming:
         # 相当于 org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy（3.0删除）
@@ -46,21 +47,21 @@ spring:
       hibernate:
         # 格式化控制台打印的 SQL
         format_sql: true
-    open-in-view: false
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      database: 0
-      username:
-      password:
+
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      database: 0
+#      username:
+#      password:
 
 
 # Spring 日志级别，默认为 info 级别
 logging:
   level:
     # 指定 repository 包内的日志级别
-    com.leaf.system.repository: debug
+    com.leaf.repository: debug
     # SQL 语句显示参数
     org.hibernate.stat: debug
     org.hibernate.sql: debug

@@ -22,27 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 创建自定义拦截器交给 Spring 管理
-     *
-     * @return 自定义拦截器
-     */
-    // @Bean
-    // public CustomerInterceptor customerInterceptor() {
-    //     return new CustomerInterceptor();
-    // }
-
-    /**
-     * 注册拦截器
-     *
-     * @param registry registry
-     */
-    // @Override
-    // public void addInterceptors(InterceptorRegistry registry) {
-    //     registry.addInterceptor(customerInterceptor());
-    // }
-
-    /**
-     * 跨域访问（CORS）
+     * MVC 跨域访问配置（CORS）
      *
      * @param registry registry
      */
@@ -57,7 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 给使用某个注解的 controller 层全部加上指定的前缀
+     * 为 controller 使用指定注解的请求全部加上指定的前缀
      *
      * @param configurer
      */

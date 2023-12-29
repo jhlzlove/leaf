@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.util.LocalDateUtil;
+import com.leaf.util.LocalDateUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

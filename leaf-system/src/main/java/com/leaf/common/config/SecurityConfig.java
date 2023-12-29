@@ -1,7 +1,7 @@
 package com.leaf.common.config;
 
 import com.leaf.common.filter.JwtAuthenticationTokenFilter;
-import com.leaf.common.response.Response;
+import com.leaf.response.Response;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Spring Security Config
@@ -70,9 +71,8 @@ public class SecurityConfig {
                 // 以 api 开头的请求规则
                 .authorizeHttpRequests(
                         (auth) -> {
-                            // PathRequest.toStaticResources().atCommonLocations()
                             auth.requestMatchers("/api/login").anonymous()
-                                    .requestMatchers("/api/v3/**", "/api/register").permitAll()
+                                    .requestMatchers("/api/v3/**", "/api/register", "/api/test/**").permitAll()
                                     .anyRequest().authenticated();
                         })
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
@@ -84,7 +84,9 @@ public class SecurityConfig {
                         e -> e.authenticationEntryPoint(((request, response, exception) -> {
                             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                            String message = "用户认证异常：" + request.getAttribute("description");
+                            Object description = request.getAttribute("description");
+                            Object msg = Objects.isNull(description) ? "未登录用户拒绝访问！" : description;
+                            String message = "认证异常：" + msg;
                             Response error =
                                     Response.error(HttpStatus.UNAUTHORIZED.value(), message, exception.getMessage());
                             response.getWriter().write(error.toString());

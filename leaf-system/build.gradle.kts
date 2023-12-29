@@ -1,14 +1,9 @@
 plugins {
     `java-library`
 }
-
 dependencies {
     /* spring security */
     implementation("org.springframework.boot:spring-boot-starter-security")
-    /* spring web */
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    /* spring aop */
-    implementation("org.springframework.boot:spring-boot-starter-aop")
     /* spring data jpa */
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     /* spring data redis */
@@ -18,9 +13,10 @@ dependencies {
     /* springdoc */
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.2.0")
     /* postgresql */
-    runtimeOnly("org.postgresql:postgresql:${pgVersion}")
+    runtimeOnly("org.postgresql:postgresql:42.6.0")
     /* java jwt */
-    implementation("com.auth0:java-jwt:${jwtVersion}")
+    implementation(project(":leaf-common"))
     /* 缩略图 */
     implementation("net.coobird:thumbnailator:0.4.19")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

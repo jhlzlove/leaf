@@ -1,7 +1,7 @@
-package com.leaf.system.repository;
+package com.leaf.repository;
 
 
-import com.leaf.system.domain.LeafUser;
+import com.leaf.domain.LeafUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,10 +19,10 @@ public interface LeafUserRepository extends JpaRepository<LeafUser, Long> {
     LeafUser findByUsername(String username);
 
     @Modifying
-    @Query("update leaf_user set password = ?2 where username = ?1")
+    @Query("update leaf_user set password = :newPassword where username = :username")
     int updatePasswordByUsername(String username, String newPassword);
 
-    @Query(nativeQuery = true, value = "insert into leaf_user(username, password, nick_name, avatar) values (:#{user.username()}, :#{user.password()}, :#{user.nickName()}, :#{user.avatar()})")
+    @Query(nativeQuery = true, value = "insert into leaf_user(username, password, nick_name, avatar) values (:#{#user.username()}, :#{#user.password()}, :#{#user.nickName()}, :#{#user.avatar()})")
     LeafUser saveUser(LeafUser user);
 }
 

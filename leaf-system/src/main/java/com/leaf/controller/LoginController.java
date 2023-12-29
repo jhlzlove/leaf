@@ -1,8 +1,8 @@
-package com.leaf.system.controller;
+package com.leaf.controller;
 
-import code.leaf.response.Response;
-import com.leaf.system.domain.record.LoginUserRecord;
-import com.leaf.system.service.LoginService;
+import com.leaf.domain.record.LoginUserRecord;
+import com.leaf.response.Response;
+import com.leaf.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;

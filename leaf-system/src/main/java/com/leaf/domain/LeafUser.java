@@ -1,4 +1,4 @@
-package com.leaf.system.domain;
+package com.leaf.domain;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
+import java.util.StringJoiner;
 
 
 /**
@@ -48,6 +49,7 @@ public class LeafUser extends BaseEntity {
      * 是否删除：0 正常；1 删除
      */
     private Integer delFlag;
+    private String userCode;
 
 
     public Long getUserId() {
@@ -130,15 +132,24 @@ public class LeafUser extends BaseEntity {
 
     @Override
     public String toString() {
-        return "LeafUser{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", status=" + status +
-                ", delFlag=" + delFlag +
-                '}';
+        return new StringJoiner(", ", LeafUser.class.getSimpleName() + "[", "]")
+                .add("userId=" + userId)
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
+                .add("nickName='" + nickName + "'")
+                .add("avatar='" + avatar + "'")
+                .add("status=" + status)
+                .add("delFlag=" + delFlag)
+                .add("userCode='" + userCode + "'")
+                .toString();
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 }
 
