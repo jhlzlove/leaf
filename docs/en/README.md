@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /images/logo.png
+heroImage: /images/logo_80x80.png
 actions:
   - text: Get Start →
     link: /en/guide/

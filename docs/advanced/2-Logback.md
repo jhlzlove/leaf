@@ -11,7 +11,7 @@ Logback 的使用较为简单，可以参考官方文档：https://logback.qos.c
 - `%msg%n `– 日志消息后跟与平台相关的行分隔符
 - `[%method,%line]` - 在哪个方法的第几行调用了日志打印
 
-## Appender
+## 1. Appender
 
 记录器将 LoggingEvents 传递给 Appender。追加者执行日志记录的实际工作。我们通常认为日志记录是进入文件或控制台的东西，但
 Logback 的功能远不止于此。Logback-core 提供了几个有用的 appender。
@@ -63,22 +63,23 @@ ConsoleAppender 与 FileAppender 的配置。Appenders 的效果是累加的。
 
 ```xml logback.xml
 
-<property name="LOG_FILE" value="LogFile"/>
-<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-<file>${LOG_FILE}.log</file>
-<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-    <!-- daily rollover -->
-    <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+<configuration>
+    <property name="LOG_FILE" value="LogFile"/>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
 
-    <!-- keep 30 days' worth of history capped at 3GB total size -->
-    <maxHistory>30</maxHistory>
-    <totalSizeCap>3GB</totalSizeCap>
-</rollingPolicy>
-<encoder>
-    <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
-</encoder>
-</appender>
-
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+</configuration>
 ```
 
 RollingFileAppender 有一个 RollingPolicy（滚动策略）。在此示例配置中，是基于时间的滚动策略（TimeBasedRollingPolicy）。
@@ -96,7 +97,7 @@ fileNamePattern。该模式不仅定义了文件名，还定义了滚动文件�
 
 参考该文章：https://www.baeldung.com/custom-logback-appender
 
-## 常见的日志级别
+## 2. 常见的日志级别
 
 1. **OFF**：
    最高等级，关闭所有日志记录。如果将日志级别设置为此级别，那么不会有任何日志消息被记录。

@@ -147,6 +147,18 @@ public class LeafApplication {
 持久层类可以实现两个接口：`JpaRepository<T, O>`, `CrudRepository<T, O>`，开发中任意选择。`JpaRepository`
 接口提供的功能更多，有分页、按字段排序等。本项目都使用 `JpaRepository`。
 
+### save() and saveAndFlush()
+
+save()：通常，Hibernate 会在内存中保存可持久化的状态。将该状态同步到底层数据库的过程称为刷新。
+当我们使用 `save()` 方法时，除非明确调用 `flush()` 或 `commit()` 方法，否则与保存操作相关的数据不会被刷新到数据库中。
+如果我们在不提交的情况下自行刷新数据，那么除非在此事务中调用提交，或者外部事务的隔离级别为 `READ_UNCOMMITTED`
+，否则外部事务将无法看到这些更改。
+
+saveAndFlush()：通常，当我们的业务逻辑需要在同一事务的稍后阶段但在提交之前读取 **已保存** 的更改时，我们就可以使用这种方法。
+
+例如，想象一下我们必须执行一个存储过程的场景，该存储过程需要我们保存的实体的一个属性。在这种情况下，save()
+方法将不起作用，因为更改并不与数据库同步，存储过程也不知道这些更改。`saveAndFlush()` 方法非常适合这种情况。
+
 ## 3. 分页(PageRequest、Pageable、Page、PageImpl)
 
 Pageable 是一个分页接口，PageRequest 是它的子类。我们可以使用 PageRequest 提供的几个 `of()` 方法手动构造分页对象，查询时传入此参数实现分页查询和排序。

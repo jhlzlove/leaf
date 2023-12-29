@@ -2,7 +2,7 @@ import {defaultTheme} from "vuepress";
 
 export default {
     base: '/leaf/',
-    // 文档 icon
+    // 网站 icon
     head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
     // 文档采用多语言时，主页配置的标题和介绍
     locales: {
@@ -14,12 +14,13 @@ export default {
             description: '江湖浪子开源的一个小项目，使用 vuepress2 搭建的文档说明',
         },
         '/en': {
-            lang: 'English',
+            lang: 'en-US',
             title: 'Leaf',
             description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
         },
     },
     theme: defaultTheme({
+        // 浏览文章的 logo，位于项目名称旁边
         // public 文件路径，也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
         logo: '/images/logo.png',
         // GitHub 仓库，也可以设置为一个 URL，例如：https://gitlab.com/foo/bar
@@ -45,6 +46,10 @@ export default {
                 // 默认值： 'Back to home'
                 backToHome: '返回首页',
                 selectLanguageText: '选择语言',
+                tip: '提示',
+                warning: '注意',
+                danger: '警告',
+                details: '详细信息',
                 sidebar: [
                     {
                         text: '指南',
