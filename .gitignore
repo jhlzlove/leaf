@@ -10,11 +10,11 @@ target/
 !**/src/main/**
 !**/src/test/**
 logs/
-gradle/
 **/.gradle/
 **/build/
 **/out/
 node_modules
+data
 
 
 ### STS ###
