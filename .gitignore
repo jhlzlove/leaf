@@ -15,7 +15,7 @@ logs/
 **/out/
 node_modules
 data
-
+package-lock.json
 
 ### STS ###
 .apt_generated

@@ -1,39 +1,40 @@
-import {defaultTheme} from "vuepress";
+import {defaultTheme} from "@vuepress/theme-default";
 
 export default {
     base: '/leaf/',
-    // 网站 icon
+    // favicon
     head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
-    // 文档采用多语言时，主页配置的标题和介绍
+    // 网站支持的不同语言的配置
     locales: {
-        // 键名是该语言所属的子路径
-        // 作为特例，默认语言可以使用 '/' 作为其路径。
+        // 作为特例，/ 为网站默认使用的语言。
         '/': {
             lang: 'zh-CN',
             title: 'Leaf Project',
             description: '江湖浪子开源的一个小项目，使用 vuepress2 搭建的文档说明',
         },
-        '/en': {
+        '/en/': {
             lang: 'en-US',
             title: 'Leaf',
             description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
         },
     },
     theme: defaultTheme({
-        // 浏览文章的 logo，位于项目名称旁边
-        // public 文件路径，也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
+        // 项目 logo 位于项目名称旁边
+        // 也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
         logo: '/images/logo.png',
         // GitHub 仓库，也可以设置为一个 URL，例如：https://gitlab.com/foo/bar
         repo: 'jhlzlove/leaf',
         // 源文件所在分支
         docsBranch: 'dev',
-        // 源文件所在文件夹
+        // 源文件所在仓库的目录
         docsDir: 'docs',
 
-        // 侧边栏
+        // 侧边栏显示深度到 <h2>，其它不显示
         sidebarDepth: 1,
+        // 多语言主题配置
         locales: {
             '/': {
+                selectLanguageText: '选择语言',
                 selectLanguageName: '简体中文',
                 // 默认值： 'Edit this page'
                 editLinkText: '帮助浪子修改此页！',
@@ -45,11 +46,11 @@ export default {
                 toggleColorMode: '常夜切换',
                 // 默认值： 'Back to home'
                 backToHome: '返回首页',
-                selectLanguageText: '选择语言',
+                // 自定义容器的提示词 https://ecosystem.vuejs.press/zh/themes/default/markdown.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%B9%E5%99%A8
                 tip: '提示',
                 warning: '注意',
                 danger: '警告',
-                details: '详细信息',
+                // 侧边栏目录
                 sidebar: [
                     {
                         text: '指南',
@@ -82,8 +83,7 @@ export default {
                     },
                 ],
             },
-
-            // index.md README.md 可以不用写
+            // 英文配置，不可能有英文哒
             '/en/': {
                 selectLanguageName: 'English',
                 sidebar: [

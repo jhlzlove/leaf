@@ -124,3 +124,31 @@ fileNamePattern。该模式不仅定义了文件名，还定义了滚动文件�
    最低等级，记录所有级别的日志消息。通常只在开发期间用于全面监控应用程序的行为。
 
 以上日志级别并非所有日志框架都会完全支持，某些框架可能会使用略有差异的命名习惯。
+
+## 3. 根据不同的操作系统使用不同的路径存放日志
+
+```java com.leaf.config.LogbackHomeConfig.java
+public class LogbackHomeConfig extends PropertyDefinerBase {
+    @Override
+    public String getPropertyValue() {
+        // 获取用户名
+        String username = System.getProperty("user.name");
+        // 获取操作系统
+        String os = System.getProperty("os.name");
+        // 路径常量可以放到常量类维护，这里说明问题即可（目录放在jar包的同级目录）
+        return os.toLowerCase().contains("window") ? "./logs" : "/home/" + username + "/logs";
+    }
+}
+```
+
+然后在 `logback.xml` 中配置一个属性，在后面具体的日志中使用 `${log.path}` 引用即可
+
+```xml logback.xml
+
+<define name="log.path" class="com.leaf.config.LogbackHomeConfig"/>
+```
+
+> 关于 slf4 和 Java 中的其它日志框架的关系，引用 [Rust 语言圣经](https://course.rs/logs/log.html) 里的一段话：
+>
+> slf4j 是 Java 的日志门面库，日志门面不是说排场很大的意思，而是指相应的日志 API
+> 已成为事实上的标准，会被其它日志框架所使用。通过这种统一的门面，开发者就可以不必再拘泥于日志框架的选择，未来大不了再换一个日志框架就是。

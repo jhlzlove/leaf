@@ -21,7 +21,7 @@
 
 ```bash
 ├── build.gradle.kts        # 父项目构建脚本
-├── cz.config.js            # czg 配置文件
+├── cz.config.ts            # czg 配置文件
 ├── docs                    # 文档相关
 ├── leaf-common             # 常规模块，可以直接抽出去为任意项目使用
 ├── leaf-system             # 系统模块

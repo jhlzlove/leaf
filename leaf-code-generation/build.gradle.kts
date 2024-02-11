@@ -3,20 +3,9 @@ plugins {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-freemarker:3.1.3")
-    runtimeOnly("org.postgresql:postgresql:${pgVersion}")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     project(":leaf-system")
+    runtimeOnly("org.postgresql:postgresql:42.6.0")
+    implementation("org.springframework.boot:spring-boot-starter-freemarker:3.1.3")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-}
-
-tasks {
-    test {
-        useJUnitPlatform()
-    }
-
-    withType<JavaCompile> {
-        options.encoding = "UTF-8"
-    }
 }
