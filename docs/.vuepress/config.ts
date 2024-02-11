@@ -1,4 +1,5 @@
 import {defaultTheme} from "@vuepress/theme-default";
+import viteBundler from "@vuepress/bundler-vite";
 
 export default {
     base: '/leaf/',
@@ -18,6 +19,7 @@ export default {
             description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
         },
     },
+    bundler: viteBundler(),
     theme: defaultTheme({
         // 项目 logo 位于项目名称旁边
         // 也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
