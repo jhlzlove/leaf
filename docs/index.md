@@ -1,15 +1,20 @@
 ---
 layout: home
 hero:
-  name: vite 测试
-  text: 今年花更好，知与谁同？
-  tagline: 试试会不会覆盖 config 的 description
+  # `text` 上方的字符，带有品牌颜色
+  name: Leaf 后端总结
+  # hero 部分的主要文字 被定义为 `h1` 标签
+  text: Spring 全家桶总结
+  # `text` 下方的标语
+  tagline: 简单、沉浸、清晰
+  # text 和 tagline 区域旁的图片
   image:
     src: /images/logo_80x80.png
     alt: logo
+  # 主页 hero 部分的操作按钮
   actions:
     - text: 开始探索之旅 →
-      link: /guide/README.md
+      link: /guide/index
 features:
   - icon: 🛠️
     title: 简洁至上
@@ -25,9 +30,6 @@ features:
     details: Leaf 多模块项目尽量可以让单一模块直接复制粘贴到另一个毫不相干的项目，无需修改即可使用，真正发挥多模块的优点。
 
 ---
-
-footerHtml: true
-footer: <a href="https://jhlzlove.github.io">[ Copyright © 2023-latest jhlz. X ]</a>
 
 ## 简介
 

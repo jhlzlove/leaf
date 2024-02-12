@@ -1,103 +1,123 @@
-import {defaultTheme} from "@vuepress/theme-default";
-import viteBundler from "@vuepress/bundler-vite";
+import {defineConfig} from "vitepress";
 
-export default {
+/**
+ * 使用 defineConfig 可以触发 IDE 对 ts 的智能支持（IDE 支持的情况下）
+ */
+export default defineConfig({
     base: '/leaf/',
+    // 简洁的 url https://vitepress.dev/zh/guide/routing#generating-clean-url
+    cleanUrls: true,
     // favicon
     head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
-    // 网站支持的不同语言的配置
+    // md 配置
+    markdown: {
+        lineNumbers: true,
+        // 单语言站点非常好用
+        // container: {
+        //     tipLabel: '提示',
+        //     warningLabel: '警告',
+        //     dangerLabel: '危险',
+        //     infoLabel: '信息',
+        //     detailsLabel: '详细信息'
+        // }
+    },
+    lastUpdated: true,
+    // 网站国际化的配置 https://vitepress.dev/zh/guide/i18n
     locales: {
-        // 作为特例，/ 为网站默认使用的语言。
-        '/': {
+        root: {
+            label: "简体中文",
             lang: 'zh-CN',
+            // 网站标题
             title: 'Leaf Project',
             description: '江湖浪子开源的一个小项目，使用 vuepress2 搭建的文档说明',
-        },
-        '/en/': {
-            lang: 'en-US',
-            title: 'Leaf',
-            description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
-        },
-    },
-    bundler: viteBundler(),
-    theme: defaultTheme({
-        // 项目 logo 位于项目名称旁边
-        // 也可以设置为一个 URL，例如：https://gitlab.com/foo/image.jpg
-        logo: '/images/logo.png',
-        // GitHub 仓库，也可以设置为一个 URL，例如：https://gitlab.com/foo/bar
-        repo: 'jhlzlove/leaf',
-        // 源文件所在分支
-        docsBranch: 'dev',
-        // 源文件所在仓库的目录
-        docsDir: 'docs',
 
-        // 侧边栏显示深度到 <h2>，其它不显示
-        sidebarDepth: 1,
-        // 多语言主题配置
-        locales: {
-            '/': {
-                selectLanguageText: '选择语言',
-                selectLanguageName: '简体中文',
-                // 默认值： 'Edit this page'
-                editLinkText: '帮助浪子修改此页！',
-                // 默认值： 'Last Updated'
-                lastUpdatedText: '最后修改于',
-                // 默认值： 'Contributors'
-                contributorsText: '本页贡献者',
-                // 默认值： 'toggle color mode'
-                toggleColorMode: '常夜切换',
-                // 默认值： 'Back to home'
-                backToHome: '返回首页',
-                // 自定义容器的提示词 https://ecosystem.vuejs.press/zh/themes/default/markdown.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%B9%E5%99%A8
-                tip: '提示',
-                warning: '注意',
-                danger: '警告',
-                // 侧边栏目录
+            // 主题配置
+            themeConfig: {
+                // 项目标题旁的 logo
+                logo: '/images/logo.png',
+                // 页脚
+                footer: {
+                    message: '请遵循 <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a> 协议',
+                    copyright: '<a href="https://jhlzlove.github.io">[ Copyright © 2023-latest jhlz. X ]</a>'
+                },
+                // 导航栏 社交链接
+                socialLinks: [
+                    {icon: 'github', link: 'https://github.com/jhlzlove/leaf'},
+                    // 也可以为无障碍添加一个自定义标签 (可选但推荐):
+                    {
+                        icon: {
+                            svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Dribbble</title><path d="M12...6.38z"/></svg>'
+                        },
+                        link: '...',
+                        // 也可以为无障碍添加一个自定义标签 (可选但推荐):
+                        ariaLabel: 'cool link'
+                    }
+                ],
+                //
+                lastUpdated: {
+                    text: '最后更新',
+                    formatOptions: {
+                        dateStyle: 'short',
+                        timeStyle: 'medium'
+                    }
+                },
+                editLink: {
+                    pattern: 'https://github.com/jhlzlove/leaf/edit/dev/docs/:path',
+                    text: '帮助完善本页！'
+                },
+                docFooter: {
+                    prev: '上一页',
+                    next: '下一页'
+                },
+                // 目录显示层级和标题
+                outline: {label: "本文目录"},
+                darkModeSwitchTitle: "深色",
+                lightModeSwitchTitle: "亮色",
                 sidebar: [
                     {
-                        text: '指南',
-                        children: [
-                            '/guide/',
-                            '/guide/1-数据库结构.md',
-                            '/guide/2-总结.md',
+                        text: "指南",
+                        items: [
+                            {text: "构建 & 部署", link: "/guide/"},
+                            {text: "数据库结构", link: "/guide/1-数据库结构"},
+                            {text: "项目总结", link: "/guide/2-总结"},
                         ],
                     },
                     {
                         text: '进阶',
-                        children: [
-                            '/advanced/1-Gradle.md',
-                            '/advanced/2-Logback.md',
-                            '/advanced/3-Jackson.md',
-                            '/advanced/4-SpringDataJPA.md',
-                            '/advanced/5-权限管理.md',
+                        items: [
+                            {text: "Gradle", link: "/advanced/1-Gradle"},
+                            {text: "Logback", link: "/advanced/2-Logback"},
+                            {text: "Jackson", link: "/advanced/3-Jackson"},
+                            {text: "SpringDataJPA", link: "/advanced/4-SpringDataJPA"},
+                            {text: "权限管理", link: "/advanced/5-权限管理"},
                         ],
                     },
                     {
                         text: '其它',
-                        // link 需要写一个可以到达的路径
-                        // link: '/advanced/常见问题.md',
-                        // 默认 false，不折叠文章目录，为 true 时自动折叠，不可与 link 共存
-                        // collapsible: true,
-                        children: [
-                            '/other/常见问题.md',
-                            '/other/更新记录.md'
-                        ],
-                    },
-                ],
-            },
-            // 英文配置，不可能有英文哒
-            '/en/': {
-                selectLanguageName: 'English',
-                sidebar: [
-                    {
-                        text: 'Guide',
-                        children: [
-                            '/guide/',
+                        items: [
+                            {text: "常见问题", link: "/other/常见问题"},
+                            {text: "更新记录", link: "/other/更新记录"},
                         ],
                     },
                 ],
             }
-        }
-    }),
-
-}
+        },
+        en: {
+            label: "English",
+            lang: 'en-US',
+            title: 'Leaf',
+            description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
+            themeConfig: {
+                logo: '/images/logo.png',
+                sidebar: [
+                    {
+                        text: 'Guide',
+                        items: [
+                            {text: "guide", link: "/guide/"},
+                        ],
+                    },
+                ],
+            }
+        },
+    }
+})

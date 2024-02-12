@@ -103,20 +103,15 @@ Gradle 的配置请参照：[进阶-Gradle](/advanced/1-Gradle.md)
 #### 下载项目
 
 ::::code-group
-:::code-group-item 学习或使用
 
-```bash
+```bash [学习或使用]
 git clone --depth 1 https://github.com/jhlzlove/leaf.git 
 ```
 
-:::
-:::code-group-item 参与完善和开发
-
-```bash
+```bash [参与完善和开发]
 git clone https://github.com/jhlzlove/leaf.git 
 ```
 
-:::
 ::::
 
 然后使用你喜欢的 IDE 打开该项目，修改 `leaf/leaf-system/src/main/resources/application-dev.yml` 配置文件的内容，确保连接信息和自己的本机信息一致。

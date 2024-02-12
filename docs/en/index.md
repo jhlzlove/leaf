@@ -1,9 +1,9 @@
 ---
 layout: home
 hero:
-  name: vite 测试
-  text: 今年花更好，知与谁同？
-  tagline: 试试会不会覆盖 config 的 description
+  name: Leaf Java Framework
+  text: Full Spring Framework
+  tagline: simple, immerse, clearly
   image:
     src: /images/logo_80x80.png
     alt: logo
@@ -25,7 +25,3 @@ features:
     details: Truly leverage the benefits of multi-modules, Copy and paste directly to use.
 
 ---
-
-
-footerHtml: true
-footer: <a href="https://jhlzlove.github.io">[ Copyright © 2023-latest jhlz. X ]</a>
