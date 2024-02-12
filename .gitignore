@@ -16,6 +16,7 @@ logs/
 node_modules
 data
 package-lock.json
+docs/.vitepress/cache/**
 
 ### STS ###
 .apt_generated

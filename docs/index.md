@@ -1,19 +1,33 @@
 ---
-home: true
-heroImage: /images/logo_80x80.png
-actions:
-  - text: 开始探索之旅 →
-    link: /guide/README.md
+layout: home
+hero:
+  name: vite 测试
+  text: 今年花更好，知与谁同？
+  tagline: 试试会不会覆盖 config 的 description
+  image:
+    src: /images/logo_80x80.png
+    alt: logo
+  actions:
+    - text: 开始探索之旅 →
+      link: /guide/README.md
 features:
-  - title: 简洁至上
+  - icon: 🛠️
+    title: 简洁至上
     details: 力图用最简单、简洁的方式完成基础框架。
-  - title: Spring 全家桶驱动
+  - icon:
+      src: /cool-feature-icon.svg
+    title: Spring 全家桶驱动
     details: 沉浸式享受 Spring 的开发体验，完全使用 Spring 内置功能，又可以让用户基于 Spring 来扩展自定义功能。
-  - title: 多模块
+  - icon:
+      dark: /dark-feature-icon.svg
+      light: /light-feature-icon.svg
+    title: 多模块
     details: Leaf 多模块项目尽量可以让单一模块直接复制粘贴到另一个毫不相干的项目，无需修改即可使用，真正发挥多模块的优点。
+
+---
+
 footerHtml: true
 footer: <a href="https://jhlzlove.github.io">[ Copyright © 2023-latest jhlz. X ]</a>
----
 
 ## 简介
 
