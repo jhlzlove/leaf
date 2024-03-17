@@ -14,7 +14,7 @@ hero:
   # 主页 hero 部分的操作按钮
   actions:
     - text: 开始探索之旅 →
-      link: /guide/index
+      link: /guide/1-about
 features:
   - icon: 🍒
     title: 简洁至上
