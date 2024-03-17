@@ -51,12 +51,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return "";
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return "";
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getStatus() == 0;
+        return true;
     }
 
     @Override

@@ -59,18 +59,18 @@ export default {
                         text: '指南',
                         children: [
                             '/guide/',
-                            '/guide/1-数据库结构.md',
-                            '/guide/2-总结.md',
+                            '/guide/3-database.md',
+                            '/guide/4-summary.md',
                         ],
                     },
                     {
                         text: '进阶',
                         children: [
-                            '/advanced/1-Gradle.md',
-                            '/advanced/2-Logback.md',
-                            '/advanced/3-Jackson.md',
-                            '/advanced/4-SpringDataJPA.md',
-                            '/advanced/5-权限管理.md',
+                            '/advanced/1-gradle.md',
+                            '/advanced/2-logback.md',
+                            '/advanced/3-jackson.md',
+                            '/advanced/4-spring-data-jpa.md',
+                            '/advanced/5-permission.md',
                         ],
                     },
                     {

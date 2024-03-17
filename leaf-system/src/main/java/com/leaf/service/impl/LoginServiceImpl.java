@@ -12,13 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * @author jhlz
@@ -62,17 +60,17 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Response register(LoginUserRecord user) {
-        LeafUser leafUser = new LeafUser();
-        leafUser.setUsername(user.username());
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        leafUser.setPassword(passwordEncoder.encode(user.password()));
-        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        String nickName = user.nickName() == null ? LeafConstants.LEAF + uuid : user.nickName();
-        leafUser.setNickName(nickName);
-        leafUser.setUserCode(uuid);
-        leafUser.setStatus(0);
-        leafUser.setDelFlag(0);
-        LeafUser result = userService.save(leafUser);
+        // LeafUser leafUser = new LeafUser();
+        // leafUser.setUsername(user.username());
+        // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // leafUser.setPassword(passwordEncoder.encode(user.password()));
+        // String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        // String nickName = user.nickName() == null ? LeafConstants.LEAF + uuid : user.nickName();
+        // leafUser.setNickName(nickName);
+        // leafUser.setUserCode(uuid);
+        // leafUser.setStatus(0);
+        // leafUser.setDelFlag(0);
+        LeafUser result = userService.save(null);
         return Objects.isNull(result) ? Response.error() : Response.ok();
     }
 

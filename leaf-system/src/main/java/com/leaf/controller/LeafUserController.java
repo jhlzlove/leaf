@@ -35,7 +35,7 @@ public class LeafUserController {
     /**
      * 获取用户登录信息表列表(分页)
      */
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "用户分页列表", description = "默认分页从 0 开始，每页 10 条数据")
     public Response listPage(@RequestBody(required = false) LeafUser leafUser,
                              @PageableDefault(page = 0, size = 10) Pageable page) {

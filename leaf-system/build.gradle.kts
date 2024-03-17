@@ -1,22 +1,21 @@
 plugins {
     `java-library`
 }
+
+val jimmerVersion: String by project.extra
+val lombokVersion: String by project.extra
 dependencies {
+    annotationProcessor("org.babyfish.jimmer:jimmer-apt:${jimmerVersion}")
+    // annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmerVersion}")
     /* spring security */
     implementation("org.springframework.boot:spring-boot-starter-security")
-    /* spring data jpa */
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    /* spring data redis */
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     /* validation */
     implementation("org.springframework.boot:spring-boot-starter-validation")
     /* springdoc */
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.2.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.4.0")
     /* postgresql */
-    runtimeOnly("org.postgresql:postgresql:42.6.0")
+    runtimeOnly("org.postgresql:postgresql:42.7.3")
     /* java jwt */
     implementation(project(":leaf-common"))
-    /* 缩略图 */
-    implementation("net.coobird:thumbnailator:0.4.19")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

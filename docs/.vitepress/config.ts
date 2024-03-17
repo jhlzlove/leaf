@@ -77,19 +77,20 @@ export default defineConfig({
                     {
                         text: "指南",
                         items: [
-                            {text: "构建 & 部署", link: "/guide/"},
-                            {text: "数据库结构", link: "/guide/1-数据库结构"},
-                            {text: "项目总结", link: "/guide/2-总结"},
+                            {text: "Why?", link: "/guide/1-about"},
+                            {text: "构建 & 部署", link: "/guide/2-build"},
+                            {text: "数据库结构", link: "/guide/3-database"},
+                            {text: "项目总结", link: "/guide/4-summary"},
                         ],
                     },
                     {
                         text: '进阶',
                         items: [
-                            {text: "Gradle", link: "/advanced/1-Gradle"},
-                            {text: "Logback", link: "/advanced/2-Logback"},
-                            {text: "Jackson", link: "/advanced/3-Jackson"},
-                            {text: "SpringDataJPA", link: "/advanced/4-SpringDataJPA"},
-                            {text: "权限管理", link: "/advanced/5-权限管理"},
+                            {text: "Gradle", link: "/advanced/1-gradle"},
+                            {text: "Logback", link: "/advanced/2-logback"},
+                            {text: "Jackson", link: "/advanced/3-jackson"},
+                            {text: "SpringDataJPA", link: "/advanced/4-spring-data-jpa"},
+                            {text: "权限管理", link: "/advanced/5-permission"},
                         ],
                     },
                     {

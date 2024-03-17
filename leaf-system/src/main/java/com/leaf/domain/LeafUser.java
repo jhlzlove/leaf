@@ -1,12 +1,9 @@
 package com.leaf.domain;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.StringJoiner;
+import org.babyfish.jimmer.sql.Entity;
+import org.babyfish.jimmer.sql.GeneratedValue;
+import org.babyfish.jimmer.sql.GenerationType;
+import org.babyfish.jimmer.sql.Id;
 
 
 /**
@@ -15,141 +12,43 @@ import java.util.StringJoiner;
  * @author jhlz
  * @since 2023-05-07 14:29:04
  */
-@Entity(name = "leaf_user")
-@DynamicInsert
-@DynamicUpdate
-public class LeafUser extends BaseEntity {
-    @Serial
-    private static final long serialVersionUID = 1L;
+@Entity
+public interface LeafUser extends BaseEntity {
     @Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    long userId();
+
     /**
      * 用户名
      */
-    private String username;
+    String username();
+
     /**
      * 密码
      */
-    private String password;
+    String password();
+
     /**
      * 昵称
      */
-    private String nickName;
+    String nickName();
+
     /**
      * 头像地址
      */
-    private String avatar;
+    String avatar();
+
     /**
      * 状态：0 正常，1 禁用
      */
-    private Integer status;
+    Integer status();
+
     /**
      * 是否删除：0 正常；1 删除
      */
-    private Integer delFlag;
-    private String userCode;
+    Integer delFlag();
 
+    String userCode();
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", LeafUser.class.getSimpleName() + "[", "]")
-                .add("userId=" + userId)
-                .add("username='" + username + "'")
-                .add("password='" + password + "'")
-                .add("nickName='" + nickName + "'")
-                .add("avatar='" + avatar + "'")
-                .add("status=" + status)
-                .add("delFlag=" + delFlag)
-                .add("userCode='" + userCode + "'")
-                .toString();
-    }
-
-    public String getUserCode() {
-        return userCode;
-    }
-
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
-    }
 }
 
