@@ -1,6 +1,9 @@
 package com.leaf.service.impl;
 
+import com.leaf.domain.LeafUser;
+import com.leaf.domain.LeafUserTable;
 import com.leaf.domain.LoginUser;
+import com.leaf.domain.Tables;
 import com.leaf.repository.LeafUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
@@ -28,6 +31,8 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
         this.leafUserRepository = leafUserRepository;
     }
 
+    LeafUserTable userTable = Tables.LEAF_USER_TABLE;
+
     /**
      * 自动更新 PasswordEncoder 加密方式
      *
@@ -39,16 +44,29 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails updatePassword(UserDetails user, String newPassword) {
-        // int b = leafUserRepository.updatePasswordByUsername(user.getUsername(), newPassword);
-        // if (b > 0) ((LeafUser) user).setPassword(newPassword);
+        Integer result = leafUserRepository.sql().createUpdate(userTable)
+                .set(userTable.password(), newPassword)
+                .where(userTable.username().eq(user.getUsername()))
+                .execute();
         return user;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        /* LeafUser user = leafUserRepository.findByUsername(username);
-        Assert.notNull(user, "username 为 ｛ " + username + " ｝ 的用户不存在！");
-        return new LoginUser(user, List.of("admin")); */
-        return new LoginUser(null, List.of("admin"));
+        List<LeafUser> list = leafUserRepository
+                .sql().createQuery(userTable)
+                .where(userTable.username().eq(username))
+                .select(userTable)
+                .execute();
+        LeafUser user = list.getFirst();
+        return new LoginUser(
+                new LoginUser.UserRecord(
+                        user.username(),
+                        user.password(),
+                        user.status(),
+                        user.delFlag()
+                ),
+                List.of("admin")
+        );
     }
 }

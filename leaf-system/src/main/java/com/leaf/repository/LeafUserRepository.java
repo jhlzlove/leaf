@@ -12,12 +12,5 @@ import org.babyfish.jimmer.spring.repository.JRepository;
  */
 public interface LeafUserRepository extends JRepository<LeafUser, Long> {
 
-    // LeafUser findBy(String username);
-
-    default int updatePasswordByUsername(String username, String newPassword) {
-        return 1;
-    }
-
-    // LeafUser saveUser(LeafUser user);
 }
 

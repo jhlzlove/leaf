@@ -3,10 +3,8 @@ plugins {
 }
 
 val jimmerVersion: String by project.extra
-val lombokVersion: String by project.extra
 dependencies {
     annotationProcessor("org.babyfish.jimmer:jimmer-apt:${jimmerVersion}")
-    // annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmerVersion}")
     /* spring security */
     implementation("org.springframework.boot:spring-boot-starter-security")

@@ -3,7 +3,7 @@ package com.leaf.service;
 
 import com.leaf.domain.LeafUser;
 import com.leaf.response.Response;
-import org.springframework.data.domain.Page;
+import org.babyfish.jimmer.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public interface LeafUserService {
      * @param page     分页参数
      * @return 符合条件的分页数据
      */
-    Page<LeafUser> listPage(LeafUser leafUser, Pageable page);
+    Page<LeafUser> listPage(Pageable page);
 
     /**
      * 根据 ID 获取详情

@@ -1,6 +1,7 @@
 package com.leaf.domain;
 
 import org.babyfish.jimmer.sql.*;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author jhlz
@@ -17,8 +18,9 @@ public interface LeafRole extends BaseEntity {
 
     String roleCode();
 
+    @Nullable
     String pCode();
-
+    
     String roleName();
 
     Integer status();

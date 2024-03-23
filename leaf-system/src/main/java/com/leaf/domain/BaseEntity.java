@@ -1,6 +1,5 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.ManyToOne;
 import org.babyfish.jimmer.sql.MappedSuperclass;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,29 +20,40 @@ public interface BaseEntity {
     /**
      * 创建时间
      */
+    @Nullable
     LocalDateTime createTime();
 
     /**
      * 更新时间
      */
+    @Nullable
     LocalDateTime updateTime();
 
     /**
      * 创建人
      */
-    @ManyToOne
+    // @ManyToOne
     @Nullable
-    LeafUser createBy();
+    // @JoinColumn(
+    //         name = "CREATE_BY",
+    //         foreignKeyType = ForeignKeyType.FAKE
+    // )
+    String createBy();
 
     /**
      * 更新人
      */
-    @ManyToOne
+    // @ManyToOne
     @Nullable
-    LeafUser updateBy();
+    // @JoinColumn(
+    //         name = "UPDATE_BY",
+    //         foreignKeyType = ForeignKeyType.FAKE
+    // )
+    String updateBy();
 
     /**
      * 备注
      */
+    @Nullable
     String remark();
 }

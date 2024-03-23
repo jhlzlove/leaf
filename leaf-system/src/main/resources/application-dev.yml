@@ -36,6 +36,11 @@ jimmer:
   dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
   show-sql: true
   pretty-sql: true
+  # NONE: 不验证数据库结构，这是默认行为。
+  # WARNNING: 验证数据库结构，如果数据库结构和实体模型定义不一致，不阻止程序运行，只是在日志中打印告警信息。
+  # ERROR: 验证数据库结构，如果数据库结构和实体模型定义不一致，抛出异常，阻止程序运行。
+  database-validation:
+    mode: error
 
 # Spring 日志级别，默认为 info 级别
 logging:

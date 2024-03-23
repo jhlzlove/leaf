@@ -1,8 +1,8 @@
-package com.leaf.common.response;
+package com.leaf.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leaf.business.BusinessException;
-import com.leaf.common.util.JSON;
+import com.leaf.util.JSON;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;

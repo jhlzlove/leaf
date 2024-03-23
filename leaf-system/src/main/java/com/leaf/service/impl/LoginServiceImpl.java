@@ -53,8 +53,6 @@ public class LoginServiceImpl implements LoginService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(LeafConstants.TOKEN, token);
         map.put(LeafConstants.EXPIRED, JwtUtil.getExpiresAtAsInstant(token));
-        // cache
-        // Redis.cache(LeafConstants.LOGIN_REDIS_KEY + u.getUsername(), JSON.toJSONString(u), LeafConstants.LOGIN_REDIS_EXPIRED, TimeUnit.MINUTES);
         return Response.ok(map);
     }
 

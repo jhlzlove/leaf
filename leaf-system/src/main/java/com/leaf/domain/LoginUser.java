@@ -13,16 +13,27 @@ import java.util.List;
  * @since 1.0.0
  */
 public class LoginUser implements UserDetails {
-    private LeafUser user;
+
+    private String username;
+    private String password;
+    /**
+     * 状态：0 正常，1 禁用
+     */
+    private Integer status;
+
+    /**
+     * 是否删除：0 正常；1 删除
+     */
+    private Integer delFlag;
+
+    public record UserRecord(String username,
+                             String password,
+                             Integer status,
+                             Integer delFlag) {
+
+    }
+
     private List<String> permission = new ArrayList<>();
-
-    public LeafUser getUser() {
-        return user;
-    }
-
-    public void setUser(LeafUser user) {
-        this.user = user;
-    }
 
     public List<String> getPermission() {
         return this.permission;
@@ -35,12 +46,11 @@ public class LoginUser implements UserDetails {
     public LoginUser() {
     }
 
-    public LoginUser(LeafUser user) {
-        this.user = user;
-    }
-
-    public LoginUser(LeafUser user, List<String> permission) {
-        this.user = user;
+    public LoginUser(UserRecord user, List<String> permission) {
+        this.username = user.username();
+        this.password = user.password();
+        this.status = user.status();
+        this.delFlag = user.delFlag();
         this.permission = permission;
     }
 
@@ -51,12 +61,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return this.username;
     }
 
     @Override
@@ -76,15 +86,18 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return status == 0;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("LoginUser{");
-        sb.append("user=").append(user);
-        sb.append(", permission=").append(permission);
-        sb.append('}');
-        return sb.toString();
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 }

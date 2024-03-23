@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -32,15 +31,12 @@ public class LeafUserController {
         this.leafUserService = leafUserService;
     }
 
-    /**
-     * 获取用户登录信息表列表(分页)
-     */
     @GetMapping("/list")
     @Operation(summary = "用户分页列表", description = "默认分页从 0 开始，每页 10 条数据")
     public Response listPage(@RequestBody(required = false) LeafUser leafUser,
                              @PageableDefault(page = 0, size = 10) Pageable page) {
-        Page<LeafUser> result = leafUserService.listPage(leafUser, page);
-        return Response.ok(result);
+        // Page<LeafUser> result = leafUserService.listPage(leafUser, page);
+        return Response.ok();
     }
 
     /**
@@ -48,7 +44,7 @@ public class LeafUserController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "根据用户id获取指定用户")
-    public LeafUser queryById(@PathVariable Long id) {
+    public LeafUser queryById(@PathVariable("id") Long id) {
         return leafUserService.findById(id);
     }
 

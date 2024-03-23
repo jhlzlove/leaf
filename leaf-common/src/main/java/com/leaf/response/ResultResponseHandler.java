@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice("*.*.*.controller")
 public class ResultResponseHandler implements ResponseBodyAdvice<Object> {
 
+
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType,
                                   MediaType selectedContentType, Class selectedConverterType,

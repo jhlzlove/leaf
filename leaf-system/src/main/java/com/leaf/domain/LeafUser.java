@@ -1,9 +1,7 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.Entity;
-import org.babyfish.jimmer.sql.GeneratedValue;
-import org.babyfish.jimmer.sql.GenerationType;
-import org.babyfish.jimmer.sql.Id;
+import org.babyfish.jimmer.sql.*;
+import org.jetbrains.annotations.Nullable;
 
 
 /**
@@ -15,6 +13,7 @@ import org.babyfish.jimmer.sql.Id;
 @Entity
 public interface LeafUser extends BaseEntity {
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long userId();
 
@@ -31,11 +30,13 @@ public interface LeafUser extends BaseEntity {
     /**
      * 昵称
      */
+    @Nullable
     String nickName();
 
     /**
      * 头像地址
      */
+    @Nullable
     String avatar();
 
     /**

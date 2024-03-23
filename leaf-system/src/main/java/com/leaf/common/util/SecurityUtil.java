@@ -1,6 +1,5 @@
 package com.leaf.common.util;
 
-import com.leaf.domain.LeafUser;
 import com.leaf.domain.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +18,8 @@ public class SecurityUtil {
      *
      * @return 登录用户
      */
-    public static LeafUser getLoginUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ((LoginUser) authentication.getPrincipal()).getUser();
+    public static String getLoginUsername() {
+        return ((LoginUser) getAuthentication().getPrincipal()).getUsername();
     }
 
     public static Authentication getAuthentication() {

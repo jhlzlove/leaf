@@ -1,7 +1,14 @@
 package com.leaf.controller;
 
 import com.leaf.constant.LeafConstants;
+import com.leaf.domain.LeafUser;
+import com.leaf.domain.LeafUserTable;
+import com.leaf.response.Response;
+import com.leaf.service.LeafUserService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.babyfish.jimmer.Page;
+import org.babyfish.jimmer.sql.JSqlClient;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -10,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +40,33 @@ import java.util.concurrent.ExecutionException;
 public class WebTestController {
 
     private static final Logger log = LoggerFactory.getLogger(WebTestController.class);
+    private final LeafUserService userService;
+
+    private final JSqlClient sqlClient;
+
+    public WebTestController(LeafUserService userService, JSqlClient sqlClient) {
+        this.userService = userService;
+        this.sqlClient = sqlClient;
+    }
+
+    @GetMapping("/users")
+    public Page<LeafUser> getUsers() {
+        LeafUserTable userTable = LeafUserTable.$;
+        @NotNull Page<LeafUser> list = sqlClient.createQuery(userTable)
+                .select(userTable)
+                .fetchPage(0, 3);
+        return list;
+        // return userService.listPage(PageRequest.of(0, 1));
+        // return Response.ok();
+    }
+
+    @GetMapping("/users/{id}")
+    public Response getUsers(@PathVariable("id") Long id) {
+
+        LeafUser user = sqlClient.findById(LeafUser.class, id);
+        return Response.ok(user);
+        // return Response.ok(userService.findById(id));
+    }
 
     @GetMapping("download")
     public void download(HttpServletResponse response) {

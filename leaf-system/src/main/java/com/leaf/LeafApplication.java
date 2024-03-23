@@ -2,14 +2,12 @@ package com.leaf;
 
 import com.leaf.util.IpUtil;
 import com.leaf.util.SpringUtil;
-import org.babyfish.jimmer.spring.repository.EnableJimmerRepositories;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableJimmerRepositories("com.leaf.repository")
 public class LeafApplication {
 
     private static final Logger log = LoggerFactory.getLogger(LeafApplication.class);
