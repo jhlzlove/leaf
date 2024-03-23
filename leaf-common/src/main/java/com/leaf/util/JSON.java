@@ -1,4 +1,4 @@
-package com.leaf.util;
+package com.leaf.common.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.leaf.util.LocalDateUtil;
+import org.babyfish.jimmer.jackson.ImmutableModule;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.lang.NonNull;
 
@@ -39,6 +41,7 @@ public class JSON {
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(dateTimeFormatter));
         // 注册 module
         temp.registerModule(module);
+        temp.registerModule(new ImmutableModule());
         // 忽略未知字段
         temp.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
         JSON = temp;

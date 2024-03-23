@@ -7,8 +7,8 @@ export default defineConfig({
     base: '/leaf/',
     // 简洁的 url https://vitepress.dev/zh/guide/routing#generating-clean-url
     cleanUrls: true,
-    // favicon
-    head: [['link', {rel: 'icon', href: '/images/logo.png'}]],
+    // favicon 将 favicon.ico 放在公共目录中，如果设置了 base，则使用 /base/favicon.ico
+    head: [['link', {rel: 'icon', href: '/leaf/images/logo.png'}]],
     // md 配置
     markdown: {
         lineNumbers: true,
@@ -24,6 +24,7 @@ export default defineConfig({
     lastUpdated: true,
     // 网站国际化的配置 https://vitepress.dev/zh/guide/i18n
     locales: {
+
         root: {
             label: "简体中文",
             lang: 'zh-CN',
@@ -91,10 +92,12 @@ export default defineConfig({
                             {text: "Jackson", link: "/advanced/3-jackson"},
                             {text: "SpringDataJPA", link: "/advanced/4-spring-data-jpa"},
                             {text: "权限管理", link: "/advanced/5-permission"},
+                            {text: "Jimmer", link: "/advanced/6-jimmer"},
                         ],
                     },
                     {
                         text: '其它',
+                        collapsed: true,
                         items: [
                             {text: "常见问题", link: "/other/常见问题"},
                             {text: "更新记录", link: "/other/更新记录"},
