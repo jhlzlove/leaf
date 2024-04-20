@@ -39,15 +39,16 @@ SQL（我个人比较喜欢这种，见仁见智吧，主要是 SQL 优化可以
 这些类库在项目中都没有用过，为了简洁、减少依赖，这里单独拎出来写。这些东西都是开发过程中在网上获取资料时发现的，看起来挺不错的。可以酌情在项目中使用。
 
 - 集合库：[eclipse collections](https://www.eclipse.org/collections/)
-
-  官网指路：https://www.eclipse.org/collections/
-
-  使用请看这篇文章：https://www.baeldung.com/eclipse-collections
+  ，具体使用可以参考看这篇文章：https://www.baeldung.com/eclipse-collections
 
 ## 三、其它文档
 
+### JWT
+
+- https://jwt.io/introduction/
+
 ### Java 异步
 
-https://www.callicoder.com/java-8-completablefuture-tutorial/
-https://www.callicoder.com/java-concurrency-multithreading-basics/
-https://www.codedemo.club/spring-security-async-principal-propagation/
+- https://www.callicoder.com/java-8-completablefuture-tutorial/
+- https://www.callicoder.com/java-concurrency-multithreading-basics/
+- https://www.codedemo.club/spring-security-async-principal-propagation/

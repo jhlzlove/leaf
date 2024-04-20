@@ -24,7 +24,6 @@ export default defineConfig({
     lastUpdated: true,
     // 网站国际化的配置 https://vitepress.dev/zh/guide/i18n
     locales: {
-
         root: {
             label: "简体中文",
             lang: 'zh-CN',
@@ -34,6 +33,17 @@ export default defineConfig({
 
             // 主题配置
             themeConfig: {
+                search: {
+                    provider: 'algolia',
+                    options: {
+                        appId: 'da8a0db612dbccec2d70cd2ba595063c',
+                        apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
+                        indexName: 'jhlzlove-blog'
+                    },
+                    locales: {
+                        placeholder: "搜索文档",
+                    }
+                },
                 // 项目标题旁的 logo
                 logo: '/images/logo.png',
                 // 页脚
@@ -113,15 +123,25 @@ export default defineConfig({
             description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
             themeConfig: {
                 logo: '/images/logo.png',
-                sidebar: [
-                    {
-                        text: 'Guide',
-                        items: [
-                            {text: "guide", link: "/guide/"},
-                        ],
+                search: {
+                    provider: 'algolia',
+                    options: {
+                        appId: 'da8a0db612dbccec2d70cd2ba595063c',
+                        apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
+                        indexName: 'jhlzlove-blog'
                     },
-                ],
-            }
-        },
-    }
-})
+                    locales: {
+                        placeholder: "Search...",
+                    },
+                    sidebar: [
+                        {
+                            text: 'Guide',
+                            items: [
+                                {text: "guide", link: "/guide/"},
+                            ],
+                        },
+                    ],
+                }
+            },
+        }
+    })

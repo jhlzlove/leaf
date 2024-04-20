@@ -105,3 +105,6 @@ public class StudentBean implements Serializable {
 }
 ```
 
+## 二、自定义
+
+如果需要自定义 `ObjectMapper`，可以实现 `Jackson2ObjectMapperBuilderCustomizer` 覆写里面的方法从而定制。

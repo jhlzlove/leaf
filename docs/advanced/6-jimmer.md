@@ -10,7 +10,7 @@ higher faster stronger
 如何配置请见 [Jimmer官方文档](https://babyfish-ct.github.io/jimmer-doc)，写的很详细了。
 
 ```kotlin build.gradle.kts
-val jimmerVersion = "0.8.110"
+val jimmerVersion = "0.8.121"
 // Jimmer Spring Boot Starter
 annotationProcessor("org.babyfish.jimmer:jimmer-apt:${jimmerVersion}")
 implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmerVersion}")
@@ -64,12 +64,15 @@ public interface User {
 }
 ```
 
-:::TIP 说明
+:::tip 说明
 
 - `@Column` 仅用于明确指定非关联属性列名，对于多对一或一对一关联属性的外键列名，必须通过 `@JoinColumn` 指定。
 - 如果 ID 策略为 `SEQUENCE` 同时 `sequenceName` 属性未被指定，则使用 Jimmer
   的默认[命名策略](https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/base/naming-strategy)。
 - 如果上面的 ID 策略都无法满足，Jimmer 提供了 `UserIdGenerator<T>` 接口，可以覆写该接口实现自己的 ID 生成算法。
+- 由于 Jimmer 中使用 `Objects.createXXXX()`（后期会移除）和 `XXXDraft.$.produce()` 创建对象，加之 JDK 的 Objects
+  内置方法较少，所以本项目迁移至 Jimmer 后代码中不再使用
+  JDK 内置的 `Objects` 工具方法。
 
 :::
 
