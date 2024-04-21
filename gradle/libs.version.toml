@@ -1,0 +1,10 @@
+[versions]
+jimmerVersion = "0.8.121"
+
+[libraries]
+#org.babyfish.jimmer:jimmer-spring-boot-starter
+jimmer = { group = "org.babyfish.jimmer", name = "jimmer-spring-boot-starter", version.ref = "jimmerVersion" }
+
+[bundles]
+
+[plugins]
