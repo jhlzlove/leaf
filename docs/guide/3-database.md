@@ -57,12 +57,12 @@
 
 ### 1.4 角色表（leaf_role）
 
-| 名称     | 数据库字段     | 数据库类型       | Java字段   | Java类型  | 说明      |
-|--------|-----------|-------------|----------|---------|---------|
-| roleID | role_id   | serial8     | roleId   | Long    |         |
-| 角色名称   | role_name | varchar(20) | roleName | String  |         |
-| 角色编码   | role_code | varchar(20) | roleCode | String  |         |
-| 状态     | status    | int2        | status   | Integer | 1正常，0禁用 |
+| 名称     | 数据库字段     | 数据库类型   | Java字段   | Java类型  | 说明      |
+|--------|-----------|---------|----------|---------|---------|
+| roleID | role_id   | serial8 | roleId   | Long    |         |
+| 角色名称   | role_name | varchar | roleName | String  |         |
+| 角色编码   | role_code | varchar | roleCode | String  |         |
+| 状态     | status    | int2    | status   | Integer | 1正常，0禁用 |
 
 ### 1.5 用户-角色关联表（leaf_user_role）
 
@@ -82,15 +82,28 @@
 | 部门负责人id | leader_id   | int8    | leaderId    | Long    |         |
 | 部门描述    | description | varchar | description | String  |         |
 | 状态      | status      | int2    | status      | Integer | 1正常，0禁用 |
+| 角色ID    | role_id     | int8    | roleId      | Long    |         |
 
-### 1.7 部门-角色关联表（leaf_dept_role）
+### 1.7 角色-菜单关联表（leaf_menu_role）
 
-| 名称   | 数据库字段   | 数据库类型 | Java字段 | Java类型 | 说明 |
-|------|---------|-------|--------|--------|----|
-| 部门ID | dept_id | int8  | deptId | Long   |    |
-| 角色ID | role_id | int8  | roleId | Long   |    |
+| 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
+|------|---------|-------|--------|------|----|
+| 角色id | role_id | int8  | roleId | Long |    |
+| 菜单id | menu_id | int8  | menuId | Long |    |
 
-### 1.8 字典表（leaf_dict）
+### 1.8 菜单表（leaf_menu)
+
+| 名称     | 数据库字段      | 数据库类型   | 实体字段       | 实体类型    | 说明               |
+|--------|------------|---------|------------|---------|------------------|
+| menuID | menu_id    | serial8 | menuId     | Long    |                  |
+| 菜单名称   | menu_name  | varchar | menuName   | String  |                  |
+| 菜单类型   | menu_type  | varchar | menuType   | String  | 菜单类型：D目录，M菜单，B按钮 |
+| 父级菜单id | parent_id  | int8    | parentId   | Long    |                  |
+| 显示顺序   | sortable   | int2    | orderNum   | Integer | 菜单显示顺序           |
+| 权限字符   | permission | varchar | permission | String  |                  |
+| 状态     | status     | int2    | status     | Integer | 1正常，0停用          |
+
+### 1.9 字典表（leaf_dict）
 
 | 名称     | 数据库字段      | 数据库类型   | 实体字段      | 实体类型    | 说明      |
 |--------|------------|---------|-----------|---------|---------|
@@ -101,25 +114,28 @@
 | 字典类型名称 | dict_name  | varchar | dictName  | String  |         |
 | 状态     | status     | int2    | status    | Integer | 1正常，0禁用 |
 
-### 1.9 角色-菜单关联表（leaf_menu_role）
+### 1.10 岗位表（leaf_post）
+
+| 名称     | 数据库字段     | 数据库类型   | 实体字段     | 实体类型   | 说明 |
+|--------|-----------|---------|----------|--------|----|
+| postId | post_id   | serial8 | postId   | Long   |    |
+| 岗位编码   | post_code | varchar | postCode | String |    |
+| 岗位名称   | post_name | varchar | postName | String |    |
+| 所属部门ID | dept_id   | int8    | deptId   | Long   |    |
+
+### 1.11 用户-岗位关联表（leaf_user_post）
 
 | 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
 |------|---------|-------|--------|------|----|
-| 角色id | role_id | int8  | roleId | Long |    |
-| 菜单id | menu_id | int8  | menuId | Long |    |
+| 岗位ID | post_id | int8  | postId | Long |    |
+| 用户ID | user_id | int8  | userId | Long |    |
 
-### 1.10 菜单表（leaf_menu)
+### 1.12 用户-部门关联表
 
-| 名称     | 数据库字段      | 数据库类型   | 实体字段       | 实体类型    | 说明               |
-|--------|------------|---------|------------|---------|------------------|
-| menuID | menu_id    | serial8 | menuId     | Long    |                  |
-| 菜单名称   | menu_name  | varchar | menuName   | String  |                  |
-| 菜单类型   | menu_type  | char    | menuType   | String  | 菜单类型：D目录，M菜单，B按钮 |
-| 父级菜单id | parent_id  | int8    | parentId   | Long    |                  |
-| 菜单图标   | icon_url   | varchar | iconUrl    | String  |                  |
-| 显示顺序   | order_num  | int4    | orderNum   | Integer | 菜单显示顺序           |
-| 权限字符   | permission | varchar | permission | String  |                  |
-| 状态     | status     | int2    | status     | Integer | 1正常，0停用          |
+| 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
+|------|---------|-------|--------|------|----|
+| 部门ID | dept_id | int8  | deptId | Long |    |
+| 用户ID | user_id | int8  | userId | Long |    |
 
 ## 二、PG
 
@@ -219,17 +235,17 @@ ALTER OWNER 命令来设置所有权
 PostgreSQL 主页: <https://www.postgresql.org/>
 ```
 
-使用 pg_dump 导出 `leaf_master` 的数据库备份（不含建库命令，恢复备份时，在执行脚本之前需要确保 `leaf_master`
+使用 pg_dump 导出 `leaf_main` 的数据库备份（不含建库命令，恢复备份时，在执行脚本之前需要确保 `leaf_main`
 数据库已经存在）:
 
 ```bash
-pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_master -c -F p -f backup.sql
+pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_main -c -F p -f backup.sql
 ```
 
 当然，如果你想要包含创建数据库的脚本也是可以的（只需加上 `-C` 选项）：
 
 ```bash
-pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_master -C -c -F p -f backup.sql
+pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_main -C -c -F p -f backup.sql
 ```
 
 ### SERIAL、serial8
@@ -245,9 +261,3 @@ ID 使用，那么有空隙也不会有什么问题。
 
 这样实现序列是为了提高效率。server 只需跟踪一个值（先前的最大值）即可唯一生成 id，它可以在多个连接中缓存这些
 id，以加快序列生成速度，而且通过允许间隙，服务器在生成序列时无需事务锁定序列对象。这使得它们非常高效，并发性也很高。
-
-## 三、附：建表语句
-
-```sql
-
-```

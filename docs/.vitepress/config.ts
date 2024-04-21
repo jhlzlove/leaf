@@ -12,14 +12,6 @@ export default defineConfig({
     // md 配置
     markdown: {
         lineNumbers: true,
-        // 单语言站点非常好用
-        // container: {
-        //     tipLabel: '提示',
-        //     warningLabel: '警告',
-        //     dangerLabel: '危险',
-        //     infoLabel: '信息',
-        //     detailsLabel: '详细信息'
-        // }
     },
     lastUpdated: true,
     // 网站国际化的配置 https://vitepress.dev/zh/guide/i18n
@@ -41,7 +33,7 @@ export default defineConfig({
                         indexName: 'jhlzlove-blog'
                     },
                     locales: {
-                        placeholder: "搜索文档",
+                        placeholder: "搜索",
                     }
                 },
                 // 项目标题旁的 logo
@@ -133,15 +125,16 @@ export default defineConfig({
                     locales: {
                         placeholder: "Search...",
                     },
-                    sidebar: [
-                        {
-                            text: 'Guide',
-                            items: [
-                                {text: "guide", link: "/guide/"},
-                            ],
-                        },
-                    ],
-                }
-            },
-        }
-    })
+                },
+                sidebar: [
+                    {
+                        text: 'Guide',
+                        items: [
+                            {text: "guide", link: "/guide/"},
+                        ],
+                    },
+                ],
+            }
+        },
+    }
+})
