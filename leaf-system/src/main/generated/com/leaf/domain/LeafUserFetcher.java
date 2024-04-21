@@ -1,6 +1,7 @@
 package com.leaf.domain;
 
 import java.lang.Override;
+import java.util.function.Consumer;
 import org.babyfish.jimmer.internal.GeneratedBy;
 import org.babyfish.jimmer.lang.NewChain;
 import org.babyfish.jimmer.meta.ImmutableProp;
@@ -8,6 +9,7 @@ import org.babyfish.jimmer.sql.ast.table.Table;
 import org.babyfish.jimmer.sql.fetcher.Fetcher;
 import org.babyfish.jimmer.sql.fetcher.FieldConfig;
 import org.babyfish.jimmer.sql.fetcher.IdOnlyFetchType;
+import org.babyfish.jimmer.sql.fetcher.ListFieldConfig;
 import org.babyfish.jimmer.sql.fetcher.impl.FetcherImpl;
 import org.babyfish.jimmer.sql.fetcher.spi.AbstractTypedFetcher;
 
@@ -118,6 +120,26 @@ public class LeafUserFetcher extends AbstractTypedFetcher<LeafUser, LeafUserFetc
     }
 
     @NewChain
+    public LeafUserFetcher phone() {
+        return add("phone");
+    }
+
+    @NewChain
+    public LeafUserFetcher phone(boolean enabled) {
+        return enabled ? add("phone") : remove("phone");
+    }
+
+    @NewChain
+    public LeafUserFetcher email() {
+        return add("email");
+    }
+
+    @NewChain
+    public LeafUserFetcher email(boolean enabled) {
+        return enabled ? add("email") : remove("email");
+    }
+
+    @NewChain
     public LeafUserFetcher avatar() {
         return add("avatar");
     }
@@ -125,6 +147,16 @@ public class LeafUserFetcher extends AbstractTypedFetcher<LeafUser, LeafUserFetc
     @NewChain
     public LeafUserFetcher avatar(boolean enabled) {
         return enabled ? add("avatar") : remove("avatar");
+    }
+
+    @NewChain
+    public LeafUserFetcher lastLoginTime() {
+        return add("lastLoginTime");
+    }
+
+    @NewChain
+    public LeafUserFetcher lastLoginTime(boolean enabled) {
+        return enabled ? add("lastLoginTime") : remove("lastLoginTime");
     }
 
     @NewChain
@@ -138,23 +170,70 @@ public class LeafUserFetcher extends AbstractTypedFetcher<LeafUser, LeafUserFetc
     }
 
     @NewChain
-    public LeafUserFetcher delFlag() {
-        return add("delFlag");
+    public LeafUserFetcher userDetailId() {
+        return add("userDetailId");
     }
 
     @NewChain
-    public LeafUserFetcher delFlag(boolean enabled) {
-        return enabled ? add("delFlag") : remove("delFlag");
+    public LeafUserFetcher userDetailId(boolean enabled) {
+        return enabled ? add("userDetailId") : remove("userDetailId");
     }
 
     @NewChain
-    public LeafUserFetcher userCode() {
-        return add("userCode");
+    public LeafUserFetcher userDetailId(IdOnlyFetchType idOnlyFetchType) {
+        return add("userDetailId", idOnlyFetchType);
     }
 
     @NewChain
-    public LeafUserFetcher userCode(boolean enabled) {
-        return enabled ? add("userCode") : remove("userCode");
+    public LeafUserFetcher userDetail() {
+        return add("userDetail");
+    }
+
+    @NewChain
+    public LeafUserFetcher userDetail(boolean enabled) {
+        return enabled ? add("userDetail") : remove("userDetail");
+    }
+
+    @NewChain
+    public LeafUserFetcher userDetail(Fetcher<LeafUserDetail> childFetcher) {
+        return add("userDetail", childFetcher);
+    }
+
+    @NewChain
+    public LeafUserFetcher userDetail(Fetcher<LeafUserDetail> childFetcher,
+            Consumer<FieldConfig<LeafUserDetail, LeafUserDetailTable>> fieldConfig) {
+        return add("userDetail", childFetcher, fieldConfig);
+    }
+
+    @NewChain
+    public LeafUserFetcher userDetail(IdOnlyFetchType idOnlyFetchType) {
+        return add("userDetail", idOnlyFetchType);
+    }
+
+    @NewChain
+    public LeafUserFetcher deptList() {
+        return add("deptList");
+    }
+
+    @NewChain
+    public LeafUserFetcher deptList(boolean enabled) {
+        return enabled ? add("deptList") : remove("deptList");
+    }
+
+    @NewChain
+    public LeafUserFetcher deptList(Fetcher<LeafDept> childFetcher) {
+        return add("deptList", childFetcher);
+    }
+
+    @NewChain
+    public LeafUserFetcher deptList(Fetcher<LeafDept> childFetcher,
+            Consumer<ListFieldConfig<LeafDept, LeafDeptTable>> fieldConfig) {
+        return add("deptList", childFetcher, fieldConfig);
+    }
+
+    @NewChain
+    public LeafUserFetcher deptList(IdOnlyFetchType idOnlyFetchType) {
+        return add("deptList", idOnlyFetchType);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.leaf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.lang.CloneNotSupportedException;
 import java.lang.Cloneable;
@@ -12,8 +13,11 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.lang.System;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import org.babyfish.jimmer.CircularReferenceException;
 import org.babyfish.jimmer.DraftConsumer;
@@ -29,7 +33,10 @@ import org.babyfish.jimmer.runtime.DraftContext;
 import org.babyfish.jimmer.runtime.DraftSpi;
 import org.babyfish.jimmer.runtime.ImmutableSpi;
 import org.babyfish.jimmer.runtime.Internal;
+import org.babyfish.jimmer.runtime.NonSharedList;
 import org.babyfish.jimmer.runtime.Visibility;
+import org.babyfish.jimmer.sql.ManyToMany;
+import org.babyfish.jimmer.sql.ManyToOne;
 import org.jetbrains.annotations.Nullable;
 
 @GeneratedBy(
@@ -66,16 +73,47 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
     LeafUserDraft setNickName(String nickName);
 
     @OldChain
+    LeafUserDraft setPhone(String phone);
+
+    @OldChain
+    LeafUserDraft setEmail(String email);
+
+    @OldChain
     LeafUserDraft setAvatar(String avatar);
 
     @OldChain
-    LeafUserDraft setStatus(Integer status);
+    LeafUserDraft setLastLoginTime(LocalDate lastLoginTime);
 
     @OldChain
-    LeafUserDraft setDelFlag(Integer delFlag);
+    LeafUserDraft setStatus(int status);
 
     @OldChain
-    LeafUserDraft setUserCode(String userCode);
+    LeafUserDraft setUserDetailId(Long userDetailId);
+
+    @Nullable
+    LeafUserDetailDraft userDetail();
+
+    LeafUserDetailDraft userDetail(boolean autoCreate);
+
+    @OldChain
+    LeafUserDraft setUserDetail(LeafUserDetail userDetail);
+
+    @OldChain
+    LeafUserDraft applyUserDetail(DraftConsumer<LeafUserDetailDraft> block);
+
+    @OldChain
+    LeafUserDraft applyUserDetail(LeafUserDetail base, DraftConsumer<LeafUserDetailDraft> block);
+
+    List<LeafDeptDraft> deptList(boolean autoCreate);
+
+    @OldChain
+    LeafUserDraft setDeptList(List<LeafDept> deptList);
+
+    @OldChain
+    LeafUserDraft addIntoDeptList(DraftConsumer<LeafDeptDraft> block);
+
+    @OldChain
+    LeafUserDraft addIntoDeptList(LeafDept base, DraftConsumer<LeafDeptDraft> block);
 
     class Producer {
         static final Producer INSTANCE = new Producer();
@@ -98,17 +136,25 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
 
         public static final int SLOT_NICK_NAME = 8;
 
-        public static final int SLOT_AVATAR = 9;
+        public static final int SLOT_PHONE = 9;
 
-        public static final int SLOT_STATUS = 10;
+        public static final int SLOT_EMAIL = 10;
 
-        public static final int SLOT_DEL_FLAG = 11;
+        public static final int SLOT_AVATAR = 11;
 
-        public static final int SLOT_USER_CODE = 12;
+        public static final int SLOT_LAST_LOGIN_TIME = 12;
+
+        public static final int SLOT_STATUS = 13;
+
+        public static final int SLOT_USER_DETAIL_ID = 14;
+
+        public static final int SLOT_USER_DETAIL = 15;
+
+        public static final int SLOT_DEPT_LIST = 16;
 
         public static final ImmutableType TYPE = ImmutableType
             .newBuilder(
-                "0.8.112",
+                "0.8.125",
                 LeafUser.class,
                 Collections.singleton(BaseEntityDraft.Producer.TYPE),
                 (ctx, base) -> new DraftImpl(ctx, (LeafUser)base)
@@ -121,11 +167,15 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             .id(SLOT_USER_ID, "userId", long.class)
             .add(SLOT_USERNAME, "username", ImmutablePropCategory.SCALAR, String.class, false)
             .add(SLOT_PASSWORD, "password", ImmutablePropCategory.SCALAR, String.class, false)
-            .add(SLOT_NICK_NAME, "nickName", ImmutablePropCategory.SCALAR, String.class, true)
+            .add(SLOT_NICK_NAME, "nickName", ImmutablePropCategory.SCALAR, String.class, false)
+            .add(SLOT_PHONE, "phone", ImmutablePropCategory.SCALAR, String.class, true)
+            .add(SLOT_EMAIL, "email", ImmutablePropCategory.SCALAR, String.class, true)
             .add(SLOT_AVATAR, "avatar", ImmutablePropCategory.SCALAR, String.class, true)
-            .add(SLOT_STATUS, "status", ImmutablePropCategory.SCALAR, Integer.class, true)
-            .add(SLOT_DEL_FLAG, "delFlag", ImmutablePropCategory.SCALAR, Integer.class, true)
-            .add(SLOT_USER_CODE, "userCode", ImmutablePropCategory.SCALAR, String.class, false)
+            .add(SLOT_LAST_LOGIN_TIME, "lastLoginTime", ImmutablePropCategory.SCALAR, LocalDate.class, true)
+            .add(SLOT_STATUS, "status", ImmutablePropCategory.SCALAR, int.class, false)
+            .add(SLOT_USER_DETAIL_ID, "userDetailId", ImmutablePropCategory.SCALAR, Long.class, true)
+            .add(SLOT_USER_DETAIL, "userDetail", ManyToOne.class, LeafUserDetail.class, true)
+            .add(SLOT_DEPT_LIST, "deptList", ManyToMany.class, LeafDept.class, false)
             .build();
 
         private Producer() {
@@ -139,6 +189,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             return (LeafUser)Internal.produce(TYPE, base, block);
         }
 
+        @JsonPropertyOrder({"dummyPropForJacksonError__", "createTime", "updateTime", "createBy", "updateBy", "remark", "userId", "username", "password", "nickName", "phone", "email", "avatar", "lastLoginTime", "status", "userDetailId", "userDetail", "deptList"})
         public abstract interface Implementor extends LeafUser, ImmutableSpi {
             @Override
             default Object __get(PropId prop) {
@@ -164,14 +215,22 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		return password();
                     case SLOT_NICK_NAME:
                     		return nickName();
+                    case SLOT_PHONE:
+                    		return phone();
+                    case SLOT_EMAIL:
+                    		return email();
                     case SLOT_AVATAR:
                     		return avatar();
+                    case SLOT_LAST_LOGIN_TIME:
+                    		return lastLoginTime();
                     case SLOT_STATUS:
-                    		return status();
-                    case SLOT_DEL_FLAG:
-                    		return delFlag();
-                    case SLOT_USER_CODE:
-                    		return userCode();
+                    		return (Integer)status();
+                    case SLOT_USER_DETAIL_ID:
+                    		return userDetailId();
+                    case SLOT_USER_DETAIL:
+                    		return userDetail();
+                    case SLOT_DEPT_LIST:
+                    		return deptList();
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
@@ -197,81 +256,102 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		return password();
                     case "nickName":
                     		return nickName();
+                    case "phone":
+                    		return phone();
+                    case "email":
+                    		return email();
                     case "avatar":
                     		return avatar();
+                    case "lastLoginTime":
+                    		return lastLoginTime();
                     case "status":
-                    		return status();
-                    case "delFlag":
-                    		return delFlag();
-                    case "userCode":
-                    		return userCode();
+                    		return (Integer)status();
+                    case "userDetailId":
+                    		return userDetailId();
+                    case "userDetail":
+                    		return userDetail();
+                    case "deptList":
+                    		return deptList();
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
 
-            @JsonIgnore
             default long getUserId() {
                 return userId();
             }
 
-            @JsonIgnore
+            @Nullable
             default LocalDateTime getCreateTime() {
                 return createTime();
             }
 
-            @JsonIgnore
+            @Nullable
             default LocalDateTime getUpdateTime() {
                 return updateTime();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getCreateBy() {
                 return createBy();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getUpdateBy() {
                 return updateBy();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getRemark() {
                 return remark();
             }
 
-            @JsonIgnore
             default String getUsername() {
                 return username();
             }
 
-            @JsonIgnore
             default String getPassword() {
                 return password();
             }
 
-            @JsonIgnore
             default String getNickName() {
                 return nickName();
             }
 
-            @JsonIgnore
+            @Nullable
+            default String getPhone() {
+                return phone();
+            }
+
+            @Nullable
+            default String getEmail() {
+                return email();
+            }
+
+            @Nullable
             default String getAvatar() {
                 return avatar();
             }
 
-            @JsonIgnore
-            default Integer getStatus() {
+            @Nullable
+            default LocalDate getLastLoginTime() {
+                return lastLoginTime();
+            }
+
+            default int getStatus() {
                 return status();
             }
 
-            @JsonIgnore
-            default Integer getDelFlag() {
-                return delFlag();
+            default Long getUserDetailId() {
+                return userDetailId();
             }
 
-            @JsonIgnore
-            default String getUserCode() {
-                return userCode();
+            @Nullable
+            default LeafUserDetail getUserDetail() {
+                return userDetail();
+            }
+
+            default List<LeafDept> getDeptList() {
+                return deptList();
             }
 
             @Override
@@ -317,23 +397,39 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
 
             String __nickNameValue;
 
-            boolean __nickNameLoaded = false;
+            String __phoneValue;
+
+            boolean __phoneLoaded = false;
+
+            String __emailValue;
+
+            boolean __emailLoaded = false;
 
             String __avatarValue;
 
             boolean __avatarLoaded = false;
 
-            Integer __statusValue;
+            LocalDate __lastLoginTimeValue;
+
+            boolean __lastLoginTimeLoaded = false;
+
+            int __statusValue;
 
             boolean __statusLoaded = false;
 
-            Integer __delFlagValue;
+            LeafUserDetail __userDetailValue;
 
-            boolean __delFlagLoaded = false;
+            boolean __userDetailLoaded = false;
 
-            String __userCodeValue;
+            NonSharedList<LeafDept> __deptListValue;
+
+            Impl() {
+                __visibility = Visibility.of(17);
+                __visibility.show(SLOT_USER_DETAIL_ID, false);
+            }
 
             @Override
+            @JsonIgnore
             public long userId() {
                 if (!__userIdLoaded) {
                     throw new UnloadedException(LeafUser.class, "userId");
@@ -342,6 +438,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime createTime() {
                 if (!__createTimeLoaded) {
@@ -351,6 +448,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime updateTime() {
                 if (!__updateTimeLoaded) {
@@ -360,6 +458,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String createBy() {
                 if (!__createByLoaded) {
@@ -369,6 +468,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String updateBy() {
                 if (!__updateByLoaded) {
@@ -378,6 +478,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String remark() {
                 if (!__remarkLoaded) {
@@ -387,6 +488,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String username() {
                 if (__usernameValue == null) {
                     throw new UnloadedException(LeafUser.class, "username");
@@ -395,6 +497,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String password() {
                 if (__passwordValue == null) {
                     throw new UnloadedException(LeafUser.class, "password");
@@ -403,15 +506,36 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
+            @JsonIgnore
             public String nickName() {
-                if (!__nickNameLoaded) {
+                if (__nickNameValue == null) {
                     throw new UnloadedException(LeafUser.class, "nickName");
                 }
                 return __nickNameValue;
             }
 
             @Override
+            @JsonIgnore
+            @Nullable
+            public String phone() {
+                if (!__phoneLoaded) {
+                    throw new UnloadedException(LeafUser.class, "phone");
+                }
+                return __phoneValue;
+            }
+
+            @Override
+            @JsonIgnore
+            @Nullable
+            public String email() {
+                if (!__emailLoaded) {
+                    throw new UnloadedException(LeafUser.class, "email");
+                }
+                return __emailValue;
+            }
+
+            @Override
+            @JsonIgnore
             @Nullable
             public String avatar() {
                 if (!__avatarLoaded) {
@@ -421,8 +545,18 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
-            public Integer status() {
+            public LocalDate lastLoginTime() {
+                if (!__lastLoginTimeLoaded) {
+                    throw new UnloadedException(LeafUser.class, "lastLoginTime");
+                }
+                return __lastLoginTimeValue;
+            }
+
+            @Override
+            @JsonIgnore
+            public int status() {
                 if (!__statusLoaded) {
                     throw new UnloadedException(LeafUser.class, "status");
                 }
@@ -430,20 +564,30 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
-            public Integer delFlag() {
-                if (!__delFlagLoaded) {
-                    throw new UnloadedException(LeafUser.class, "delFlag");
-                }
-                return __delFlagValue;
+            public Long userDetailId() {
+                LeafUserDetail __target = userDetail();
+                return __target != null ? __target.userDetailId() : null;
             }
 
             @Override
-            public String userCode() {
-                if (__userCodeValue == null) {
-                    throw new UnloadedException(LeafUser.class, "userCode");
+            @JsonIgnore
+            @Nullable
+            public LeafUserDetail userDetail() {
+                if (!__userDetailLoaded) {
+                    throw new UnloadedException(LeafUser.class, "userDetail");
                 }
-                return __userCodeValue;
+                return __userDetailValue;
+            }
+
+            @Override
+            @JsonIgnore
+            public List<LeafDept> deptList() {
+                if (__deptListValue == null) {
+                    throw new UnloadedException(LeafUser.class, "deptList");
+                }
+                return __deptListValue;
             }
 
             @Override
@@ -478,15 +622,24 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     case SLOT_PASSWORD:
                     		return __passwordValue != null;
                     case SLOT_NICK_NAME:
-                    		return __nickNameLoaded;
+                    		return __nickNameValue != null;
+                    case SLOT_PHONE:
+                    		return __phoneLoaded;
+                    case SLOT_EMAIL:
+                    		return __emailLoaded;
                     case SLOT_AVATAR:
                     		return __avatarLoaded;
+                    case SLOT_LAST_LOGIN_TIME:
+                    		return __lastLoginTimeLoaded;
                     case SLOT_STATUS:
                     		return __statusLoaded;
-                    case SLOT_DEL_FLAG:
-                    		return __delFlagLoaded;
-                    case SLOT_USER_CODE:
-                    		return __userCodeValue != null;
+                    case SLOT_USER_DETAIL_ID:
+                    		return __isLoaded(PropId.byIndex(SLOT_USER_DETAIL)) && (userDetail() == null || 
+                            	((ImmutableSpi)userDetail()).__isLoaded(PropId.byIndex(LeafUserDetailDraft.Producer.SLOT_USER_DETAIL_ID)));
+                    case SLOT_USER_DETAIL:
+                    		return __userDetailLoaded;
+                    case SLOT_DEPT_LIST:
+                    		return __deptListValue != null;
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
@@ -511,15 +664,24 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     case "password":
                     		return __passwordValue != null;
                     case "nickName":
-                    		return __nickNameLoaded;
+                    		return __nickNameValue != null;
+                    case "phone":
+                    		return __phoneLoaded;
+                    case "email":
+                    		return __emailLoaded;
                     case "avatar":
                     		return __avatarLoaded;
+                    case "lastLoginTime":
+                    		return __lastLoginTimeLoaded;
                     case "status":
                     		return __statusLoaded;
-                    case "delFlag":
-                    		return __delFlagLoaded;
-                    case "userCode":
-                    		return __userCodeValue != null;
+                    case "userDetailId":
+                    		return __isLoaded(PropId.byIndex(SLOT_USER_DETAIL)) && (userDetail() == null || 
+                            	((ImmutableSpi)userDetail()).__isLoaded(PropId.byIndex(LeafUserDetailDraft.Producer.SLOT_USER_DETAIL_ID)));
+                    case "userDetail":
+                    		return __userDetailLoaded;
+                    case "deptList":
+                    		return __deptListValue != null;
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
@@ -551,14 +713,22 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		return __visibility.visible(SLOT_PASSWORD);
                     case SLOT_NICK_NAME:
                     		return __visibility.visible(SLOT_NICK_NAME);
+                    case SLOT_PHONE:
+                    		return __visibility.visible(SLOT_PHONE);
+                    case SLOT_EMAIL:
+                    		return __visibility.visible(SLOT_EMAIL);
                     case SLOT_AVATAR:
                     		return __visibility.visible(SLOT_AVATAR);
+                    case SLOT_LAST_LOGIN_TIME:
+                    		return __visibility.visible(SLOT_LAST_LOGIN_TIME);
                     case SLOT_STATUS:
                     		return __visibility.visible(SLOT_STATUS);
-                    case SLOT_DEL_FLAG:
-                    		return __visibility.visible(SLOT_DEL_FLAG);
-                    case SLOT_USER_CODE:
-                    		return __visibility.visible(SLOT_USER_CODE);
+                    case SLOT_USER_DETAIL_ID:
+                    		return __visibility.visible(SLOT_USER_DETAIL_ID);
+                    case SLOT_USER_DETAIL:
+                    		return __visibility.visible(SLOT_USER_DETAIL);
+                    case SLOT_DEPT_LIST:
+                    		return __visibility.visible(SLOT_DEPT_LIST);
                     default: return true;
                 }
             }
@@ -587,14 +757,22 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		return __visibility.visible(SLOT_PASSWORD);
                     case "nickName":
                     		return __visibility.visible(SLOT_NICK_NAME);
+                    case "phone":
+                    		return __visibility.visible(SLOT_PHONE);
+                    case "email":
+                    		return __visibility.visible(SLOT_EMAIL);
                     case "avatar":
                     		return __visibility.visible(SLOT_AVATAR);
+                    case "lastLoginTime":
+                    		return __visibility.visible(SLOT_LAST_LOGIN_TIME);
                     case "status":
                     		return __visibility.visible(SLOT_STATUS);
-                    case "delFlag":
-                    		return __visibility.visible(SLOT_DEL_FLAG);
-                    case "userCode":
-                    		return __visibility.visible(SLOT_USER_CODE);
+                    case "userDetailId":
+                    		return __visibility.visible(SLOT_USER_DETAIL_ID);
+                    case "userDetail":
+                    		return __visibility.visible(SLOT_USER_DETAIL);
+                    case "deptList":
+                    		return __visibility.visible(SLOT_DEPT_LIST);
                     default: return true;
                 }
             }
@@ -628,20 +806,29 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__passwordValue != null) {
                     hash = 31 * hash + __passwordValue.hashCode();
                 }
-                if (__nickNameLoaded && __nickNameValue != null) {
+                if (__nickNameValue != null) {
                     hash = 31 * hash + __nickNameValue.hashCode();
+                }
+                if (__phoneLoaded && __phoneValue != null) {
+                    hash = 31 * hash + __phoneValue.hashCode();
+                }
+                if (__emailLoaded && __emailValue != null) {
+                    hash = 31 * hash + __emailValue.hashCode();
                 }
                 if (__avatarLoaded && __avatarValue != null) {
                     hash = 31 * hash + __avatarValue.hashCode();
                 }
-                if (__statusLoaded && __statusValue != null) {
-                    hash = 31 * hash + __statusValue.hashCode();
+                if (__lastLoginTimeLoaded && __lastLoginTimeValue != null) {
+                    hash = 31 * hash + __lastLoginTimeValue.hashCode();
                 }
-                if (__delFlagLoaded && __delFlagValue != null) {
-                    hash = 31 * hash + __delFlagValue.hashCode();
+                if (__statusLoaded) {
+                    hash = 31 * hash + Integer.hashCode(__statusValue);
                 }
-                if (__userCodeValue != null) {
-                    hash = 31 * hash + __userCodeValue.hashCode();
+                if (__userDetailLoaded && __userDetailValue != null) {
+                    hash = 31 * hash + __userDetailValue.hashCode();
+                }
+                if (__deptListValue != null) {
+                    hash = 31 * hash + __deptListValue.hashCode();
                 }
                 return hash;
             }
@@ -672,20 +859,29 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__passwordValue != null) {
                     hash = 31 * hash + System.identityHashCode(__passwordValue);
                 }
-                if (__nickNameLoaded) {
+                if (__nickNameValue != null) {
                     hash = 31 * hash + System.identityHashCode(__nickNameValue);
+                }
+                if (__phoneLoaded) {
+                    hash = 31 * hash + System.identityHashCode(__phoneValue);
+                }
+                if (__emailLoaded) {
+                    hash = 31 * hash + System.identityHashCode(__emailValue);
                 }
                 if (__avatarLoaded) {
                     hash = 31 * hash + System.identityHashCode(__avatarValue);
                 }
+                if (__lastLoginTimeLoaded) {
+                    hash = 31 * hash + System.identityHashCode(__lastLoginTimeValue);
+                }
                 if (__statusLoaded) {
-                    hash = 31 * hash + System.identityHashCode(__statusValue);
+                    hash = 31 * hash + Integer.hashCode(__statusValue);
                 }
-                if (__delFlagLoaded) {
-                    hash = 31 * hash + System.identityHashCode(__delFlagValue);
+                if (__userDetailLoaded) {
+                    hash = 31 * hash + System.identityHashCode(__userDetailValue);
                 }
-                if (__userCodeValue != null) {
-                    hash = 31 * hash + System.identityHashCode(__userCodeValue);
+                if (__deptListValue != null) {
+                    hash = 31 * hash + System.identityHashCode(__deptListValue);
                 }
                 return hash;
             }
@@ -785,11 +981,31 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__isVisible(PropId.byIndex(SLOT_NICK_NAME)) != __other.__isVisible(PropId.byIndex(SLOT_NICK_NAME))) {
                     return false;
                 }
-                boolean __nickNameLoaded = this.__nickNameLoaded;
+                boolean __nickNameLoaded = __nickNameValue != null;
                 if (__nickNameLoaded != __other.__isLoaded(PropId.byIndex(SLOT_NICK_NAME))) {
                     return false;
                 }
                 if (__nickNameLoaded && !Objects.equals(__nickNameValue, __other.nickName())) {
+                    return false;
+                }
+                if (__isVisible(PropId.byIndex(SLOT_PHONE)) != __other.__isVisible(PropId.byIndex(SLOT_PHONE))) {
+                    return false;
+                }
+                boolean __phoneLoaded = this.__phoneLoaded;
+                if (__phoneLoaded != __other.__isLoaded(PropId.byIndex(SLOT_PHONE))) {
+                    return false;
+                }
+                if (__phoneLoaded && !Objects.equals(__phoneValue, __other.phone())) {
+                    return false;
+                }
+                if (__isVisible(PropId.byIndex(SLOT_EMAIL)) != __other.__isVisible(PropId.byIndex(SLOT_EMAIL))) {
+                    return false;
+                }
+                boolean __emailLoaded = this.__emailLoaded;
+                if (__emailLoaded != __other.__isLoaded(PropId.byIndex(SLOT_EMAIL))) {
+                    return false;
+                }
+                if (__emailLoaded && !Objects.equals(__emailValue, __other.email())) {
                     return false;
                 }
                 if (__isVisible(PropId.byIndex(SLOT_AVATAR)) != __other.__isVisible(PropId.byIndex(SLOT_AVATAR))) {
@@ -802,6 +1018,16 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__avatarLoaded && !Objects.equals(__avatarValue, __other.avatar())) {
                     return false;
                 }
+                if (__isVisible(PropId.byIndex(SLOT_LAST_LOGIN_TIME)) != __other.__isVisible(PropId.byIndex(SLOT_LAST_LOGIN_TIME))) {
+                    return false;
+                }
+                boolean __lastLoginTimeLoaded = this.__lastLoginTimeLoaded;
+                if (__lastLoginTimeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_LAST_LOGIN_TIME))) {
+                    return false;
+                }
+                if (__lastLoginTimeLoaded && !Objects.equals(__lastLoginTimeValue, __other.lastLoginTime())) {
+                    return false;
+                }
                 if (__isVisible(PropId.byIndex(SLOT_STATUS)) != __other.__isVisible(PropId.byIndex(SLOT_STATUS))) {
                     return false;
                 }
@@ -809,27 +1035,30 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__statusLoaded != __other.__isLoaded(PropId.byIndex(SLOT_STATUS))) {
                     return false;
                 }
-                if (__statusLoaded && !Objects.equals(__statusValue, __other.status())) {
+                if (__statusLoaded && __statusValue != __other.status()) {
                     return false;
                 }
-                if (__isVisible(PropId.byIndex(SLOT_DEL_FLAG)) != __other.__isVisible(PropId.byIndex(SLOT_DEL_FLAG))) {
+                if (__isVisible(PropId.byIndex(SLOT_USER_DETAIL_ID)) != __other.__isVisible(PropId.byIndex(SLOT_USER_DETAIL_ID))) {
                     return false;
                 }
-                boolean __delFlagLoaded = this.__delFlagLoaded;
-                if (__delFlagLoaded != __other.__isLoaded(PropId.byIndex(SLOT_DEL_FLAG))) {
+                if (__isVisible(PropId.byIndex(SLOT_USER_DETAIL)) != __other.__isVisible(PropId.byIndex(SLOT_USER_DETAIL))) {
                     return false;
                 }
-                if (__delFlagLoaded && !Objects.equals(__delFlagValue, __other.delFlag())) {
+                boolean __userDetailLoaded = this.__userDetailLoaded;
+                if (__userDetailLoaded != __other.__isLoaded(PropId.byIndex(SLOT_USER_DETAIL))) {
                     return false;
                 }
-                if (__isVisible(PropId.byIndex(SLOT_USER_CODE)) != __other.__isVisible(PropId.byIndex(SLOT_USER_CODE))) {
+                if (__userDetailLoaded && !Objects.equals(__userDetailValue, __other.userDetail())) {
                     return false;
                 }
-                boolean __userCodeLoaded = __userCodeValue != null;
-                if (__userCodeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_USER_CODE))) {
+                if (__isVisible(PropId.byIndex(SLOT_DEPT_LIST)) != __other.__isVisible(PropId.byIndex(SLOT_DEPT_LIST))) {
                     return false;
                 }
-                if (__userCodeLoaded && !Objects.equals(__userCodeValue, __other.userCode())) {
+                boolean __deptListLoaded = __deptListValue != null;
+                if (__deptListLoaded != __other.__isLoaded(PropId.byIndex(SLOT_DEPT_LIST))) {
+                    return false;
+                }
+                if (__deptListLoaded && !Objects.equals(__deptListValue, __other.deptList())) {
                     return false;
                 }
                 return true;
@@ -923,11 +1152,31 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__isVisible(PropId.byIndex(SLOT_NICK_NAME)) != __other.__isVisible(PropId.byIndex(SLOT_NICK_NAME))) {
                     return false;
                 }
-                boolean __nickNameLoaded = this.__nickNameLoaded;
+                boolean __nickNameLoaded = __nickNameValue != null;
                 if (__nickNameLoaded != __other.__isLoaded(PropId.byIndex(SLOT_NICK_NAME))) {
                     return false;
                 }
                 if (__nickNameLoaded && __nickNameValue != __other.nickName()) {
+                    return false;
+                }
+                if (__isVisible(PropId.byIndex(SLOT_PHONE)) != __other.__isVisible(PropId.byIndex(SLOT_PHONE))) {
+                    return false;
+                }
+                boolean __phoneLoaded = this.__phoneLoaded;
+                if (__phoneLoaded != __other.__isLoaded(PropId.byIndex(SLOT_PHONE))) {
+                    return false;
+                }
+                if (__phoneLoaded && __phoneValue != __other.phone()) {
+                    return false;
+                }
+                if (__isVisible(PropId.byIndex(SLOT_EMAIL)) != __other.__isVisible(PropId.byIndex(SLOT_EMAIL))) {
+                    return false;
+                }
+                boolean __emailLoaded = this.__emailLoaded;
+                if (__emailLoaded != __other.__isLoaded(PropId.byIndex(SLOT_EMAIL))) {
+                    return false;
+                }
+                if (__emailLoaded && __emailValue != __other.email()) {
                     return false;
                 }
                 if (__isVisible(PropId.byIndex(SLOT_AVATAR)) != __other.__isVisible(PropId.byIndex(SLOT_AVATAR))) {
@@ -940,6 +1189,16 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__avatarLoaded && __avatarValue != __other.avatar()) {
                     return false;
                 }
+                if (__isVisible(PropId.byIndex(SLOT_LAST_LOGIN_TIME)) != __other.__isVisible(PropId.byIndex(SLOT_LAST_LOGIN_TIME))) {
+                    return false;
+                }
+                boolean __lastLoginTimeLoaded = this.__lastLoginTimeLoaded;
+                if (__lastLoginTimeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_LAST_LOGIN_TIME))) {
+                    return false;
+                }
+                if (__lastLoginTimeLoaded && __lastLoginTimeValue != __other.lastLoginTime()) {
+                    return false;
+                }
                 if (__isVisible(PropId.byIndex(SLOT_STATUS)) != __other.__isVisible(PropId.byIndex(SLOT_STATUS))) {
                     return false;
                 }
@@ -950,24 +1209,27 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 if (__statusLoaded && __statusValue != __other.status()) {
                     return false;
                 }
-                if (__isVisible(PropId.byIndex(SLOT_DEL_FLAG)) != __other.__isVisible(PropId.byIndex(SLOT_DEL_FLAG))) {
+                if (__isVisible(PropId.byIndex(SLOT_USER_DETAIL_ID)) != __other.__isVisible(PropId.byIndex(SLOT_USER_DETAIL_ID))) {
                     return false;
                 }
-                boolean __delFlagLoaded = this.__delFlagLoaded;
-                if (__delFlagLoaded != __other.__isLoaded(PropId.byIndex(SLOT_DEL_FLAG))) {
+                if (__isVisible(PropId.byIndex(SLOT_USER_DETAIL)) != __other.__isVisible(PropId.byIndex(SLOT_USER_DETAIL))) {
                     return false;
                 }
-                if (__delFlagLoaded && __delFlagValue != __other.delFlag()) {
+                boolean __userDetailLoaded = this.__userDetailLoaded;
+                if (__userDetailLoaded != __other.__isLoaded(PropId.byIndex(SLOT_USER_DETAIL))) {
                     return false;
                 }
-                if (__isVisible(PropId.byIndex(SLOT_USER_CODE)) != __other.__isVisible(PropId.byIndex(SLOT_USER_CODE))) {
+                if (__userDetailLoaded && __userDetailValue != __other.userDetail()) {
                     return false;
                 }
-                boolean __userCodeLoaded = __userCodeValue != null;
-                if (__userCodeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_USER_CODE))) {
+                if (__isVisible(PropId.byIndex(SLOT_DEPT_LIST)) != __other.__isVisible(PropId.byIndex(SLOT_DEPT_LIST))) {
                     return false;
                 }
-                if (__userCodeLoaded && __userCodeValue != __other.userCode()) {
+                boolean __deptListLoaded = __deptListValue != null;
+                if (__deptListLoaded != __other.__isLoaded(PropId.byIndex(SLOT_DEPT_LIST))) {
+                    return false;
+                }
+                if (__deptListLoaded && __deptListValue != __other.deptList()) {
                     return false;
                 }
                 return true;
@@ -1049,6 +1311,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public long userId() {
                 return (__modified!= null ? __modified : __base).userId();
             }
@@ -1062,6 +1325,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime createTime() {
                 return (__modified!= null ? __modified : __base).createTime();
@@ -1076,6 +1340,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime updateTime() {
                 return (__modified!= null ? __modified : __base).updateTime();
@@ -1090,6 +1355,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String createBy() {
                 return (__modified!= null ? __modified : __base).createBy();
@@ -1104,6 +1370,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String updateBy() {
                 return (__modified!= null ? __modified : __base).updateBy();
@@ -1118,6 +1385,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String remark() {
                 return (__modified!= null ? __modified : __base).remark();
@@ -1132,6 +1400,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String username() {
                 return (__modified!= null ? __modified : __base).username();
             }
@@ -1149,6 +1418,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String password() {
                 return (__modified!= null ? __modified : __base).password();
             }
@@ -1166,20 +1436,55 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
+            @JsonIgnore
             public String nickName() {
                 return (__modified!= null ? __modified : __base).nickName();
             }
 
             @Override
             public LeafUserDraft setNickName(String nickName) {
+                if (nickName == null) {
+                    throw new IllegalArgumentException(
+                        "'nickName' cannot be null, please specify non-null value or use nullable annotation to decorate this property"
+                    );
+                }
                 Impl __tmpModified = __modified();
                 __tmpModified.__nickNameValue = nickName;
-                __tmpModified.__nickNameLoaded = true;
                 return this;
             }
 
             @Override
+            @JsonIgnore
+            @Nullable
+            public String phone() {
+                return (__modified!= null ? __modified : __base).phone();
+            }
+
+            @Override
+            public LeafUserDraft setPhone(String phone) {
+                Impl __tmpModified = __modified();
+                __tmpModified.__phoneValue = phone;
+                __tmpModified.__phoneLoaded = true;
+                return this;
+            }
+
+            @Override
+            @JsonIgnore
+            @Nullable
+            public String email() {
+                return (__modified!= null ? __modified : __base).email();
+            }
+
+            @Override
+            public LeafUserDraft setEmail(String email) {
+                Impl __tmpModified = __modified();
+                __tmpModified.__emailValue = email;
+                __tmpModified.__emailLoaded = true;
+                return this;
+            }
+
+            @Override
+            @JsonIgnore
             @Nullable
             public String avatar() {
                 return (__modified!= null ? __modified : __base).avatar();
@@ -1194,13 +1499,28 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
-            public Integer status() {
+            public LocalDate lastLoginTime() {
+                return (__modified!= null ? __modified : __base).lastLoginTime();
+            }
+
+            @Override
+            public LeafUserDraft setLastLoginTime(LocalDate lastLoginTime) {
+                Impl __tmpModified = __modified();
+                __tmpModified.__lastLoginTimeValue = lastLoginTime;
+                __tmpModified.__lastLoginTimeLoaded = true;
+                return this;
+            }
+
+            @Override
+            @JsonIgnore
+            public int status() {
                 return (__modified!= null ? __modified : __base).status();
             }
 
             @Override
-            public LeafUserDraft setStatus(Integer status) {
+            public LeafUserDraft setStatus(int status) {
                 Impl __tmpModified = __modified();
                 __tmpModified.__statusValue = status;
                 __tmpModified.__statusLoaded = true;
@@ -1208,33 +1528,95 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
-            public Integer delFlag() {
-                return (__modified!= null ? __modified : __base).delFlag();
+            public Long userDetailId() {
+                LeafUserDetail __target = userDetail();
+                return __target != null ? __target.userDetailId() : null;
             }
 
             @Override
-            public LeafUserDraft setDelFlag(Integer delFlag) {
-                Impl __tmpModified = __modified();
-                __tmpModified.__delFlagValue = delFlag;
-                __tmpModified.__delFlagLoaded = true;
+            public LeafUserDraft setUserDetailId(Long userDetailId) {
+                if (userDetailId != null) {
+                    setUserDetail(ImmutableObjects.makeIdOnly(LeafUserDetail.class, userDetailId));
+                } else {
+                    setUserDetail(null);
+                }
                 return this;
             }
 
             @Override
-            public String userCode() {
-                return (__modified!= null ? __modified : __base).userCode();
+            @JsonIgnore
+            @Nullable
+            public LeafUserDetailDraft userDetail() {
+                return __ctx.toDraftObject((__modified!= null ? __modified : __base).userDetail());
             }
 
             @Override
-            public LeafUserDraft setUserCode(String userCode) {
-                if (userCode == null) {
+            public LeafUserDetailDraft userDetail(boolean autoCreate) {
+                if (autoCreate && (!__isLoaded(PropId.byIndex(SLOT_USER_DETAIL)) || userDetail() == null)) {
+                    setUserDetail(LeafUserDetailDraft.$.produce(null, null));
+                }
+                return __ctx.toDraftObject((__modified!= null ? __modified : __base).userDetail());
+            }
+
+            @Override
+            public LeafUserDraft setUserDetail(LeafUserDetail userDetail) {
+                Impl __tmpModified = __modified();
+                __tmpModified.__userDetailValue = userDetail;
+                __tmpModified.__userDetailLoaded = true;
+                return this;
+            }
+
+            @Override
+            public LeafUserDraft applyUserDetail(DraftConsumer<LeafUserDetailDraft> block) {
+                applyUserDetail(null, block);
+                return this;
+            }
+
+            @Override
+            public LeafUserDraft applyUserDetail(LeafUserDetail base,
+                    DraftConsumer<LeafUserDetailDraft> block) {
+                setUserDetail(LeafUserDetailDraft.$.produce(base, block));
+                return this;
+            }
+
+            @Override
+            @JsonIgnore
+            public List<LeafDept> deptList() {
+                return __ctx.toDraftList((__modified!= null ? __modified : __base).deptList(), LeafDept.class, true);
+            }
+
+            @Override
+            public List<LeafDeptDraft> deptList(boolean autoCreate) {
+                if (autoCreate && (!__isLoaded(PropId.byIndex(SLOT_DEPT_LIST)))) {
+                    setDeptList(new ArrayList<>());
+                }
+                return __ctx.toDraftList((__modified!= null ? __modified : __base).deptList(), LeafDept.class, true);
+            }
+
+            @Override
+            public LeafUserDraft setDeptList(List<LeafDept> deptList) {
+                if (deptList == null) {
                     throw new IllegalArgumentException(
-                        "'userCode' cannot be null, please specify non-null value or use nullable annotation to decorate this property"
+                        "'deptList' cannot be null, please specify non-null value or use nullable annotation to decorate this property"
                     );
                 }
                 Impl __tmpModified = __modified();
-                __tmpModified.__userCodeValue = userCode;
+                __tmpModified.__deptListValue = NonSharedList.of(__tmpModified.__deptListValue, deptList);
+                return this;
+            }
+
+            @Override
+            public LeafUserDraft addIntoDeptList(DraftConsumer<LeafDeptDraft> block) {
+                addIntoDeptList(null, block);
+                return this;
+            }
+
+            @Override
+            public LeafUserDraft addIntoDeptList(LeafDept base,
+                    DraftConsumer<LeafDeptDraft> block) {
+                deptList(true).add((LeafDeptDraft)LeafDeptDraft.$.produce(base, block));
                 return this;
             }
 
@@ -1266,14 +1648,24 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		setPassword((String)value);break;
                     case SLOT_NICK_NAME:
                     		setNickName((String)value);break;
+                    case SLOT_PHONE:
+                    		setPhone((String)value);break;
+                    case SLOT_EMAIL:
+                    		setEmail((String)value);break;
                     case SLOT_AVATAR:
                     		setAvatar((String)value);break;
+                    case SLOT_LAST_LOGIN_TIME:
+                    		setLastLoginTime((LocalDate)value);break;
                     case SLOT_STATUS:
-                    		setStatus((Integer)value);break;
-                    case SLOT_DEL_FLAG:
-                    		setDelFlag((Integer)value);break;
-                    case SLOT_USER_CODE:
-                    		setUserCode((String)value);break;
+                    		if (value == null) throw new IllegalArgumentException("'status' cannot be null, if you want to set null, please use any annotation whose simple name is \"Nullable\" to decorate the property");
+                            setStatus((Integer)value);
+                            break;
+                    case SLOT_USER_DETAIL_ID:
+                    		setUserDetailId((Long)value);break;
+                    case SLOT_USER_DETAIL:
+                    		setUserDetail((LeafUserDetail)value);break;
+                    case SLOT_DEPT_LIST:
+                    		setDeptList((List<LeafDept>)value);break;
                     default: throw new IllegalArgumentException("Illegal property id for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
@@ -1302,14 +1694,24 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		setPassword((String)value);break;
                     case "nickName":
                     		setNickName((String)value);break;
+                    case "phone":
+                    		setPhone((String)value);break;
+                    case "email":
+                    		setEmail((String)value);break;
                     case "avatar":
                     		setAvatar((String)value);break;
+                    case "lastLoginTime":
+                    		setLastLoginTime((LocalDate)value);break;
                     case "status":
-                    		setStatus((Integer)value);break;
-                    case "delFlag":
-                    		setDelFlag((Integer)value);break;
-                    case "userCode":
-                    		setUserCode((String)value);break;
+                    		if (value == null) throw new IllegalArgumentException("'status' cannot be null, if you want to set null, please use any annotation whose simple name is \"Nullable\" to decorate the property");
+                            setStatus((Integer)value);
+                            break;
+                    case "userDetailId":
+                    		setUserDetailId((Long)value);break;
+                    case "userDetail":
+                    		setUserDetail((LeafUserDetail)value);break;
+                    case "deptList":
+                    		setDeptList((List<LeafDept>)value);break;
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\"");
                 }
             }
@@ -1321,7 +1723,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     if (visible) {
                         return;
                     }
-                    __modified().__visibility = __visibility = Visibility.of(13);
+                    __modified().__visibility = __visibility = Visibility.of(17);
                 }
                 int __propIndex = prop.asIndex();
                 switch (__propIndex) {
@@ -1346,14 +1748,22 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		__visibility.show(SLOT_PASSWORD, visible);break;
                     case SLOT_NICK_NAME:
                     		__visibility.show(SLOT_NICK_NAME, visible);break;
+                    case SLOT_PHONE:
+                    		__visibility.show(SLOT_PHONE, visible);break;
+                    case SLOT_EMAIL:
+                    		__visibility.show(SLOT_EMAIL, visible);break;
                     case SLOT_AVATAR:
                     		__visibility.show(SLOT_AVATAR, visible);break;
+                    case SLOT_LAST_LOGIN_TIME:
+                    		__visibility.show(SLOT_LAST_LOGIN_TIME, visible);break;
                     case SLOT_STATUS:
                     		__visibility.show(SLOT_STATUS, visible);break;
-                    case SLOT_DEL_FLAG:
-                    		__visibility.show(SLOT_DEL_FLAG, visible);break;
-                    case SLOT_USER_CODE:
-                    		__visibility.show(SLOT_USER_CODE, visible);break;
+                    case SLOT_USER_DETAIL_ID:
+                    		__visibility.show(SLOT_USER_DETAIL_ID, visible);break;
+                    case SLOT_USER_DETAIL:
+                    		__visibility.show(SLOT_USER_DETAIL, visible);break;
+                    case SLOT_DEPT_LIST:
+                    		__visibility.show(SLOT_DEPT_LIST, visible);break;
                     default: throw new IllegalArgumentException(
                                 "Illegal property id for \"com.leaf.domain.LeafUser\": \"" + 
                                 prop + 
@@ -1369,7 +1779,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     if (visible) {
                         return;
                     }
-                    __modified().__visibility = __visibility = Visibility.of(13);
+                    __modified().__visibility = __visibility = Visibility.of(17);
                 }
                 switch (prop) {
                     case "createTime":
@@ -1390,14 +1800,22 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     		__visibility.show(SLOT_PASSWORD, visible);break;
                     case "nickName":
                     		__visibility.show(SLOT_NICK_NAME, visible);break;
+                    case "phone":
+                    		__visibility.show(SLOT_PHONE, visible);break;
+                    case "email":
+                    		__visibility.show(SLOT_EMAIL, visible);break;
                     case "avatar":
                     		__visibility.show(SLOT_AVATAR, visible);break;
+                    case "lastLoginTime":
+                    		__visibility.show(SLOT_LAST_LOGIN_TIME, visible);break;
                     case "status":
                     		__visibility.show(SLOT_STATUS, visible);break;
-                    case "delFlag":
-                    		__visibility.show(SLOT_DEL_FLAG, visible);break;
-                    case "userCode":
-                    		__visibility.show(SLOT_USER_CODE, visible);break;
+                    case "userDetailId":
+                    		__visibility.show(SLOT_USER_DETAIL_ID, visible);break;
+                    case "userDetail":
+                    		__visibility.show(SLOT_USER_DETAIL, visible);break;
+                    case "deptList":
+                    		__visibility.show(SLOT_DEPT_LIST, visible);break;
                     default: throw new IllegalArgumentException(
                                 "Illegal property name for \"com.leaf.domain.LeafUser\": \"" + 
                                 prop + 
@@ -1430,15 +1848,23 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     case SLOT_PASSWORD:
                     		__modified().__passwordValue = null;break;
                     case SLOT_NICK_NAME:
-                    		__modified().__nickNameLoaded = false;break;
+                    		__modified().__nickNameValue = null;break;
+                    case SLOT_PHONE:
+                    		__modified().__phoneLoaded = false;break;
+                    case SLOT_EMAIL:
+                    		__modified().__emailLoaded = false;break;
                     case SLOT_AVATAR:
                     		__modified().__avatarLoaded = false;break;
+                    case SLOT_LAST_LOGIN_TIME:
+                    		__modified().__lastLoginTimeLoaded = false;break;
                     case SLOT_STATUS:
                     		__modified().__statusLoaded = false;break;
-                    case SLOT_DEL_FLAG:
-                    		__modified().__delFlagLoaded = false;break;
-                    case SLOT_USER_CODE:
-                    		__modified().__userCodeValue = null;break;
+                    case SLOT_USER_DETAIL_ID:
+                    		__unload(PropId.byIndex(SLOT_USER_DETAIL));break;
+                    case SLOT_USER_DETAIL:
+                    		__modified().__userDetailLoaded = false;break;
+                    case SLOT_DEPT_LIST:
+                    		__modified().__deptListValue = null;break;
                     default: throw new IllegalArgumentException("Illegal property id for \"com.leaf.domain.LeafUser\": \"" + prop + "\", it does not exist or its loaded state is not controllable");
                 }
             }
@@ -1463,15 +1889,23 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                     case "password":
                     		__modified().__passwordValue = null;break;
                     case "nickName":
-                    		__modified().__nickNameLoaded = false;break;
+                    		__modified().__nickNameValue = null;break;
+                    case "phone":
+                    		__modified().__phoneLoaded = false;break;
+                    case "email":
+                    		__modified().__emailLoaded = false;break;
                     case "avatar":
                     		__modified().__avatarLoaded = false;break;
+                    case "lastLoginTime":
+                    		__modified().__lastLoginTimeLoaded = false;break;
                     case "status":
                     		__modified().__statusLoaded = false;break;
-                    case "delFlag":
-                    		__modified().__delFlagLoaded = false;break;
-                    case "userCode":
-                    		__modified().__userCodeValue = null;break;
+                    case "userDetailId":
+                    		__unload(PropId.byIndex(SLOT_USER_DETAIL));break;
+                    case "userDetail":
+                    		__modified().__userDetailLoaded = false;break;
+                    case "deptList":
+                    		__modified().__deptListValue = null;break;
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafUser\": \"" + prop + "\", it does not exist or its loaded state is not controllable");
                 }
             }
@@ -1490,6 +1924,27 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 try {
                     Implementor base = __base;
                     Impl __tmpModified = __modified;
+                    if (__tmpModified == null) {
+                        if (base.__isLoaded(PropId.byIndex(SLOT_USER_DETAIL))) {
+                            LeafUserDetail oldValue = base.userDetail();
+                            LeafUserDetail newValue = __ctx.resolveObject(oldValue);
+                            if (oldValue != newValue) {
+                                setUserDetail(newValue);
+                            }
+                        }
+                        if (base.__isLoaded(PropId.byIndex(SLOT_DEPT_LIST))) {
+                            List<LeafDept> oldValue = base.deptList();
+                            List<LeafDept> newValue = __ctx.resolveList(oldValue);
+                            if (oldValue != newValue) {
+                                setDeptList(newValue);
+                            }
+                        }
+                        __tmpModified = __modified;
+                    }
+                    else {
+                        __tmpModified.__userDetailValue = __ctx.resolveObject(__tmpModified.__userDetailValue);
+                        __tmpModified.__deptListValue = NonSharedList.of(__tmpModified.__deptListValue, __ctx.resolveList(__tmpModified.__deptListValue));
+                    }
                     if (__base != null && __tmpModified == null) {
                         return base;
                     }
@@ -1500,7 +1955,7 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
                 }
             }
 
-            private Impl __modified() {
+            Impl __modified() {
                 Impl __tmpModified = __modified;
                 if (__tmpModified == null) {
                     __tmpModified = __base.clone();
@@ -1511,167 +1966,126 @@ public interface LeafUserDraft extends LeafUser, BaseEntityDraft {
         }
     }
 
-    class MapStruct {
-        private Long userId;
+    class Builder {
+        private final Producer.DraftImpl __draft;
 
-        private boolean __createTimeLoaded;
+        public Builder() {
+            __draft = new Producer.DraftImpl(null, null);
+            __draft.__show(PropId.byIndex(Producer.SLOT_USER_DETAIL_ID), false);
+            __draft.__show(PropId.byIndex(Producer.SLOT_USER_DETAIL), false);
+        }
 
-        private LocalDateTime createTime;
-
-        private boolean __updateTimeLoaded;
-
-        private LocalDateTime updateTime;
-
-        private boolean __createByLoaded;
-
-        private String createBy;
-
-        private boolean __updateByLoaded;
-
-        private String updateBy;
-
-        private boolean __remarkLoaded;
-
-        private String remark;
-
-        private String username;
-
-        private String password;
-
-        private boolean __nickNameLoaded;
-
-        private String nickName;
-
-        private boolean __avatarLoaded;
-
-        private String avatar;
-
-        private boolean __statusLoaded;
-
-        private Integer status;
-
-        private boolean __delFlagLoaded;
-
-        private Integer delFlag;
-
-        private String userCode;
-
-        public MapStruct userId(Long userId) {
-            this.userId = userId;
+        public Builder userId(Long userId) {
+            if (userId != null) {
+                __draft.setUserId(userId);
+            }
             return this;
         }
 
-        public MapStruct createTime(LocalDateTime createTime) {
-            this.__createTimeLoaded = true;
-            this.createTime = createTime;
+        @Nullable
+        public Builder createTime(LocalDateTime createTime) {
+            __draft.setCreateTime(createTime);
             return this;
         }
 
-        public MapStruct updateTime(LocalDateTime updateTime) {
-            this.__updateTimeLoaded = true;
-            this.updateTime = updateTime;
+        @Nullable
+        public Builder updateTime(LocalDateTime updateTime) {
+            __draft.setUpdateTime(updateTime);
             return this;
         }
 
-        public MapStruct createBy(String createBy) {
-            this.__createByLoaded = true;
-            this.createBy = createBy;
+        @Nullable
+        public Builder createBy(String createBy) {
+            __draft.setCreateBy(createBy);
             return this;
         }
 
-        public MapStruct updateBy(String updateBy) {
-            this.__updateByLoaded = true;
-            this.updateBy = updateBy;
+        @Nullable
+        public Builder updateBy(String updateBy) {
+            __draft.setUpdateBy(updateBy);
             return this;
         }
 
-        public MapStruct remark(String remark) {
-            this.__remarkLoaded = true;
-            this.remark = remark;
+        @Nullable
+        public Builder remark(String remark) {
+            __draft.setRemark(remark);
             return this;
         }
 
-        public MapStruct username(String username) {
-            this.username = username;
+        public Builder username(String username) {
+            if (username != null) {
+                __draft.setUsername(username);
+            }
             return this;
         }
 
-        public MapStruct password(String password) {
-            this.password = password;
+        public Builder password(String password) {
+            if (password != null) {
+                __draft.setPassword(password);
+            }
             return this;
         }
 
-        public MapStruct nickName(String nickName) {
-            this.__nickNameLoaded = true;
-            this.nickName = nickName;
+        public Builder nickName(String nickName) {
+            if (nickName != null) {
+                __draft.setNickName(nickName);
+            }
             return this;
         }
 
-        public MapStruct avatar(String avatar) {
-            this.__avatarLoaded = true;
-            this.avatar = avatar;
+        @Nullable
+        public Builder phone(String phone) {
+            __draft.setPhone(phone);
             return this;
         }
 
-        public MapStruct status(Integer status) {
-            this.__statusLoaded = true;
-            this.status = status;
+        @Nullable
+        public Builder email(String email) {
+            __draft.setEmail(email);
             return this;
         }
 
-        public MapStruct delFlag(Integer delFlag) {
-            this.__delFlagLoaded = true;
-            this.delFlag = delFlag;
+        @Nullable
+        public Builder avatar(String avatar) {
+            __draft.setAvatar(avatar);
             return this;
         }
 
-        public MapStruct userCode(String userCode) {
-            this.userCode = userCode;
+        @Nullable
+        public Builder lastLoginTime(LocalDate lastLoginTime) {
+            __draft.setLastLoginTime(lastLoginTime);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            if (status != null) {
+                __draft.setStatus(status);
+            }
+            return this;
+        }
+
+        public Builder userDetailId(Long userDetailId) {
+            __draft.setUserDetailId(userDetailId);
+            __draft.__show(PropId.byIndex(Producer.SLOT_USER_DETAIL_ID), true);
+            return this;
+        }
+
+        @Nullable
+        public Builder userDetail(LeafUserDetail userDetail) {
+            __draft.setUserDetail(userDetail);
+            __draft.__show(PropId.byIndex(Producer.SLOT_USER_DETAIL), true);
+            return this;
+        }
+
+        public Builder deptList(List<LeafDept> deptList) {
+            if (deptList != null) {
+                __draft.setDeptList(deptList);
+            }
             return this;
         }
 
         public LeafUser build() {
-            return LeafUserDraft.$.produce(__draft -> {
-                if (userId != null) {
-                    __draft.setUserId(userId);
-                }
-                if (__createTimeLoaded) {
-                    __draft.setCreateTime(createTime);
-                }
-                if (__updateTimeLoaded) {
-                    __draft.setUpdateTime(updateTime);
-                }
-                if (__createByLoaded) {
-                    __draft.setCreateBy(createBy);
-                }
-                if (__updateByLoaded) {
-                    __draft.setUpdateBy(updateBy);
-                }
-                if (__remarkLoaded) {
-                    __draft.setRemark(remark);
-                }
-                if (username != null) {
-                    __draft.setUsername(username);
-                }
-                if (password != null) {
-                    __draft.setPassword(password);
-                }
-                if (__nickNameLoaded) {
-                    __draft.setNickName(nickName);
-                }
-                if (__avatarLoaded) {
-                    __draft.setAvatar(avatar);
-                }
-                if (__statusLoaded) {
-                    __draft.setStatus(status);
-                }
-                if (__delFlagLoaded) {
-                    __draft.setDelFlag(delFlag);
-                }
-                if (userCode != null) {
-                    __draft.setUserCode(userCode);
-                }
-            });
+            return (LeafUser)__draft.__modified();
         }
     }
 }

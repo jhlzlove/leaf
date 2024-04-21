@@ -1,7 +1,6 @@
 package com.leaf.controller;
 
 import com.leaf.constant.LeafConstants;
-import com.leaf.util.UUIDUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,12 +21,13 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 /**
  * 文件上传下载
  *
  * @author jhlz
- * @since 2022/10/5 16:39:06
+ * @version 1.0.0
  */
 @Tag(name = "文件管理")
 @RestController
@@ -58,7 +58,7 @@ public class FileController {
                 log.info("上传的源文件名称：{}", sourceFileName);
                 log.info("上传的源文件类型：{}", part.getContentType());
                 String suffix = sourceFileName.substring(sourceFileName.lastIndexOf("."));
-                String newFilename = UUIDUtil.getUUID();
+                String newFilename = UUID.randomUUID().toString().replace("-", "");
                 InputStream is = part.getInputStream();
                 String filePath = LeafConstants.UPLOAD_PATH + File.separator + newFilename + suffix;
                 File f = new File(filePath);
@@ -82,7 +82,7 @@ public class FileController {
         String suffix = sourceFileName.substring(sourceFileName.lastIndexOf("."));
         log.info(" File extension name is {}", suffix);
         String home = System.getProperty("user.dir");
-        String newFilename = UUIDUtil.getUUID();
+        String newFilename = UUID.randomUUID().toString().replace("-", "");
         String filePath = home + File.separator + LeafConstants.UPLOAD_PATH + File.separator + newFilename + suffix;
         log.info("文件名称：{}", filePath);
         try {

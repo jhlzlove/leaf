@@ -5,8 +5,12 @@ import java.lang.Integer;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.function.Function;
 import org.babyfish.jimmer.internal.GeneratedBy;
+import org.babyfish.jimmer.sql.JoinType;
+import org.babyfish.jimmer.sql.ast.Predicate;
 import org.babyfish.jimmer.sql.ast.PropExpression;
 import org.babyfish.jimmer.sql.ast.impl.table.TableImplementor;
 import org.babyfish.jimmer.sql.ast.table.TableEx;
@@ -80,8 +84,23 @@ public class LeafUserTable extends AbstractTypedTable<LeafUser> implements LeafU
     }
 
     @Override
+    public PropExpression.Str phone() {
+        return __get(LeafUserProps.PHONE.unwrap());
+    }
+
+    @Override
+    public PropExpression.Str email() {
+        return __get(LeafUserProps.EMAIL.unwrap());
+    }
+
+    @Override
     public PropExpression.Str avatar() {
         return __get(LeafUserProps.AVATAR.unwrap());
+    }
+
+    @Override
+    public PropExpression.Cmp<LocalDate> lastLoginTime() {
+        return __get(LeafUserProps.LAST_LOGIN_TIME.unwrap());
     }
 
     @Override
@@ -90,13 +109,31 @@ public class LeafUserTable extends AbstractTypedTable<LeafUser> implements LeafU
     }
 
     @Override
-    public PropExpression.Num<Integer> delFlag() {
-        return __get(LeafUserProps.DEL_FLAG.unwrap());
+    public LeafUserDetailTable userDetail() {
+        __beforeJoin();
+        if (raw != null) {
+            return new LeafUserDetailTable(raw.joinImplementor(LeafUserProps.USER_DETAIL.unwrap()));
+        }
+        return new LeafUserDetailTable(joinOperation(LeafUserProps.USER_DETAIL.unwrap()));
     }
 
     @Override
-    public PropExpression.Str userCode() {
-        return __get(LeafUserProps.USER_CODE.unwrap());
+    public LeafUserDetailTable userDetail(JoinType joinType) {
+        __beforeJoin();
+        if (raw != null) {
+            return new LeafUserDetailTable(raw.joinImplementor(LeafUserProps.USER_DETAIL.unwrap(), joinType));
+        }
+        return new LeafUserDetailTable(joinOperation(LeafUserProps.USER_DETAIL.unwrap(), joinType));
+    }
+
+    @Override
+    public PropExpression.Num<Long> userDetailId() {
+        return __getAssociatedId(LeafUserProps.USER_DETAIL.unwrap());
+    }
+
+    @Override
+    public Predicate deptList(Function<LeafDeptTableEx, Predicate> block) {
+        return exists(LeafUserProps.DEPT_LIST.unwrap(), block);
     }
 
     @Override

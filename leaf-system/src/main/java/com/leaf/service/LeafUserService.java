@@ -13,7 +13,7 @@ import java.util.List;
  * 用户登录信息表业务层
  *
  * @author jhlz
- * @since 2023-05-07 14:29:04
+ * @version 1.0.0
  */
 public interface LeafUserService {
 
@@ -54,6 +54,5 @@ public interface LeafUserService {
      * @param ids 删除数据的 id 集合
      */
     void remove(List<Long> ids);
-
 }
 

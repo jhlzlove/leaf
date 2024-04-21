@@ -21,7 +21,7 @@ import java.util.List;
  * 用户登录信息表业务层
  *
  * @author jhlz
- * @since 2023-05-07 14:29:04
+ * @version 1.0.0
  */
 @Service
 public class LeafUserServiceImpl implements LeafUserService {
@@ -36,6 +36,7 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
+    @Transactional("tm1")
     public Page<LeafUser> listPage(Pageable page) {
         return leafUserRepository.sql()
                 .createQuery(userTable)
@@ -44,18 +45,19 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
+    @Transactional("tm1")
     public LeafUser findById(Long id) {
         return leafUserRepository.findById(id).orElseThrow();
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional("tm1")
     public LeafUser save(LeafUser request) {
         return leafUserRepository.save(request);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional("tm1")
     public Response update(LeafUser leafUser) {
         LeafUser update = leafUserRepository.update(leafUser);
         // Long userId = leafUser.getUserId();
@@ -68,7 +70,7 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional("tm1")
     public void remove(List<Long> ids) {
         leafUserRepository.deleteAllById(ids);
     }

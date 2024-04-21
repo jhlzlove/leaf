@@ -98,16 +98,6 @@ public class LeafRoleFetcher extends AbstractTypedFetcher<LeafRole, LeafRoleFetc
     }
 
     @NewChain
-    public LeafRoleFetcher pCode() {
-        return add("pCode");
-    }
-
-    @NewChain
-    public LeafRoleFetcher pCode(boolean enabled) {
-        return enabled ? add("pCode") : remove("pCode");
-    }
-
-    @NewChain
     public LeafRoleFetcher roleName() {
         return add("roleName");
     }

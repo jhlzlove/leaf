@@ -16,11 +16,11 @@
 
     <!-- 系统日志输出 -->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/sys-info.log</file>
+        <file>${log.path}/leaf-info.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式，按天收集 -->
-            <fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/leaf-info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 每个日志文件最大 100 MB，保存 30 天的日志文件，但是日志占用总大小不超过 10 GB -->
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>30</maxHistory>
@@ -40,9 +40,9 @@
     </appender>
 
     <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/sys-error.log</file>
+        <file>${log.path}/leaf-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/sys-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/leaf-error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 每个日志文件最大 100 MB，保存 30 天的日志文件，但是日志占用总大小不超过 10 GB -->
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>30</maxHistory>
@@ -62,10 +62,10 @@
     </appender>
 
     <!-- 用户访问日志输出  -->
-    <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/sys-user.log</file>
+    <appender name="leaf-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/leaf-user.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/leaf-user.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- 日志最大的历史 30 天 -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -90,7 +90,7 @@
     </root>
 
     <!--系统用户操作日志-->
-    <logger name="sys-user" level="info">
-        <appender-ref ref="sys-user"/>
+    <logger name="leaf-user" level="info">
+        <appender-ref ref="leaf-user"/>
     </logger>
 </configuration> 

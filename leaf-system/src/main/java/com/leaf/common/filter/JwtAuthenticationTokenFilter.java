@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -27,10 +28,11 @@ import java.util.Objects;
  * JwtAuthenticationTokenFilter Token 认证过滤器
  *
  * @author jhlz
- * @since 2022/8/13 18:55
+ * @version 1.0.0
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
     private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationTokenFilter(UserDetailsService userDetailsService) {
@@ -40,7 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        if (Objects.isNull(SecurityUtil.getAuthentication())) {
+        if (ObjectUtils.isEmpty(SecurityUtil.getAuthentication())) {
             String tokenHeader = request.getHeader(LeafConstants.AUTHORIZATION);
             if (Objects.nonNull(tokenHeader) && tokenHeader.startsWith(LeafConstants.BEARER_TOKEN)) {
                 String token = tokenHeader.substring(7);
@@ -54,7 +56,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private void tokenHandler(HttpServletRequest request, String token) {
         try {
             if (JwtUtil.verifyToken(token)) {
-                String username = JwtUtil.getSubject(token);
+                String username = JwtUtil.getPayloadClaim(token, "username").asString();
                 UserDetails user = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
@@ -71,7 +73,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         } catch (InvalidClaimException e) {
             request.setAttribute("description", "无效的 Claim！");
             throw new InvalidClaimException(e.getMessage());
-        } catch (RuntimeException e) {
+        } catch (JWTVerificationException e) {
             request.setAttribute("description", "token 解析失败！");
             throw new JWTVerificationException(e.getMessage());
         }

@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * jsr310 日期格式工具类
  *
  * @author jhlz
- * @since 2022/8/10 15:19
+ * @version 1.0.0
  */
 public class LocalDateUtil {
 

@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
  * 公共属性类
  * <p>
  * 使用 @MappedSuperclass 注解的父类可以被多继承
- * https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/advanced/mapped-super-class
+ * <a href="https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/advanced/mapped-super-class">关于 Jimmer 的继承</a>
  *
  * @author jhlz
- * @since 2022/11/26 15:33:42
+ * @version 1.0.0
  */
 @MappedSuperclass
 public interface BaseEntity {
@@ -32,23 +32,13 @@ public interface BaseEntity {
     /**
      * 创建人
      */
-    // @ManyToOne
     @Nullable
-    // @JoinColumn(
-    //         name = "CREATE_BY",
-    //         foreignKeyType = ForeignKeyType.FAKE
-    // )
     String createBy();
 
     /**
      * 更新人
      */
-    // @ManyToOne
     @Nullable
-    // @JoinColumn(
-    //         name = "UPDATE_BY",
-    //         foreignKeyType = ForeignKeyType.FAKE
-    // )
     String updateBy();
 
     /**

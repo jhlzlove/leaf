@@ -33,7 +33,7 @@ import java.util.concurrent.ExecutionException;
  * 系统测试 controller
  *
  * @author jhlz
- * @since 1.0
+ * @version 1.0.0
  */
 @RequestMapping("/test")
 @RestController

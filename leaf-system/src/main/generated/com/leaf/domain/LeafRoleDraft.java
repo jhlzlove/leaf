@@ -1,6 +1,7 @@
 package com.leaf.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.lang.CloneNotSupportedException;
 import java.lang.Cloneable;
@@ -60,13 +61,10 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
     LeafRoleDraft setRoleCode(String roleCode);
 
     @OldChain
-    LeafRoleDraft setPCode(String pCode);
-
-    @OldChain
     LeafRoleDraft setRoleName(String roleName);
 
     @OldChain
-    LeafRoleDraft setStatus(Integer status);
+    LeafRoleDraft setStatus(int status);
 
     class Producer {
         static final Producer INSTANCE = new Producer();
@@ -85,15 +83,13 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
 
         public static final int SLOT_ROLE_CODE = 6;
 
-        public static final int SLOT_P_CODE = 7;
+        public static final int SLOT_ROLE_NAME = 7;
 
-        public static final int SLOT_ROLE_NAME = 8;
-
-        public static final int SLOT_STATUS = 9;
+        public static final int SLOT_STATUS = 8;
 
         public static final ImmutableType TYPE = ImmutableType
             .newBuilder(
-                "0.8.112",
+                "0.8.125",
                 LeafRole.class,
                 Collections.singleton(BaseEntityDraft.Producer.TYPE),
                 (ctx, base) -> new DraftImpl(ctx, (LeafRole)base)
@@ -105,9 +101,8 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             .redefine("remark", SLOT_REMARK)
             .id(SLOT_ROLE_ID, "roleId", long.class)
             .add(SLOT_ROLE_CODE, "roleCode", ImmutablePropCategory.SCALAR, String.class, false)
-            .add(SLOT_P_CODE, "pCode", ImmutablePropCategory.SCALAR, String.class, true)
             .add(SLOT_ROLE_NAME, "roleName", ImmutablePropCategory.SCALAR, String.class, false)
-            .add(SLOT_STATUS, "status", ImmutablePropCategory.SCALAR, Integer.class, true)
+            .add(SLOT_STATUS, "status", ImmutablePropCategory.SCALAR, int.class, false)
             .build();
 
         private Producer() {
@@ -121,6 +116,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             return (LeafRole)Internal.produce(TYPE, base, block);
         }
 
+        @JsonPropertyOrder({"dummyPropForJacksonError__", "createTime", "updateTime", "createBy", "updateBy", "remark", "roleId", "roleCode", "roleName", "status"})
         public abstract interface Implementor extends LeafRole, ImmutableSpi {
             @Override
             default Object __get(PropId prop) {
@@ -142,12 +138,10 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return (Long)roleId();
                     case SLOT_ROLE_CODE:
                     		return roleCode();
-                    case SLOT_P_CODE:
-                    		return pCode();
                     case SLOT_ROLE_NAME:
                     		return roleName();
                     case SLOT_STATUS:
-                    		return status();
+                    		return (Integer)status();
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafRole\": \"" + prop + "\"");
                 }
             }
@@ -169,63 +163,52 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return (Long)roleId();
                     case "roleCode":
                     		return roleCode();
-                    case "pCode":
-                    		return pCode();
                     case "roleName":
                     		return roleName();
                     case "status":
-                    		return status();
+                    		return (Integer)status();
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafRole\": \"" + prop + "\"");
                 }
             }
 
-            @JsonIgnore
             default long getRoleId() {
                 return roleId();
             }
 
-            @JsonIgnore
+            @Nullable
             default LocalDateTime getCreateTime() {
                 return createTime();
             }
 
-            @JsonIgnore
+            @Nullable
             default LocalDateTime getUpdateTime() {
                 return updateTime();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getCreateBy() {
                 return createBy();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getUpdateBy() {
                 return updateBy();
             }
 
-            @JsonIgnore
+            @Nullable
             default String getRemark() {
                 return remark();
             }
 
-            @JsonIgnore
             default String getRoleCode() {
                 return roleCode();
             }
 
-            @JsonIgnore
-            default String getPCode() {
-                return pCode();
-            }
-
-            @JsonIgnore
             default String getRoleName() {
                 return roleName();
             }
 
-            @JsonIgnore
-            default Integer getStatus() {
+            default int getStatus() {
                 return status();
             }
 
@@ -268,17 +251,14 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
 
             String __roleCodeValue;
 
-            String __pCodeValue;
-
-            boolean __pCodeLoaded = false;
-
             String __roleNameValue;
 
-            Integer __statusValue;
+            int __statusValue;
 
             boolean __statusLoaded = false;
 
             @Override
+            @JsonIgnore
             public long roleId() {
                 if (!__roleIdLoaded) {
                     throw new UnloadedException(LeafRole.class, "roleId");
@@ -287,6 +267,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime createTime() {
                 if (!__createTimeLoaded) {
@@ -296,6 +277,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime updateTime() {
                 if (!__updateTimeLoaded) {
@@ -305,6 +287,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String createBy() {
                 if (!__createByLoaded) {
@@ -314,6 +297,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String updateBy() {
                 if (!__updateByLoaded) {
@@ -323,6 +307,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String remark() {
                 if (!__remarkLoaded) {
@@ -332,6 +317,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String roleCode() {
                 if (__roleCodeValue == null) {
                     throw new UnloadedException(LeafRole.class, "roleCode");
@@ -340,15 +326,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
-            public String pCode() {
-                if (!__pCodeLoaded) {
-                    throw new UnloadedException(LeafRole.class, "pCode");
-                }
-                return __pCodeValue;
-            }
-
-            @Override
+            @JsonIgnore
             public String roleName() {
                 if (__roleNameValue == null) {
                     throw new UnloadedException(LeafRole.class, "roleName");
@@ -357,8 +335,8 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
-            public Integer status() {
+            @JsonIgnore
+            public int status() {
                 if (!__statusLoaded) {
                     throw new UnloadedException(LeafRole.class, "status");
                 }
@@ -394,8 +372,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return __roleIdLoaded;
                     case SLOT_ROLE_CODE:
                     		return __roleCodeValue != null;
-                    case SLOT_P_CODE:
-                    		return __pCodeLoaded;
                     case SLOT_ROLE_NAME:
                     		return __roleNameValue != null;
                     case SLOT_STATUS:
@@ -421,8 +397,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return __roleIdLoaded;
                     case "roleCode":
                     		return __roleCodeValue != null;
-                    case "pCode":
-                    		return __pCodeLoaded;
                     case "roleName":
                     		return __roleNameValue != null;
                     case "status":
@@ -454,8 +428,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return __visibility.visible(SLOT_ROLE_ID);
                     case SLOT_ROLE_CODE:
                     		return __visibility.visible(SLOT_ROLE_CODE);
-                    case SLOT_P_CODE:
-                    		return __visibility.visible(SLOT_P_CODE);
                     case SLOT_ROLE_NAME:
                     		return __visibility.visible(SLOT_ROLE_NAME);
                     case SLOT_STATUS:
@@ -484,8 +456,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		return __visibility.visible(SLOT_ROLE_ID);
                     case "roleCode":
                     		return __visibility.visible(SLOT_ROLE_CODE);
-                    case "pCode":
-                    		return __visibility.visible(SLOT_P_CODE);
                     case "roleName":
                     		return __visibility.visible(SLOT_ROLE_NAME);
                     case "status":
@@ -520,14 +490,11 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                 if (__roleCodeValue != null) {
                     hash = 31 * hash + __roleCodeValue.hashCode();
                 }
-                if (__pCodeLoaded && __pCodeValue != null) {
-                    hash = 31 * hash + __pCodeValue.hashCode();
-                }
                 if (__roleNameValue != null) {
                     hash = 31 * hash + __roleNameValue.hashCode();
                 }
-                if (__statusLoaded && __statusValue != null) {
-                    hash = 31 * hash + __statusValue.hashCode();
+                if (__statusLoaded) {
+                    hash = 31 * hash + Integer.hashCode(__statusValue);
                 }
                 return hash;
             }
@@ -555,14 +522,11 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                 if (__roleCodeValue != null) {
                     hash = 31 * hash + System.identityHashCode(__roleCodeValue);
                 }
-                if (__pCodeLoaded) {
-                    hash = 31 * hash + System.identityHashCode(__pCodeValue);
-                }
                 if (__roleNameValue != null) {
                     hash = 31 * hash + System.identityHashCode(__roleNameValue);
                 }
                 if (__statusLoaded) {
-                    hash = 31 * hash + System.identityHashCode(__statusValue);
+                    hash = 31 * hash + Integer.hashCode(__statusValue);
                 }
                 return hash;
             }
@@ -649,16 +613,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                 if (__roleCodeLoaded && !Objects.equals(__roleCodeValue, __other.roleCode())) {
                     return false;
                 }
-                if (__isVisible(PropId.byIndex(SLOT_P_CODE)) != __other.__isVisible(PropId.byIndex(SLOT_P_CODE))) {
-                    return false;
-                }
-                boolean __pCodeLoaded = this.__pCodeLoaded;
-                if (__pCodeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_P_CODE))) {
-                    return false;
-                }
-                if (__pCodeLoaded && !Objects.equals(__pCodeValue, __other.pCode())) {
-                    return false;
-                }
                 if (__isVisible(PropId.byIndex(SLOT_ROLE_NAME)) != __other.__isVisible(PropId.byIndex(SLOT_ROLE_NAME))) {
                     return false;
                 }
@@ -676,7 +630,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                 if (__statusLoaded != __other.__isLoaded(PropId.byIndex(SLOT_STATUS))) {
                     return false;
                 }
-                if (__statusLoaded && !Objects.equals(__statusValue, __other.status())) {
+                if (__statusLoaded && __statusValue != __other.status()) {
                     return false;
                 }
                 return true;
@@ -755,16 +709,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     return false;
                 }
                 if (__roleCodeLoaded && __roleCodeValue != __other.roleCode()) {
-                    return false;
-                }
-                if (__isVisible(PropId.byIndex(SLOT_P_CODE)) != __other.__isVisible(PropId.byIndex(SLOT_P_CODE))) {
-                    return false;
-                }
-                boolean __pCodeLoaded = this.__pCodeLoaded;
-                if (__pCodeLoaded != __other.__isLoaded(PropId.byIndex(SLOT_P_CODE))) {
-                    return false;
-                }
-                if (__pCodeLoaded && __pCodeValue != __other.pCode()) {
                     return false;
                 }
                 if (__isVisible(PropId.byIndex(SLOT_ROLE_NAME)) != __other.__isVisible(PropId.byIndex(SLOT_ROLE_NAME))) {
@@ -866,6 +810,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public long roleId() {
                 return (__modified!= null ? __modified : __base).roleId();
             }
@@ -879,6 +824,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime createTime() {
                 return (__modified!= null ? __modified : __base).createTime();
@@ -893,6 +839,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public LocalDateTime updateTime() {
                 return (__modified!= null ? __modified : __base).updateTime();
@@ -907,6 +854,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String createBy() {
                 return (__modified!= null ? __modified : __base).createBy();
@@ -921,6 +869,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String updateBy() {
                 return (__modified!= null ? __modified : __base).updateBy();
@@ -935,6 +884,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             @Nullable
             public String remark() {
                 return (__modified!= null ? __modified : __base).remark();
@@ -949,6 +899,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
+            @JsonIgnore
             public String roleCode() {
                 return (__modified!= null ? __modified : __base).roleCode();
             }
@@ -966,20 +917,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
-            public String pCode() {
-                return (__modified!= null ? __modified : __base).pCode();
-            }
-
-            @Override
-            public LeafRoleDraft setPCode(String pCode) {
-                Impl __tmpModified = __modified();
-                __tmpModified.__pCodeValue = pCode;
-                __tmpModified.__pCodeLoaded = true;
-                return this;
-            }
-
-            @Override
+            @JsonIgnore
             public String roleName() {
                 return (__modified!= null ? __modified : __base).roleName();
             }
@@ -997,13 +935,13 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
             }
 
             @Override
-            @Nullable
-            public Integer status() {
+            @JsonIgnore
+            public int status() {
                 return (__modified!= null ? __modified : __base).status();
             }
 
             @Override
-            public LeafRoleDraft setStatus(Integer status) {
+            public LeafRoleDraft setStatus(int status) {
                 Impl __tmpModified = __modified();
                 __tmpModified.__statusValue = status;
                 __tmpModified.__statusLoaded = true;
@@ -1034,12 +972,12 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                             break;
                     case SLOT_ROLE_CODE:
                     		setRoleCode((String)value);break;
-                    case SLOT_P_CODE:
-                    		setPCode((String)value);break;
                     case SLOT_ROLE_NAME:
                     		setRoleName((String)value);break;
                     case SLOT_STATUS:
-                    		setStatus((Integer)value);break;
+                    		if (value == null) throw new IllegalArgumentException("'status' cannot be null, if you want to set null, please use any annotation whose simple name is \"Nullable\" to decorate the property");
+                            setStatus((Integer)value);
+                            break;
                     default: throw new IllegalArgumentException("Illegal property id for \"com.leaf.domain.LeafRole\": \"" + prop + "\"");
                 }
             }
@@ -1064,12 +1002,12 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                             break;
                     case "roleCode":
                     		setRoleCode((String)value);break;
-                    case "pCode":
-                    		setPCode((String)value);break;
                     case "roleName":
                     		setRoleName((String)value);break;
                     case "status":
-                    		setStatus((Integer)value);break;
+                    		if (value == null) throw new IllegalArgumentException("'status' cannot be null, if you want to set null, please use any annotation whose simple name is \"Nullable\" to decorate the property");
+                            setStatus((Integer)value);
+                            break;
                     default: throw new IllegalArgumentException("Illegal property name for \"com.leaf.domain.LeafRole\": \"" + prop + "\"");
                 }
             }
@@ -1081,7 +1019,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     if (visible) {
                         return;
                     }
-                    __modified().__visibility = __visibility = Visibility.of(10);
+                    __modified().__visibility = __visibility = Visibility.of(9);
                 }
                 int __propIndex = prop.asIndex();
                 switch (__propIndex) {
@@ -1102,8 +1040,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		__visibility.show(SLOT_ROLE_ID, visible);break;
                     case SLOT_ROLE_CODE:
                     		__visibility.show(SLOT_ROLE_CODE, visible);break;
-                    case SLOT_P_CODE:
-                    		__visibility.show(SLOT_P_CODE, visible);break;
                     case SLOT_ROLE_NAME:
                     		__visibility.show(SLOT_ROLE_NAME, visible);break;
                     case SLOT_STATUS:
@@ -1123,7 +1059,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     if (visible) {
                         return;
                     }
-                    __modified().__visibility = __visibility = Visibility.of(10);
+                    __modified().__visibility = __visibility = Visibility.of(9);
                 }
                 switch (prop) {
                     case "createTime":
@@ -1140,8 +1076,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		__visibility.show(SLOT_ROLE_ID, visible);break;
                     case "roleCode":
                     		__visibility.show(SLOT_ROLE_CODE, visible);break;
-                    case "pCode":
-                    		__visibility.show(SLOT_P_CODE, visible);break;
                     case "roleName":
                     		__visibility.show(SLOT_ROLE_NAME, visible);break;
                     case "status":
@@ -1175,8 +1109,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		__modified().__roleIdLoaded = false;break;
                     case SLOT_ROLE_CODE:
                     		__modified().__roleCodeValue = null;break;
-                    case SLOT_P_CODE:
-                    		__modified().__pCodeLoaded = false;break;
                     case SLOT_ROLE_NAME:
                     		__modified().__roleNameValue = null;break;
                     case SLOT_STATUS:
@@ -1202,8 +1134,6 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                     		__modified().__roleIdLoaded = false;break;
                     case "roleCode":
                     		__modified().__roleCodeValue = null;break;
-                    case "pCode":
-                    		__modified().__pCodeLoaded = false;break;
                     case "roleName":
                     		__modified().__roleNameValue = null;break;
                     case "status":
@@ -1236,7 +1166,7 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
                 }
             }
 
-            private Impl __modified() {
+            Impl __modified() {
                 Impl __tmpModified = __modified;
                 if (__tmpModified == null) {
                     __tmpModified = __base.clone();
@@ -1247,131 +1177,73 @@ public interface LeafRoleDraft extends LeafRole, BaseEntityDraft {
         }
     }
 
-    class MapStruct {
-        private Long roleId;
+    class Builder {
+        private final Producer.DraftImpl __draft;
 
-        private boolean __createTimeLoaded;
+        public Builder() {
+            __draft = new Producer.DraftImpl(null, null);
+        }
 
-        private LocalDateTime createTime;
-
-        private boolean __updateTimeLoaded;
-
-        private LocalDateTime updateTime;
-
-        private boolean __createByLoaded;
-
-        private String createBy;
-
-        private boolean __updateByLoaded;
-
-        private String updateBy;
-
-        private boolean __remarkLoaded;
-
-        private String remark;
-
-        private String roleCode;
-
-        private boolean __pCodeLoaded;
-
-        private String pCode;
-
-        private String roleName;
-
-        private boolean __statusLoaded;
-
-        private Integer status;
-
-        public MapStruct roleId(Long roleId) {
-            this.roleId = roleId;
+        public Builder roleId(Long roleId) {
+            if (roleId != null) {
+                __draft.setRoleId(roleId);
+            }
             return this;
         }
 
-        public MapStruct createTime(LocalDateTime createTime) {
-            this.__createTimeLoaded = true;
-            this.createTime = createTime;
+        @Nullable
+        public Builder createTime(LocalDateTime createTime) {
+            __draft.setCreateTime(createTime);
             return this;
         }
 
-        public MapStruct updateTime(LocalDateTime updateTime) {
-            this.__updateTimeLoaded = true;
-            this.updateTime = updateTime;
+        @Nullable
+        public Builder updateTime(LocalDateTime updateTime) {
+            __draft.setUpdateTime(updateTime);
             return this;
         }
 
-        public MapStruct createBy(String createBy) {
-            this.__createByLoaded = true;
-            this.createBy = createBy;
+        @Nullable
+        public Builder createBy(String createBy) {
+            __draft.setCreateBy(createBy);
             return this;
         }
 
-        public MapStruct updateBy(String updateBy) {
-            this.__updateByLoaded = true;
-            this.updateBy = updateBy;
+        @Nullable
+        public Builder updateBy(String updateBy) {
+            __draft.setUpdateBy(updateBy);
             return this;
         }
 
-        public MapStruct remark(String remark) {
-            this.__remarkLoaded = true;
-            this.remark = remark;
+        @Nullable
+        public Builder remark(String remark) {
+            __draft.setRemark(remark);
             return this;
         }
 
-        public MapStruct roleCode(String roleCode) {
-            this.roleCode = roleCode;
+        public Builder roleCode(String roleCode) {
+            if (roleCode != null) {
+                __draft.setRoleCode(roleCode);
+            }
             return this;
         }
 
-        public MapStruct pCode(String pCode) {
-            this.__pCodeLoaded = true;
-            this.pCode = pCode;
+        public Builder roleName(String roleName) {
+            if (roleName != null) {
+                __draft.setRoleName(roleName);
+            }
             return this;
         }
 
-        public MapStruct roleName(String roleName) {
-            this.roleName = roleName;
-            return this;
-        }
-
-        public MapStruct status(Integer status) {
-            this.__statusLoaded = true;
-            this.status = status;
+        public Builder status(Integer status) {
+            if (status != null) {
+                __draft.setStatus(status);
+            }
             return this;
         }
 
         public LeafRole build() {
-            return LeafRoleDraft.$.produce(__draft -> {
-                if (roleId != null) {
-                    __draft.setRoleId(roleId);
-                }
-                if (__createTimeLoaded) {
-                    __draft.setCreateTime(createTime);
-                }
-                if (__updateTimeLoaded) {
-                    __draft.setUpdateTime(updateTime);
-                }
-                if (__createByLoaded) {
-                    __draft.setCreateBy(createBy);
-                }
-                if (__updateByLoaded) {
-                    __draft.setUpdateBy(updateBy);
-                }
-                if (__remarkLoaded) {
-                    __draft.setRemark(remark);
-                }
-                if (roleCode != null) {
-                    __draft.setRoleCode(roleCode);
-                }
-                if (__pCodeLoaded) {
-                    __draft.setPCode(pCode);
-                }
-                if (roleName != null) {
-                    __draft.setRoleName(roleName);
-                }
-                if (__statusLoaded) {
-                    __draft.setStatus(status);
-                }
-            });
+            return (LeafRole)__draft.__modified();
         }
     }
 }

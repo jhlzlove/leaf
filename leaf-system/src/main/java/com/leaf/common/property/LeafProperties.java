@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 不过确实，Record 类已经足够简单明了，不需要使用额外的注解进行辅助描述。
  *
  * @author jhlz
- * @since 2023/3/4 15:27
+ * @version 1.0.0
  */
 @Component
 public class LeafProperties {

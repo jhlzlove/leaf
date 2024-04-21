@@ -70,11 +70,6 @@ public class LeafRoleTable extends AbstractTypedTable<LeafRole> implements LeafR
     }
 
     @Override
-    public PropExpression.Str pCode() {
-        return __get(LeafRoleProps.P_CODE.unwrap());
-    }
-
-    @Override
     public PropExpression.Str roleName() {
         return __get(LeafRoleProps.ROLE_NAME.unwrap());
     }

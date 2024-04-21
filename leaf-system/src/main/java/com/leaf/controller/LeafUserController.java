@@ -18,7 +18,7 @@ import java.util.List;
  * 用户登录信息表控制层
  *
  * @author jhlz
- * @since 2023-05-07 14:29:04
+ * @version 1.0.0
  */
 @Tag(name = "用户信息", description = "用户信息")
 @RestController

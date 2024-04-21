@@ -28,7 +28,7 @@ import java.util.Objects;
  * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Chain 为主
  *
  * @author jhlz
- * @since 2022/8/10 11:26
+ * @version 1.0.0
  */
 @Configuration
 // 添加 security 过滤器

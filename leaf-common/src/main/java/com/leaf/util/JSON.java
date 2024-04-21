@@ -23,7 +23,7 @@ import java.util.Map;
  * 注意，此工具类脱离 Spring 工厂使用，无法注入或者覆盖 jackson 的默认行为，如需自定义，请修改 system 模块下的 JacksonConfig.java
  *
  * @author jhlz
- * @since 2022/8/19 18:52
+ * @version 1.0.0
  */
 public class JSON {
 

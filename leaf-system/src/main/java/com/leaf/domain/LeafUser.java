@@ -3,12 +3,15 @@ package com.leaf.domain;
 import org.babyfish.jimmer.sql.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 /**
  * 用户登录信息表(LeafUser)实体类
  *
  * @author jhlz
- * @since 2023-05-07 14:29:04
+ * @version 1.0.0
  */
 @Entity
 public interface LeafUser extends BaseEntity {
@@ -30,8 +33,19 @@ public interface LeafUser extends BaseEntity {
     /**
      * 昵称
      */
-    @Nullable
     String nickName();
+
+    /**
+     * 电话
+     */
+    @Nullable
+    String phone();
+
+    /**
+     * 邮箱
+     */
+    @Nullable
+    String email();
 
     /**
      * 头像地址
@@ -40,16 +54,34 @@ public interface LeafUser extends BaseEntity {
     String avatar();
 
     /**
-     * 状态：0 正常，1 禁用
+     * 最后一次登录时间
      */
-    Integer status();
+    @Nullable
+    LocalDate lastLoginTime();
 
     /**
-     * 是否删除：0 正常；1 删除
+     * 状态：0 正常，1 禁用
      */
-    Integer delFlag();
+    int status();
 
-    String userCode();
+    /**
+     * 用户详情 ID
+     */
+    @IdView
+    Long userDetailId();
+
+    @Nullable
+    @ManyToOne
+    @JoinColumn(name = "user_detail_id", foreignKeyType = ForeignKeyType.FAKE)
+    LeafUserDetail userDetail();
+
+    @ManyToMany
+    @JoinTable(
+            name = "leaf_user_dept",
+            joinColumnName = "user_id",
+            inverseJoinColumnName = "dept_id"
+    )
+    List<LeafDept> deptList();
 
 }
 

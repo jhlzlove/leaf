@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * SpringUtil: 获取 Spring 工厂对象爽歪歪的类
  *
  * @author jhlz
- * @since 2022/9/16 14:17:41
+ * @version 1.0.0
  */
 @Component
 public class SpringUtil implements ApplicationContextAware, BeanFactoryPostProcessor {

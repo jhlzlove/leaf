@@ -1,7 +1,6 @@
 ############################# 端口号 #############################
 server:
   port: 7777
-
 ############################# Spring 相关 #############################
 spring:
   application:
@@ -19,7 +18,7 @@ spring:
     # hikari 连接池
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/leaf_master?serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/leaf_main?serverTimezone=Asia/Shanghai
     username: postgres
     password: postgres
     hikari:
@@ -30,26 +29,37 @@ spring:
       connection-timeout: 60000
       # 最大连接池
       maximum-pool-size: 10
+  
 
 # jimmer
 jimmer:
   dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
   show-sql: true
   pretty-sql: true
+  # 假外键
+  is-foreign-key-enabled-by-default: false
   # NONE: 不验证数据库结构，这是默认行为。
   # WARNNING: 验证数据库结构，如果数据库结构和实体模型定义不一致，不阻止程序运行，只是在日志中打印告警信息。
   # ERROR: 验证数据库结构，如果数据库结构和实体模型定义不一致，抛出异常，阻止程序运行。
   database-validation:
     mode: error
+  client:
+    openapi:
+      path: /openapi.yml
+      ui-path: /openapi.html
+      properties:
+        info:
+          title: Leaf Open API
+          description: Swagger Api
+          version: 0.1
+    ts:
+      path: /ts.zip
 
 # Spring 日志级别，默认为 info 级别
 logging:
   level:
-    # 指定 repository 包内的日志级别
-    com.leaf.repository: debug
-    # SQL 语句显示参数
-    org.hibernate.stat: debug
-    org.hibernate.sql: debug
+    web: debug
+    root: info
 
 ############################# 项目自定义配置 #############################
 leaf:

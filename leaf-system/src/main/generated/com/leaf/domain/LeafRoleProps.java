@@ -36,9 +36,6 @@ public interface LeafRoleProps extends BaseEntityProps {
     TypedProp.Scalar<LeafRole, String> ROLE_CODE = 
         TypedProp.scalar(ImmutableType.get(LeafRole.class).getProp("roleCode"));
 
-    TypedProp.Scalar<LeafRole, String> P_CODE = 
-        TypedProp.scalar(ImmutableType.get(LeafRole.class).getProp("pCode"));
-
     TypedProp.Scalar<LeafRole, String> ROLE_NAME = 
         TypedProp.scalar(ImmutableType.get(LeafRole.class).getProp("roleName"));
 
@@ -48,8 +45,6 @@ public interface LeafRoleProps extends BaseEntityProps {
     PropExpression.Num<Long> roleId();
 
     PropExpression.Str roleCode();
-
-    PropExpression.Str pCode();
 
     PropExpression.Str roleName();
 

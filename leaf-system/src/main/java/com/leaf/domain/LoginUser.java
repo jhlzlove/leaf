@@ -1,5 +1,6 @@
 package com.leaf.domain;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,38 +11,25 @@ import java.util.List;
 
 /**
  * @author jhlz
- * @since 1.0.0
+ * @version 1.0.0
  */
+@Data
 public class LoginUser implements UserDetails {
 
     private String username;
     private String password;
     /**
-     * 状态：0 正常，1 禁用
+     * 状态：1 正常，0 禁用
      */
     private Integer status;
 
-    /**
-     * 是否删除：0 正常；1 删除
-     */
-    private Integer delFlag;
-
     public record UserRecord(String username,
                              String password,
-                             Integer status,
-                             Integer delFlag) {
+                             Integer status) {
 
     }
 
     private List<String> permission = new ArrayList<>();
-
-    public List<String> getPermission() {
-        return this.permission;
-    }
-
-    public void setPermission(List<String> permission) {
-        this.permission = permission;
-    }
 
     public LoginUser() {
     }
@@ -50,7 +38,6 @@ public class LoginUser implements UserDetails {
         this.username = user.username();
         this.password = user.password();
         this.status = user.status();
-        this.delFlag = user.delFlag();
         this.permission = permission;
     }
 
@@ -86,18 +73,7 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status == 0;
+        return status == 1;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
 }

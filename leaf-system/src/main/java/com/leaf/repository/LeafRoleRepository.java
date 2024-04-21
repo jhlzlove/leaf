@@ -5,8 +5,7 @@ import org.babyfish.jimmer.spring.repository.JRepository;
 
 /**
  * @author jhlz
- * @version 0.0.1
- * @since 2023/9/18 12:01
+ * @version 1.0.0
  */
 public interface LeafRoleRepository extends JRepository<LeafRole, Long> {
 

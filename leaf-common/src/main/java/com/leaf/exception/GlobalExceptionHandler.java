@@ -9,16 +9,15 @@ import com.leaf.response.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Objects;
 
 /**
  * 全局异常信息处理
  *
  * @author jhlz
- * @since 2022/12/13 20:40:10
+ * @version 1.0.0
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -33,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(GlobalException.class)
     public Response exceptionHandler(HttpServletRequest req, GlobalException e) {
         BusinessException be = e.getException();
-        BusinessException exception = Objects.isNull(be) ? BusinessException.UNKNOWN : be;
+        BusinessException exception = ObjectUtils.isEmpty(be) ? BusinessException.UNKNOWN : be;
         return Response.error(exception.getCode(), "请求：{} 错误！" + req.getRequestURI() + exception.getMessage());
     }
 

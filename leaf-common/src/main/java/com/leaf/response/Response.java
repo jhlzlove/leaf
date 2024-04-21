@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 返回结果简单封装
  *
  * @author jhlz
- * @since 2022/10/3 16:19:42
+ * @version 1.0.0
  */
 public record Response(
         /* 状态码 */

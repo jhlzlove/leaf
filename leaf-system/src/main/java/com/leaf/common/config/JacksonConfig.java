@@ -22,8 +22,7 @@ import java.time.format.DateTimeFormatter;
  * 此类并未启用，当时写在这里是为了排查一些问题，于是就留下了
  *
  * @author jhlz
- * @version x.x.x
- * @since 2024/3/23 13:09
+ * @version 1.0.0
  */
 // @Configuration
 public class JacksonConfig {

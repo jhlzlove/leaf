@@ -20,7 +20,6 @@ import java.util.List;
  *
  * @author jhlz
  * @version 1.0.0
- * @since 2023/10/3 17:18
  */
 @Service
 public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPasswordService {
@@ -42,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
      * @return UserDetails 实现
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional("tm1")
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         Integer result = leafUserRepository.sql().createUpdate(userTable)
                 .set(userTable.password(), newPassword)
@@ -52,6 +51,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
     }
 
     @Override
+    @Transactional("tm1")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<LeafUser> list = leafUserRepository
                 .sql().createQuery(userTable)
@@ -63,8 +63,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
                 new LoginUser.UserRecord(
                         user.username(),
                         user.password(),
-                        user.status(),
-                        user.delFlag()
+                        user.status()
                 ),
                 List.of("admin")
         );

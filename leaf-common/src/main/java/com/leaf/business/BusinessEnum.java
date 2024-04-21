@@ -6,7 +6,6 @@ package com.leaf.business;
  *
  * @author jhlz
  * @version 1.0.0
- * @since 2022/12/10 16:03
  */
 public enum BusinessEnum {
     UNKNOWN("未知", BusinessType.OTHER, "默认未知操作"),

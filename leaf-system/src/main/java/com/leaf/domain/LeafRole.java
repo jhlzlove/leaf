@@ -1,12 +1,10 @@
 package com.leaf.domain;
 
 import org.babyfish.jimmer.sql.*;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author jhlz
- * @version 0.0.1
- * @since 2023/9/18 11:57
+ * @version 1.0.0
  */
 @Entity
 public interface LeafRole extends BaseEntity {
@@ -18,11 +16,11 @@ public interface LeafRole extends BaseEntity {
 
     String roleCode();
 
-    @Nullable
-    String pCode();
-    
     String roleName();
 
-    Integer status();
+    /**
+     * 1 正常 0 禁用
+     */
+    int status();
 
 }

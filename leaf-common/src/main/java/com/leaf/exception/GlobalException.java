@@ -7,7 +7,7 @@ import com.leaf.business.BusinessException;
  * 自定义异常信息类
  *
  * @author jhlz
- * @since 2022/12/13 20:40
+ * @version 1.0.0
  */
 public class GlobalException extends RuntimeException {
 
