@@ -1,14 +1,12 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.util.LocalDateUtil;
+import com.leaf.util.LocalDateUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Clock;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 
 /**
  * LocalDateUtil test
@@ -20,7 +18,8 @@ public class LocalDateUtilTest {
 
     private static final Logger log = LoggerFactory.getLogger(LocalDateUtilTest.class);
 
-    private final Clock clock = Clock.system(ZoneId.of("UTC+8"));
+    private final Clock clock = Clock.systemUTC().withZone(ZoneId.of("Asia/Shanghai"));
+
 
     /**
      * test: printLocalDateTime example
@@ -28,8 +27,13 @@ public class LocalDateUtilTest {
     @Test
 
     public void printLocalDateTimeTest() {
+        log.info("{}", LocalDateTime.now());
         log.info("{}", LocalDateTime.now(clock));
-
+        Instant now = Instant.now();
+        Instant instant = now.plusSeconds(10);
+        Assertions.assertTrue(instant.isAfter(now));
+        log.info("{}", now);
+        log.info("{}", instant);
     }
 
     /**

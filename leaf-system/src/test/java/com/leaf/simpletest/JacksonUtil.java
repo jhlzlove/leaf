@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.util.JSON;
+import com.leaf.util.JSON;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -37,7 +37,7 @@ public class JacksonUtil {
         System.out.println(person);
 
         Person p = new Person("风中捉刀", 20, LocalDateTime.now(), LocalDate.now());
-        System.out.println(JSON.toJSONString(p));
+        System.out.println(JSON.toJson(p));
     }
 
     record Person(String name, Integer age, LocalDateTime date, LocalDate localDate) {

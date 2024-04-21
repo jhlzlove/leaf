@@ -1,7 +1,7 @@
 package com.leaf.webtest;
 
-import com.leaf.common.response.Response;
-import com.leaf.common.util.JSON;
+import com.leaf.response.Response;
+import com.leaf.util.JSON;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +23,13 @@ public class SpringResponseEntityTest {
     public void spring_ResponseEntityTest() {
         ResponseEntity<String> entity = ResponseEntity.status(200).body("诗酒趁年华");
         ResponseEntity<String> response1 = ResponseEntity.status(HttpStatus.BAD_REQUEST).header("b", "1").body("请求失败！");
-        ResponseEntity<Response> ok = ResponseEntity.ok(Response.success());
+        ResponseEntity<Response> ok = ResponseEntity.ok(Response.ok());
         System.out.println(ok);
-        System.out.println(JSON.toJSONString(ok));
+        System.out.println(JSON.toJson(ok));
 
-        System.out.println(JSON.toJSONString(response1));
+        System.out.println(JSON.toJson(response1));
         log.info("{}", response1);
-        String s = JSON.toJSONString(entity);
+        String s = JSON.toJson(entity);
         log.info("{}", s);
         log.info("{}", entity);
 

@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.common.business.BusinessEnum;
+import com.leaf.business.BusinessEnum;
 import org.junit.jupiter.api.Test;
 
 /**

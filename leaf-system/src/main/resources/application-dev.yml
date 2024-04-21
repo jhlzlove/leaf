@@ -1,13 +1,12 @@
 ############################# 端口号 #############################
 server:
   port: 7777
-
 ############################# Spring 相关 #############################
 spring:
   application:
     # 应用名称
     name: leaf-example-boot3
-  # SpringBoot2.x 版本是 servlet，2.x 之前是 http
+  # SpringBoot 2.x 版本是 servlet，2.x 之前是 http
   servlet:
     multipart:
       # 一次请求中单个文件最大大小
@@ -19,52 +18,52 @@ spring:
     # hikari 连接池
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/leaf?serverTimezone=Asia/Shanghai
+    url: jdbc:postgresql://localhost:5432/leaf_main?serverTimezone=Asia/Shanghai
+    username: postgres
+    password: postgres
     hikari:
-      username: postgres
-      password: postgres
-      # 最大连接池数量
-      maximum-pool-size: 20
-      # 配置一个连接在池中最大生存的时间，单位是毫秒
-      max-lifetime: 60000
-      # 存活时间
-      keepalive-time: 6000
-  # jpa 配置
-  jpa:
-    # 显示 SQL
-    show-sql: true
-    hibernate:
-      generate_statistics: true
-      # 命名策略
-      naming:
-        # 相当于 org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy（3.0删除）
-        # 驼峰与下划线映射
-        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-    # jpa 属性配置
-    properties:
-      hibernate:
-        # 格式化控制台打印的 SQL
-        format_sql: true
-    open-in-view: false
-#        jdbc:
-#          batch_size: 50
-#        # 检测批处理是否打开 它可能不生效
-#        generate_statistics: true
+      auto-commit: true
+      # 空闲连接超时时间
+      idle-timeout: 60000
+      # 连接超时时间
+      connection-timeout: 60000
+      # 最大连接池
+      maximum-pool-size: 10
+  
+
+# jimmer
+jimmer:
+  dialect: org.babyfish.jimmer.sql.dialect.PostgresDialect
+  show-sql: true
+  pretty-sql: true
+  # 假外键
+  is-foreign-key-enabled-by-default: false
+  # NONE: 不验证数据库结构，这是默认行为。
+  # WARNNING: 验证数据库结构，如果数据库结构和实体模型定义不一致，不阻止程序运行，只是在日志中打印告警信息。
+  # ERROR: 验证数据库结构，如果数据库结构和实体模型定义不一致，抛出异常，阻止程序运行。
+  database-validation:
+    mode: error
+  client:
+    openapi:
+      path: /openapi.yml
+      ui-path: /openapi.html
+      properties:
+        info:
+          title: Leaf Open API
+          description: Swagger Api
+          version: 0.1
+    ts:
+      path: /ts.zip
 
 # Spring 日志级别，默认为 info 级别
 logging:
   level:
-    # 指定 repository 包内的日志级别
-    com.leaf.system.repository: debug
-    # SQL 语句显示参数
-    org.hibernate.stat: debug
-    org.hibernate.sql: debug
-
+    web: debug
+    root: info
 
 ############################# 项目自定义配置 #############################
 leaf:
   # version
   version: v1.0.0
-  # header tag：默认 Authorization 可以改为 token 以及其它自己喜欢的标识,重要的是前后端统一
-  header: Authorization
   api-prefix: api
+

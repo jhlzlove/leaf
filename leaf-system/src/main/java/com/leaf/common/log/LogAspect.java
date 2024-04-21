@@ -1,7 +1,7 @@
 package com.leaf.common.log;
 
-import com.leaf.common.annotation.LeafLog;
-import com.leaf.common.business.BusinessEnum;
+import com.leaf.annotation.LeafLog;
+import com.leaf.business.BusinessEnum;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -20,7 +20,7 @@ import java.util.Arrays;
  * 日志切面
  *
  * @author jhlz
- * @since 2022/9/16 10:08:28
+ * @version 1.0.0
  */
 @Aspect
 @Component
@@ -31,14 +31,14 @@ public class LogAspect {
     /**
      * 设置操作日志切入点 记录操作日志 在注解的位置切入代码
      */
-    @Pointcut("@annotation(com.leaf.common.annotation.LeafLog)")
+    @Pointcut("@annotation(com.leaf.annotation.LeafLog)")
     public void logPointCut() {
     }
 
     /**
      * 设置操作异常切入点记录异常日志
      */
-    @Pointcut("execution(* com.leaf.system..*.*(..))")
+    @Pointcut("execution(* com.leaf.controller..*.*(..))")
     public void exceptionLogPointCut() {
     }
 

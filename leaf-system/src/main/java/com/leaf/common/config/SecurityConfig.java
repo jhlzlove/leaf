@@ -1,13 +1,17 @@
 package com.leaf.common.config;
 
 import com.leaf.common.filter.JwtAuthenticationTokenFilter;
+import com.leaf.response.Response;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -15,22 +19,33 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Spring Security Config
  * 在 Spring Security 5.7 版本中 WebSecurityConfigurerAdapter 已经废弃，新版的使用方式以配置 Chain 为主
  *
  * @author jhlz
- * @since 2022/8/10 11:26
+ * @version 1.0.0
  */
 @Configuration
 // 添加 security 过滤器
 @EnableWebSecurity
 // 启用方法级别的权限认证
-@EnableMethodSecurity
+// @EnableMethodSecurity
 public class SecurityConfig {
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
+    }
 
     /**
-     * 暴露AuthenticationManager（认证管理器）
+     * 创建 AuthenticationManager（认证管理器）交由 Spring 管理，可以注入使用，例如登录接口
      *
      * @return AuthenticationManager
      */
@@ -40,11 +55,8 @@ public class SecurityConfig {
     }
 
     /**
-     * Security 5.7 Spring Boot Security 2.7 之后新的写法
+     * Security 6.x、Spring Boot Security 2.7 之后新的写法: Lambda 表达式不再使用 and()
      * 等同于 WebSecurityConfigurerAdapter#configure(HttpSecurity http)
-     * anonymous | 只允许匿名访问（未登录用户）
-     * permitAll | 允许所有用户访问
-     * mvcMatchers、antMatchers 没有太大区别，可以看源码注释，boot3 推荐使用新版 mvcMatchers
      *
      * @param http http
      * @return SecurityFilterChain
@@ -52,44 +64,50 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                // .csrf().disable()
-                // 基于 token，不需要 session
-                // .sessionManagement()
-                // .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests((request) ->
-                {
-                    // 总得有一个入口吧，看他能玩出什么花样
-                    request.requestMatchers("/login", "/openapi/**", "/test/**").permitAll()
-                            // 招商引资也是必须滴
-                            .requestMatchers("/register").anonymous()
-                            .anyRequest().authenticated();
-                })
-                // 第一次面试都没过去，就不要浪费时间了！呜呜呜，像极了我的面试
-                // 添加 jwt 过滤器在 UsernamePasswordAuthenticationFilter 之前
+                // 关闭 csrf
+                .csrf(AbstractHttpConfigurer::disable)
+                // 不创建 session
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // 以 api 开头的请求规则
+                .authorizeHttpRequests(
+                        (auth) -> {
+                            auth.requestMatchers("/api/login").anonymous()
+                                    .requestMatchers("/api/v3/**", "/api/register", "/api/test/**").permitAll()
+                                    .anyRequest().authenticated();
+                        })
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 设置自定义认证数据源
                 .userDetailsService(userDetailsService)
-                // 配置 CORS 跨域访问
-                // .cors().configurationSource(corsConfigurationSource())
+                // 认证和权限不足处理，这里简单返回
+                // 一般自己实现 AuthenticationEntryPoint、AccessDeniedHandler 两个接口然后注册到 security 中
+                .exceptionHandling(
+                        e -> e.authenticationEntryPoint(((request, response, exception) -> {
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+                            Object description = request.getAttribute("description");
+                            Object msg = Objects.isNull(description) ? "未登录用户拒绝访问！" : description;
+                            String message = "认证异常：" + msg;
+                            Response error =
+                                    Response.error(HttpStatus.UNAUTHORIZED.value(), message, exception.getMessage());
+                            response.getWriter().write(error.toString());
+                        }))
+                )
                 .build();
     }
 
     /**
-     * 配置跨源访问(CORS)
+     * Spring Security 跨域配置
      *
      * @return CorsConfigurationSource
      */
-    CorsConfigurationSource corsConfigurationSource() {
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*")); // 设置允许访问的来源
+        configuration.setAllowedMethods(List.of("*")); // 设置允许的方法
+        configuration.setAllowedHeaders(List.of("*")); // 设置允许的头
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    private final UserDetailsService userDetailsService;
-    private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
-    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) {
-        this.userDetailsService = userDetailsService;
-        this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
     }
 }

@@ -22,7 +22,7 @@ import java.util.concurrent.*;
  * W/C 是等待时间与计算时间的比率
  *
  * @author jhlz
- * @since 2022/9/16 12:34:00
+ * @version 1.0.0
  */
 public class ThreadPoolConfig {
 

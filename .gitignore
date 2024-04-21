@@ -9,9 +9,14 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-*-local.yml
 logs/
-gradle/
+**/.gradle/
+**/build/
+**/out/
+node_modules
+data
+package-lock.json
+docs/.vitepress/cache/**
 
 ### STS ###
 .apt_generated
