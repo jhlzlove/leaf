@@ -1,7 +1,7 @@
 package com.leaf.service;
 
+import com.leaf.common.response.Response;
 import com.leaf.domain.LeafUser;
-import com.leaf.response.Response;
 
 /**
  * @author jhlz
@@ -16,6 +16,4 @@ public interface LoginService {
      * @return token
      */
     Response login(LeafUser user);
-
-    Response register(LeafUser user);
 }

@@ -3,7 +3,7 @@ package com.leaf.controller;
 import com.leaf.constant.LeafConstants;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
-import com.leaf.response.Response;
+import com.leaf.common.response.Response;
 import com.leaf.service.LeafUserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.babyfish.jimmer.Page;

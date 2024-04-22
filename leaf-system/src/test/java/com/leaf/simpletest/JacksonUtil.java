@@ -1,6 +1,6 @@
 package com.leaf.simpletest;
 
-import com.leaf.util.JSON;
+import com.leaf.common.util.JSON;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

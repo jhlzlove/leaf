@@ -1,8 +1,8 @@
-package com.leaf.response;
+package com.leaf.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leaf.business.BusinessException;
-import com.leaf.util.JSON;
+import com.leaf.common.util.JSON;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -63,10 +63,10 @@ public record Response(
     /**
      * 返回信息构造
      *
-     * @param code    响应码
-     * @param message 响应信息
-     * @param message 响应信息详情
-     * @param data    响应数据
+     * @param code        响应码
+     * @param message     响应信息
+     * @param description 响应信息详情
+     * @param data        响应数据
      * @return Response 对象
      */
     private static Response ok(int code, String message, String description, Object data) {

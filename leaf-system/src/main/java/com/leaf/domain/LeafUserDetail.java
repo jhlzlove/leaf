@@ -19,11 +19,13 @@ public interface LeafUserDetail {
     /**
      * 姓氏
      */
+    @Key
     String firstName();
 
     /**
      * 名称
      */
+    @Key
     String lastName();
 
     /**

@@ -1,16 +1,12 @@
 package com.leaf.util;
 
-import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -62,12 +58,12 @@ public class HttpUtil {
      * @return
      */
     private static HttpRequest buildGetRequest(String url,
-                                               @Nullable Map<String, String> headers,
-                                               @Nullable String... headerStr) {
-        Assert.notNull(url, "url must not be null!");
+                                               Map<String, String> headers,
+                                               String... headerStr) {
+        Objects.requireNonNull(url, "url must not be null!");
         HttpRequest.Builder builder = HttpRequest.newBuilder().GET();
-        if (!CollectionUtils.isEmpty(headers)) headers.forEach(builder::setHeader);
-        if (!ObjectUtils.isEmpty(headerStr)) builder.headers(headerStr);
+        if (!Objects.isNull(headers)) headers.forEach(builder::setHeader);
+        if (!Objects.isNull(headerStr)) builder.headers(headerStr);
         return builder.build();
     }
 

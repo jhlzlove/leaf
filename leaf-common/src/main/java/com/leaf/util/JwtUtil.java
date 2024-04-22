@@ -6,9 +6,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.lang.Nullable;
-import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -49,9 +49,11 @@ public class JwtUtil {
      * @return token
      */
     private static String
-    generatorToken(@Nullable Map<String, Object> headers, Map<String, Object> payload, @Nullable String subject, @Nullable Long expireTime) {
+    generatorToken(@Nullable Map<String, Object> headers,
+                   Map<String, Object> payload,
+                   @Nullable String subject, @Nullable Long expireTime) {
         JWTCreator.Builder builder = JWT.create();
-        if (StringUtils.hasText(subject)) builder.withSubject(subject);
+        if (StringUtils.isNotEmpty(subject)) builder.withSubject(subject);
         if (ObjectUtils.isEmpty(expireTime))
             builder.withExpiresAt(Instant.now().plusSeconds(EXPIRED_TIME));
         else

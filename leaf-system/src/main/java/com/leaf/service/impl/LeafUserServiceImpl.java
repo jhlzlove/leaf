@@ -1,18 +1,17 @@
 package com.leaf.service.impl;
 
 
+import com.leaf.common.response.Response;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
 import com.leaf.domain.Tables;
 import com.leaf.repository.LeafUserRepository;
-import com.leaf.response.Response;
 import com.leaf.service.LeafUserService;
 import org.babyfish.jimmer.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,7 +35,6 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
-    @Transactional("tm1")
     public Page<LeafUser> listPage(Pageable page) {
         return leafUserRepository.sql()
                 .createQuery(userTable)
@@ -45,19 +43,16 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
-    @Transactional("tm1")
     public LeafUser findById(Long id) {
         return leafUserRepository.findById(id).orElseThrow();
     }
 
     @Override
-    @Transactional("tm1")
     public LeafUser save(LeafUser request) {
         return leafUserRepository.save(request);
     }
 
     @Override
-    @Transactional("tm1")
     public Response update(LeafUser leafUser) {
         LeafUser update = leafUserRepository.update(leafUser);
         // Long userId = leafUser.getUserId();
@@ -70,7 +65,6 @@ public class LeafUserServiceImpl implements LeafUserService {
     }
 
     @Override
-    @Transactional("tm1")
     public void remove(List<Long> ids) {
         leafUserRepository.deleteAllById(ids);
     }

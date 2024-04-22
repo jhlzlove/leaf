@@ -1,4 +1,4 @@
-package com.leaf.util;
+package com.leaf.common.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
