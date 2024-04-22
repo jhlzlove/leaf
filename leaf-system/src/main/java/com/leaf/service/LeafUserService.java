@@ -2,7 +2,7 @@ package com.leaf.service;
 
 
 import com.leaf.domain.LeafUser;
-import com.leaf.response.Response;
+import com.leaf.common.response.Response;
 import org.babyfish.jimmer.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,4 +1,4 @@
-package com.leaf.response;
+package com.leaf.common.response;
 
 import com.leaf.annotation.NotWrapResponse;
 import org.springframework.core.MethodParameter;

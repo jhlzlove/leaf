@@ -1,8 +1,6 @@
 package com.leaf.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +14,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class LocalDateUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(LocalDateUtil.class);
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     public static final String TIME_PATTERN = "HH:mm:ss";
@@ -29,7 +26,7 @@ public class LocalDateUtil {
      * @return LocalDate 日期
      */
     public static LocalDate stringToLocalDate(String dateStr, String pattern) {
-        String format = StringUtils.hasLength(pattern) ? pattern : DATE_PATTERN;
+        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_PATTERN;
         return LocalDate.parse(dateStr, ofPattern(format));
     }
 
@@ -41,7 +38,7 @@ public class LocalDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateToString(LocalDate date, String pattern) {
-        String format = StringUtils.hasLength(pattern) ? pattern : DATE_PATTERN;
+        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_PATTERN;
         return date.format(ofPattern(format));
     }
 
@@ -53,7 +50,7 @@ public class LocalDateUtil {
      * @return LocalDateTime 对象
      */
     public static LocalDateTime stringToLocalDateTime(String date, String pattern) {
-        String format = StringUtils.hasLength(pattern) ? pattern : DATE_TIME_PATTERN;
+        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
         return LocalDateTime.parse(date, ofPattern(format));
     }
 
@@ -65,7 +62,7 @@ public class LocalDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateTimeToString(LocalDateTime date, String pattern) {
-        String format = StringUtils.hasLength(pattern) ? pattern : DATE_TIME_PATTERN;
+        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
         return date.format(ofPattern(format));
     }
 

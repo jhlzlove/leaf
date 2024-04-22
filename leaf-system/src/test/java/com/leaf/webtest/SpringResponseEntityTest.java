@@ -1,7 +1,7 @@
 package com.leaf.webtest;
 
-import com.leaf.response.Response;
-import com.leaf.util.JSON;
+import com.leaf.common.response.Response;
+import com.leaf.common.util.JSON;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

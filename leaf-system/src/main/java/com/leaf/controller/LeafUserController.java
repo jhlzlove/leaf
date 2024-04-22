@@ -2,7 +2,7 @@ package com.leaf.controller;
 
 
 import com.leaf.domain.LeafUser;
-import com.leaf.response.Response;
+import com.leaf.common.response.Response;
 import com.leaf.service.LeafUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

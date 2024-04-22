@@ -19,11 +19,13 @@ public interface LeafDept extends BaseEntity {
     /**
      * 部门名称
      */
+    @Key
     String deptName();
 
     /**
      * 父级部门 ID
      */
+    @Key
     Long parentId();
 
     /**

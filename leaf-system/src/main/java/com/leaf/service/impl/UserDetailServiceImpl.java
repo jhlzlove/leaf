@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
      * @return UserDetails 实现
      */
     @Override
-    @Transactional("tm1")
+    @Transactional
     public UserDetails updatePassword(UserDetails user, String newPassword) {
         Integer result = leafUserRepository.sql().createUpdate(userTable)
                 .set(userTable.password(), newPassword)
@@ -51,7 +51,6 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
     }
 
     @Override
-    @Transactional("tm1")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<LeafUser> list = leafUserRepository
                 .sql().createQuery(userTable)

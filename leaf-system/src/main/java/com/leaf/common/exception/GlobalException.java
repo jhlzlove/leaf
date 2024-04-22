@@ -1,10 +1,10 @@
-package com.leaf.exception;
+package com.leaf.common.exception;
 
 
 import com.leaf.business.BusinessException;
 
 /**
- * 自定义异常信息类
+ * 自定义全局异常
  *
  * @author jhlz
  * @version 1.0.0

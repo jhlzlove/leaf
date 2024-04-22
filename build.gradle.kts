@@ -2,7 +2,6 @@ val mavenUrl: String by project.extra
 plugins {
     `java-library`
     id("org.springframework.boot") version "3.2.5"
-    // Spring Boot 官方提供的 Gradle 插件之一，可以帮助开发人员更轻松地管理项目依赖项。统一管理项目依赖项的版本，使项目的依赖项版本更加清晰明确，避免出现依赖冲突。
     id("io.spring.dependency-management") version "1.1.4"
 }
 

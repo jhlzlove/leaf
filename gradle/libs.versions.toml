@@ -1,0 +1,44 @@
+[versions]
+jimmerVersion = "0.8.125"
+lombokVersion = "1.18.32"
+springBoot = "3.2.5"
+springDenpendencyManagement = "1.1.4"
+postgresql = "42.7.3"
+springdoc = "2.4.0"
+commonLang3 = "3.14.0"
+jetbrainAnnotations = "24.1.0"
+jwtVersion = "4.4.0"
+
+[libraries]
+# apt
+jimmer-apt = { group = "org.babyfish.jimmer", name = "jimmer-apt", version.ref = "jimmerVersion" }
+# Jimmer Spring Boot Starter
+jimmer-spring-boot = { group = "org.babyfish.jimmer", name = "jimmer-spring-boot-starter", version.ref = "jimmerVersion" }
+
+# Spring Boot 相关
+spring-boot = { group = "org.springframework.boot", name = "spring-boot", version.ref = "springBoot" }
+spring-boot-starter-aop = { group = "org.springframework.boot", name = "spring-boot-starter-aop", version.ref = "springBoot" }
+spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security", version.ref = "springBoot" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "springBoot" }
+
+# Postgresql
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+
+commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonLang3" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVersion" }
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
+jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwtVersion" }
+
+# spring doc
+springdoc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-api", version.ref = "springdoc" }
+
+# 缩略图
+thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.19" }
+
+[bundles]
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+# Spring Boot 官方提供的 Gradle 插件之一，可以帮助开发人员更轻松地管理项目依赖项。统一管理项目依赖项的版本，使项目的依赖项版本更加清晰明确，避免出现依赖冲突。
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDenpendencyManagement" }

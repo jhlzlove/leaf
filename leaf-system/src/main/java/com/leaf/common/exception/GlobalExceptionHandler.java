@@ -1,11 +1,11 @@
-package com.leaf.exception;
+package com.leaf.common.exception;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.leaf.business.BusinessException;
-import com.leaf.response.Response;
+import com.leaf.common.response.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
