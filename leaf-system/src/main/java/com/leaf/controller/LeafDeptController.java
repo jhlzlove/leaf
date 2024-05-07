@@ -3,10 +3,9 @@ package com.leaf.controller;
 import com.leaf.common.response.Response;
 import com.leaf.domain.LeafDept;
 import com.leaf.service.LeafDeptService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author jhlz
@@ -22,9 +21,15 @@ public class LeafDeptController {
         this.leafDeptService = leafDeptService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Response addDept(@RequestBody LeafDept dept) {
         LeafDept result = leafDeptService.add(dept);
         return Response.ok(result);
+    }
+
+    @DeleteMapping("/｛ids｝")
+    public Response delete(@PathVariable List<Long> ids) {
+        leafDeptService.remove(ids);
+        return Response.ok();
     }
 }

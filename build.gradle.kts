@@ -1,7 +1,11 @@
 val mavenUrl: String by project.extra
 plugins {
     `java-library`
-    id("org.springframework.boot") version "3.2.5"
+    // alias {
+    //     libs.plugins.spring.boot
+    //     libs.plugins.spring.dependency.management
+    // }
+    id("org.springframework.boot") version "3.2.5" apply true
     id("io.spring.dependency-management") version "1.1.4"
 }
 
@@ -10,6 +14,11 @@ subprojects {
     version = "1.0.0"
 
     apply {
+
+        // alias {
+        // libs.plugins.spring.boot
+        // libs.plugins.spring.dependency.management
+        // }
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
         plugin("java-library")

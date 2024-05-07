@@ -10,7 +10,6 @@ dependencies {
     implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.boot.starter.aop)
     runtimeOnly(libs.postgresql)
-    implementation(libs.lombok)
     implementation(libs.springdoc)
     implementation(project(":leaf-common"))
 }

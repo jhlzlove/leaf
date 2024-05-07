@@ -13,6 +13,7 @@ logs/
 **/.gradle/
 **/build/
 **/out/
+**/generated
 node_modules
 data
 package-lock.json

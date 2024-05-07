@@ -5,6 +5,8 @@ import com.leaf.repository.LeafDeptRepository;
 import com.leaf.service.LeafDeptService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author jhlz
  * @version x.x.x
@@ -20,5 +22,10 @@ public class LeafDeptServiceImpl implements LeafDeptService {
     @Override
     public LeafDept add(LeafDept dept) {
         return deptRepository.save(dept);
+    }
+
+    @Override
+    public void remove(List<Long> ids) {
+        deptRepository.deleteByIds(ids);
     }
 }

@@ -13,6 +13,21 @@ export default defineConfig({
     markdown: {
         lineNumbers: true,
     },
+    themeConfig: {
+        search: {
+            provider: 'algolia',
+            options: {
+                appId: 'da8a0db612dbccec2d70cd2ba595063c',
+                apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
+                indexName: 'jhlzlove-blog',
+                locales: {
+                    root: {
+                        placeholder: "搜索",
+                    },
+                }
+            },
+        }
+    },
     lastUpdated: true,
     // 网站国际化的配置 https://vitepress.dev/zh/guide/i18n
     locales: {
@@ -25,20 +40,7 @@ export default defineConfig({
 
             // 主题配置
             themeConfig: {
-                search: {
-                    provider: 'algolia',
-                    options: {
-                        appId: 'da8a0db612dbccec2d70cd2ba595063c',
-                        apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
-                        indexName: 'jhlzlove-blog',
-                        locales: {
-                            root: {
-                                placeholder: "搜索",
-                            },
-                        }
-                    },
 
-                },
                 // 项目标题旁的 logo
                 logo: '/images/logo.png',
                 // 页脚
@@ -80,6 +82,7 @@ export default defineConfig({
                 darkModeSwitchTitle: "深色",
                 lightModeSwitchTitle: "亮色",
                 sidebar: [
+                    {text: '搜索', link: 'search'},
                     {
                         text: "指南",
                         items: [
@@ -118,20 +121,7 @@ export default defineConfig({
             description: 'jhlz\'s open-source project, use vuepress2 generator docs site',
             themeConfig: {
                 logo: '/images/logo.png',
-                search: {
-                    provider: 'algolia',
-                    options: {
-                        appId: 'da8a0db612dbccec2d70cd2ba595063c',
-                        apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
-                        indexName: 'jhlzlove-blog',
-                        locales: {
-                            root: {
-                                placeholder: "Search..."
-                            },
-                        },
-                    },
 
-                },
                 sidebar: [
                     {
                         text: 'Guide',
@@ -142,5 +132,6 @@ export default defineConfig({
                 ],
             }
         },
-    }
+    },
+
 })

@@ -1,9 +1,8 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.Entity;
-import org.babyfish.jimmer.sql.GeneratedValue;
-import org.babyfish.jimmer.sql.GenerationType;
-import org.babyfish.jimmer.sql.Id;
+import org.babyfish.jimmer.sql.*;
+
+import java.util.List;
 
 /**
  * @author jhlz
@@ -11,6 +10,7 @@ import org.babyfish.jimmer.sql.Id;
  */
 @Entity
 public interface LeafDict extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long dictId();
@@ -26,17 +26,10 @@ public interface LeafDict extends BaseEntity {
     String dictName();
 
     /**
-     * 字典键
-     */
-    String dictKey();
-
-    /**
-     * 字典值
-     */
-    String dictValue();
-
-    /**
      * 状态：1正常，0禁用
      */
     int status();
+
+    @OneToMany(mappedBy = "dict")
+    List<LeafDictItem> items();
 }

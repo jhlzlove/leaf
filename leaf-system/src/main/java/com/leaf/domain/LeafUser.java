@@ -83,5 +83,13 @@ public interface LeafUser extends BaseEntity {
     )
     List<LeafDept> deptList();
 
+    @ManyToMany
+    @JoinTable(
+            name = "leaf_user_role",
+            joinColumnName = "user_id",
+            inverseJoinColumnName = "role_id"
+    )
+    List<LeafRole> roles();
+
 }
 
