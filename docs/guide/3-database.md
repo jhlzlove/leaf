@@ -103,7 +103,16 @@
 | 权限字符   | permission | varchar | permission | String  |                  |
 | 状态     | status     | int2    | status     | Integer | 1正常，0停用          |
 
-### 1.9 字典表（leaf_dict）
+### 1.9 字典类型表（leaf_dict）
+
+| 名称     | 数据库字段     | 数据库类型   | 实体字段     | 实体类型    | 说明      |
+|--------|-----------|---------|----------|---------|---------|
+| dictID | dict_id   | serial8 | dictId   | Long    |         |
+| 字典类型   | dict_type | varchar | dictType | String  |         |
+| 字典类型名称 | dict_name | varchar | dictName | String  |         |
+| 状态     | status    | int2    | status   | Integer | 1正常，0禁用 |
+
+### 1.10 字典详情表(leaf_dict_item)
 
 | 名称     | 数据库字段      | 数据库类型   | 实体字段      | 实体类型    | 说明      |
 |--------|------------|---------|-----------|---------|---------|
@@ -111,10 +120,9 @@
 | 字典键    | dict_key   | varchar | dictKey   | String  |         |
 | 字典值    | dict_value | varchar | dictValue | String  |         |
 | 字典类型   | dict_type  | varchar | dictType  | String  |         |
-| 字典类型名称 | dict_name  | varchar | dictName  | String  |         |
 | 状态     | status     | int2    | status    | Integer | 1正常，0禁用 |
 
-### 1.10 岗位表（leaf_post）
+### 1.11 岗位表（leaf_post）
 
 | 名称     | 数据库字段     | 数据库类型   | 实体字段     | 实体类型   | 说明 |
 |--------|-----------|---------|----------|--------|----|
@@ -123,14 +131,14 @@
 | 岗位名称   | post_name | varchar | postName | String |    |
 | 所属部门ID | dept_id   | int8    | deptId   | Long   |    |
 
-### 1.11 用户-岗位关联表（leaf_user_post）
+### 1.12 用户-岗位关联表（leaf_user_post）
 
 | 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
 |------|---------|-------|--------|------|----|
 | 岗位ID | post_id | int8  | postId | Long |    |
 | 用户ID | user_id | int8  | userId | Long |    |
 
-### 1.12 用户-部门关联表
+### 1.13 用户-部门关联表
 
 | 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
 |------|---------|-------|--------|------|----|

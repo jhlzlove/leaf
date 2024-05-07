@@ -4,16 +4,16 @@
 
 ### 1.1 开发工具清单
 
-| 工具         | 版本          |
-|------------|-------------|
-| JDK        | 21          |
-| Gradle     | 8.5         |
-| SpringBoot | 3.2         |
-| PostgreSQL | 16          |
-| Redis      | 7.0.14      |
-| Nodejs     | 20.10.0 LTS |
-| czg        | 1.9.0       |
-| 自己喜欢的      | IDE         |
+| 工具         | 版本           |
+|------------|--------------|
+| JDK        | 21+          |
+| Gradle     | 8.7+         |
+| SpringBoot | 3.2+         |
+| PostgreSQL | 16+          |
+| Redis      | 7.0.14       |
+| Nodejs     | 20.10.0+ LTS |
+| czg        | 1.9.0+       |
+| 自己喜欢的      | IDE          |
 
 ### 1.2 项目结构
 
@@ -32,12 +32,13 @@
 ```
 
 :::warning build.gradle.kts
-目前（2023.8.20） `kts` 还不支持类似 `ext` 的方式管理版本号，可以使用 extra 和 buildSrc 的方式。gradle 7 引入了 version
-catalog
-预览。gradle 8 好像已经启用，使用过程中还不是很好用，本项目还未使用上述方式管理。
 
-话说，使用 `kts` 可以在文件里直接 `val xxxVersion = "version"` 不香吗？！
-:::
+- （2023.8.20） `kts` 还不支持类似 `ext` 的方式管理版本号，可以使用 extra 和 buildSrc 的方式。gradle 7 引入了 version
+  catalog
+  预览。gradle 8 默认已经启用，使用过程中还不是很好用。
+- 话说，使用 `kts` 可以在文件里直接 `val xxxVersion = "version"` 不香吗？！
+- 好吧，还是 version catalog 的方式好用，本项目已经使用该方式配置管理依赖。
+  :::
 
 #### 系统模块（leaf-system）
 

@@ -30,11 +30,14 @@ export default defineConfig({
                     options: {
                         appId: 'da8a0db612dbccec2d70cd2ba595063c',
                         apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
-                        indexName: 'jhlzlove-blog'
+                        indexName: 'jhlzlove-blog',
+                        locales: {
+                            root: {
+                                placeholder: "搜索",
+                            },
+                        }
                     },
-                    locales: {
-                        placeholder: "搜索",
-                    }
+
                 },
                 // 项目标题旁的 logo
                 logo: '/images/logo.png',
@@ -120,11 +123,14 @@ export default defineConfig({
                     options: {
                         appId: 'da8a0db612dbccec2d70cd2ba595063c',
                         apiKey: 'f6b0e657b1196c0d9e9ac8adee43d9ea',
-                        indexName: 'jhlzlove-blog'
+                        indexName: 'jhlzlove-blog',
+                        locales: {
+                            root: {
+                                placeholder: "Search..."
+                            },
+                        },
                     },
-                    locales: {
-                        placeholder: "Search...",
-                    },
+
                 },
                 sidebar: [
                     {

@@ -22,11 +22,11 @@ hero:
 features:
   - icon: 🍒
     title: 简洁至上
-    details: 力图用最简单、简洁的方式完成基础框架。
+    details: 力图用最简单、简洁的方式完成基础框架，哈哈哈哈。
   - icon: ☕
     title: Spring 全家桶驱动
-    details: 沉浸式享受 Spring 的开发体验，完全使用 Spring 内置功能，又可以让用户基于 Spring 来扩展自定义功能。
+    details: 完全使用 Spring，哈哈哈哈。
   - icon: 🍸
     title: 多模块
-    details: Leaf 多模块项目尽量可以让单一模块直接复制粘贴到另一个毫不相干的项目，无需修改即可使用，真正发挥多模块的优点。
+    details: 哈哈哈哈
 ---

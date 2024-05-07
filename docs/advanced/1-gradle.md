@@ -2,11 +2,11 @@
 
 目前，在 idea 中使用 gradle 作为版本管理时，新建模块时会在父模块中自动新建 `src` 目录，创建完删除即可，不影响项目。
 
-:::warning
+:::tip 说明
 使用 JetBrains IDEA 旧版本（2023.2 以下）的用户来说，是否在本地安装 Gradle 并无太大区别。IDEA 的早期版本对本地的 gradle
 支持并不友好。几乎次次都要下载，无论是新建项目还是 clone 的已有项目。
 
-对于早期版本的用户，推荐设置 `GRADLE_USER_HOME` 环境变量设置一个空间较大的路径，后面使用 IDEA 的时候所有版本的 gradle
+对于早期版本的用户，推荐设置 `GRADLE_USER_HOME` 环境变量设置一个存储空间较大的路径，后面使用 IDEA 的时候所有版本的 gradle
 的安装包、依赖都会下载到此目录。
 
 强烈推荐使用最新版的 IDEA（2023.3 ~ latest），社区版也是可以的！！！对于 Gradle 的开发体验较好，本地安装的 Gradle
@@ -35,10 +35,10 @@
     }
     
     val urlMappings = mapOf(
-        "https://repo.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-        "https://repo1.maven.apache.org/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-        "https://dl.google.com/dl/android/maven2" to "https://mirrors.tencent.com/nexus/repository/maven-public/",
-        "https://plugins.gradle.org/m2" to "https://mirrors.tencent.com/nexus/repository/gradle-plugins/"
+        "https://repo.maven.apache.org/maven2" to "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/",
+        "https://repo1.maven.apache.org/maven2" to "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/",
+        "https://dl.google.com/dl/android/maven2" to "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/",
+        "https://plugins.gradle.org/m2" to "https://mirrors.cloud.tencent.com/nexus/repository/gradle-plugins/"
     )
     
     gradle.allprojects {
@@ -54,16 +54,15 @@
     }
     ```
 
-- 如果是 **只创建** 了 `GRADLE_USER_HOME` 环境变量的，在配置的路径下创建 `init.gradle.kts` 文件，添加的内容和上面的内容一致。
+- 如果是 **只创建** 了 `GRADLE_USER_HOME` 环境变量的，在该环境变量配置的路径下创建 `init.gradle.kts` 文件，添加的内容和上面的内容一致。
 
-:::tip
+:::tip 脚本说明
 
 - 以上脚本内容来源于[B 站霍老师](https://www.bilibili.com/video/BV12k4y1T73E/?spm_id_from=333.999.0.0)的视频中提供的
-  gist 地址，国内没有魔法则无法正常访问。
+  gist 地址，国内没有魔法无法正常访问。
 
-- `~/.gradle` 是默认下载的位置（Windows 中位于 C 盘用户目录中）。`GRADLE_HOME`、`GRADLE_USER_HOME`
-  是不同的环境变量。`GRADLE_HOME` 为本地安装
-  Gradle 的路径。
+- `~/.gradle` 是 Gradle 默认下载的位置（Windows 中位于 C 盘用户目录中）。`GRADLE_HOME`、`GRADLE_USER_HOME`
+  是不同的环境变量。`GRADLE_HOME` 为本地安装 Gradle 的路径。
 
 - gradle 寻找自定义下载源地址的文件路径如下，已排过顺序：
 
@@ -135,3 +134,39 @@ AI，很多都有解决方案，现在来说已经是很简单的了，况且很
 
     - `testRuntimeOnly`范围的依赖只在运行测试时需要，编译测试代码时不需要。
     - 这种依赖通常用于那些只在测试环境中使用的资源或库。
+
+## 三、[Version Catalog](https://docs.gradle.org/current/userguide/platforms.html)
+
+该项就是本项目使用的依赖管理方式，在项目目录的 `gradle/` 目录中使用 `libs.versions.toml` 文件管理所有依赖，子项目中按需引入。该文件分为以下几个部分：
+
+```toml gradle/libs.versions.toml
+[versions]
+# 版本管理
+
+[libraries]
+# 依赖管理
+
+[bundles]
+# 依赖分组
+
+[plugins]
+# 插件管理
+```
+
+子项目使用时非常简单：
+
+```kotlin build.gradle.kts
+// 使用 libs.versions.toml 定义的插件
+plugins {
+    alias(libs.plugins.xxx)
+}
+
+// 使用 libs.versions.toml 定义的依赖
+dependencies {
+    implementation(libs.xxx.xxx)
+}
+```
+
+> `libs.versions.toml`
+> 是约定默认读取的文件名称，也可以使用其它名称（譬如开发和生产使用不同的依赖项），不过需要在 `settings.gradle.kts` 中做一些配置，让
+> Gradle 可以读取，配置方式自行查阅官方文档。
