@@ -1,5 +1,7 @@
 # Jackson
 
+Spring Web 默认使用 Jackson 作为 JSON 工具。
+
 ## 一、注解
 
 ### @JsonProperty
@@ -76,6 +78,11 @@ record Result(
 ```
 
 这样就返回的结果就正常了。
+
+### @ResponseBody @RequestBody
+
+@ResponseBody 把服务端响应的对象转为 json 字符串后响应给客户端；而 @RequestBody 则是把客户端的 json 字符串参数转为 Java
+中的复杂对象。`@RestController = @ResponseBody + @Controller`，对于前后端分离项目常使用该种方式。
 
 ### @Valid @Validated
 
