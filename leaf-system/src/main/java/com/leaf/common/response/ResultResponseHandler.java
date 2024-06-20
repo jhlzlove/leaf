@@ -34,7 +34,7 @@ public class ResultResponseHandler implements ResponseBodyAdvice<Object> {
      *
      * @param returnType    the return type
      * @param converterType the selected converter type
-     * @return
+     * @return bool
      */
     @Override
     public boolean supports(MethodParameter returnType, @NonNull Class converterType) {

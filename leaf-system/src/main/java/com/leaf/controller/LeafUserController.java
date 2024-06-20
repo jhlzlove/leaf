@@ -1,8 +1,8 @@
 package com.leaf.controller;
 
 
-import com.leaf.domain.LeafUser;
 import com.leaf.common.response.Response;
+import com.leaf.domain.LeafUser;
 import com.leaf.service.LeafUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author jhlz
  * @version 1.0.0
  */
-@Tag(name = "用户信息", description = "用户信息")
+@Tag(name = "user", description = "user manage ")
 @RestController
 @RequestMapping("/user")
 public class LeafUserController {
@@ -33,10 +33,9 @@ public class LeafUserController {
 
     @GetMapping("/list")
     @Operation(summary = "用户分页列表", description = "默认分页从 0 开始，每页 10 条数据")
-    public Response listPage(@RequestBody(required = false) LeafUser leafUser,
-                             @PageableDefault(page = 0, size = 10) Pageable page) {
-        // Page<LeafUser> result = leafUserService.listPage(leafUser, page);
-        return Response.ok();
+    public Response page(@RequestBody(required = false) LeafUser leafUser,
+                         @PageableDefault(page = 0, size = 10) Pageable page) {
+        return Response.ok(leafUserService.page(leafUser, page));
     }
 
     /**
@@ -45,7 +44,7 @@ public class LeafUserController {
     @GetMapping("/{id}")
     @Operation(summary = "根据用户id获取指定用户")
     public LeafUser queryById(@PathVariable("id") Long id) {
-        return leafUserService.findById(id);
+        return leafUserService.getUserById(id);
     }
 
     /**
@@ -54,7 +53,7 @@ public class LeafUserController {
     @PostMapping
     @Operation(summary = "添加用户", description = "相当于注册用户")
     public void add(@RequestBody LeafUser request) {
-        leafUserService.save(request);
+        leafUserService.add(request);
     }
 
 
@@ -63,7 +62,7 @@ public class LeafUserController {
      */
     @PutMapping
     @Operation(summary = "修改用户", description = "")
-    public Response edit(@RequestBody LeafUser leafUser) {
+    public Response update(@RequestBody LeafUser leafUser) {
         return leafUserService.update(leafUser);
     }
 
@@ -73,7 +72,7 @@ public class LeafUserController {
     @DeleteMapping("/{ids}")
     @Operation(summary = "删除用户", description = "非逻辑删除")
     public Response delete(@PathVariable List<Long> ids) {
-        leafUserService.remove(ids);
+        leafUserService.delete(ids);
         return Response.ok();
     }
 }

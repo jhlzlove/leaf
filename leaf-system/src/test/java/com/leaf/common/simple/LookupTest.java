@@ -1,4 +1,4 @@
-package com.leaf.simpletest;
+package com.leaf.common.simple;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,6 @@ import java.util.function.ToIntFunction;
 
 /**
  * @author jhlz
- * @since 2023/4/8 20:44
  */
 public class LookupTest {
     /**

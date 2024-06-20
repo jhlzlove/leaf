@@ -29,7 +29,7 @@ import java.util.UUID;
  * @author jhlz
  * @version 1.0.0
  */
-@Tag(name = "文件管理")
+@Tag(name = "file")
 @RestController
 @RequestMapping("/file")
 public class FileController {

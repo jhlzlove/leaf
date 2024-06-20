@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+
     <!-- 自定义属性值 -->
     <!-- 日志存放路径 -->
     <property name="log.path" value="./logs"/>
+
     <!-- 日志输出格式 -->
-    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method,%line] - %msg%n"/>
+    <property name="log.pattern"
+              value="%clr(%d{HH:mm:ss.SSS}){faint} %clr([%thread]){faint} %clr(%5p) %clr(%logger{36}){magenta} - %clr([%method,%line]){cyan} - %msg%n "/>
 
     <!-- 定义 appender -->
     <!-- 控制台输出 -->

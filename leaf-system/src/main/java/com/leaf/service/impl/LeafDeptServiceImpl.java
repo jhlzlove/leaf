@@ -1,8 +1,9 @@
 package com.leaf.service.impl;
 
 import com.leaf.domain.LeafDept;
-import com.leaf.repository.LeafDeptRepository;
+import com.leaf.domain.LeafDeptTable;
 import com.leaf.service.LeafDeptService;
+import org.babyfish.jimmer.sql.JSqlClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,19 +14,21 @@ import java.util.List;
  */
 @Service
 public class LeafDeptServiceImpl implements LeafDeptService {
-    private final LeafDeptRepository deptRepository;
 
-    public LeafDeptServiceImpl(LeafDeptRepository deptRepository) {
-        this.deptRepository = deptRepository;
+    private final JSqlClient sqlClient;
+    LeafDeptTable table = LeafDeptTable.$;
+
+    public LeafDeptServiceImpl(JSqlClient sqlClient) {
+        this.sqlClient = sqlClient;
     }
 
     @Override
-    public LeafDept add(LeafDept dept) {
-        return deptRepository.save(dept);
+    public int add(LeafDept dept) {
+        return sqlClient.save(dept).getTotalAffectedRowCount();
     }
 
     @Override
-    public void remove(List<Long> ids) {
-        deptRepository.deleteByIds(ids);
+    public void delete(List<Long> ids) {
+        sqlClient.deleteByIds(LeafDept.class, ids);
     }
 }

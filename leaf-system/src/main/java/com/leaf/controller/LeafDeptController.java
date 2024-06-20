@@ -3,6 +3,7 @@ package com.leaf.controller;
 import com.leaf.common.response.Response;
 import com.leaf.domain.LeafDept;
 import com.leaf.service.LeafDeptService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author jhlz
  * @version x.x.x
  */
+@Tag(name = "dept")
 @RestController
 @RequestMapping("/dept")
 public class LeafDeptController {
@@ -22,14 +24,14 @@ public class LeafDeptController {
     }
 
     @PostMapping("/add")
-    public Response addDept(@RequestBody LeafDept dept) {
-        LeafDept result = leafDeptService.add(dept);
+    public Response add(@RequestBody LeafDept dept) {
+        int result = leafDeptService.add(dept);
         return Response.ok(result);
     }
 
     @DeleteMapping("/｛ids｝")
     public Response delete(@PathVariable List<Long> ids) {
-        leafDeptService.remove(ids);
+        leafDeptService.delete(ids);
         return Response.ok();
     }
 }

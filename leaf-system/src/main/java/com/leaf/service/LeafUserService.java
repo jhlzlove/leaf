@@ -1,8 +1,8 @@
 package com.leaf.service;
 
 
-import com.leaf.domain.LeafUser;
 import com.leaf.common.response.Response;
+import com.leaf.domain.LeafUser;
 import org.babyfish.jimmer.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,7 +24,7 @@ public interface LeafUserService {
      * @param page     分页参数
      * @return 符合条件的分页数据
      */
-    Page<LeafUser> listPage(Pageable page);
+    Page<LeafUser> page(LeafUser leafUser, Pageable page);
 
     /**
      * 根据 ID 获取详情
@@ -32,14 +32,14 @@ public interface LeafUserService {
      * @param id id
      * @return 详情对象
      */
-    LeafUser findById(Long id);
+    LeafUser getUserById(Long id);
 
     /**
      * 添加数据
      *
      * @param request 添加数据内容
      */
-    LeafUser save(LeafUser request);
+    int add(LeafUser request);
 
     /**
      * 更新数据
@@ -53,6 +53,6 @@ public interface LeafUserService {
      *
      * @param ids 删除数据的 id 集合
      */
-    void remove(List<Long> ids);
+    void delete(List<Long> ids);
 }
 

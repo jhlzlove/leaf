@@ -5,7 +5,7 @@ server:
 spring:
   application:
     # 应用名称
-    name: leaf-example-boot3
+    name: leaf
   # SpringBoot 2.x 版本是 servlet，2.x 之前是 http
   servlet:
     multipart:

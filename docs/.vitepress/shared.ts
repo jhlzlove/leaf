@@ -1,5 +1,4 @@
 import {defineConfig} from "vitepress";
-import {search} from "./zh";
 
 export const shared = defineConfig({
     base: '/leaf/',
@@ -21,15 +20,7 @@ export const shared = defineConfig({
         ],
 
         search: {
-            provider: 'algolia',
-            options: {
-                appId: 'CMHUOB9KPX',
-                apiKey: 'da8a0db612dbccec2d70cd2ba595063c',
-                indexName: 'jhlzlove-blog',
-                locales: {
-                    ...search,
-                }
-            },
+            provider: 'local',
         },
     },
 

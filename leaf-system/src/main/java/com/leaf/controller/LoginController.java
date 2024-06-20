@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jhlz
  * @version 1.0.0
  */
-@Tag(name = "账户登录注册模块", description = "包括用户注册、登录、获取用户信息")
+@Tag(name = "login", description = "include user login、register and get user detail")
 @RestController
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
@@ -28,13 +28,13 @@ public class LoginController {
         this.registerService = registerService;
     }
 
-    @Operation(summary = "登录", description = "用户登录，获取 Token")
+    @Operation(summary = "login", description = "用户登录，获取 Token")
     @PostMapping("/login")
     public Response login(@RequestBody LeafUser user) {
         return loginService.login(user);
     }
 
-    @Operation(summary = "注册")
+    @Operation(summary = "register")
     @PostMapping("/register")
     public Response register(@RequestBody LeafUser user) {
         return Response.ok(registerService.register(user));

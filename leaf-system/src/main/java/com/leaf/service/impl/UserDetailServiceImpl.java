@@ -4,7 +4,7 @@ import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
 import com.leaf.domain.LoginUser;
 import com.leaf.domain.Tables;
-import com.leaf.repository.LeafUserRepository;
+import org.babyfish.jimmer.sql.JSqlClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,10 +24,10 @@ import java.util.List;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPasswordService {
 
-    private final LeafUserRepository leafUserRepository;
+    private final JSqlClient sqlClient;
 
-    public UserDetailServiceImpl(LeafUserRepository leafUserRepository) {
-        this.leafUserRepository = leafUserRepository;
+    public UserDetailServiceImpl(JSqlClient sqlClient) {
+        this.sqlClient = sqlClient;
     }
 
     LeafUserTable userTable = Tables.LEAF_USER_TABLE;
@@ -43,7 +43,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
     @Override
     @Transactional
     public UserDetails updatePassword(UserDetails user, String newPassword) {
-        Integer result = leafUserRepository.sql().createUpdate(userTable)
+        Integer result = sqlClient.createUpdate(userTable)
                 .set(userTable.password(), newPassword)
                 .where(userTable.username().eq(user.getUsername()))
                 .execute();
@@ -52,8 +52,7 @@ public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPas
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<LeafUser> list = leafUserRepository
-                .sql().createQuery(userTable)
+        List<LeafUser> list = sqlClient.createQuery(userTable)
                 .where(userTable.username().eq(username))
                 .select(userTable)
                 .execute();

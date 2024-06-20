@@ -1,23 +1,22 @@
 # Gradle
 
-目前，在 idea 中使用 gradle 作为版本管理时，新建模块时会在父模块中自动新建 `src` 目录，创建完删除即可，不影响项目。
-
 :::tip 说明
 使用 JetBrains IDEA 旧版本（2023.2 以下）的用户来说，是否在本地安装 Gradle 并无太大区别。IDEA 的早期版本对本地的 gradle
 支持并不友好。几乎次次都要下载，无论是新建项目还是 clone 的已有项目。
 
-对于早期版本的用户，推荐设置 `GRADLE_USER_HOME` 环境变量设置一个存储空间较大的路径，后面使用 IDEA 的时候所有版本的 gradle
+对于早期版本的用户，推荐设置 `GRADLE_USER_HOME` 环境变量来配置一个存储空间较大的路径，后面使用 IDEA 的时候所有版本的
+gradle
 的安装包、依赖都会下载到此目录。
 
 强烈推荐使用最新版的 IDEA（2023.3 ~ latest），社区版也是可以的！！！对于 Gradle 的开发体验较好，本地安装的 Gradle
-的用处终于显现出来啦！😉
+版本的作用终于显现出来啦！😉
 :::
 
 ## 一、配置
 
 ### Gradle 依赖下载配置
 
-这里采用腾讯的镜像。
+这里采用腾讯的镜像，以下脚本仅限 Gradle Version > 6.8 时可用。
 
 - 如果是使用本地安装的 Gradle，在安装路径创建 `init.gradle.kts` 文件，添加以下内容：
 
@@ -58,8 +57,8 @@
 
 :::tip 脚本说明
 
-- 以上脚本内容来源于[B 站霍老师](https://www.bilibili.com/video/BV12k4y1T73E/?spm_id_from=333.999.0.0)的视频中提供的
-  gist 地址，国内没有魔法无法正常访问。
+- 以上脚本内容来源于 [B 站霍老师](https://www.bilibili.com/video/BV12k4y1T73E/?spm_id_from=333.999.0.0) 的视频中提供的
+  gist 地址，国内没有魔法无法正常访问，且该脚本只有 Gradle 6.8 以上版本可直接使用。
 
 - `~/.gradle` 是 Gradle 默认下载的位置（Windows 中位于 C 盘用户目录中）。`GRADLE_HOME`、`GRADLE_USER_HOME`
   是不同的环境变量。`GRADLE_HOME` 为本地安装 Gradle 的路径。
@@ -137,20 +136,41 @@ AI，很多都有解决方案，现在来说已经是很简单的了，况且很
 
 ## 三、[Version Catalog](https://docs.gradle.org/current/userguide/platforms.html)
 
-该项就是本项目使用的依赖管理方式，在项目目录的 `gradle/` 目录中使用 `libs.versions.toml` 文件管理所有依赖，子项目中按需引入。该文件分为以下几个部分：
+Gradle 7.x 引入了 version catalog 功能预览，gradle 8 默认启用（读取项目目录下的 `gradle/libs.versions.toml`），对于 Gradle
+多模块需要依赖共享的项目非常好用。
+
+个人不是很喜欢 extra 和 buildSrc 的方式，所以本项目未采用，当然，使用 `build.gradle.kts`
+可以在文件里直接 `val xxxVersion = "version"` 更香。
+
+在项目根目录的 `gradle/` 目录中创建 `libs.versions.toml` 文件管理所有依赖，子项目中按需引入。该文件分为以下几个部分(
+里面的内容只是例子)：
 
 ```toml gradle/libs.versions.toml
 [versions]
 # 版本管理
+springBoot = "3.3.0"
+springDenpendencyManagement = "1.1.5"
 
 [libraries]
-# 依赖管理
+# 依赖管理，有两种编写方式
+# 第一种
+spring-boot = { group = "org.springframework.boot", name = "spring-boot", version.ref = "springBoot" }
+spring-boot-starter-aop = { group = "org.springframework.boot", name = "spring-boot-starter-aop", version.ref = "springBoot" }
+spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security", version.ref = "springBoot" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
+
+# 第二种
+spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot" }
 
 [bundles]
-# 依赖分组
+# 依赖分组/打包
+spring = ["spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"]
 
 [plugins]
 # 插件管理
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDenpendencyManagement" }
 ```
 
 子项目使用时非常简单：
@@ -163,10 +183,18 @@ plugins {
 
 // 使用 libs.versions.toml 定义的依赖
 dependencies {
-    implementation(libs.xxx.xxx)
+    // implementation(libs.spring.boot)
+
+    // 引入依赖组，包含里面的所有依赖性
+    // 即引入了 "spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"
+    implementation(libs.bundles.spring) // [!code highlight]
 }
 ```
 
-> `libs.versions.toml`
-> 是约定默认读取的文件名称，也可以使用其它名称（譬如开发和生产使用不同的依赖项），不过需要在 `settings.gradle.kts` 中做一些配置，让
-> Gradle 可以读取，配置方式自行查阅官方文档。
+> - `libs.versions.toml` Gradle
+    默认查找并读取的文件名称，也可以使用其它名称（譬如开发和生产使用不同的依赖项），不过需要在 `settings.gradle.kts`
+    中做一些配置，让 Gradle
+    可以读取，配置方式自行查阅 [官方文档](https://docs.gradle.org/current/userguide/platforms.html#sub:central-declaration-of-dependencies)。
+> - 版本定义上面使用了 `version.ref` 的方式，也可以使用 `version`
+    直接写版本字符串，例如 `spring-boot = { group = "org.springframework.boot", name = "spring-boot", version = "3.2.5" }`。
+> - 在 `libs.versions.toml` 中定义名称使用 `-` 分割(spring-boot)，但在使用时需要使用 `.` 分割(libs.spring.boot)。

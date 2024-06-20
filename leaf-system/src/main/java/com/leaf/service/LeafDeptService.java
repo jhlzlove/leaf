@@ -15,7 +15,7 @@ public interface LeafDeptService {
      * @param dept 部门信息
      * @return 部门
      */
-    LeafDept add(LeafDept dept);
+    int add(LeafDept dept);
 
-    void remove(List<Long> ids);
+    void delete(List<Long> ids);
 }

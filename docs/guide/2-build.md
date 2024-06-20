@@ -10,7 +10,7 @@
 | Gradle     | 8.7+         |
 | SpringBoot | 3.2+         |
 | PostgreSQL | 16+          |
-| Redis      | 7.0.14       |
+| Redis      | 7.2.5        |
 | Nodejs     | 20.10.0+ LTS |
 | czg        | 1.9.0+       |
 | 自己喜欢的      | IDE          |
@@ -30,15 +30,6 @@
 ├── package.json
 └── settings.gradle.kts     # 项目多模块设置
 ```
-
-:::warning build.gradle.kts
-
-- （2023.8.20） `kts` 还不支持类似 `ext` 的方式管理版本号，可以使用 extra 和 buildSrc 的方式。gradle 7 引入了 version
-  catalog
-  预览。gradle 8 默认已经启用，使用过程中还不是很好用。
-- 话说，使用 `kts` 可以在文件里直接 `val xxxVersion = "version"` 不香吗？！
-- 好吧，还是 version catalog 的方式好用，本项目已经使用该方式配置管理依赖。
-  :::
 
 #### 系统模块（leaf-system）
 
@@ -92,13 +83,13 @@ Spring AOP 的项目直接复制该模块到项目中即可使用。
 
 本项目使用 Gradle 作为依赖管理工具，所以第一步先安装 Gradle。不知道为什么，从 2023 年 9 月份吧，应该是。gradle
 在国内的下载速度不行了，不仅仅是依赖的下载速度，还有 Gradle
-安装包的下载速度。这里推荐从腾讯的镜像网下载 [Gradle-8.5-all.zip](https://mirrors.cloud.tencent.com/gradle/)
+安装包的下载速度。这里推荐从腾讯的镜像网下载 [Gradle-8.7-all.zip](https://mirrors.cloud.tencent.com/gradle/)
 
 Gradle 的配置请参照：[进阶-Gradle](/advanced/1-gradle.md)
 
 #### 下载项目
 
-::::code-group
+:::code-group
 
 ```bash [学习或使用]
 git clone --depth 1 https://github.com/jhlzlove/leaf.git 
@@ -108,7 +99,7 @@ git clone --depth 1 https://github.com/jhlzlove/leaf.git
 git clone https://github.com/jhlzlove/leaf.git 
 ```
 
-::::
+:::
 
 然后使用你喜欢的 IDE 打开该项目，修改 `leaf/leaf-system/src/main/resources/application-dev.yml` 配置文件的内容，确保连接信息和自己的本机信息一致。
 
@@ -187,3 +178,15 @@ git clone https://github.com/jhlzlove/leaf.git
 ### 全部使用 jsr310 日期
 
 项目强制不使用 Date，应使用 LocalDate、LocalDateTime 等 java8 之后提供的新式 API。
+
+### CURD
+
+| prefix     | meaning     |
+|------------|-------------|
+| add        | 新增          |
+| update     | 更新          |
+| remove     | 逻辑删除(非永久删除) |
+| delete     | 物理删除(永久删除)  |
+| select、get | 单记录查询       |
+| list       | 多记录查询       |
+| page       | 分页查询        |

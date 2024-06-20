@@ -1,4 +1,4 @@
-package com.leaf.simpletest;
+package com.leaf.common.util;
 
 import com.leaf.util.LocalDateUtil;
 import org.junit.jupiter.api.Assertions;
@@ -12,7 +12,6 @@ import java.time.*;
  * LocalDateUtil test
  *
  * @author jhlz
- * @since 2023/3/1 9:26
  */
 public class LocalDateUtilTest {
 
