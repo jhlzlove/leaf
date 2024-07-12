@@ -1,7 +1,5 @@
 package com.leaf.common.simple;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +13,10 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author jhlz
@@ -81,23 +77,6 @@ public class JdkApiTest {
     }
 
     /**
-     * test: ObjectMapperJSon example
-     */
-    @Test
-    public void testObjectMapperJson() {
-        ObjectMapper json = new ObjectMapper();
-        try {
-            // com.fasterxml.jackson.databind.exc.InvalidDefinitionException:
-            // Java 8 date/time type `java.time.LocalDateTime` not supported by default:
-            // add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
-            String s = json.writeValueAsString(LocalDateTime.now());
-            logger.info("{}", s);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * test：测试获取操作系统信息
      */
     @Test
@@ -116,6 +95,15 @@ public class JdkApiTest {
      */
     @Test
     public void testTime() {
+
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        System.out.println(calendar.get(Calendar.YEAR) + ", " + calendar.get(Calendar.MONTH) + 1 + ", " + calendar.get(Calendar.DAY_OF_MONTH));
+        LocalDate now = LocalDate.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+
+        System.out.println("date = " + date);
+        System.out.println("now = " + now);
         System.out.println(Date.from(LocalDateTime.now().toInstant(ZoneOffset.ofHours(8))));
     }
 

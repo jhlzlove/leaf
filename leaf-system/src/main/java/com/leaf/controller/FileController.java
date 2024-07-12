@@ -1,7 +1,6 @@
 package com.leaf.controller;
 
 import com.leaf.constant.LeafConstants;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +28,6 @@ import java.util.UUID;
  * @author jhlz
  * @version 1.0.0
  */
-@Tag(name = "file")
 @RestController
 @RequestMapping("/file")
 public class FileController {

@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService, UserDetailsPasswordService {
 
-    private final JSqlClient sqlClient;
+    final JSqlClient sqlClient;
 
     public UserDetailServiceImpl(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;

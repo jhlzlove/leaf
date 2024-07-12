@@ -22,7 +22,7 @@ import java.util.UUID;
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
-    private final JSqlClient sqlClient;
+    final JSqlClient sqlClient;
 
     public RegisterServiceImpl(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;

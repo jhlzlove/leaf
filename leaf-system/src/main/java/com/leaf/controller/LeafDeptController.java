@@ -3,7 +3,6 @@ package com.leaf.controller;
 import com.leaf.common.response.Response;
 import com.leaf.domain.LeafDept;
 import com.leaf.service.LeafDeptService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * @author jhlz
  * @version x.x.x
  */
-@Tag(name = "dept")
 @RestController
 @RequestMapping("/dept")
 public class LeafDeptController {

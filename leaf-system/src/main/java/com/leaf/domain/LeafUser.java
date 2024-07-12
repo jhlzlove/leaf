@@ -3,7 +3,7 @@ package com.leaf.domain;
 import org.babyfish.jimmer.sql.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -57,7 +57,7 @@ public interface LeafUser extends BaseEntity {
      * 最后一次登录时间
      */
     @Nullable
-    LocalDate lastLoginTime();
+    LocalDateTime lastLoginTime();
 
     /**
      * 状态：0 正常，1 禁用
@@ -90,6 +90,14 @@ public interface LeafUser extends BaseEntity {
             inverseJoinColumnName = "role_id"
     )
     List<LeafRole> roles();
+
+    @ManyToMany
+    @JoinTable(
+            name = "leaf_user_post",
+            joinColumnName = "user_id",
+            inverseJoinColumnName = "post_id"
+    )
+    List<LeafPost> postList();
 
 }
 

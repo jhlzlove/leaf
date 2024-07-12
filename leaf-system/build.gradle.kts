@@ -3,13 +3,11 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.lombok)
     implementation(libs.jimmer.spring.boot)
+    implementation(libs.lombok)
+    annotationProcessor(libs.lombok)
     annotationProcessor(libs.jimmer.apt)
-    implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.security)
-    implementation(libs.spring.boot.starter.aop)
+    implementation(libs.bundles.spring)
     runtimeOnly(libs.postgresql)
-    implementation(libs.springdoc)
     implementation(project(":leaf-common"))
 }

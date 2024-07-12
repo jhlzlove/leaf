@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class LeafDeptServiceImpl implements LeafDeptService {
 
-    private final JSqlClient sqlClient;
+    final JSqlClient sqlClient;
     LeafDeptTable table = LeafDeptTable.$;
 
     public LeafDeptServiceImpl(JSqlClient sqlClient) {
@@ -24,6 +24,7 @@ public class LeafDeptServiceImpl implements LeafDeptService {
 
     @Override
     public int add(LeafDept dept) {
+
         return sqlClient.save(dept).getTotalAffectedRowCount();
     }
 

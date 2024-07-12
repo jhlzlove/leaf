@@ -26,7 +26,7 @@ import java.util.List;
 public class LeafUserServiceImpl implements LeafUserService {
 
     private static final Logger log = LoggerFactory.getLogger(LeafUserServiceImpl.class);
-    private final JSqlClient sqlClient;
+    final JSqlClient sqlClient;
 
     LeafUserTable userTable = Tables.LEAF_USER_TABLE;
 

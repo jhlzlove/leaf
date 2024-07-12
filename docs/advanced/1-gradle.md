@@ -90,7 +90,7 @@ gradle
 
 gradle 默认是不允许使用 http 协议下载依赖的，如果需要，按照下面的方式修改父目录中的 `build.gradle.kts`：
 
-```kotlin build.gradle.kts
+```kotlin {3-4} build.gradle.kts
 repositories {
     maven {
         url = uri("http 地址")

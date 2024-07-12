@@ -19,7 +19,7 @@
 
 #### 根目录及其子模块
 
-```bash
+```bash｛5｝
 ├── build.gradle.kts        # 父项目构建脚本
 ├── cz.config.ts            # czg 配置文件
 ├── docs                    # 文档相关

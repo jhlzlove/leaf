@@ -22,8 +22,8 @@ import java.util.Map;
 @Service
 public class LoginServiceImpl implements LoginService {
     private static final Logger log = LoggerFactory.getLogger(LoginService.class);
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
+    final AuthenticationManager authenticationManager;
+    final UserDetailsService userDetailsService;
 
     public LoginServiceImpl(AuthenticationManager authenticationManager,
                             UserDetailsService userDetailsService) {

@@ -1,13 +1,13 @@
 [versions]
-jimmerVersion = "0.8.125"
-lombokVersion = "1.18.32"
-springBoot = "3.3.0"
+jimmerVersion = "0.8.134"
+lombokVersion = "1.18.34"
+springBoot = "3.3.1"
 springDenpendencyManagement = "1.1.5"
 postgresql = "42.7.3"
-springdoc = "2.5.0"
 commonLang3 = "3.14.0"
 jetbrainAnnotations = "24.1.0"
 jwtVersion = "4.4.0"
+kotlin = "2.0.0"
 
 [libraries]
 # apt
@@ -30,13 +30,11 @@ lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVe
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
 jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwtVersion" }
 
-# spring doc
-springdoc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-api", version.ref = "springdoc" }
-
 # 缩略图
 thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.19" }
 
 [bundles]
+spring = ["spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
