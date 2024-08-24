@@ -15,6 +15,7 @@ allprojects {
 springBoot {
     mainClass = "com.leaf.LeafApplication"
 }
+
 // 子项目配置
 subprojects {
     group = "com.leaf"

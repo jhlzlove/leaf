@@ -1,6 +1,8 @@
+// 公共配置项
 import {defineConfig} from "vitepress";
 
 export const shared = defineConfig({
+    title: "Leaf Project",
     base: '/leaf/',
     // 简洁的 url https://vitepress.dev/zh/guide/routing#generating-clean-url
     cleanUrls: true,
@@ -8,6 +10,7 @@ export const shared = defineConfig({
     head: [['link', {rel: 'icon', href: '/leaf/images/logo.png'}]],
     // md 配置
     markdown: {
+        // 显示行号
         lineNumbers: true,
     },
     lastUpdated: true,

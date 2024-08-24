@@ -1,13 +1,13 @@
 [versions]
-jimmerVersion = "0.8.134"
+jimmerVersion = "0.8.157"
 lombokVersion = "1.18.34"
-springBoot = "3.3.1"
-springDenpendencyManagement = "1.1.5"
+springBoot = "3.3.3"
+springDenpendencyManagement = "1.1.6"
 postgresql = "42.7.3"
-commonLang3 = "3.14.0"
+commonLang3 = "3.16.0"
 jetbrainAnnotations = "24.1.0"
 jwtVersion = "4.4.0"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 
 [libraries]
 # apt
@@ -31,7 +31,7 @@ jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version
 jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwtVersion" }
 
 # 缩略图
-thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.19" }
+thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
 
 [bundles]
 spring = ["spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"]

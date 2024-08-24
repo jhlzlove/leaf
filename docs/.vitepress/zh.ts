@@ -1,13 +1,10 @@
+// 中文配置项
 import {DefaultTheme, defineConfig} from "vitepress";
 
 export const zh = defineConfig({
-
     lang: 'zh-CN',
-    // 网站标题
-    title: 'Leaf Project',
-    description: '江湖浪子开源的一个小项目，使用 vuepress2 搭建的文档说明',
-    // 显示最后修改时间
-    lastUpdated: true,
+    description: '一个 Java 编写的简单的前后端分离框架',
+
     // 主题配置
     themeConfig: {
         // 页脚
