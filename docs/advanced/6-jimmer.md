@@ -4,75 +4,72 @@
 
 higher faster stronger
 
-## 二、基本使用
+## 二、[Jimmer官方文档](https://babyfish-ct.github.io/jimmer-doc)
 
-官网写的很详细了，很多的重复都是徒劳的。本项目使用 Java 语言，只讲解 Java 配置，Maven
-如何配置请见 [Jimmer官方文档](https://babyfish-ct.github.io/jimmer-doc)，写的很详细了。
+https://babyfish-ct.github.io/jimmer-doc
 
-```kotlin build.gradle.kts
-val jimmerVersion = "0.8.121"
-// Jimmer Spring Boot Starter
-annotationProcessor("org.babyfish.jimmer:jimmer-apt:${jimmerVersion}")
-implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmerVersion}")
+使用 Jimmer 后，repository 基本没有存在的必要。因此本项目不做保留。
 
-// Without Jimmer Spring Boot Starter
-annotationProcessor("org.babyfish.jimmer:jimmer-apt:${jimmerVersion}")
-// 用户编写的实体代码所需的依赖
-implementation("org.babyfish.jimmer:jimmer-core:${jimmerVersion}")
-// 生成的代码所需的依赖，其他项目必然导入包含此依赖
-compileOnly("org.babyfish.jimmer:jimmer-sql:${jimmerVersion}")
-```
+## 三、一些说明
 
-> [!IMPORTANT]
-> - 若不使用 Jimmer 提供的 Spring Boot Starter，使用时需要自己集成事务管理和一些其它的配置。借用官网的说明：Jimmer
-    自身是中立的，意味着你可以使用任何框架来集成 Jimmer 完成项目。
-> - 如果你是第一次使用 Jimmer，强烈建议先通读一遍官方的文档，读不懂也没关系，实际使用中遇到问题有个大概印象，实在不行就问群友
-    doge。
+### 注解
 
-## 三、注意点
+大部分和 JPA 一样或类似。
 
-首先，Jimmer
-的默认命名策略需要了解：[https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/base/naming-strategy](https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/base/naming-strategy)
+#### @Key
 
-Jimmer 的实体接口默认为非 null，如果为可 null，使用 `org.jetbrains.annotations.Nullable` 修饰。
-`@Id` 属性必须非 null。Java 语言使用 boolean、char、byte、short、int、long、float、double。
+类似联合索引，被 `@Key` 修饰的字段在新增时如果数据库已经存在，那么不会新增，而是会修改。
 
-### 实体声明
+#### @EnableImplicitApi、@FetchBy、@DefaultFetcherOwner、@Api、@ApiIgnore
 
-```java
-// 声明一个 Jimmer 实体类
-@org.babyfish.jimmer.sql.Entity
-// 该实体对应的数据库表名，如果有不同的 schema，也可以加入
-@org.babyfish.jimmer.sql.Table("schema.table_name")
-public interface User {
+启动客户端能力的注解，自动为前端生成结构化代码。目前只支持 Spring。
+
+- **@EnableImplicitApi**：启用客户端能力，使用此注解才会生效
+- **@FetchBy**：声明抓取的自定义 Fetcher 形状，该形状默认需要在当前类中，若不在当前类，需要指明 `ownerType` 属性
+- **@DefaultFetcherOwner**：条件如上，若定义的 Fetcher 形状不在当前类中，并且该类使用的 Fetcher
+  形状都归于另一个类，可以在类上面使用此注解为当前类全部指定
+- **@Api、@ApiIgnore**：这就很简单了，控制接口的分组和是否显示在接口文档中
+
+示例：
+
+```kotlin Fetrcher.kt
+class Fetchers {
     /**
-     * Jimmer 提供了四种策略：
-     * IDENTITY：数据库自动编号
-     * SEQUENCE：数据库序列
-     * @GeneratedValue(generatorType = UUIDIdGenerator.class)：UUID
-     * 雪花ID
+     * 定义自己需要的一个查询形状
      */
-    @org.babyfish.jimmer.sql.Id
-    @org.babyfish.jimmer.sql.GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id();
-
-    // 指定实体与数据库字段的映射
-    @org.babyfish.jimmer.sql.Column(name = "userName")
-    String username();
-
-    String password();
+    companion object {
+        val STUDENT_FETCHER = newFetcher(Student::class).by {
+            fullName()
+            gender()
+            courseIds {
+                courseName()
+            }
+        }
+    }
 }
 ```
 
-:::tip 说明
+```kotlin StudentController.kt
+@RestController
+@RequestMapping("/student")
+// 如果此处不使用该注解，下面的 @FetchBy(ownerType = class) 必须指明 STUDENT_FETCHER 在哪个类中
+// 如果该类中的多个接口查询的 Fetcher 在一个类中，使用该注解非常方便
+// @DefaultFetcherOwner(Fetchers::class)
+class StudentController(val studentService: StudentService) {
 
-- `@Column` 仅用于明确指定非关联属性列名，对于多对一或一对一关联属性的外键列名，必须通过 `@JoinColumn` 指定。
-- 如果 ID 策略为 `SEQUENCE` 同时 `sequenceName` 属性未被指定，则使用 Jimmer
-  的默认[命名策略](https://babyfish-ct.github.io/jimmer-doc/zh/docs/mapping/base/naming-strategy)。
-- 如果上面的 ID 策略都无法满足，Jimmer 提供了 `UserIdGenerator<T>` 接口，可以覆写该接口实现自己的 ID 生成算法。
-- 由于 Jimmer 中使用 `Objects.createXXXX()`（后期会移除）和 `XXXDraft.$.produce()` 创建对象，加之 JDK 的 Objects
-  内置方法较少，所以本项目迁移至 Jimmer 后代码中不再使用
-  JDK 内置的 `Objects` 工具方法。
+    @GetMapping("/page")
+    fun getAllStudentFetchBy(
+        @RequestParam pageIndex: Int,
+        @RequestParam pageSize: Int
+    ): Page<@FetchBy(value = "STUDENT_FETCHER", ownerType = Fetcher::class) Student> {
+        return studentService.getAllStudentFetchBy(pageIndex, pageSize)
+    }
 
-:::
+    ...
+}
+```
+
+#### @IdView
+
+查询非表中数据字段集合，与实体无关。
 

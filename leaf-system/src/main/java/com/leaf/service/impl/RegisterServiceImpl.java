@@ -4,9 +4,9 @@ import com.leaf.constant.LeafConstants;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserDraft;
 import com.leaf.domain.LeafUserTable;
-import com.leaf.repository.LeafUserRepository;
 import com.leaf.service.RegisterService;
 import org.babyfish.jimmer.ImmutableObjects;
+import org.babyfish.jimmer.sql.JSqlClient;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,17 +21,18 @@ import java.util.UUID;
  */
 @Service
 public class RegisterServiceImpl implements RegisterService {
-    private final LeafUserRepository userRepository;
 
-    public RegisterServiceImpl(LeafUserRepository userRepository) {
-        this.userRepository = userRepository;
+    final JSqlClient sqlClient;
+
+    public RegisterServiceImpl(JSqlClient sqlClient) {
+        this.sqlClient = sqlClient;
     }
 
     @Override
     @Transactional
     public boolean register(LeafUser user) {
         LeafUserTable table = LeafUserTable.$;
-        List<LeafUser> result = userRepository.sql().createQuery(table)
+        List<LeafUser> result = sqlClient.createQuery(table)
                 .whereIf(ImmutableObjects.isLoaded(user, user.phone()), table.phone().eq(user.phone()))
                 .whereIf(ImmutableObjects.isLoaded(user, user.email()), table.email().eq(user.email()))
                 .whereIf(!ObjectUtils.isEmpty(user.username()), table.username().eq(user.username()))
@@ -55,7 +56,7 @@ public class RegisterServiceImpl implements RegisterService {
                         draft.setDeptList(user.deptList());
                     }
             );
-            userRepository.save(leafUser);
+            sqlClient.save(leafUser);
             return true;
         }
         throw new RuntimeException("该手机号或该邮箱以注册！");

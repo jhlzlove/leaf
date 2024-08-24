@@ -2,6 +2,8 @@ package com.leaf.domain;
 
 import org.babyfish.jimmer.sql.*;
 
+import java.util.List;
+
 /**
  * @author jhlz
  * @version 1.0.0
@@ -23,4 +25,14 @@ public interface LeafRole extends BaseEntity {
      */
     int status();
 
+    @ManyToMany
+    @JoinTable(
+            name = "leaf_menu_role",
+            joinColumnName = "role_id",
+            inverseJoinColumnName = "menu_id"
+    )
+    List<LeafMenu> menus();
+
+    @ManyToMany(mappedBy = "roles")
+    List<LeafUser> users();
 }

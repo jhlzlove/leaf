@@ -11,6 +11,10 @@ Logback 的使用较为简单，可以参考官方文档：https://logback.qos.c
 - `%msg%n `– 日志消息后跟与平台相关的行分隔符
 - `[%method,%line]` - 在哪个方法的第几行调用了日志打印
 
+`logback` 分为三个模块：`logback-core`、`logback-classic` 和 `logback-access`。
+其中，core 是核心模块，classic 可以看作是 core 的进阶版本（完整实现了 `slf4j-api`），access 模块与 Servlet 容器集成提供通过
+Http 来访问日志；
+
 ## 一、Appender
 
 记录器将 LoggingEvents 传递给 Appender。追加者执行日志记录的实际工作。我们通常认为日志记录是进入文件或控制台的东西，但

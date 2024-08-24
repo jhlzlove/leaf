@@ -1,9 +1,9 @@
 package com.leaf.controller;
 
+import com.leaf.common.response.Response;
 import com.leaf.constant.LeafConstants;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
-import com.leaf.common.response.Response;
 import com.leaf.service.LeafUserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.babyfish.jimmer.Page;
@@ -35,8 +35,8 @@ import java.util.concurrent.ExecutionException;
  * @author jhlz
  * @version 1.0.0
  */
-@RequestMapping("/test")
 @RestController
+@RequestMapping("/test")
 public class WebTestController {
 
     private static final Logger log = LoggerFactory.getLogger(WebTestController.class);

@@ -34,6 +34,11 @@ public interface LeafDept extends BaseEntity {
     String deptCode();
 
     /**
+     * 父级列表
+     */
+    String ancestors();
+
+    /**
      * 部门领导
      */
     Long leaderId();

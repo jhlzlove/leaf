@@ -1,5 +1,5 @@
-// cz.config.cjs https://cz-git.qbb.sh/zh/config
-/** @type {import('cz-git').CommitizenGitOptions} */
+// cz.config.js
+/** @type {import('cz-git').UserConfig['prompt']} */
 module.exports = {
     alias: {fd: 'docs: fix typos'},
     messages: {
@@ -12,23 +12,22 @@ module.exports = {
         footerPrefixesSelect: '选择关联issue前缀（可选）:',
         customFooterPrefix: '输入自定义issue前缀 :',
         footer: '列举关联issue (可选) 例如: #31, #I3244 :\n',
+        generatingByAI: '正在通过 AI 生成你的提交简短描述...',
+        generatedSelectByAI: '选择一个 AI 生成的简短描述:',
         confirmCommit: '是否提交或修改commit ?'
     },
     types: [
-        {value: 'feat', name: 'feat:     新增功能 | A new feature'},
-        {value: 'fix', name: 'fix:      修复缺陷 | A bug fix'},
-        {value: 'docs', name: 'docs:     文档更新 | Documentation only changes'},
-        {value: 'style', name: 'style:    代码格式 | Changes that do not affect the meaning of the code'},
-        {value: 'refactor', name: 'refactor: 代码重构 | A code change that neither fixes a bug nor adds a feature'},
-        {value: 'perf', name: 'perf:     性能提升 | A code change that improves performance'},
-        {value: 'test', name: 'test:     测试相关 | Adding missing tests or correcting existing tests'},
-        {
-            value: 'build',
-            name: 'build:    构建相关 | Changes that affect the build system or external dependencies'
-        },
-        {value: 'ci', name: 'ci:       持续集成 | Changes to our CI configuration files and scripts'},
-        {value: 'revert', name: 'revert:   回退代码 | Revert to a commit'},
-        {value: 'chore', name: 'chore:    其他修改 | Other changes that do not modify src or test files'},
+        {value: '特性', name: '特性:     新增功能'},
+        {value: '修复', name: '修复:     修复缺陷'},
+        {value: '文档', name: '文档:     文档变更'},
+        {value: '格式', name: '格式:     代码格式（不影响功能，例如空格、分号等格式修正）'},
+        {value: '重构', name: '重构:     代码重构（不包括 bug 修复、功能新增）'},
+        {value: '性能', name: '性能:     性能优化'},
+        {value: '测试', name: '测试:     添加疏漏测试或已有测试改动'},
+        {value: '构建', name: '构建:     构建流程、外部依赖变更（如升级 npm 包、修改 webpack 配置等）'},
+        {value: '集成', name: '集成:     修改 CI 配置、脚本'},
+        {value: '回退', name: '回退:     回滚 commit'},
+        {value: '其他', name: '其他:     对构建过程或辅助工具和库的更改（不影响源文件、测试用例）'},
     ],
     useEmoji: false,
     emojiAlign: 'center',
@@ -39,8 +38,8 @@ module.exports = {
     allowCustomScopes: true,
     allowEmptyScopes: true,
     customScopesAlign: 'bottom',
-    customScopesAlias: 'custom',
-    emptyScopesAlias: 'empty',
+    customScopesAlias: '以上都不是？我要自定义',
+    emptyScopesAlias: '跳过',
     upperCaseSubject: false,
     markBreakingChangeMode: false,
     allowBreakingChanges: ['feat', 'fix'],
@@ -53,14 +52,11 @@ module.exports = {
         {value: 'closed', name: 'closed:   标记 ISSUES 已完成'}
     ],
     customIssuePrefixAlign: 'top',
-    emptyIssuePrefixAlias: 'skip',
-    customIssuePrefixAlias: 'custom',
+    emptyIssuePrefixAlias: '跳过',
+    customIssuePrefixAlias: '自定义前缀',
     allowCustomIssuePrefix: true,
     allowEmptyIssuePrefix: true,
     confirmColorize: true,
-    maxHeaderLength: Infinity,
-    maxSubjectLength: Infinity,
-    minSubjectLength: 0,
     scopeOverrides: undefined,
     defaultBody: '',
     defaultIssues: '',

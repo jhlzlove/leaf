@@ -1,42 +1,40 @@
 [versions]
-jimmerVersion = "0.8.125"
-lombokVersion = "1.18.32"
-springBoot = "3.2.5"
-springDenpendencyManagement = "1.1.4"
+jimmerVersion = "0.8.157"
+lombokVersion = "1.18.34"
+springBoot = "3.3.3"
+springDenpendencyManagement = "1.1.6"
 postgresql = "42.7.3"
-springdoc = "2.4.0"
-commonLang3 = "3.14.0"
+commonLang3 = "3.16.0"
 jetbrainAnnotations = "24.1.0"
 jwtVersion = "4.4.0"
+kotlin = "2.0.20"
 
 [libraries]
 # apt
-jimmer-apt = { group = "org.babyfish.jimmer", name = "jimmer-apt", version.ref = "jimmerVersion" }
+jimmer-apt = { module = "org.babyfish.jimmer:jimmer-apt", version.ref = "jimmerVersion" }
 # Jimmer Spring Boot Starter
-jimmer-spring-boot = { group = "org.babyfish.jimmer", name = "jimmer-spring-boot-starter", version.ref = "jimmerVersion" }
+jimmer-spring-boot = { module = "org.babyfish.jimmer:jimmer-spring-boot-starter", version.ref = "jimmerVersion" }
 
 # Spring Boot 相关
-spring-boot = { group = "org.springframework.boot", name = "spring-boot", version.ref = "springBoot" }
-spring-boot-starter-aop = { group = "org.springframework.boot", name = "spring-boot-starter-aop", version.ref = "springBoot" }
-spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security", version.ref = "springBoot" }
-spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
-spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "springBoot" }
+spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot" }
+spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "springBoot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 
 # Postgresql
-postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonLang3" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVersion" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
 jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwtVersion" }
 
-# spring doc
-springdoc = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-api", version.ref = "springdoc" }
-
 # 缩略图
-thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.19" }
+thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
 
 [bundles]
+spring = ["spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"]
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }

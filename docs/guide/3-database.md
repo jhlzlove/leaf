@@ -3,14 +3,14 @@
 :::tip
 
 - id 为预留字段，可以根据不同业务需要采用不同的 id 生成算法。
-- 数据库的时间字段使用不带时区的 timestamp 类型。
+- 数据库的时间字段使用不带时区的 timestamp 类型(如果程序需要支持多个不同时区的国家，强烈推荐使用带时区的时间类型)。
 - PostgreSQL 如果没有设置主键，那么会默认以 `id` 、类型为整数（integer）的列作为主键，该字段并不显示。
 - 本项目全部采用物理删除的模式，删除要彻底，就像人生要做好断舍离。
 - 使用 PG 的 `serial` 要做好序列不连续（序列断裂）的准备，使用这种自增很容易出现这种情况（更新、删除、事务回滚等）。
 
 :::
 
-## 一、表字段
+## 一、 表字段
 
 ### 1.1 通用字段
 
@@ -103,7 +103,16 @@
 | 权限字符   | permission | varchar | permission | String  |                  |
 | 状态     | status     | int2    | status     | Integer | 1正常，0停用          |
 
-### 1.9 字典表（leaf_dict）
+### 1.9 字典类型表（leaf_dict）
+
+| 名称     | 数据库字段     | 数据库类型   | 实体字段     | 实体类型    | 说明      |
+|--------|-----------|---------|----------|---------|---------|
+| dictID | dict_id   | serial8 | dictId   | Long    |         |
+| 字典类型   | dict_type | varchar | dictType | String  |         |
+| 字典类型名称 | dict_name | varchar | dictName | String  |         |
+| 状态     | status    | int2    | status   | Integer | 1正常，0禁用 |
+
+### 1.10 字典详情表(leaf_dict_item)
 
 | 名称     | 数据库字段      | 数据库类型   | 实体字段      | 实体类型    | 说明      |
 |--------|------------|---------|-----------|---------|---------|
@@ -111,10 +120,9 @@
 | 字典键    | dict_key   | varchar | dictKey   | String  |         |
 | 字典值    | dict_value | varchar | dictValue | String  |         |
 | 字典类型   | dict_type  | varchar | dictType  | String  |         |
-| 字典类型名称 | dict_name  | varchar | dictName  | String  |         |
 | 状态     | status     | int2    | status    | Integer | 1正常，0禁用 |
 
-### 1.10 岗位表（leaf_post）
+### 1.11 岗位表（leaf_post）
 
 | 名称     | 数据库字段     | 数据库类型   | 实体字段     | 实体类型   | 说明 |
 |--------|-----------|---------|----------|--------|----|
@@ -123,14 +131,14 @@
 | 岗位名称   | post_name | varchar | postName | String |    |
 | 所属部门ID | dept_id   | int8    | deptId   | Long   |    |
 
-### 1.11 用户-岗位关联表（leaf_user_post）
+### 1.12 用户-岗位关联表（leaf_user_post）
 
 | 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
 |------|---------|-------|--------|------|----|
 | 岗位ID | post_id | int8  | postId | Long |    |
 | 用户ID | user_id | int8  | userId | Long |    |
 
-### 1.12 用户-部门关联表
+### 1.13 用户-部门关联表
 
 | 名称   | 数据库字段   | 数据库类型 | 实体字段   | 实体类型 | 说明 |
 |------|---------|-------|--------|------|----|

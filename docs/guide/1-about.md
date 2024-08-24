@@ -33,6 +33,7 @@ Spring，就用这个吧，虽然它的缺点太明显了，那也无妨。
 - [JetBrains](https://jb.gg/OpenSourceSupport) 为开源项目提供免费的 IntelliJ IDEA 等 IDE 的授权。  
   <img style="width:200px" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
 - [Spring Boot](https://github.com/spring-projects/spring-boot)
+- [Jimmer](https://github.com/babyfish-ct/jimmer)
 - [Gradle](https://gradle.org/)
 - [Postgresql](https://www.postgresql.org/)
 - [VitePress](https://vitepress.dev/zh/guide/getting-started)

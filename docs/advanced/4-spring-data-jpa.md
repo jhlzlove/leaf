@@ -43,7 +43,7 @@ public class User {
 如果该实体有一对多的关系，使用集合需要在属性上添加 `@OneToMany`
 注解。同理，还有一个 `@ManyToMany` 注解代表多对多的关系，其它类似。下面是最最最简单的使用，具体使用推荐看这几个注解的源码注释。
 
-```java
+```java ｛5,7｝
 // omit other annotation
 public class User {
     @Id
@@ -61,7 +61,7 @@ public class User {
 @DynamicUpdate：动态更新，只更新改变的列值，若不开启（false），调用更新接口会根据传入的对象的所有字段进行更新（对于没有传的字段，会以
 null 值覆盖更新）。
 
-```java
+```java {2-3}
 // omit other annotation
 @DynamicInsert
 @DynamicUpdate
@@ -98,8 +98,9 @@ public abstract class BaseEntity implements Serializable {
 
 ### @PageableDefault
 
-将 `Pageable` 注入控制器方法时设置默认值的注释，其默认值为 page = 0, size = 10。您也可以使用 `SortDefault`
-或 `SortDefault.SortDefaults` 来代替配置 `sort()` 和 `direction()`。
+该注解可以设置 `Pageable` 注入控制器方法时的默认值(默认为 page = 0, size = 10)，前端传分页参数传 page、size 以及 sort
+。您也可以使用 `@SortDefault`
+或 `@SortDefault.SortDefaults` 来代替配置 `sort()` 和 `direction()`。
 
 ```java
 class UserController {
@@ -165,7 +166,7 @@ Pageable 是一个分页接口，PageRequest 是它的子类。我们可以使�
 
 Page 也是一个接口，PageImpl 是它的实现类，PageImpl 可以构造最终返回的分页列表信息。它的构造方法接收三个参数：结果集，Pageable，总记录数。
 
-```java
+```java {9-12,19-21}
 
 @Service
 class UserServiceImpl implements UserService {

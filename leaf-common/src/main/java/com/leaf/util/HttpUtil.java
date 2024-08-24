@@ -59,7 +59,7 @@ public class HttpUtil {
      */
     private static HttpRequest buildGetRequest(String url,
                                                Map<String, String> headers,
-                                               String... headerStr) {
+                                               String[] headerStr) {
         Objects.requireNonNull(url, "url must not be null!");
         HttpRequest.Builder builder = HttpRequest.newBuilder().GET();
         if (!Objects.isNull(headers)) headers.forEach(builder::setHeader);
@@ -68,7 +68,7 @@ public class HttpUtil {
     }
 
     public static String getAsync(String url, Map<String, String> headers) {
-        HttpRequest request = buildGetRequest(url, headers);
+        HttpRequest request = buildGetRequest(url, headers, null);
         try {
             return HttpClient.newHttpClient()
                     .sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -90,7 +90,7 @@ public class HttpUtil {
     }
 
     public static String getAsync(String url) {
-        HttpRequest request = buildGetRequest(url, null);
+        HttpRequest request = buildGetRequest(url, null, null);
         try {
             return HttpClient.newHttpClient()
                     .sendAsync(request, HttpResponse.BodyHandlers.ofString())

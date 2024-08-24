@@ -2,6 +2,8 @@ package com.leaf.service;
 
 import com.leaf.domain.LeafDept;
 
+import java.util.List;
+
 /**
  * @author jhlz
  * @version x.x.x
@@ -13,5 +15,7 @@ public interface LeafDeptService {
      * @param dept 部门信息
      * @return 部门
      */
-    LeafDept add(LeafDept dept);
+    int add(LeafDept dept);
+
+    void delete(List<Long> ids);
 }

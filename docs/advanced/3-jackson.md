@@ -1,5 +1,7 @@
 # Jackson
 
+Spring Web 默认使用 Jackson 作为 JSON 工具。
+
 ## 一、注解
 
 ### @JsonProperty
@@ -77,6 +79,15 @@ record Result(
 
 这样就返回的结果就正常了。
 
+### @JsonFormat
+
+控制 Jackson 日期接收和输出的格式。
+
+### @ResponseBody @RequestBody
+
+@ResponseBody 把服务端响应的对象转为 json 字符串后响应给客户端；而 @RequestBody 则是把客户端的 json 字符串参数转为 Java
+中的复杂对象。`@RestController = @ResponseBody + @Controller`，对于前后端分离项目常使用该种方式。
+
 ### @Valid @Validated
 
 - @Valid 是 jakarta 包下的，而 @Validated 是 Spring 提供的；
@@ -97,8 +108,8 @@ public class StudentBean implements Serializable {
     @Email(message = "邮箱格式错误")
     private String email;
 
-    // 加入该注解才会验证 Subject 里面的内容，否则只验证 NotNull Size
-    @Valid
+    // 加入该注解才会验证 Subject 类里面的验证内容，否则只验证 NotNull Size
+    @Valid // [!code highlight]
     @NotNull(message = "所学科目不能为空")
     @Size(min = 1, message = "至少学习一个科目")
     private List<Subject> subjectList;

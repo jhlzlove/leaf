@@ -1,9 +1,9 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.Entity;
-import org.babyfish.jimmer.sql.GeneratedValue;
-import org.babyfish.jimmer.sql.GenerationType;
-import org.babyfish.jimmer.sql.Id;
+import org.babyfish.jimmer.sql.*;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * @author jhlz
@@ -28,7 +28,7 @@ public interface LeafMenu extends BaseEntity {
     /**
      * 父菜单 ID
      */
-    Long parentId();
+    long parentId();
 
     /**
      * 排序
@@ -38,6 +38,7 @@ public interface LeafMenu extends BaseEntity {
     /**
      * 权限字符串
      */
+    @Nullable
     String permission();
 
     /**
@@ -45,4 +46,6 @@ public interface LeafMenu extends BaseEntity {
      */
     int status();
 
+    @ManyToMany(mappedBy = "menus")
+    List<LeafRole> roles();
 }

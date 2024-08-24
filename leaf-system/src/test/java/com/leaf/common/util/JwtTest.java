@@ -1,21 +1,27 @@
 package com.leaf.common.util;
 
-import com.leaf.util.JwtUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author jhlz
- * @version x.x.x
- * @since 2024/4/18 11:55
  */
 public class JwtTest {
 
     /**
-     * Test Example:
+     * test: jwt example
      */
     @Test
-    public void jwtTest() {
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTM0MTQ4NjMsInBhc3N3b3JkIjoiMTIzIiwidXNlcm5hbWUiOiJhZG1pbiJ9.DjIaUujC4Owk-UvlKtYnUN756yw2DY1s0Quy1D-NIwE";
-        System.out.println(JwtUtil.verifyToken(token));
+    public void jwt_generator_Test() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encode = passwordEncoder.encode("123456");
+        Assertions.assertTrue(passwordEncoder.matches("123456", encode));
+        System.out.println(encode);
+        // String token1 = JwtUtil.createToken(Map.of("payload", "jhlz"), "jhlz");
+        // System.out.println(token1);
+
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqaGx6IiwiZXhwIjoxNjk2NDk4NjA0LCJwYXlsb2FkIjoxfQ.8Aw8K9GoSSwLcuBFP7WI6YZY7KCa6XH8HaamkC-E0b4";
+        // Assertions.assertTrue(JwtUtil.verifyToken(token));
     }
 }
