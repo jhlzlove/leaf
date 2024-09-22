@@ -1,6 +1,8 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.*;
+import org.babyfish.jimmer.sql.Entity;
+import org.babyfish.jimmer.sql.IdView;
+import org.babyfish.jimmer.sql.ManyToOne;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -10,29 +12,35 @@ import org.jetbrains.annotations.Nullable;
  * @version x.x.x
  */
 @Entity
-public interface LeafDictItem extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long dictItemId();
+public interface LeafDictItem extends BaseEntity, ID {
 
     /**
      * 字典 ID
      */
-    @IdView
+    @IdView("dict")
     Long dictId();
 
     /**
      * 字典键
      */
-    String dictKey();
+    String label();
 
     /**
      * 字典值
      */
-    String dictValue();
+    String value();
 
-    @ManyToOne
+    /**
+     * 状态：1正常，0禁用
+     */
+    int status();
+
+    /**
+     * 排序
+     */
+    int sortable();
+
     @Nullable
+    @ManyToOne
     LeafDict dict();
 }

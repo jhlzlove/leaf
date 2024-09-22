@@ -1,15 +1,9 @@
-# 选择使用的配置文件
-spring:
-  profiles:
-    active: dev
-  # 优雅停机时服务器等待时间，默认 30s
-  lifecycle:
-    timeout-per-shutdown-phase: 30s
+quarkus:
+  profile: prod
+  banner:
+    path: banner.txt
 
-# 这个配置推荐单体服务使用，微服务写了用处也不大
-# Spring Boot 2.3 提供的优雅关停，默认 immediate 意味着服务器将立即关闭
-# graceful 优雅停机，遵守 spring.lifecycle.timeout-per-shutdown-phase（默认30s） 属性中给出的超时来作为服务端等待的最大时间。
-# 某些请求可能会在正常关闭阶段开始之前被接受。在这种情况下，服务器将等待这些活动请求在指定的时间内完成其工作。我们可以使用 spring.lifecycle.timeout-per-shutdown-phase-configuration 属性来配置
-# 如果使用 kill -9 关闭程序，此配置并不会生效
-server:
-  shutdown: graceful
+############################# 项目自定义配置 #############################
+leaf:
+  # version
+  version: v1.0.0

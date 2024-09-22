@@ -1,9 +1,6 @@
-plugins {
-    java
-}
 
 dependencies {
-    api(libs.jwt)
-    implementation(libs.commons.lang3)
-    implementation(libs.jetbrains.annotations)
+    api(libs.commons.lang3)
+    api(libs.guava)
+    api(libs.jetbrains.annotations)
 }

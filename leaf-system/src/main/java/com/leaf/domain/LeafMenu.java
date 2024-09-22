@@ -10,10 +10,7 @@ import java.util.List;
  * @version x.x.x
  */
 @Entity
-public interface LeafMenu extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long menuId();
+public interface LeafMenu extends ID, BaseEntity {
 
     /**
      * 菜单类型
@@ -21,19 +18,14 @@ public interface LeafMenu extends BaseEntity {
     String menuType();
 
     /**
-     * 菜单名称
-     */
-    String menuName();
-
-    /**
      * 父菜单 ID
      */
-    long parentId();
+    Long parentId();
 
     /**
      * 排序
      */
-    Integer sortable();
+    int sortable();
 
     /**
      * 权限字符串
@@ -45,6 +37,49 @@ public interface LeafMenu extends BaseEntity {
      * 状态：1正常，0禁用
      */
     int status();
+
+    /**
+     * 标题
+     */
+    String title();
+
+    /**
+     * 路由地址
+     */
+    @Nullable
+    String path();
+
+    /**
+     * 组件地址
+     */
+    @Nullable
+    String component();
+
+    /**
+     * 组件名称
+     */
+    @Nullable
+    String name();
+
+    /**
+     * 图标
+     */
+    @Nullable
+    String icon();
+
+    /**
+     * 是否外链：1是，0否
+     */
+    @Nullable
+    @Column(name = "is_external")
+    Integer external();
+
+    /**
+     * 是否隐藏：1是，0否
+     */
+    @Nullable
+    @Column(name = "is_hidden")
+    Integer hidden();
 
     @ManyToMany(mappedBy = "menus")
     List<LeafRole> roles();

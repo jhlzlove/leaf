@@ -1,58 +1,62 @@
 package com.leaf.service;
 
-
-import com.leaf.common.response.Response;
+import com.leaf.domain.Fetchers;
 import com.leaf.domain.LeafUser;
+import com.leaf.domain.LeafUserTable;
+import com.leaf.record.PageRecord;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.babyfish.jimmer.Page;
-import org.springframework.data.domain.Pageable;
+import org.babyfish.jimmer.sql.JSqlClient;
 
-import java.util.List;
+@ApplicationScoped
+public class LeafUserService {
+
+    private final JSqlClient sqlClient;
+    LeafUserTable table = LeafUserTable.$;
+
+    public LeafUserService(JSqlClient sqlClient) {
+        this.sqlClient = sqlClient;
+    }
+
+    public Page<LeafUser> page(PageRecord page) {
+        return sqlClient.createQuery(table)
+                .select(table)
+                .fetchPage(page.page(), page.size());
+    }
+
+    public LeafUser getById(long id) {
+        return sqlClient.createQuery(table)
+                .where(table.id().eq(id))
+                .select(
+                        table.fetch(
+                                Fetchers.LEAF_USER_FETCHER
+                                        .allScalarFields()
+                                        .userDetail(
+                                                Fetchers.LEAF_USER_DETAIL_FETCHER
+                                                        .firstName()
+                                                        .lastName()
+                                                        .gender()
+                                        )
+                        )
+                )
+                .fetchOneOrNull();
+    }
 
 
-/**
- * 用户登录信息表业务层
- *
- * @author jhlz
- * @version 1.0.0
- */
-public interface LeafUserService {
 
-    /**
-     * 分页列表
-     *
-     * @param leafUser 条件参数
-     * @param page     分页参数
-     * @return 符合条件的分页数据
-     */
-    Page<LeafUser> page(LeafUser leafUser, Pageable page);
 
-    /**
-     * 根据 ID 获取详情
-     *
-     * @param id id
-     * @return 详情对象
-     */
-    LeafUser getUserById(Long id);
+    public void login(LeafUser leafUser) {
+        LeafUser user = sqlClient.createQuery(table)
+                .where(
+                        table.username().eq(leafUser.username()),
+                        table.password().eq(leafUser.password())
+                )
+                .select(table)
+                .fetchOneOrNull();
+        System.out.println("login successful: ");
+    }
 
-    /**
-     * 添加数据
-     *
-     * @param request 添加数据内容
-     */
-    int add(LeafUser request);
-
-    /**
-     * 更新数据
-     *
-     * @param leafUser 更新的数据内容
-     */
-    Response update(LeafUser leafUser);
-
-    /**
-     * 删除数据
-     *
-     * @param ids 删除数据的 id 集合
-     */
-    void delete(List<Long> ids);
+    public void save(LeafUser leafUser) {
+        sqlClient.save(leafUser);
+    }
 }
-
