@@ -1,13 +1,7 @@
-plugins {
-    java
-}
 
 dependencies {
-    implementation(libs.jimmer.spring.boot)
-    implementation(libs.lombok)
-    annotationProcessor(libs.lombok)
+    implementation(libs.jimmer.quarkus)
     annotationProcessor(libs.jimmer.apt)
-    implementation(libs.bundles.spring)
-    runtimeOnly(libs.postgresql)
-    implementation(project(":leaf-common"))
+    implementation(project(":leaf-framework"))
+    testImplementation(libs.bundles.quarkus.test)
 }

@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.postgresql)
+    // implementation(libs.postgresql)
     testImplementation(kotlin("test"))
 }
 

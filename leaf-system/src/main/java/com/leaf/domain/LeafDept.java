@@ -10,11 +10,8 @@ import java.util.List;
  * @version 1.0.0
  */
 @Entity
-public interface LeafDept extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long deptId();
+@Table(name = "leaf_dept")
+public interface LeafDept extends BaseEntity, ID {
 
     /**
      * 部门名称
@@ -26,22 +23,13 @@ public interface LeafDept extends BaseEntity {
      * 父级部门 ID
      */
     @Key
+    @Nullable
     Long parentId();
-
-    /**
-     * 部门编码
-     */
-    String deptCode();
-
-    /**
-     * 父级列表
-     */
-    String ancestors();
 
     /**
      * 部门领导
      */
-    Long leaderId();
+    long leaderId();
 
     /**
      * 部门描述
@@ -57,13 +45,14 @@ public interface LeafDept extends BaseEntity {
     /**
      * 排序
      */
-    Integer sortable();
+    int sortable();
 
     /**
-     * 部门关联角色
+     * 父级列表
      */
-    Long roleId();
+    @Nullable
+    String ancestors();
 
-    @ManyToMany(mappedBy = "deptList")
+    @OneToMany(mappedBy = "dept")
     List<LeafUser> userList();
 }

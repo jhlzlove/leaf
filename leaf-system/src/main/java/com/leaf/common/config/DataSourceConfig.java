@@ -1,37 +1,40 @@
-package com.leaf.common.config;
-
-import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
-
-/**
- * 数据源配置管理
- *
- * @author jhlz
- * @version 1.0.0
- */
-// @Configuration
-public class DataSourceConfig {
-
-    /**
-     * 主数据源
-     *
-     * @return 主数据源 DataSource
-     */
-    @Bean("ds1")
-    @Primary
-    @ConfigurationProperties("spring.datasource.ds1")
-    public DataSource ds1() {
-        return DataSourceBuilder.create().type(HikariDataSource.class).build();
-    }
-
-    @Bean("ds2")
-    @ConfigurationProperties("spring.datasource.ds2")
-    public DataSource ds2() {
-        return DataSourceBuilder.create().type(HikariDataSource.class).build();
-    }
-}
+// package com.leaf.common.config;
+//
+// import io.agroal.api.AgroalDataSource;
+// import io.quarkus.agroal.DataSource;
+// import io.quarkus.arc.DefaultBean;
+// import io.quarkus.datasource.runtime.DataSourceSupport;
+// import jakarta.enterprise.context.ApplicationScoped;
+// import jakarta.inject.Inject;
+// import jakarta.ws.rs.Produces;
+//
+// /**
+//  * 数据源配置管理
+//  *
+//  * @author jhlz
+//  * @version 1.0.0
+//  */
+// // @ApplicationScoped
+// public class DataSourceConfig {
+//     @Inject
+//     DataSourceSupport dataSourceSupport;
+//
+//     @Inject
+//     @DefaultBean
+//     @DataSource("master")
+//     AgroalDataSource masterDataSource;
+//
+//     @Inject
+//     @DataSource("slave")
+//     AgroalDataSource slaveDataSource;
+//
+//     @Produces
+//     @ApplicationScoped
+//     public AgroalDataSource dataSource() {
+//         if (dataSourceSupport.getInactiveNames().contains("master")) {
+//             return masterDataSource;
+//         } else {
+//             return slaveDataSource;
+//         }
+//     }
+// }

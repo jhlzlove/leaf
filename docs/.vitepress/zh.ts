@@ -1,5 +1,5 @@
 // 中文配置项
-import {DefaultTheme, defineConfig} from "vitepress";
+import { DefaultTheme, defineConfig } from "vitepress";
 
 export const zh = defineConfig({
     lang: 'zh-CN',
@@ -38,27 +38,39 @@ export const zh = defineConfig({
 function sidebarGuide(): DefaultTheme.SidebarItem[] {
     return [
         {
-            text: '简介',
+            text: '快速开始',
             base: "/guide/",
-            collapsed: false,
             items: [
-                {text: "Why?", link: "1-about"},
-                {text: "构建 & 部署", link: "2-build"},
+                {text: "简介", link: "1-intro"},
+                {text: "部署", link: "2-build"},
                 {text: "数据库结构", link: "3-database"},
-                {text: "项目总结", link: "4-summary"},
+                {text: "总结", link: "4-summary"},
             ]
         },
         {
             text: '进阶',
             base: "/advanced/",
-            collapsed: false,
             items: [
-                {text: "Gradle", link: "1-gradle"},
-                {text: "Logback", link: "2-logback"},
-                {text: "Jackson", link: "3-jackson"},
-                {text: "SpringDataJPA", link: "4-spring-data-jpa"},
-                {text: "权限管理", link: "5-permission"},
-                {text: "Jimmer", link: "6-jimmer"},
+                {
+                    text: "Spring",
+                    base: "/advanced/spring/",
+                    collapsed: false,
+                    items: [
+                        {text: "SpringDataJPA", link: "1-spring-data-jpa"}
+                    ],
+                },
+                {
+                    text: "Quarkus",
+                    base: "/advanced/quarkus/",
+                    collapsed: false,
+                    items: [
+                        {text: "Quarkus", link: "index"}
+                    ],
+                },
+
+                {text: "Jimmer", link: "1-jimmer"},
+                {text: "Jackson", link: "2-jackson"},
+                {text: "Logback", link: "3-logback"},
             ]
         },
         {

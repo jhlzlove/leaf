@@ -1,35 +1,24 @@
 package com.leaf.domain;
 
-import org.babyfish.jimmer.sql.*;
-
-import java.util.List;
+import org.babyfish.jimmer.sql.Entity;
 
 /**
  * @author jhlz
  * @version x.x.x
  */
 @Entity
-public interface LeafPost extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long postId();
+public interface LeafPost extends ID, BaseEntity {
 
     /**
      * 岗位编码
      */
-    String postCode();
+    String code();
 
     /**
      * 岗位名称
      */
-    String postName();
+    String name();
 
-    /**
-     * 所属部门 ID
-     */
-    long deptId();
-
-    @ManyToMany(mappedBy = "postList")
-    List<LeafUser> userList();
+    // @ManyToMany(mappedBy = "postList")
+    // List<LeafUser> userList();
 }

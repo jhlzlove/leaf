@@ -9,16 +9,12 @@ import java.util.List;
  * @version 1.0.0
  */
 @Entity
-public interface LeafDict extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long dictId();
+public interface LeafDict extends BaseEntity, ID {
 
     /**
-     * 字典类型
+     * 字典编码
      */
-    String dictType();
+    String dictCode();
 
     /**
      * 字典名称

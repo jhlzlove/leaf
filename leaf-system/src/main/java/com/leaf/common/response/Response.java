@@ -3,7 +3,6 @@ package com.leaf.common.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leaf.business.BusinessException;
 import com.leaf.common.util.JSON;
-import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
@@ -32,20 +31,12 @@ public record Response(
         return ok(200, "操作成功！", data);
     }
 
-    public static Response ok(HttpStatus status, String message) {
-        return ok(status.value(), message, status.getReasonPhrase(), null);
-    }
-
     public static Response ok(int code, String message, Object data) {
         return ok(code, message, null, data);
     }
 
     public static Response error(BusinessException exception) {
         return ok(exception.getCode(), exception.getMessage(), null);
-    }
-
-    public static Response error(String message) {
-        return ok(HttpStatus.NOT_FOUND.value(), message, null);
     }
 
     public static Response error(int code, String message) {

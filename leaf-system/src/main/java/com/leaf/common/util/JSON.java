@@ -10,15 +10,13 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.leaf.util.LocalDateUtil;
 import org.babyfish.jimmer.jackson.ImmutableModule;
-import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.lang.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 基于 Spring 使用的 jackson 简单封装的 JSON 工具类
@@ -53,7 +51,7 @@ public class JSON {
      * @param o 需要转换的数据
      * @return json 格式字符串
      */
-    public static String toJson(@NonNull Object o) {
+    public static String toJson(@NotNull Object o) {
         try {
             return JSON.writeValueAsString(o);
         } catch (JsonProcessingException e) {
@@ -61,7 +59,7 @@ public class JSON {
         }
     }
 
-    public static String toPrettyJson(@NonNull Object o) {
+    public static String toPrettyJson(@NotNull Object o) {
         try {
             return JSON.writerWithDefaultPrettyPrinter().writeValueAsString(o);
         } catch (JsonProcessingException e) {
@@ -76,7 +74,7 @@ public class JSON {
      * @param clazz 对象类
      * @return 对象
      */
-    public static <T> T parseObject(@NonNull String json, @NonNull Class<T> clazz) {
+    public static <T> T parseObject(@NotNull String json, @NotNull Class<T> clazz) {
         try {
             return JSON.readValue(json, clazz);
         } catch (IOException e) {
@@ -91,7 +89,7 @@ public class JSON {
      * @param clazz 指定的对象类别
      * @return 对象集合
      */
-    public static <T> List<T> toList(@NonNull String json, @NonNull Class<T> clazz) {
+    public static <T> List<T> toList(@NotNull String json, @NotNull Class<T> clazz) {
         try {
             return JSON.readValue(json, JSON.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (IOException e) {
@@ -105,8 +103,8 @@ public class JSON {
      * @param json json 字符串
      * @return Map<String, Object>
      */
-    public static Map<String, Object> toMap(String json) {
-        JacksonJsonParser jacksonJsonParser = new JacksonJsonParser(JSON);
-        return jacksonJsonParser.parseMap(json);
-    }
+    // public static Map<String, Object> toMap(String json) {
+    //     JacksonJsonParser jacksonJsonParser = new JacksonJsonParser(JSON);
+    //     return jacksonJsonParser.parseMap(json);
+    // }
 }

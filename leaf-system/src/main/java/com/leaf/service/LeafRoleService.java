@@ -1,45 +1,39 @@
 package com.leaf.service;
 
 import com.leaf.domain.LeafRole;
+import com.leaf.record.PageRecord;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.commons.lang3.ObjectUtils;
 import org.babyfish.jimmer.Page;
-import org.springframework.data.domain.Pageable;
+import org.babyfish.jimmer.sql.JSqlClient;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+@ApplicationScoped
+public class LeafRoleService {
+    private final JSqlClient sqlClient;
 
-/**
- * @author jhlz
- * @version x.x.x
- */
-public interface LeafRoleService {
-    /**
-     * 分页查询
-     *
-     * @param pageable 分页对象
-     * @return 分页结果
-     */
-    Page<LeafRole> page(LeafRole leafRole, Pageable pageable);
+    // LeafRoleTable table = LeafRoleTable.$;
 
-    /**
-     * 添加
-     *
-     * @param leafRole 请求实体
-     * @return int
-     */
-    int add(LeafRole leafRole);
+    public LeafRoleService(JSqlClient sqlClient) {
+        this.sqlClient = sqlClient;
+    }
 
-    /**
-     * 修改
-     *
-     * @param leafRole 请求实体
-     * @return int
-     */
-    int update(LeafRole leafRole);
+    public LeafRole save(LeafRole leafRole) {
+        return sqlClient.save(leafRole).getModifiedEntity();
+    }
 
-    /**
-     * 删除
-     *
-     * @param ids 删除集合
-     * @return 删除记录数
-     */
-    int delete(List<Long> ids);
+    public LeafRole findById(long id) {
+        return sqlClient.findById(LeafRole.class, id);
+    }
+
+    public @NotNull Page<LeafRole> findAll(PageRecord page) {
+        if (ObjectUtils.isEmpty(page)) {
+            page = new PageRecord();
+        }
+        System.out.println(page);
+        // return sqlClient.createQuery(table)
+        //         .select(table)
+        //         .fetchPage(page.page(), page.size());
+        return null;
+    }
 }

@@ -9,21 +9,28 @@ import java.util.List;
  * @version 1.0.0
  */
 @Entity
-public interface LeafRole extends BaseEntity {
+@Table(name = "leaf_role")
+public interface LeafRole extends ID, BaseEntity {
 
-    @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long roleId();
+    /**
+     * 编码
+     */
+    String code();
 
-    String roleCode();
-
-    String roleName();
+    /**
+     * 名称
+     */
+    String name();
 
     /**
      * 1 正常 0 禁用
      */
     int status();
+
+    /**
+     * 排序
+     */
+    int sortable();
 
     @ManyToMany
     @JoinTable(

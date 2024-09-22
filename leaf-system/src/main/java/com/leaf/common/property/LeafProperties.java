@@ -1,7 +1,6 @@
 package com.leaf.common.property;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.eclipse.microprofile.config.inject.ConfigProperties;
 
 /**
  * 项目自定义配置选项
@@ -11,19 +10,18 @@ import org.springframework.stereotype.Component;
  * @author jhlz
  * @version 1.0.0
  */
-@Component
 public class LeafProperties {
 
     /**
      * 系统版本
      */
-    @Value("${leaf.version}")
+    @ConfigProperties(prefix = "leaf.version")
     private String version;
 
     /**
      * 统一访问前缀
      */
-    @Value("${leaf.api-prefix}")
+    @ConfigProperties(prefix = "${leaf.api-prefix}")
     private String apiPrefix;
 
     public String getVersion() {

@@ -1,42 +1,67 @@
 [versions]
-jimmerVersion = "0.8.157"
-lombokVersion = "1.18.34"
-springBoot = "3.3.3"
-springDenpendencyManagement = "1.1.6"
-postgresql = "42.7.3"
-commonLang3 = "3.16.0"
+quarkus = "3.14.4"
+jimmer = "0.8.179"
+quarkusJimmer = "0.0.1.CR28"
+commonLang3 = "3.17.0"
 jetbrainAnnotations = "24.1.0"
-jwtVersion = "4.4.0"
 kotlin = "2.0.20"
+guava = "33.3.0-jre"
 
 [libraries]
-# apt
-jimmer-apt = { module = "org.babyfish.jimmer:jimmer-apt", version.ref = "jimmerVersion" }
-# Jimmer Spring Boot Starter
-jimmer-spring-boot = { module = "org.babyfish.jimmer:jimmer-spring-boot-starter", version.ref = "jimmerVersion" }
+####################################### Jimmer #######################################
+# jimmer apt
+jimmer-apt = { module = "org.babyfish.jimmer:jimmer-apt", version.ref = "jimmer" }
+# jimmer sql
+#jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql", version.ref = "jimmer" }
+# Jimmer 的 Quarkus 扩展
+jimmer-quarkus = { module = "io.github.flynndi:quarkus-jimmer", version.ref = "quarkusJimmer" }
 
-# Spring Boot 相关
-spring-boot = { module = "org.springframework.boot:spring-boot", version.ref = "springBoot" }
-spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop", version.ref = "springBoot" }
-spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "springBoot" }
-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
-spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+####################################### Quarkus #######################################
+# quarkus 基础依赖
+quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
+quarkus-rest = { module = "io.quarkus:quarkus-rest", version.ref = "quarkus" }
+# jackson 在 Quarkus 中，只要引入了 json 扩展，默认情况下 Quarkus 将对大多数返回值使用 application/json 媒体类型，除非显式声明
+quarkus-jackson = { module = "io.quarkus:quarkus-rest-jackson", version.ref = "quarkus" }
+# yml 支持
+quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
+# jwt
+quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
+# test
+quarkus-junit5 = { module = "org.quarkus:quarkus-junit5", version.ref = "quarkus" }
+quarkus-junit5-mockito = { module = "org.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
+rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
 
-# Postgresql
-postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+####################################### database #######################################
+# pg jdbc
+quarkus-pg = { module = "io.quarkus:quarkus-jdbc-postgresql", version.ref = "quarkus" }
+# jbdc 数据源
+quarkus-agroal = { module = "io.quarkus:quarkus-agroal", version.ref = "quarkus" }
+# 事务
+quarkus-jta = { module = "io.quarkus:quarkus-narayana-jta", version.ref = "quarkus" }
 
+####################################### Other #######################################
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonLang3" }
-lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombokVersion" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
-jwt = { group = "com.auth0", name = "java-jwt", version.ref = "jwtVersion" }
-
 # 缩略图
 thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
 
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
 [bundles]
-spring = ["spring-boot", "spring-boot-starter-aop", "spring-boot-starter-security", "spring-boot-starter-web"]
+quarkus = [
+    "quarkus-arc",
+    "quarkus-jackson",
+    "quarkus-yaml",
+    "quarkus-jwt",
+    "quarkus-pg",
+    "quarkus-agroal",
+    "quarkus-jta",
+]
+# https://quarkus.io/guides/getting-started-testing
+quarkus-test = [
+    "quarkus-junit5",
+    "quarkus-junit5-mockito",
+    "rest-assured"
+]
 
 [plugins]
-spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
-# Spring Boot 官方提供的 Gradle 插件之一，可以帮助开发人员更轻松地管理项目依赖项。统一管理项目依赖项的版本，使项目的依赖项版本更加清晰明确，避免出现依赖冲突。
-spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDenpendencyManagement" }

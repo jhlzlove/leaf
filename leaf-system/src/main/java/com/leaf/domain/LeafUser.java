@@ -14,11 +14,7 @@ import java.util.List;
  * @version 1.0.0
  */
 @Entity
-public interface LeafUser extends BaseEntity {
-    @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long userId();
+public interface LeafUser extends ID, BaseEntity {
 
     /**
      * 用户名
@@ -50,13 +46,11 @@ public interface LeafUser extends BaseEntity {
     /**
      * 头像地址
      */
-    @Nullable
     String avatar();
 
     /**
      * 最后一次登录时间
      */
-    @Nullable
     LocalDateTime lastLoginTime();
 
     /**
@@ -67,37 +61,46 @@ public interface LeafUser extends BaseEntity {
     /**
      * 用户详情 ID
      */
+    @Nullable
     @IdView
     Long userDetailId();
 
+    /**
+     * 部门 id
+     */
+    @IdView("dept")
+    Long deptId();
+
+    /**
+     * 角色 ids
+     */
+    @IdView("roles")
+    List<Long> roleIds();
+
     @Nullable
-    @ManyToOne
-    @JoinColumn(name = "user_detail_id", foreignKeyType = ForeignKeyType.FAKE)
+    @OneToOne
+    // @JoinColumn(name = "user")
     LeafUserDetail userDetail();
 
-    @ManyToMany
-    @JoinTable(
-            name = "leaf_user_dept",
-            joinColumnName = "user_id",
-            inverseJoinColumnName = "dept_id"
-    )
-    List<LeafDept> deptList();
+    @Nullable
+    @ManyToOne
+    LeafDept dept();
 
     @ManyToMany
     @JoinTable(
             name = "leaf_user_role",
-            joinColumnName = "user_id",
-            inverseJoinColumnName = "role_id"
+            joinColumnName = "id",
+            inverseJoinColumnName = "id"
     )
     List<LeafRole> roles();
 
-    @ManyToMany
-    @JoinTable(
-            name = "leaf_user_post",
-            joinColumnName = "user_id",
-            inverseJoinColumnName = "post_id"
-    )
-    List<LeafPost> postList();
+    // @ManyToMany
+    // @JoinTable(
+    //         name = "leaf_user_post",
+    //         joinColumnName = "user_id",
+    //         inverseJoinColumnName = "post_id"
+    // )
+    // List<LeafPost> postList();
 
 }
 
