@@ -1,12 +1,15 @@
 package com.leaf.resource;
 
 
+import com.leaf.annotation.Log;
 import com.leaf.domain.LeafUser;
 import com.leaf.record.PageRecord;
 import com.leaf.service.LeafUserService;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Response;
+import org.babyfish.jimmer.Page;
 import org.jboss.resteasy.reactive.RestPath;
+
+import java.util.List;
 
 /**
  * 用户登录信息表控制层
@@ -25,29 +28,31 @@ public class LeafUserResource {
 
     @GET
     @Path("/page")
-    public Response page(PageRecord page) {
-        return Response.ok(leafUserService.page(page)).build();
+    public Page<LeafUser> page(PageRecord page) {
+        return leafUserService.page(page);
     }
 
     @GET
+    @Log(module = "根据用户 id 获取用户详情")
     @Path("{id}")
-    public Response info(@RestPath long id) {
-        return Response.ok(leafUserService.getById(id)).build();
+    public LeafUser info(@RestPath long id) {
+        return leafUserService.getById(id);
     }
 
     @POST
     public void add(LeafUser leafUser) {
-        leafUserService.save(leafUser);
+        leafUserService.add(leafUser);
     }
 
     @PUT
-    public void edit(LeafUser leafUser) {
-        leafUserService.save(leafUser);
+    public void update(LeafUser leafUser) {
+        leafUserService.update(leafUser);
     }
 
     @DELETE
-    public void delete(LeafUser leafUser) {
-        leafUserService.save(leafUser);
+    @Path("{ids}")
+    public void deleteByIds(@RestPath List<Long> ids) {
+        leafUserService.delete(ids);
     }
 
 }

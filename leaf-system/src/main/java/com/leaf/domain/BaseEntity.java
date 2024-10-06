@@ -28,12 +28,12 @@ public interface BaseEntity {
     /**
      * 创建人
      */
-    long createBy();
+    long createId();
 
     /**
      * 更新人
      */
-    long updateBy();
+    long updateId();
 
     /**
      * 备注

@@ -1,6 +1,6 @@
 package com.leaf.resource;
 
-import com.leaf.common.response.Response;
+import com.leaf.record.Response;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
 import jakarta.annotation.Resource;
@@ -19,10 +19,10 @@ import org.jetbrains.annotations.NotNull;
  */
 @Path("/test")
 @Resource
-public class WebTestResource {
+public class TestResource {
     private final JSqlClient sqlClient;
 
-    public WebTestResource(JSqlClient sqlClient) {
+    public TestResource(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;
     }
 

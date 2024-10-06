@@ -59,7 +59,6 @@ public interface LeafUserDetail extends ID {
     @Nullable
     String idCard();
 
-    // @OneToOne
-    // // @JoinColumn(name = "id")
-    // LeafUser user();
+    @OneToOne
+    LeafUser user();
 }

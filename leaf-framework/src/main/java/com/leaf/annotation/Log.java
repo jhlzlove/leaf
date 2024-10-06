@@ -1,16 +1,19 @@
 package com.leaf.annotation;
 
 import com.leaf.business.BusinessEnum;
+import jakarta.interceptor.InterceptorBinding;
 
 import java.lang.annotation.*;
 
 /**
  * 操作日志注解
  */
-@Target(ElementType.METHOD) // 注解放置的目标位置
-@Retention(RetentionPolicy.RUNTIME) // 注解在哪个阶段执行
+@Inherited
+@InterceptorBinding
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface LeafLog {
+public @interface Log {
 
     /**
      * 操作模块

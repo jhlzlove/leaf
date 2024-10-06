@@ -1,10 +1,10 @@
 package com.leaf.resource;
 
 import com.leaf.domain.LeafUser;
-import com.leaf.service.LeafUserService;
+import com.leaf.service.LoginService;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.core.Response;
 
 /**
  * 登录、注册模块
@@ -14,30 +14,33 @@ import jakarta.ws.rs.core.Response;
  */
 @Path("/")
 public class LoginResource {
-    private final LeafUserService leafUserService;
+    private final LoginService loginService;
 
-    public LoginResource(LeafUserService leafUserService) {
-        this.leafUserService = leafUserService;
+    public LoginResource(LoginService loginService) {
+        this.loginService = loginService;
     }
 
-    @POST
+    @GET
     @Path("/login")
-    public Response login(LeafUser leafUser) {
-        leafUserService.login(leafUser);
-        return Response.ok().build();
+    public String login(LeafUser leafUser) {
+       return loginService.login(leafUser);
+    }
+
+    @GET
+    @Path("/userInfo")
+    public LeafUser userInfo() {
+        return loginService.userInfo();
     }
 
     @POST
     @Path("/register")
-    public Response register(LeafUser leafUser) {
-        leafUserService.login(leafUser);
-        return Response.ok().build();
+    public void register(LeafUser leafUser) {
+        loginService.register(leafUser);
     }
 
     @POST
     @Path("/logout")
-    public Response logout() {
-        System.out.println("user logged out");
-        return Response.ok().build();
+    public String logout() {
+        return "logout";
     }
 }

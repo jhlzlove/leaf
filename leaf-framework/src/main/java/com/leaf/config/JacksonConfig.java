@@ -1,4 +1,4 @@
-package com.leaf.common.config;
+package com.leaf.config;
 
 /**
  * 此类并未启用，当时写在这里是为了排查一些问题，于是就留下了

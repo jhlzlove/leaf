@@ -1,7 +1,7 @@
 [versions]
-quarkus = "3.14.4"
-jimmer = "0.8.179"
-quarkusJimmer = "0.0.1.CR28"
+quarkus = "3.15.1"
+jimmer = "0.8.184"
+quarkusJimmer = "0.0.1.CR29"
 commonLang3 = "3.17.0"
 jetbrainAnnotations = "24.1.0"
 kotlin = "2.0.20"
@@ -27,8 +27,8 @@ quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quark
 # jwt
 quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
 # test
-quarkus-junit5 = { module = "org.quarkus:quarkus-junit5", version.ref = "quarkus" }
-quarkus-junit5-mockito = { module = "org.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
+quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
+quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
 rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
 
 ####################################### database #######################################

@@ -14,8 +14,8 @@ subprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
     }
 
     val mavenUrl: String by project.extra
@@ -32,9 +32,9 @@ subprojects {
         implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     }
 
-    tasks.withType<Test> {
-        systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
-    }
+    // tasks.withType<Test> {
+    //     systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+    // }
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"

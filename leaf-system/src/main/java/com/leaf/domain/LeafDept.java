@@ -22,8 +22,6 @@ public interface LeafDept extends BaseEntity, ID {
     /**
      * 父级部门 ID
      */
-    @Key
-    @Nullable
     Long parentId();
 
     /**
@@ -38,7 +36,7 @@ public interface LeafDept extends BaseEntity, ID {
     String description();
 
     /**
-     * 状态：1正常，0禁用
+     * 状态：0正常，1禁用
      */
     int status();
 

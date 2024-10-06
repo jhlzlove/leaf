@@ -1,4 +1,4 @@
-package com.leaf.common.config;
+package com.leaf.config;
 
 // @Data
 // @ConfigProperties(prefix = "jimmer")

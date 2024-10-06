@@ -1,4 +1,4 @@
-package com.leaf.common.util;
+package com.leaf.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,8 +8,6 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.leaf.util.LocalDateUtil;
-import org.babyfish.jimmer.jackson.ImmutableModule;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -19,18 +17,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * 基于 Spring 使用的 jackson 简单封装的 JSON 工具类
- * 注意，此工具类脱离 Spring 工厂使用，无法注入或者覆盖 jackson 的默认行为，如需自定义，请修改 system 模块下的 JacksonConfig.java
+ * 基于 jackson 简单封装的 JSON 工具类
  *
  * @author jhlz
  * @version 1.0.0
  */
 public class JSON {
 
-    private static final ObjectMapper JSON;
+    private static final ObjectMapper JSON = new ObjectMapper();
 
     static {
-        ObjectMapper temp = new ObjectMapper();
         JavaTimeModule module = new JavaTimeModule();
         DateTimeFormatter dateTimeFormatter = LocalDateUtil.ofPattern(LocalDateUtil.DATE_TIME_PATTERN);
         DateTimeFormatter dateFormatter = LocalDateUtil.ofPattern(LocalDateUtil.DATE_PATTERN);
@@ -38,11 +34,8 @@ public class JSON {
         module.addDeserializer(LocalDate.class, new LocalDateDeserializer(dateFormatter));
         module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(dateTimeFormatter));
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(dateTimeFormatter));
-        // 注册 module
-        temp.registerModules(module, new ImmutableModule());
         // 忽略未知字段
-        temp.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
-        JSON = temp;
+        JSON.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
     }
 
     /**

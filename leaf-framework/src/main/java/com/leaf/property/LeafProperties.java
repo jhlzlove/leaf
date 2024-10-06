@@ -1,4 +1,4 @@
-package com.leaf.common.property;
+package com.leaf.property;
 
 import org.eclipse.microprofile.config.inject.ConfigProperties;
 

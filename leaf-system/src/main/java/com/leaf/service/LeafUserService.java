@@ -1,5 +1,6 @@
 package com.leaf.service;
 
+import com.leaf.annotation.Log;
 import com.leaf.domain.Fetchers;
 import com.leaf.domain.LeafUser;
 import com.leaf.domain.LeafUserTable;
@@ -8,6 +9,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.babyfish.jimmer.Page;
 import org.babyfish.jimmer.sql.JSqlClient;
 
+import java.util.List;
+
+/**
+ * @author jhlz
+ * @version 1.0.0
+ */
 @ApplicationScoped
 public class LeafUserService {
 
@@ -24,6 +31,7 @@ public class LeafUserService {
                 .fetchPage(page.page(), page.size());
     }
 
+    @Log(module = "详情")
     public LeafUser getById(long id) {
         return sqlClient.createQuery(table)
                 .where(table.id().eq(id))
@@ -42,21 +50,15 @@ public class LeafUserService {
                 .fetchOneOrNull();
     }
 
-
-
-
-    public void login(LeafUser leafUser) {
-        LeafUser user = sqlClient.createQuery(table)
-                .where(
-                        table.username().eq(leafUser.username()),
-                        table.password().eq(leafUser.password())
-                )
-                .select(table)
-                .fetchOneOrNull();
-        System.out.println("login successful: ");
+    public void add(LeafUser leafUser) {
+        sqlClient.insert(leafUser);
     }
 
-    public void save(LeafUser leafUser) {
-        sqlClient.save(leafUser);
+    public void update(LeafUser leafUser) {
+        sqlClient.update(leafUser);
+    }
+
+    public void delete(List<Long> ids) {
+        sqlClient.deleteByIds(LeafUser.class, ids);
     }
 }

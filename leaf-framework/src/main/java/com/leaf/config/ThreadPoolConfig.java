@@ -1,4 +1,4 @@
-package com.leaf.common.config;
+package com.leaf.config;
 
 /**
  * ThreadPoolConfig: 连接池配置

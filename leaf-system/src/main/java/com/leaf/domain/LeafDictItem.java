@@ -31,7 +31,7 @@ public interface LeafDictItem extends BaseEntity, ID {
     String value();
 
     /**
-     * 状态：1正常，0禁用
+     * 状态：0正常，1禁用
      */
     int status();
 
