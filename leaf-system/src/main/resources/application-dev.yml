@@ -1,26 +1,22 @@
 quarkus:
   http:
-    port: 7777
+    port: 8000
   datasource:
-    master:
+    - name: master
+      db-kind: postgresql
+      jdbc:
+        url: jdbc:postgresql://localhost:5432/leaf_main
+      username: postgres
+      password: postgres
+    - name: slave
       db-kind: postgresql
       jdbc:
         url: jdbc:postgresql://localhost:5432/test
-        driver:
-        max-size: 16
       username: postgres
       password: postgres
-    slave:
-      db-kind: postgresql
-      jdbc:
-        url: jdbc:postgresql://localhost:5432/test
-        driver:
-        max-size: 16
-      username: postgres
-      password: postgres
+
   jimmer:
     show-sql: true
     pretty-sql: true
     database-validation:
       mode: none
-

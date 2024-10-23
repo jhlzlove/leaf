@@ -1,6 +1,6 @@
 
 dependencies {
-    api(libs.commons.lang3)
+    implementation(libs.bundles.jackson)
     api(libs.guava)
     api(libs.jetbrains.annotations)
 }

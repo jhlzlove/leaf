@@ -1,8 +1,8 @@
 [versions]
-quarkus = "3.14.4"
-jimmer = "0.8.179"
-quarkusJimmer = "0.0.1.CR28"
-commonLang3 = "3.17.0"
+quarkus = "3.15.1"
+jackson = "2.18.0"
+jimmer = "0.9.1"
+quarkusJimmer = "0.0.1.CR29"
 jetbrainAnnotations = "24.1.0"
 kotlin = "2.0.20"
 guava = "33.3.0-jre"
@@ -12,9 +12,9 @@ guava = "33.3.0-jre"
 # jimmer apt
 jimmer-apt = { module = "org.babyfish.jimmer:jimmer-apt", version.ref = "jimmer" }
 # jimmer sql
-#jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql", version.ref = "jimmer" }
+jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql", version.ref = "jimmer" }
 # Jimmer 的 Quarkus 扩展
-jimmer-quarkus = { module = "io.github.flynndi:quarkus-jimmer", version.ref = "quarkusJimmer" }
+#jimmer-quarkus = { module = "io.github.flynndi:quarkus-jimmer", version.ref = "quarkusJimmer" }
 
 ####################################### Quarkus #######################################
 # quarkus 基础依赖
@@ -26,9 +26,10 @@ quarkus-jackson = { module = "io.quarkus:quarkus-rest-jackson", version.ref = "q
 quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
 # jwt
 quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
+quarkus-jwt-build = { module = "io.quarkus:quarkus-smallrye-jwt-build", version.ref = "quarkus" }
 # test
-quarkus-junit5 = { module = "org.quarkus:quarkus-junit5", version.ref = "quarkus" }
-quarkus-junit5-mockito = { module = "org.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
+quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
+quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
 rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
 
 ####################################### database #######################################
@@ -40,12 +41,18 @@ quarkus-agroal = { module = "io.quarkus:quarkus-agroal", version.ref = "quarkus"
 quarkus-jta = { module = "io.quarkus:quarkus-narayana-jta", version.ref = "quarkus" }
 
 ####################################### Other #######################################
-commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonLang3" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
 # 缩略图
 thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
 
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+####################################### jackson #######################################
+jackson-core = {module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson"}
+jackson-annotations = {module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson"}
+jackson-databind = {module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson"}
+# java8 日期支持
+jackson-datatype-jsr310 = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson"}
 
 [bundles]
 quarkus = [
@@ -53,6 +60,7 @@ quarkus = [
     "quarkus-jackson",
     "quarkus-yaml",
     "quarkus-jwt",
+    "quarkus-jwt-build",
     "quarkus-pg",
     "quarkus-agroal",
     "quarkus-jta",
@@ -61,7 +69,13 @@ quarkus = [
 quarkus-test = [
     "quarkus-junit5",
     "quarkus-junit5-mockito",
-    "rest-assured"
+    "rest-assured",
 ]
 
+jackson = [
+    "jackson-core",
+    "jackson-annotations",
+    "jackson-databind",
+    "jackson-datatype-jsr310",
+]
 [plugins]

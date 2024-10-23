@@ -1,6 +1,6 @@
 # 启动项目
 
-本章节写了如何启动项目，但是不会手把手教环境搭建，只会点一下 [Gradle](https://gradle.org/) 的配置。
+本章节写了如何启动项目，但是不会手把手教环境搭建，只会点一下 [Gradle](https://gradle.org/) 的配置。可以参考这篇[文章](https://jhlzlove.github.io/wiki/%E7%BC%96%E7%A8%8B%E5%90%8E%E8%8A%B1%E5%9B%AD/Java/%E9%9A%8F%E7%AC%94/Gradle.html)。另外，version catalog 定义的依赖只有使用的时候才会下载（延迟加载/懒加载）。
 
 ## 一、后端
 
@@ -30,7 +30,15 @@ git clone https://github.com/jhlzlove/leaf.git
 
 暂时还没有哦~
 
-## 三、代码规范
+## 三、项目结构
+
+### 后端
+
+common 模块单独引入 jackson 并基于 jackson 封装 JSON 工具并定义结构化客户端响应。这样不使用可以直接移除，使用的话直接引入即可，本项目的 common 模块主要引入一些外部工具，轻度封装，便于修改、移除。
+
+另一方面，common 中尽量限制依赖传递：即其它模块中没有直接使用或者没有意向直接使用的依赖一律使用 `implementation` 而不是 `api`。
+
+## 四、代码规范
 
 :::tip
 代码规范可以帮助开发人员更好地理解和阅读代码，提高代码的可读性，并降低出现错误的概率。
@@ -85,16 +93,16 @@ git clone https://github.com/jhlzlove/leaf.git
 
 非强制，只是建议，根据实际情况确定是否使用。
 
-| prefix          | meaning     |
-|-----------------|-------------|
-| add             | 新增          |
-| update、up       | 更新          |
-| remove、rm       | 逻辑删除(非永久删除) |
-| delete、del      | 物理删除(永久删除)  |
-| select、find、get | 单记录查询       |
-| list            | 多记录/列表查询    |
-| page            | 分页查询        |
-| import          | 导入          |
-| export          | 导出          |
-| upload          | 上传          |
-| download        | 下载          |
+| prefix           | meaning     |
+|------------------|-------------|
+| add、insert       | 新增          |
+| update、up、modify | 更新          |
+| remove、rm        | 逻辑删除(非永久删除) |
+| delete、del       | 物理删除(永久删除)  |
+| select、find、get  | 单记录查询       |
+| list             | 多记录/列表查询    |
+| page             | 分页查询        |
+| import           | 导入          |
+| export           | 导出          |
+| upload           | 上传          |
+| download         | 下载          |

@@ -4,7 +4,7 @@ hero:
   # 项目名称/标题
   name: Baby Leaf
   # 描述
-  text: Java And Spring Boot3
+  text: Java And Quarkus
   # 标语
   tagline: 简单、沉浸、清晰
   # text 和 tagline 区域旁的图片

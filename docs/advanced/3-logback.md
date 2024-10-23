@@ -156,3 +156,9 @@ public class LogbackHomeConfig extends PropertyDefinerBase {
 >
 > slf4j 是 Java 的日志门面库，日志门面不是说排场很大的意思，而是指相应的日志 API
 > 已成为事实上的标准，会被其它日志框架所使用。通过这种统一的门面，开发者就可以不必再拘泥于日志框架的选择，未来大不了再换一个日志框架就是。
+
+## Log4j2
+
+```xml
+<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level}{ERROR=Bright RED, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %style{ [%t] %c{1.}-%M:%L}{black}: %msg%n"/>
+```
