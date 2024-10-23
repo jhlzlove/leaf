@@ -1,5 +1,5 @@
 quarkus:
-  profile: prod
+  profile: prod, log
   banner:
     path: banner.txt
 

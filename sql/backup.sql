@@ -341,7 +341,7 @@ ALTER TABLE ONLY public.leaf_user ALTER COLUMN id SET DEFAULT nextval('public.le
 ALTER TABLE ONLY public.leaf_user_detail ALTER COLUMN id SET DEFAULT nextval('public.leaf_user_detail_user_detail_id_seq'::regclass);
 
 
-SELECT pg_catalog.setval('public.leaf_dept_dept_id_seq', 1, true);
+SELECT pg_catalog.setval('public.leaf_dept_dept_id_seq', 1, false);
 
 SELECT pg_catalog.setval('public.leaf_dict_dict_id_seq', 1, false);
 
@@ -351,9 +351,9 @@ SELECT pg_catalog.setval('public.leaf_menu_menu_id_seq', 1, false);
 
 SELECT pg_catalog.setval('public.leaf_role_role_id_seq', 1, false);
 
-SELECT pg_catalog.setval('public.leaf_user_detail_user_detail_id_seq', 1, true);
+SELECT pg_catalog.setval('public.leaf_user_detail_user_detail_id_seq', 1, false);
 
-SELECT pg_catalog.setval('public.leaf_user_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.leaf_user_user_id_seq', 1, false);
 
 
 
