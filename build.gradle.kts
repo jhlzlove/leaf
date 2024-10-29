@@ -50,4 +50,21 @@ allprojects {
         options.encoding = "UTF-8"
         options.compilerArgs.add("-parameters")
     }
+
+    tasks.withType<Test> {
+        systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+    }
+
+    // 跳过测试
+    tasks.named("processTestResources") {
+        enabled = false
+    }
+
+    tasks.named("compileQuarkusTestGeneratedSourcesJava") {
+        enabled = false
+    }
+
+    tasks.named("quarkusGenerateCodeTests") {
+        enabled = false
+    }
 }

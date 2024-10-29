@@ -1,6 +1,6 @@
 package com.leaf.common.util;
 
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Strings;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public class LocalDateUtil {
      * @return LocalDate 日期
      */
     public static LocalDate stringToLocalDate(String dateStr, String pattern) {
-        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_PATTERN;
+        String format = Strings.isNullOrEmpty(pattern) ? pattern : DATE_PATTERN;
         return LocalDate.parse(dateStr, ofPattern(format));
     }
 
@@ -38,7 +38,7 @@ public class LocalDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateToString(LocalDate date, String pattern) {
-        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_PATTERN;
+        String format = Strings.isNullOrEmpty(pattern) ? pattern : DATE_PATTERN;
         return date.format(ofPattern(format));
     }
 
@@ -50,7 +50,7 @@ public class LocalDateUtil {
      * @return LocalDateTime 对象
      */
     public static LocalDateTime stringToLocalDateTime(String date, String pattern) {
-        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
+        String format = Strings.isNullOrEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
         return LocalDateTime.parse(date, ofPattern(format));
     }
 
@@ -62,7 +62,7 @@ public class LocalDateUtil {
      * @return 指定格式的字符串日期
      */
     public static String localDateTimeToString(LocalDateTime date, String pattern) {
-        String format = StringUtils.isNotEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
+        String format = Strings.isNullOrEmpty(pattern) ? pattern : DATE_TIME_PATTERN;
         return date.format(ofPattern(format));
     }
 

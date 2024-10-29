@@ -1,14 +1,15 @@
 package com.leaf.system.service;
 
+import com.leaf.common.record.PageRecord;
 import com.leaf.system.domain.LeafRole;
 import com.leaf.system.domain.LeafRoleTable;
-import com.leaf.common.record.PageRecord;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import org.apache.commons.lang3.ObjectUtils;
 import org.babyfish.jimmer.Page;
 import org.babyfish.jimmer.sql.JSqlClient;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * @author jhlz
@@ -32,7 +33,7 @@ public class LeafRoleService {
     }
 
     public @NotNull Page<LeafRole> findAll(PageRecord page) {
-        if (ObjectUtils.isEmpty(page)) {
+        if (Objects.isNull(page)) {
             page = new PageRecord();
         }
         System.out.println(page);

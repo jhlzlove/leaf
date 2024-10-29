@@ -27,6 +27,8 @@ quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quark
 # jwt
 quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
 quarkus-jwt-build = { module = "io.quarkus:quarkus-smallrye-jwt-build", version.ref = "quarkus" }
+# 日志
+quarkus-log4j2 = { module = "org.jboss.logmanager:log4j2-jboss-logmanager", version.ref = "quarkus" }
 # test
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
 quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }

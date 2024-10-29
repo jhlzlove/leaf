@@ -2,6 +2,11 @@ quarkus:
   profile: prod, log
   banner:
     path: banner.txt
+  log:
+    console:
+      format: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %X{INFO:red,WARN:yellow,ERROR:red} [%c{1.}] (%t) %s%E%n'
+    file:
+      encoding: UTF-8
 
 ############################# 项目自定义配置 #############################
 leaf:
