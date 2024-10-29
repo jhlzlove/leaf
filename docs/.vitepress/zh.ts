@@ -25,7 +25,7 @@ export const zh = defineConfig({
         // 目录显示层级和标题
         outline: {label: "本文目录"},
         darkModeSwitchTitle: "深色",
-        lightModeSwitchTitle: "亮色",
+        lightModeSwitchTitle: "浅色",
 
         nav: nav(),
         sidebar: {
@@ -52,14 +52,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
             base: "/advanced/",
             items: [
                 {
-                    text: "Spring",
-                    base: "/advanced/spring/",
-                    collapsed: false,
-                    items: [
-                        {text: "SpringDataJPA", link: "1-spring-data-jpa"}
-                    ],
-                },
-                {
                     text: "Quarkus",
                     base: "/advanced/quarkus/",
                     collapsed: false,
@@ -70,7 +62,6 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
 
                 {text: "Jimmer", link: "1-jimmer"},
                 {text: "Jackson", link: "2-jackson"},
-                {text: "Logback", link: "3-logback"},
             ]
         },
         {

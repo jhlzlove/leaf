@@ -8,15 +8,15 @@ higher faster stronger
 
 ## 二、简单扫盲
 
-使用 Jimmer 后，repository 基本没有存在的必要。因此本项目不做保留。
+使用 Jimmer 后，repository 基本没有存在的必要。因此本项目不做保留。Jimmer 暴露的 *SqlClient 可以除接触当作一个 sql 工具类，然后在代码中调用对应的 API。不要有太大的心里负担。
 
 ### 注解
 
-大部分和 JPA 一样或类似。
+大部分和 JPA 一样或类似，也有很多独家注解。
 
 #### @Key
 
-类似联合索引，被 `@Key` 修饰的字段在新增时如果数据库已经存在，那么不会新增，而是会修改。
+类似联合索引，被 `@Key` 修饰的字段在调用 save API 时如果数据库已经存在，那么不会新增，而是会修改。
 
 #### @EnableImplicitApi、@FetchBy、@DefaultFetcherOwner、@Api、@ApiIgnore
 
