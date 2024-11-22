@@ -1,11 +1,9 @@
 package com.leaf.framework;
 
-import io.smallrye.jwt.build.Jwt;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Collections;
 
 /**
  * @author jhlz
@@ -18,10 +16,10 @@ public class AppTest {
      **/
     @Test
     public void jwt_Test() {
-        String sign = Jwt.issuer("jhlz").claim("name", "jhlz").claim("age", 20)
-                .expiresAt(30000)
-                .groups(Collections.singleton("test:user"))
-                .signWithSecret("secret");
-        System.out.println(sign);
+        Assertions.assertEquals(0, Gender.MALE.ordinal());
+        System.out.println(Gender.FEMALE.ordinal());
+    }
+    enum Gender {
+        MALE, FEMALE
     }
 }

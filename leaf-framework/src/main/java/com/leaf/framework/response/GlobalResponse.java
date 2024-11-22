@@ -5,7 +5,6 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.ext.MessageBodyWriter;
-import jakarta.ws.rs.ext.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ import java.lang.reflect.Type;
  * @author jhlz
  * @version 1.0.0
  */
-@Provider
+// @Provider
 public class GlobalResponse implements MessageBodyWriter<Object> {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalResponse.class);
@@ -36,7 +35,7 @@ public class GlobalResponse implements MessageBodyWriter<Object> {
      */
     @Override
     public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
-        return true;
+        return type != R.class;
     }
 
     /**

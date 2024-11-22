@@ -1,15 +1,11 @@
 package com.leaf.system.service;
 
-import com.leaf.common.record.PageRecord;
+import com.leaf.framework.record.PageRecord;
 import com.leaf.system.domain.LeafRole;
 import com.leaf.system.domain.LeafRoleTable;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 import org.babyfish.jimmer.Page;
 import org.babyfish.jimmer.sql.JSqlClient;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * @author jhlz
@@ -20,7 +16,7 @@ public class LeafRoleService {
     private final JSqlClient sqlClient;
     LeafRoleTable table = LeafRoleTable.$;
 
-    public LeafRoleService(@Named("sqlClient") JSqlClient sqlClient) {
+    public LeafRoleService( JSqlClient sqlClient) {
         this.sqlClient = sqlClient;
     }
 
@@ -32,14 +28,11 @@ public class LeafRoleService {
         return sqlClient.findById(LeafRole.class, id);
     }
 
-    public @NotNull Page<LeafRole> findAll(PageRecord page) {
-        if (Objects.isNull(page)) {
-            page = new PageRecord();
-        }
+    public Page<LeafRole> page(PageRecord page) {
         System.out.println(page);
+        return null;
         // return sqlClient.createQuery(table)
         //         .select(table)
-        //         .fetchPage(page.page(), page.size());
-        return null;
+        //         .fetchPage(page.page() - 1, page.size());
     }
 }

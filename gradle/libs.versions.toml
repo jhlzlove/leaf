@@ -1,10 +1,10 @@
 [versions]
 quarkus = "3.15.1"
 jackson = "2.18.0"
-jimmer = "0.9.1"
+jimmer = "0.9.16"
 quarkusJimmer = "0.0.1.CR29"
 jetbrainAnnotations = "24.1.0"
-kotlin = "2.0.20"
+kotlin = "2.0.21"
 guava = "33.3.0-jre"
 
 [libraries]
@@ -18,17 +18,17 @@ jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql", version.ref = "jimmer"
 
 ####################################### Quarkus #######################################
 # quarkus 基础依赖
-quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
 quarkus-rest = { module = "io.quarkus:quarkus-rest", version.ref = "quarkus" }
 # jackson 在 Quarkus 中，只要引入了 json 扩展，默认情况下 Quarkus 将对大多数返回值使用 application/json 媒体类型，除非显式声明
 quarkus-jackson = { module = "io.quarkus:quarkus-rest-jackson", version.ref = "quarkus" }
+quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
 # yml 支持
 quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
 # jwt
-quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
-quarkus-jwt-build = { module = "io.quarkus:quarkus-smallrye-jwt-build", version.ref = "quarkus" }
+#quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
+#quarkus-jwt-build = { module = "io.quarkus:quarkus-smallrye-jwt-build", version.ref = "quarkus" }
 # 日志
-quarkus-log4j2 = { module = "org.jboss.logmanager:log4j2-jboss-logmanager", version.ref = "quarkus" }
+#quarkus-log4j2 = { module = "org.jboss.logmanager:log4j2-jboss-logmanager", version.ref = "quarkus" }
 # test
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
 quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
@@ -58,11 +58,9 @@ jackson-datatype-jsr310 = {module = "com.fasterxml.jackson.datatype:jackson-data
 
 [bundles]
 quarkus = [
-    "quarkus-arc",
     "quarkus-jackson",
+    "quarkus-arc",
     "quarkus-yaml",
-    "quarkus-jwt",
-    "quarkus-jwt-build",
     "quarkus-pg",
     "quarkus-agroal",
     "quarkus-jta",

@@ -1,13 +1,10 @@
 package com.leaf.system.resource;
 
-import com.leaf.framework.annotation.Log;
 import com.leaf.common.record.R;
+import com.leaf.framework.annotation.Log;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.domain.LeafUserTable;
-import io.quarkus.security.PermissionsAllowed;
-import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -31,7 +28,7 @@ public class TestResource {
     private final JSqlClient sqlClient;
 
     @Inject
-    public TestResource(@Named("sqlClient") JSqlClient sqlClient) {
+    public TestResource(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;
     }
 
@@ -39,12 +36,12 @@ public class TestResource {
     @Log
     @Path("/simple")
     public String simpleTest() {
+        // System.out.println(page);
         return "测试是否正常 working！";
     }
 
     @GET
     @Log
-    @PermissionsAllowed("test:user")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public User test1(@Context SecurityContext securityContext) {
@@ -59,7 +56,6 @@ public class TestResource {
 
     @GET
     @Log
-    @PermitAll
     @Path("/users")
     public Page<LeafUser> getUsers() {
         LeafUserTable userTable = LeafUserTable.$;

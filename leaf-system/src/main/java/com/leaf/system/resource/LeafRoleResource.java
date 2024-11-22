@@ -1,12 +1,11 @@
 package com.leaf.system.resource;
 
+import com.leaf.framework.record.PageRecord;
 import com.leaf.system.domain.LeafRole;
-import com.leaf.common.record.PageRecord;
 import com.leaf.system.service.LeafRoleService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.babyfish.jimmer.Page;
-import org.jboss.resteasy.reactive.RestPath;
 
 /**
  * 角色信息管理
@@ -22,14 +21,14 @@ public class LeafRoleResource {
     }
 
     @GET
-    @Path("page")
-    public Page<LeafRole> page( PageRecord page) {
-        return leafRoleService.findAll(page);
+    @Path("/page")
+    public Page<LeafRole> page(@BeanParam PageRecord page) {
+        return leafRoleService.page(page);
     }
 
     @GET
     @Path("{id}")
-    public Response info(@RestPath long id) {
+    public Response info(@PathParam("id") long id) {
         LeafRole role = leafRoleService.findById(id);
         return Response.ok(role).build();
     }
@@ -46,7 +45,7 @@ public class LeafRoleResource {
 
     @DELETE
     @Path("{id}")
-    public Response delete(@RestPath long id) {
+    public Response delete(@PathParam("id") long id) {
         LeafRole role = leafRoleService.findById(id);
         return Response.ok(role).build();
     }

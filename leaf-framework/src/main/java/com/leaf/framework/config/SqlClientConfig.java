@@ -1,29 +1,65 @@
-package com.leaf.framework.config;
-
-import jakarta.enterprise.context.ApplicationScoped;
-
-/**
- * Jimmer sqlClient 多数据源配置
- *
- * @author jhlz
- * @version 1.0.0
- */
-@ApplicationScoped
-public class SqlClientConfig {
-
-    // @Bean("tm1")
-    // @Primary
-    // public PlatformTransactionManager tm1(ApplicationContext ctx, @Qualifier("ds1") DataSource dataSource) {
-    //     return new JimmerTransactionManager(SqlClients.java(ctx, dataSource, null));
-    // }
-    //
-    // @Bean("tm2")
-    // public PlatformTransactionManager tm2(ApplicationContext ctx, @Qualifier("ds2") DataSource dataSource) {
-    //     return new JimmerTransactionManager(SqlClients.java(ctx, dataSource, null));
-    // }
-    //
-    // @Bean
-    // public JSqlClient sqlClient() {
-    //     return TransactionalSqlClients.java();
-    // }
-}
+// package com.leaf.framework.config;
+//
+// import io.agroal.api.AgroalDataSource;
+// import io.quarkus.agroal.DataSource;
+// import jakarta.enterprise.inject.Produces;
+// import jakarta.inject.Named;
+// import org.babyfish.jimmer.sql.JSqlClient;
+// import org.babyfish.jimmer.sql.dialect.PostgresDialect;
+// import org.babyfish.jimmer.sql.runtime.ConnectionManager;
+// import org.babyfish.jimmer.sql.runtime.DatabaseValidationMode;
+// import org.babyfish.jimmer.sql.runtime.Executor;
+// import org.babyfish.jimmer.sql.runtime.SqlFormatter;
+//
+// import java.sql.SQLException;
+//
+// public class SqlClientConfig {
+//
+//     private final AgroalDataSource masterDataSource;
+//     private final AgroalDataSource slave1DataSource;
+//
+//     public SqlClientConfig(@DataSource("master") AgroalDataSource masterDataSource,
+//                            @DataSource("slave1") AgroalDataSource slave1DataSource) {
+//         this.masterDataSource = masterDataSource;
+//         this.slave1DataSource = slave1DataSource;
+//     }
+//
+//     @Produces
+//     @Named("sqlClient")
+//     public JSqlClient defaultSqlClient() throws SQLException {
+//         return JSqlClient.newBuilder()
+//                 .setConnectionManager(
+//                         ConnectionManager.simpleConnectionManager(slave1DataSource)
+//                 )
+//                 // 打印 sql
+//                 .setExecutor(Executor.log())
+//                 // 美化 sql 输出
+//                 .setSqlFormatter(SqlFormatter.PRETTY)
+//                 // 默认是否真外键
+//                 .setForeignKeyEnabledByDefault(true)
+//                 // 设置方言
+//                 .setDialect(PostgresDialect.INSTANCE)
+//                 // 严格验证数据库
+//                 .setDatabaseValidationMode(DatabaseValidationMode.ERROR)
+//                 .build();
+//     }
+//
+//     @Produces
+//     @Named("sqlClient1")
+//     public JSqlClient slave1SqlClient() {
+//         return JSqlClient.newBuilder()
+//                 .setConnectionManager(
+//                         ConnectionManager.simpleConnectionManager(slave1DataSource)
+//                 )
+//                 // 打印 sql
+//                 .setExecutor(Executor.log())
+//                 // 美化 sql 输出
+//                 .setSqlFormatter(SqlFormatter.PRETTY)
+//                 .setForeignKeyEnabledByDefault(false)
+//                 // 设置方言
+//                 .setDialect(PostgresDialect.INSTANCE)
+//                 // 非严格验证数据库
+//                 .setDatabaseValidationMode(DatabaseValidationMode.NONE)
+//                 .build();
+//     }
+// }

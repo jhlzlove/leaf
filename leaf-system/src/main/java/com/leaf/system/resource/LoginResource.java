@@ -20,7 +20,7 @@ public class LoginResource {
         this.loginService = loginService;
     }
 
-    @GET
+    @POST
     @Path("/login")
     public String login(LeafUser leafUser) {
        return loginService.login(leafUser);

@@ -1,9 +1,7 @@
 package com.leaf.framework.exception;
 
 import com.leaf.common.record.R;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -17,8 +15,8 @@ import jakarta.ws.rs.ext.Provider;
 @Provider
 public class GlobalExceptionHandler implements ExceptionMapper<Exception> {
 
-    @Inject
-    jakarta.inject.Provider<ContainerRequestContext> requestContextProvider;
+    // @Inject
+    // jakarta.inject.Provider<ContainerRequestContext> requestContextProvider;
 
     @Override
     public Response toResponse(Exception exception) {
@@ -30,7 +28,8 @@ public class GlobalExceptionHandler implements ExceptionMapper<Exception> {
         return switch (exception) {
             case ServiceException e -> R.error(e.getException().getCode(), e.getException().getMessage());
             case WebApplicationException e -> R.error(e.getMessage());
-            case null, default -> R.error();
+            case null -> R.error();
+            default -> R.error(exception.getMessage());
         };
     }
 }

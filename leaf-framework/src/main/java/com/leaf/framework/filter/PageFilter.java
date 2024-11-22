@@ -11,6 +11,7 @@ public class PageFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
+
         MultivaluedMap<String, String> params = requestContext.getUriInfo().getQueryParameters(true);
         String page = params.getFirst("page");
         String size = params.getFirst("size");

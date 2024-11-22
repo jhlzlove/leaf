@@ -1,14 +1,39 @@
 quarkus:
-  profile: prod, log
+  native:
+    enable: false
+  jmx:
+    enable: false
   banner:
     path: banner.txt
+  http:
+    port: 8000
+  shutdown:
+    timeout: 3s
+  datasource:
+    db-kind: postgresql
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/leaf_main
+    username: postgres
+    password: postgres
   log:
+    level: DEBUG
     console:
-      format: '%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %X{INFO:red,WARN:yellow,ERROR:red} [%c{1.}] (%t) %s%E%n'
-    file:
-      encoding: UTF-8
+      format: "%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"
 
-############################# 项目自定义配置 #############################
-leaf:
-  # version
-  version: v1.0.0
+  #   master:
+  #     db-kind: postgresql
+  #     jdbc:
+  #       url: jdbc:postgresql://localhost:5432/leaf_main
+  #     username: postgres
+  #     password: postgres
+  #   slave1:
+  #     db-kind: postgresql
+  #     jdbc:
+  #       url: jdbc:postgresql://localhost:5432/test
+  #     username: postgres
+  #     password: postgres
+
+# ############################# 项目自定义配置 #############################
+# leaf:
+#   # version
+#   version: v1.0.0

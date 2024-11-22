@@ -1,13 +1,12 @@
 package com.leaf.system.resource;
 
 
+import com.leaf.framework.record.PageRecord;
 import com.leaf.framework.annotation.Log;
 import com.leaf.system.domain.LeafUser;
-import com.leaf.common.record.PageRecord;
 import com.leaf.system.service.LeafUserService;
 import jakarta.ws.rs.*;
 import org.babyfish.jimmer.Page;
-import org.jboss.resteasy.reactive.RestPath;
 
 import java.util.List;
 
@@ -28,14 +27,14 @@ public class LeafUserResource {
 
     @GET
     @Path("/page")
-    public Page<LeafUser> page(PageRecord page) {
+    public Page<LeafUser> page(@BeanParam PageRecord page) {
         return leafUserService.page(page);
     }
 
     @GET
     @Log(module = "根据用户 id 获取用户详情")
     @Path("{id}")
-    public LeafUser info(@RestPath long id) {
+    public LeafUser info(@PathParam("id") long id) {
         System.out.printf("新的 id" + id);
         return leafUserService.getById(id);
     }
@@ -52,7 +51,7 @@ public class LeafUserResource {
 
     @DELETE
     @Path("{ids}")
-    public void deleteByIds(@RestPath List<Long> ids) {
+    public void deleteByIds(@PathParam("ids") List<Long> ids) {
         leafUserService.delete(ids);
     }
 

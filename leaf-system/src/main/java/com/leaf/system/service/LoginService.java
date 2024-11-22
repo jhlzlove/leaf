@@ -4,7 +4,6 @@ import com.leaf.framework.annotation.Log;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.domain.LeafUserTable;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 import org.babyfish.jimmer.sql.JSqlClient;
 
 /**
@@ -18,7 +17,7 @@ public class LoginService {
     private final JSqlClient sqlClient;
     LeafUserTable table = LeafUserTable.$;
 
-    public LoginService(@Named("sqlClient") JSqlClient sqlClient) {
+    public LoginService(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;
     }
 

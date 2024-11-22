@@ -3,7 +3,8 @@ plugins {
     id("io.quarkus")
     // quarkus 多模块 bean 发现
     // https://github.com/kordamp/jandex-gradle-plugin
-    id("org.kordamp.gradle.jandex") version "2.0.0"
+    // https://plugins.gradle.org/plugin/org.kordamp.gradle.jandex
+    id("org.kordamp.gradle.jandex") version "2.1.0"
 }
 
 // 子项目配置
@@ -12,8 +13,8 @@ subprojects {
     version = "1.0.0"
 
     apply {
-        plugin("io.quarkus")
         plugin("java-library")
+        plugin("io.quarkus")
         plugin("org.kordamp.gradle.jandex")
     }
 
@@ -55,16 +56,4 @@ allprojects {
         systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
     }
 
-    // 跳过测试
-    tasks.named("processTestResources") {
-        enabled = false
-    }
-
-    tasks.named("compileQuarkusTestGeneratedSourcesJava") {
-        enabled = false
-    }
-
-    tasks.named("quarkusGenerateCodeTests") {
-        enabled = false
-    }
 }

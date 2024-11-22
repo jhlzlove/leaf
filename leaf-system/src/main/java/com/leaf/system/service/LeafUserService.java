@@ -1,12 +1,11 @@
 package com.leaf.system.service;
 
+import com.leaf.framework.record.PageRecord;
 import com.leaf.framework.annotation.Log;
 import com.leaf.system.domain.Fetchers;
 import com.leaf.system.domain.LeafUser;
 import com.leaf.system.domain.LeafUserTable;
-import com.leaf.common.record.PageRecord;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
 import org.babyfish.jimmer.Page;
 import org.babyfish.jimmer.sql.JSqlClient;
 
@@ -22,14 +21,14 @@ public class LeafUserService {
     private final JSqlClient sqlClient;
     LeafUserTable table = LeafUserTable.$;
 
-    public LeafUserService(@Named("sqlClient") JSqlClient sqlClient) {
+    public LeafUserService(JSqlClient sqlClient) {
         this.sqlClient = sqlClient;
     }
 
     public Page<LeafUser> page(PageRecord page) {
         return sqlClient.createQuery(table)
                 .select(table)
-                .fetchPage(page.page(), page.size());
+                .fetchPage(page.getPage(), page.getSize());
     }
 
     @Log(module = "详情")
