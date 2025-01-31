@@ -124,6 +124,8 @@ ContainerRequestContext、ContainerRequestFilter
 
 或者，可以使用一些非官方的 [Gradle Jandex](https://plugins.gradle.org/search?term=jandex) 插件来代替 `META-INF/beans.xml` 文件。
 
+> 其实 Quarkus 中多模块非必须的
+
 ## 类
 
 ### MessageBodyReader、MessageBodyWriter
@@ -133,3 +135,29 @@ ContainerRequestContext、ContainerRequestFilter
 > [!note]
 > - 在 MessageBodyWriter 实现的 writeTo 方法中无须关闭实体输出流。该流将由 Jersey 运行时自动关闭。
 > - 深入了解：https://eclipse-ee4j.github.io/jersey.github.io/documentation/latest/message-body-workers.html
+
+## 拦截器
+
+Quarkus 中的拦截器实现非常简单。但是如果 **使用自定义的带属性** 注解，默认会不走拦截器（截止 3.15.2），需要在该注解的各个属性上添加 `@Nonbinding` 方可使用。
+
+```java
+public @interface Log {
+    /**
+     * 操作模块
+     *
+     * @return 日志模块
+     */
+    @Nonbinding
+    String module() default "";
+
+    /**
+     * 操作说明
+     *
+     * @return BusinessEnum 枚举
+     */
+    @Nonbinding
+    BussinessEnum operation() default BusinessEnum.UNKNOWN;
+}
+```
+
+参考：https://github.com/quarkusio/quarkus/issues/5373

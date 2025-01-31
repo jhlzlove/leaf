@@ -1,20 +1,21 @@
 [versions]
-quarkus = "3.15.1"
+quarkus = "3.15.2"
 jackson = "2.18.0"
-jimmer = "0.9.16"
-quarkusJimmer = "0.0.1.CR29"
+jimmer = "0.9.46"
+ksp = "2.0.10-1.0.24"
 jetbrainAnnotations = "24.1.0"
-kotlin = "2.0.21"
+kotlin = "2.0.10"
 guava = "33.3.0-jre"
+lombok = "1.18.36"
 
 [libraries]
+
+jimmer-ksp = { module = "org.babyfish.jimmer:jimmer-ksp", version.ref = "jimmer" }
 ####################################### Jimmer #######################################
 # jimmer apt
 jimmer-apt = { module = "org.babyfish.jimmer:jimmer-apt", version.ref = "jimmer" }
 # jimmer sql
-jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql", version.ref = "jimmer" }
-# Jimmer 的 Quarkus 扩展
-#jimmer-quarkus = { module = "io.github.flynndi:quarkus-jimmer", version.ref = "quarkusJimmer" }
+jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql-kotlin", version.ref = "jimmer" }
 
 ####################################### Quarkus #######################################
 # quarkus 基础依赖
@@ -22,49 +23,48 @@ quarkus-rest = { module = "io.quarkus:quarkus-rest", version.ref = "quarkus" }
 # jackson 在 Quarkus 中，只要引入了 json 扩展，默认情况下 Quarkus 将对大多数返回值使用 application/json 媒体类型，除非显式声明
 quarkus-jackson = { module = "io.quarkus:quarkus-rest-jackson", version.ref = "quarkus" }
 quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
-# yml 支持
+# yml support
 quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
-# jwt
-#quarkus-jwt = { module = "io.quarkus:quarkus-smallrye-jwt", version.ref = "quarkus" }
-#quarkus-jwt-build = { module = "io.quarkus:quarkus-smallrye-jwt-build", version.ref = "quarkus" }
-# 日志
-#quarkus-log4j2 = { module = "org.jboss.logmanager:log4j2-jboss-logmanager", version.ref = "quarkus" }
-# test
-quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
-quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
-rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
-
-####################################### database #######################################
 # pg jdbc
 quarkus-pg = { module = "io.quarkus:quarkus-jdbc-postgresql", version.ref = "quarkus" }
 # jbdc 数据源
 quarkus-agroal = { module = "io.quarkus:quarkus-agroal", version.ref = "quarkus" }
 # 事务
 quarkus-jta = { module = "io.quarkus:quarkus-narayana-jta", version.ref = "quarkus" }
+quarkus-kotlin = { module = "io.quarkus:quarkus-kotlin", version.ref = "quarkus" }
+quarkus-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "quarkus" }
+# test
+quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
+quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
+rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
 
 ####################################### Other #######################################
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
 # 缩略图
 thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
-
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 ####################################### jackson #######################################
-jackson-core = {module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson"}
-jackson-annotations = {module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson"}
-jackson-databind = {module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson"}
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 # java8 日期支持
-jackson-datatype-jsr310 = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson"}
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 
 [bundles]
 quarkus = [
+    "quarkus-rest",
     "quarkus-jackson",
+    "quarkus-kotlin",
+    "quarkus-kotlin-stdlib",
     "quarkus-arc",
     "quarkus-yaml",
     "quarkus-pg",
     "quarkus-agroal",
     "quarkus-jta",
 ]
+
 # https://quarkus.io/guides/getting-started-testing
 quarkus-test = [
     "quarkus-junit5",
@@ -78,4 +78,9 @@ jackson = [
     "jackson-databind",
     "jackson-datatype-jsr310",
 ]
+
 [plugins]
+quarkus = { id = "io.quarkus" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
