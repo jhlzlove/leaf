@@ -6,7 +6,7 @@ hero:
   # 描述
   text: Java And Quarkus
   # 标语
-  tagline: 简单、沉浸、清晰
+  tagline: Simple
   # text 和 tagline 区域旁的图片
   image:
     src: /images/logo_80x80.png
@@ -21,9 +21,9 @@ hero:
       link: https://github.com/jhlzlove/leaf
 features:
   - icon: 🍒
-    title: 简洁
-    details: 就是简单
+    title: simple
+    details: simple code
   - icon: ☕
     title: Quarkus
-    details: Quarkus 技术栈
+    details: 
 ---

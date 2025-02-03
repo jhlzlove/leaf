@@ -1,53 +1,73 @@
 plugins {
-    `java-library`
-    id("io.quarkus")
-    // quarkus 多模块 bean 发现
-    // https://github.com/kordamp/jandex-gradle-plugin
-    id("org.kordamp.gradle.jandex") version "2.0.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.allopen)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.quarkus)
 }
 
-// 子项目配置
-subprojects {
-    group = "com.leaf"
-    version = "1.0.0"
+group = "com.jhlz"
+version = "0.1"
 
-    apply {
-        plugin("io.quarkus")
-        plugin("java-library")
-        plugin("org.kordamp.gradle.jandex")
-    }
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_23
-        targetCompatibility = JavaVersion.VERSION_23
-    }
+val quarkusPlatformGroupId: String by project
+val quarkusPlatformArtifactId: String by project
+val quarkusPlatformVersion: String by project
 
-    val mavenUrl: String by project.extra
-    val quarkusPlatformGroupId: String by project
-    val quarkusPlatformArtifactId: String by project
-    val quarkusPlatformVersion: String by project
+dependencies {
+    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
+    implementation(libs.bundles.quarkus)
+    ksp(libs.jimmer.ksp)
+    implementation(libs.jimmer.sql)
+    testImplementation(libs.bundles.quarkus.test)
+}
 
-    repositories {
-        maven(mavenUrl)
-        mavenLocal()
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
-    dependencies {
-        implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    }
+tasks.withType<Test> {
+    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+}
 
-    sourceSets {
-        main {
-            resources {
-                srcDirs("META-INF/services")
-            }
-        }
+allOpen {
+    annotation("jakarta.ws.rs.Path")
+    annotation("jakarta.enterprise.context.ApplicationScoped")
+    annotation("jakarta.persistence.Entity")
+    annotation("io.quarkus.test.junit.QuarkusTest")
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+        javaParameters = true
     }
 }
 
-allprojects {
-    tasks.withType<JavaCompile> {
-        options.encoding = "UTF-8"
-        options.compilerArgs.add("-parameters")
+// 将生成的代码添加到编译路径中。
+// 没有这个配置，gradle命令仍然可以正常执行，
+// 但是, Intellij无法找到生成的源码。
+// kotlin {
+//     sourceSets.main {
+//         kotlin.srcDir("build/generated/ksp/main/kotlin")
+//     }
+// }
+
+/**
+ * jimmer ksp 和 quarkus 使用时会有循环依赖
+ * https://github.com/babyfish-ct/jimmer/discussions/353
+ */
+project.afterEvaluate {
+    getTasksByName("quarkusGenerateCode", true).forEach { task ->
+        task.setDependsOn(
+            task.dependsOn.filterIsInstance<Provider<Task>>().filter { it.get().name != "processResources" })
+    }
+    getTasksByName("quarkusGenerateCodeDev", true).forEach { task ->
+        task.setDependsOn(
+            task.dependsOn.filterIsInstance<Provider<Task>>().filter { it.get().name != "processResources" })
     }
 }

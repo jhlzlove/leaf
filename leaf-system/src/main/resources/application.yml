@@ -1,9 +1,0 @@
-quarkus:
-  profile: prod, log
-  banner:
-    path: banner.txt
-
-############################# 项目自定义配置 #############################
-leaf:
-  # version
-  version: v1.0.0

@@ -1,6 +1,8 @@
-# Jackson
+# [Jackson](https://github.com/FasterXML/jackson)
 
-Spring Web 默认使用 Jackson 作为 JSON 工具。
+Jackson 包括三个核心包：streaming(core 基础), annotations(注解)，databind(数据绑定、序列化，依赖前两个包)
+
+除了上面三个包之外，还有其它官方维护的与其它框架集成的包。总之，jackson 的扩展性非常强，是 JVM 平台比较好用的包。
 
 ## 一、注解
 
@@ -118,4 +120,8 @@ public class StudentBean implements Serializable {
 
 ## 二、自定义
 
-如果需要自定义 `ObjectMapper`，可以实现 `Jackson2ObjectMapperBuilderCustomizer` 覆写里面的方法从而定制。
+Spring 中，如果需要自定义 `ObjectMapper`，可以实现 `Jackson2ObjectMapperBuilderCustomizer` 覆写里面的方法从而定制。
+
+### ObjectMapper
+
+一般使用该类进行扩展。
