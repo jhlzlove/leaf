@@ -1,9 +1,11 @@
 package com.jhlz.record
 
-import jakarta.ws.rs.QueryParam
+import io.micronaut.core.annotation.Introspected
 
-data class PageQuery( /* 第几页 */
-                       @field:QueryParam("page") @param:QueryParam("page") val pageNum: Int,  /* 每页数量 */
-                       @field:QueryParam("size") @param:QueryParam("size") val pageSize: Int
+@Introspected
+data class PageQuery(
+    /* 第几页 */
+    val pageNum: Int,
+    /* 每页数量 */
+    val pageSize: Int
 )
-

@@ -1,15 +1,12 @@
 package com.jhlz.common.log
 
 import com.jhlz.constant.BusinessType
-import jakarta.enterprise.util.Nonbinding
-import jakarta.interceptor.InterceptorBinding
-import java.lang.annotation.Inherited
+import io.micronaut.aop.Around
 
 /**
  * 操作日志注解
  */
-@Inherited
-@InterceptorBinding
+@Around
 @Target(
     AnnotationTarget.FUNCTION,
     AnnotationTarget.CLASS
@@ -21,7 +18,6 @@ annotation class Log(
      *
      * @return 模块名称
      */
-    @get:Nonbinding
     val module: String = "",
 
     /**
@@ -29,7 +25,6 @@ annotation class Log(
      *
      * @return 模块详情
      */
-    @get:Nonbinding
     val info: String = "",
 
     /**
@@ -37,6 +32,5 @@ annotation class Log(
      *
      * @return BusinessEnum 枚举
      */
-    @get:Nonbinding
     val businessType: BusinessType = BusinessType.OTHER
 )

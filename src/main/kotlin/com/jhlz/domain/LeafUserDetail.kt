@@ -1,9 +1,6 @@
 package com.jhlz.domain
 
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.Key
-import org.babyfish.jimmer.sql.OneToOne
-import org.babyfish.jimmer.sql.Table
+import org.babyfish.jimmer.sql.*
 
 /**
  * @author jhlz
@@ -11,7 +8,11 @@ import org.babyfish.jimmer.sql.Table
  */
 @Entity
 @Table(name = "leaf_user_detail")
-interface LeafUserDetail : BaseID {
+interface LeafUserDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
      * 姓氏
      */
@@ -54,6 +55,4 @@ interface LeafUserDetail : BaseID {
      */
     val idCard: String?
 
-    @OneToOne
-    val user: LeafUser?
 }

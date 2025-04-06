@@ -9,7 +9,11 @@ import org.babyfish.jimmer.sql.*
  * @version 1.0.0
  */
 @Entity
-interface LeafUser : BaseID, BaseEntity {
+interface LeafUser : BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
      * 用户名
      */
@@ -24,7 +28,7 @@ interface LeafUser : BaseID, BaseEntity {
     /**
      * 昵称
      */
-    val nickName: String
+    val nickname: String
 
     /**
      * 电话
@@ -47,31 +51,25 @@ interface LeafUser : BaseID, BaseEntity {
     val status: Int
 
     /**
-     * 用户详情 ID
-     */
-    @IdView
-    val userDetailId: Long?
-
-    /**
      * 部门 id
      */
-    @IdView("dept")
-    val deptId: Long?
+    @IdView
+    val deptId: Long
 
     /**
-     * 角色 ids
+     * 用户详情 ID
      */
-    @IdView("roles")
-    val roleIds: List<Long>
-
-    @OneToOne
-    val userDetail: LeafUserDetail?
-
-    @ManyToOne
-    val dept: LeafDept?
+    val userDetailId: Long?
 
     @ManyToMany
-    @JoinTable(name = "leaf_user_role", joinColumnName = "id", inverseJoinColumnName = "id")
+    @JoinTable(
+        name = "leaf_user_role",
+        joinColumnName = "user_id",
+        inverseJoinColumnName = "role_id",
+    )
     val roles: List<LeafRole>
+
+    @ManyToOne
+    val dept: LeafDept
 }
 

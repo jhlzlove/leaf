@@ -1,6 +1,6 @@
 # 启动项目
 
-本章节写了如何启动项目，但是不会手把手教环境搭建，只会点一下 [Gradle](https://gradle.org/) 的配置。可以参考这篇[文章](https://jhlzlove.github.io/wiki/%E7%BC%96%E7%A8%8B%E5%90%8E%E8%8A%B1%E5%9B%AD/Java/%E9%9A%8F%E7%AC%94/Gradle.html)。另外，version catalog 定义的依赖只有使用的时候才会下载（延迟加载/懒加载）。
+本章节写了如何启动项目，但是不会手把手教环境搭建，只会点一下 [Gradle](https://gradle.org/) 的配置。可以参考这篇[文章](https://jhlzlove.github.io/wiki/%E7%BC%96%E7%A8%8B%E5%90%8E%E8%8A%B1%E5%9B%AD/Java/%E9%9A%8F%E7%AC%94/Gradle.html)。version catalog 定义的依赖只有使用的时候才会下载（延迟加载/懒加载）。
 
 ## 一、后端
 
@@ -93,16 +93,16 @@ common 模块单独引入 jackson 并基于 jackson 封装 JSON 工具并定义�
 
 非强制，只是建议，根据实际情况确定是否使用。
 
-| prefix                | meaning     |
-|-----------------------|-------------|
-| add、insert、create     | 新增          |
-| update、up、modify、edit | 更新          |
-| remove、rm             | 逻辑删除(非永久删除) |
-| delete、del            | 物理删除(永久删除)  |
-| select、find、get       | 单记录查询       |
-| list                  | 多记录/列表查询    |
-| page                  | 分页查询        |
-| import                | 导入          |
-| export                | 导出          |
-| upload                | 上传          |
-| download              | 下载          |
+| prefix             | meaning     |
+|--------------------|-------------|
+| add、insert、create  | 新增          |
+| update、modify、edit | 更新          |
+| remove、rm          | 逻辑删除(非永久删除) |
+| delete、del         | 物理删除(永久删除)  |
+| select、find、get    | 单记录查询       |
+| list               | 多记录/列表查询    |
+| page               | 分页查询        |
+| import             | 导入          |
+| export             | 导出          |
+| upload             | 上传          |
+| download           | 下载          |

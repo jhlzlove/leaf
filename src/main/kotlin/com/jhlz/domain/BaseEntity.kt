@@ -1,7 +1,10 @@
 package com.jhlz.domain
 
+import org.babyfish.jimmer.sql.IdView
+import org.babyfish.jimmer.sql.JoinColumn
+import org.babyfish.jimmer.sql.ManyToOne
 import org.babyfish.jimmer.sql.MappedSuperclass
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 /**
  * 使用 @MappedSuperclass 注解的父类可以被多继承
@@ -13,24 +16,34 @@ import java.time.LocalDateTime
 @MappedSuperclass
 interface BaseEntity {
     /**
-     * 创建时间
-     */
-    val createTime: LocalDateTime?
-
-    /**
-     * 更新时间
-     */
-    val updateTime: LocalDateTime?
-
-    /**
      * 创建人
      */
+    @IdView("creator")
     val createId: Long?
+
+    @ManyToOne
+    @JoinColumn(name = "create_id")
+    val creator: LeafUser?
+
+    /**
+     * 创建时间
+     */
+    val createTime: OffsetDateTime
 
     /**
      * 更新人
      */
+    @IdView("updator")
     val updateId: Long?
+
+    @ManyToOne
+    @JoinColumn(name = "update_id")
+    val updator: LeafUser?
+
+    /**
+     * 更新时间
+     */
+    val updateTime: OffsetDateTime?
 
     /**
      * 备注

@@ -2,13 +2,15 @@
 
 :::tip
 
-- 数据库的时间字段使用不带时区的 timestamp 类型(如果程序需要支持多个不同时区的国家，强烈推荐使用带时区的时间类型，本系统不需要，还没有国际业务)。
-- PostgreSQL 如果没有设置主键，那么会默认以 `id` 、类型为整数（integer）的列作为主键，该字段并不显示。
-- 本项目全部采用 **物理删除** 的模式：删除要彻底，就像人生要做好断舍离。
+- 数据库的时间字段使用不带时区的 timestamp 类型(
+  如果程序需要支持多个不同时区的国家，强烈推荐使用带时区的时间类型，本系统不需要，还没有国际业务)。
+- 本项目全部采用 **物理删除** 的模式，毕竟人生总要做好断舍离。
 - 记录状态采用数字表示表示法：0 代表正常、启用、未删除、显示等，1 为异常、禁用、已删除、不显示等情况。且默认值统一为 0 正常。
-- 使用 PG 的 `serial` 要做好序列不连续（序列断裂）的准备：使用该类自增方式，在事务出现回滚等异常情况时，当前的序列号不会回滚，直接使用下一个 id 号，这样数据库的处理效率高。因此一般情况下更加推荐使用 `bigserial`（等同于 `serial8`）类型。
+- 使用 PG 的 `serial` 要做好序列不连续（序列断裂）的准备：使用该类自增方式，在事务出现回滚等异常情况时，当前的序列号不会回滚，直接使用下一个 id，这样数据库的处理效率高。因此一般在自增情况下更加推荐使用 `bigserial`（等同于 `serial8`）类型。
 - 本框架全部使用外键。
 - http://dbadailystuff.com/deferred-constraints-in-postgresql
+- https://www.roji.org/storing-timezones-in-the-db
+- https://codeblog.jonskeet.uk/2019/03/27/storing-utc-is-not-a-silver-bullet/
 
 :::
 
@@ -16,113 +18,113 @@
 
 ### 1.1 通用字段
 
-除关联表以外的其它表 **基本** 都含有这几个字段（应视具体情况而定）。
+除关联表以外的其它信息表 **基本** 都含有这几个字段（视具体情况而定，有些表只需创建人和创建时间）。
 
-| 名称   | 数据库字段       | 数据库类型     | 是否可空（null） | Java字段     | Java类型        | 说明 |
-|------|-------------|-----------|------------|------------|---------------|----|
-| ID   | id          | serial8   | not null   | id         | long          |    |
-| 创建者  | create_id   | int8      | not null   | createId   | Long          |    |
-| 更新者  | update_id   | int8      | not null   | updateId   | Long          |    |
-| 创建时间 | create_time | timestamp | not null   | createTime | LocalDateTime |    |
-| 更新时间 | update_time | timestamp | not null   | updateTime | LocalDateTime |    |
-| 备注   | remark      | varchar   | null       | remark     | String        |    |
+| 名称   | 数据库字段       | 数据库类型      | 是否可空 | Java字段     | Java类型        | 说明    |
+|------|-------------|------------|------|------------|---------------|-------|
+| ID   | id          | serial8    | N    | id         | long          | 主键 id |
+| 创建者  | create_id   | int8       | N    | createId   | Long          |       |
+| 更新者  | update_id   | int8       | N    | updateId   | Long          |       |
+| 创建时间 | create_time | timestampz | N    | createTime | LocalDateTime |       |
+| 更新时间 | update_time | timestampz | N    | updateTime | LocalDateTime |       |
+| 备注   | remark      | varchar    | Y    | remark     | String        |       |
 
 ### 1.2 用户表（leaf_user）
 
-| 名称     | 数据库字段          | 数据库类型    | 是否可空     | Java字段       | Java类型  | 说明                      |
-|--------|----------------|----------|----------|--------------|---------|-------------------------|
-| 账号     | username       | varchar  | not null | username     | String  |                         |
-| 密码     | password       | varchar  | not null | password     | String  |                         |
-| 昵称     | nick_name      | varchar  | not null | nickName     | String  | 用户昵称                    |
-| 手机号    | phone          | char(11) | null     | phone        | String  | 绑定手机号                   |
-| 邮箱     | email          | varchar  | null     | email        | String  | 绑定邮箱                    |
-| 头像地址   | avatar         | varchar  | not null | avatar       | String  | 图片地址                    |
-| 状态     | status         | int2     | not null | status       | Integer | 状态：0正常，1禁用              |
-| 用户信息id | user_detail_id | int8     | null     | userDetailId | Long    | 外键，leaf_user_detail 表主键 |
-| 部门id   | dept_id        | int8     | not null | deptId       | Long    | 外键，leaf_user_detail 表主键 |
+| 名称     | 数据库字段          | 数据库类型    | 是否可空 | Java字段       | Java类型  | 说明                      |
+|--------|----------------|----------|------|--------------|---------|-------------------------|
+| 账号     | username       | varchar  | N    | username     | String  |                         |
+| 密码     | password       | varchar  | N    | password     | String  |                         |
+| 昵称     | nick_name      | varchar  | N    | nickName     | String  | 用户昵称                    |
+| 手机号    | phone          | char(11) | Y    | phone        | String  | 绑定手机号                   |
+| 邮箱     | email          | varchar  | Y    | email        | String  | 绑定邮箱                    |
+| 头像地址   | avatar         | varchar  | N    | avatar       | String  | 图片地址                    |
+| 状态     | status         | int2     | N    | status       | Integer | 状态：0正常，1禁用              |
+| 部门id   | dept_id        | int8     | N    | deptId       | Long    | 外键，leaf_dept 表主键        |
+| 用户信息id | user_detail_id | int8     | Y    | userDetailId | Long    | 外键，leaf_user_detail 表主键 |
 
 ### 1.3 用户信息表（leaf_user_detail）
 
-| 名称   | 数据库字段      | 数据库类型   | 是否可空     | Java字段    | Java类型  | 说明                      |
-|------|------------|---------|----------|-----------|---------|-------------------------|
-| 姓氏   | first_name | varchar | not null | firstName | String  |                         |
-| 名称   | last_name  | varchar | not null | lastName  | String  |                         |
-| 民族   | ethnic     | varchar | not null | ethnic    | String  | 民族                      |
-| 性别   | gender     | varchar | not null | gender    | String  | SECRECY保密，FEMALE女，MALE男 |
-| 年龄   | age        | int2    | not null | age       | Integer | 人生七十古来稀                 |
-| 住址   | address    | varchar | not null | address   | String  | 现住址                     |
-| 故乡   | hometown   | varchar | not null | hometown  | String  |                         |
-| 身份证号 | id_card    | varchar | not null | idCard    | String  |                         |
+| 名称   | 数据库字段      | 数据库类型   | 是否可空 | Java字段    | Java类型  | 说明                      |
+|------|------------|---------|------|-----------|---------|-------------------------|
+| 姓氏   | first_name | varchar | N    | firstName | String  |                         |
+| 名称   | last_name  | varchar | N    | lastName  | String  |                         |
+| 民族   | ethnic     | varchar | N    | ethnic    | String  | 民族                      |
+| 性别   | gender     | varchar | N    | gender    | String  | SECRECY保密，FEMALE女，MALE男 |
+| 年龄   | age        | int2    | N    | age       | Integer | 人生七十古来稀                 |
+| 住址   | address    | varchar | N    | address   | String  | 现住址                     |
+| 故乡   | hometown   | varchar | N    | hometown  | String  |                         |
+| 身份证号 | id_card    | varchar | N    | idCard    | String  |                         |
 
 ### 1.4 角色表（leaf_role）
 
-| 名称   | 数据库字段     | 数据库类型   | 是否可空     | Java字段   | Java类型  | 说明         |
-|------|-----------|---------|----------|----------|---------|------------|
-| 角色名称 | role_name | varchar | not null | roleName | String  |            |
-| 角色编码 | role_code | varchar | not null | roleCode | String  |            |
-| 状态   | status    | int2    | not null | status   | Integer | 状态：0正常，1禁用 |
-| 排序   | sortable  | int2    | not null | sortable | Integer |            |
+| 名称   | 数据库字段     | 数据库类型   | 是否可空 | Java字段   | Java类型  | 说明         |
+|------|-----------|---------|------|----------|---------|------------|
+| 角色名称 | role_name | varchar | N    | roleName | String  |            |
+| 角色编码 | role_code | varchar | N    | roleCode | String  |            |
+| 状态   | status    | int2    | N    | status   | Integer | 状态：0正常，1禁用 |
+| 排序   | sortable  | int2    | N    | sortable | Integer |            |
 
 ### 1.5 部门表（leaf_dept）
 
-| 名称      | 数据库字段       | 数据库类型   | 是否可空     | 实体字段        | 实体类型    | 说明         |
-|---------|-------------|---------|----------|-------------|---------|------------|
-| 部门名称    | dept_name   | varchar | not null | deptName    | String  |            |
-| 父级部门id  | parent_id   | int8    | null     | parent_Id   | Long    |            |
-| 部门负责人id | leader_id   | int8    | not null | leaderId    | Long    |            |
-| 部门描述    | description | varchar | null     | description | String  |            |
-| 状态      | status      | int2    | not null | status      | Integer | 状态：0正常，1禁用 |
-| 排序      | sortable    | int2    | not null | sortable    | Integer |            |
-| 祖级列表    | ancestors   | varchar | not null | ancestors   | String  |            |
+| 名称      | 数据库字段       | 数据库类型   | 是否可空 | 实体字段        | 实体类型    | 说明         |
+|---------|-------------|---------|------|-------------|---------|------------|
+| 部门名称    | dept_name   | varchar | N    | deptName    | String  |            |
+| 父级部门id  | parent_id   | int8    | Y    | parent_Id   | Long    |            |
+| 祖级列表    | ancestors   | varchar | N    | ancestors   | String  | json 数组    |
+| 部门负责人id | leader_id   | int8    | N    | leaderId    | Long    |            |
+| 状态      | status      | int2    | N    | status      | Integer | 状态：0正常，1禁用 |
+| 排序      | sortable    | int2    | N    | sortable    | Integer |            |
 
 ### 1.6 菜单表（leaf_menu)
 
-| 名称     | 数据库字段       | 数据库类型   | 是否可空     | 实体字段       | 实体类型    | 说明               |
-|--------|-------------|---------|----------|------------|---------|------------------|
-| 父级菜单id | parent_id   | int8    | null     | parentId   | Long    |                  |
-| 菜单类型   | menu_type   | int2    | not null | menuType   | Integer | 菜单类型：1目录，2菜单，3按钮 |
-| 显示顺序   | sortable    | int2    | not null | sortable   | Integer | 菜单显示顺序，默认 1      |
-| 权限字符   | permission  | varchar | not null | permission | String  |                  |
-| 状态     | status      | int2    | not null | status     | Integer |                  |
-| 菜单标题   | title       | varchar | not null | title      | String  |                  |
-| 路由路径   | path        | varchar | not null | path       | String  |                  |
-| 组件路径   | component   | varchar | not null | component  | String  |                  |
-| 组件名称   | name        | varchar | not null | name       | String  |                  |
-| 图标     | icon        | varchar | not null | icon       | String  |                  |
-| 是否外链   | is_external | int2    | not null | isExternal | Integer | 0外链，1非外链         |
-| 是否隐藏   | is_hidden   | int2    | not null | isHidden   | Integer | 0显示，1隐藏          |
+| 名称     | 数据库字段          | 数据库类型   | 是否可空 | 实体字段          | 实体类型    | 说明               |
+|--------|----------------|---------|------|---------------|---------|------------------|
+| 菜单名称   | menu_name      | varchar | Y    | menuName      | String  |                  |
+| 父级菜单id | parent_id      | int8    | Y    | parentId      | Long    |                  |
+| 菜单类型   | menu_type      | int2    | N    | menuType      | Integer | 菜单类型：1目录，2菜单，3按钮 |
+| 权限字符   | permission     | varchar | N    | permission    | String  |                  |
+| 路由路径   | route_path     | varchar | N    | routePath     | String  |                  |
+| 组件路径   | component_path | varchar | N    | componentPath | String  |                  |
+| 组件名称   | component_name | varchar | N    | componentName | String  |                  |
+| 图标     | icon           | varchar | N    | icon          | String  |                  |
+| 是否外链   | is_external    | int2    | N    | isExternal    | Integer | 0外链，1非外链         |
+| 是否隐藏   | is_hidden      | int2    | N    | isHidden      | Integer | 0显示，1隐藏          |
+| 状态     | status         | int2    | N    | status        | Integer | 状态：0正常，1禁用       |
+| 显示顺序   | sortable       | int2    | N    | sortable      | Integer | 菜单显示顺序，默认 1      |
 
 ### 1.7 字典表（leaf_dict）
 
-| 名称   | 数据库字段     | 数据库类型   | 是否可空     | 实体字段     | 实体类型    | 说明         |
-|------|-----------|---------|----------|----------|---------|------------|
-| 字典类型 | dict_code | varchar | not null | dictCode | String  |            |
-| 类型名称 | dict_name | varchar | not null | dictName | String  |            |
-| 状态   | status    | int2    | not null | status   | Integer | 状态：0正常，1禁用 |
+| 名称   | 数据库字段     | 数据库类型   | 是否可空 | 实体字段      | 实体类型    | 说明         |
+|------|-----------|---------|------|-----------|---------|------------|
+| 字典类型 | dict_type | varchar | N    | dictKey   | String  |            |
+| 类型名称 | dict_name | varchar | N    | dictValue | String  |            |
+| 状态   | status    | int2    | N    | status    | Integer | 状态：0正常，1禁用 |
+| 排序   | sortable  | int2    | N    | sortable  | Integer | 默认1        |
 
 ### 1.8 字典属性表(leaf_dict_item)
 
-| 名称    | 数据库字段    | 数据库类型   | 是否可空     | 实体字段     | 实体类型    | 说明         |
-|-------|----------|---------|----------|----------|---------|------------|
-| 字典键   | label    | varchar | not null | label    | String  |            |
-| 字典值   | value    | varchar | not null | value    | String  |            |
-| 字典表主键 | dict_id  | int8    | not null | dictType | Long    |            |
-| 排序    | sortable | int2    | not null | sortable | Integer | 默认1        |
-| 状态    | status   | int2    | not null | status   | Integer | 状态：0正常，1禁用 |
+| 名称    | 数据库字段      | 数据库类型   | 是否可空 | 实体字段      | 实体类型    | 说明         |
+|-------|------------|---------|------|-----------|---------|------------|
+| 字典键   | item_key   | varchar | N    | itemKey   | String  |            |
+| 字典值   | item_value | varchar | N    | itemValue | String  |            |
+| 字典表主键 | dict_id    | int8    | N    | dictType  | Long    |            |
+| 排序    | sortable   | int2    | N    | sortable  | Integer | 默认1        |
+| 状态    | status     | int2    | N    | status    | Integer | 状态：0正常，1禁用 |
 
 ### 1.9 用户-角色关联表（leaf_user_role）
 
-| 名称   | 数据库字段   | 数据库类型 | 是否可空     | Java字段 | Java类型 | 说明 |
-|------|---------|-------|----------|--------|--------|----|
-| 用户ID | user_id | int8  | not null | userId | Long   |    |
-| 角色ID | role_id | int8  | not null | roleId | Long   |    |
+| 名称   | 数据库字段   | 数据库类型 | 是否可空 | Java字段 | Java类型 | 说明 |
+|------|---------|-------|------|--------|--------|----|
+| 用户ID | user_id | int8  | N    | userId | Long   |    |
+| 角色ID | role_id | int8  | N    | roleId | Long   |    |
 
 ### 1.10 菜单-角色关联表（leaf_menu_role）
 
-| 名称   | 数据库字段   | 数据库类型 | 是否可空     | 实体字段   | 实体类型 | 说明 |
-|------|---------|-------|----------|--------|------|----|
-| 角色id | role_id | int8  | not null | roleId | Long |    |
-| 菜单id | menu_id | int8  | not null | menuId | Long |    |
+| 名称   | 数据库字段   | 数据库类型 | 是否可空 | 实体字段   | 实体类型 | 说明 |
+|------|---------|-------|------|--------|------|----|
+| 角色id | role_id | int8  | N    | roleId | Long |    |
+| 菜单id | menu_id | int8  | N    | menuId | Long |    |
 
 ## 二、PG
 
@@ -221,7 +223,7 @@ ALTER OWNER 命令来设置所有权
 PostgreSQL 主页: <https://www.postgresql.org/>
 ```
 
-使用 pg_dump 导出 `leaf_main` 的数据库备份（不含建库命令，恢复备份时，在执行脚本之前需要确保 `leaf_main`数据库已经存在）:
+使用 pg_dump 导出 `leaf_main` 的数据库备份（不含建库命令，恢复备份时，在执行脚本之前需要确保 `leaf_main` 数据库已经存在）:
 
 ```bash
 pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_main -c -F p -f backup.sql
@@ -238,8 +240,8 @@ pg_dump -h 127.0.0.1 -p 5432 -U postgres -d leaf_main -C -c -F p -f backup.sql
 - SERIAL：相当于 SERIAL4
 - SERIAL8：相当于 BIGSERIAL
 
-两者都创建一个整数列，serial 是自增的，而 int、int8 只是整数列，而不会自增。
+两者都创建一个整数列，serial 是自增的，而 int、int8 只是整数列，并不会自增。
 
-SERIAL 列是序列号。server 会记录前一个值（前一个最大值），每次请求一个值时，该值都会递增。无论 id 是否被永久保存，这种递增都会发生。如果获取 id 的事务回滚，那么 id 就会 "丢失"，SERIAL 中就会出现 “漏洞”（例如，未使用 id 的间隙）。这并没有什么问题，如果你只是将它们作为唯一 ID 使用，那么有空隙也不会有什么问题。
+SERIAL 列是序列号。server 会记录前一个值（前一个最大值），每次请求一个值时，该值都会递增。无论 id 是否被永久保存，这种递增都会发生。如果获取 id 的事务回滚，那么 id 就会 "丢失"，SERIAL 中就会出现 “漏洞”（例如，未使用 id 的间隙）。如果你只是将它们作为唯一 ID 使用，那么有空隙也不会有什么问题。
 
-这样实现序列是为了提高效率。server 只需跟踪一个值（先前的最大值）即可唯一生成 id，它可以在多个连接中缓存这些 id，以加快序列生成速度，而且通过允许间隙，服务器在生成序列时无需事务锁定序列对象。这使得它们非常高效，并发性也很高。
+PG 这样实现序列是为了提高效率。server 只需跟踪一个值（先前的最大值）即可唯一生成 id，它可以在多个连接中缓存这些 id，以加快序列生成速度，而且通过允许间隙，服务器在生成序列时无需事务锁定序列对象。这使得它们非常高效，并发性也很高。

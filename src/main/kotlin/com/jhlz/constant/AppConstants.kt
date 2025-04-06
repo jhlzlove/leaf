@@ -1,7 +1,5 @@
 package com.jhlz.constant
 
-import java.io.File
-
 /**
  * 全局常量信息
  *
@@ -9,11 +7,6 @@ import java.io.File
  * @version 1.0.0
  */
 object AppConstants {
-    const val LEAF: String = "leaf_"
-
-    // 文件上传路径
-    val UPLOAD_PATH: String = "data" + File.separator + "upload"
-
     /**
      * login success generate with token username key
      */

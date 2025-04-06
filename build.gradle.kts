@@ -2,72 +2,65 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.plugin.allopen)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.quarkus)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.micronaut.application)
+    alias(libs.plugins.micronaut.aot)
 }
 
 group = "com.jhlz"
 version = "0.1"
 
 repositories {
+    maven("https://maven.aliyun.com/repository/public")
     mavenCentral()
-    mavenLocal()
 }
 
-val quarkusPlatformGroupId: String by project
-val quarkusPlatformArtifactId: String by project
-val quarkusPlatformVersion: String by project
-
 dependencies {
-    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    implementation(libs.bundles.quarkus)
+    ksp(libs.bundles.micronaut.ksp)
+    implementation(libs.bundles.micronaut)
+    compileOnly(libs.bundles.micronaut.compile)
+    runtimeOnly(libs.bundles.micronaut.runtime)
+    testImplementation(libs.micronaut.http.client)
+
+    implementation(libs.jimmer.sql.kotlin)
     ksp(libs.jimmer.ksp)
-    implementation(libs.jimmer.sql)
-    testImplementation(libs.bundles.quarkus.test)
+    runtimeOnly(libs.postgresql)
+
+}
+
+application {
+    mainClass = "com.jhlz.Application"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.toVersion("21")
 }
 
-tasks.withType<Test> {
-    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
-}
 
-allOpen {
-    annotation("jakarta.ws.rs.Path")
-    annotation("jakarta.enterprise.context.ApplicationScoped")
-    annotation("jakarta.persistence.Entity")
-    annotation("io.quarkus.test.junit.QuarkusTest")
-}
+graalvmNative.toolchainDetection = false
 
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
-        javaParameters = true
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.jhlz.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
     }
 }
 
-// 将生成的代码添加到编译路径中。
-// 没有这个配置，gradle命令仍然可以正常执行，
-// 但是, Intellij无法找到生成的源码。
-// kotlin {
-//     sourceSets.main {
-//         kotlin.srcDir("build/generated/ksp/main/kotlin")
-//     }
-// }
 
-/**
- * jimmer ksp 和 quarkus 使用时会有循环依赖
- * https://github.com/babyfish-ct/jimmer/discussions/353
- */
-project.afterEvaluate {
-    getTasksByName("quarkusGenerateCode", true).forEach { task ->
-        task.setDependsOn(
-            task.dependsOn.filterIsInstance<Provider<Task>>().filter { it.get().name != "processResources" })
-    }
-    getTasksByName("quarkusGenerateCodeDev", true).forEach { task ->
-        task.setDependsOn(
-            task.dependsOn.filterIsInstance<Provider<Task>>().filter { it.get().name != "processResources" })
-    }
+tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
+    jdkVersion = "21"
 }

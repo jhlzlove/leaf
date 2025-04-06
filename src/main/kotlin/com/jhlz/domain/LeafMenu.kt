@@ -1,15 +1,17 @@
 package com.jhlz.domain
 
-import org.babyfish.jimmer.sql.Column
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.ManyToMany
+import org.babyfish.jimmer.sql.*
 
 /**
  * @author jhlz
  * @version x.x.x
  */
 @Entity
-interface LeafMenu : BaseID, BaseEntity {
+interface LeafMenu : BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
      * 标题
      */
@@ -72,6 +74,4 @@ interface LeafMenu : BaseID, BaseEntity {
      */
     val sortable: Int
 
-    @ManyToMany(mappedBy = "menus")
-    val roles: List<LeafRole>
 }

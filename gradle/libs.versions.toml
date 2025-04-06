@@ -1,85 +1,71 @@
 [versions]
-quarkus = "3.15.2"
-jackson = "2.18.0"
-jimmer = "0.9.48"
-ksp = "2.0.10-1.0.24"
+kotlin = "2.1.10"
+ksp = "2.1.10-1.0.31"
+micronaut = "4.7.6"
+jimmer = "0.9.71"
 jetbrainAnnotations = "24.1.0"
-kotlin = "2.0.10"
 guava = "33.3.0-jre"
-lombok = "1.18.36"
+postgresql = "42.7.5"
+jackson = "2.18.3"
 
 [libraries]
+####################################### kotlin #######################################
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
-####################################### Jimmer #######################################
-# jimmer ksp
+####################################### jimmer #######################################
+jimmer-sql-kotlin = { module = "org.babyfish.jimmer:jimmer-sql-kotlin", version.ref = "jimmer" }
 jimmer-ksp = { module = "org.babyfish.jimmer:jimmer-ksp", version.ref = "jimmer" }
-# jimmer sql for kotlin
-jimmer-sql = { module = "org.babyfish.jimmer:jimmer-sql-kotlin", version.ref = "jimmer" }
 
-####################################### Quarkus #######################################
-# quarkus 基础依赖
-quarkus-rest = { module = "io.quarkus:quarkus-rest", version.ref = "quarkus" }
-# jackson 在 Quarkus 中，只要引入了 json 扩展，默认情况下 Quarkus 将对大多数返回值使用 application/json 媒体类型，除非显式声明
-quarkus-jackson = { module = "io.quarkus:quarkus-rest-jackson", version.ref = "quarkus" }
-quarkus-arc = { module = "io.quarkus:quarkus-arc", version.ref = "quarkus" }
-# yml support
-quarkus-yaml = { module = "io.quarkus:quarkus-config-yaml", version.ref = "quarkus" }
-# pg jdbc
-quarkus-pg = { module = "io.quarkus:quarkus-jdbc-postgresql", version.ref = "quarkus" }
-# jbdc 数据源
-quarkus-agroal = { module = "io.quarkus:quarkus-agroal", version.ref = "quarkus" }
-# 事务
-quarkus-jta = { module = "io.quarkus:quarkus-narayana-jta", version.ref = "quarkus" }
-quarkus-kotlin = { module = "io.quarkus:quarkus-kotlin", version.ref = "quarkus" }
-quarkus-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "quarkus" }
-# test
-quarkus-junit5 = { module = "io.quarkus:quarkus-junit5", version.ref = "quarkus" }
-quarkus-junit5-mockito = { module = "io.quarkus:quarkus-junit5-mockito", version.ref = "quarkus" }
-rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "quarkus" }
+####################################### micronaut #######################################
+micronaut-http-validation = { module = "io.micronaut:micronaut-http-validation" }
+micronaut-kotlin-runtime = { module = "io.micronaut.kotlin:micronaut-kotlin-runtime" }
+micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
+# 不使用 micronaut 中的序列化，虽然它消除了运行时反射的依赖，但是生态支持远不如 jackson，jimmer 也会受影响
+#micronaut-serde-processor = { module = "io.micronaut.serde:micronaut-serde-processor" }
+#micronaut-serde-jackson = { module = "io.micronaut.serde:micronaut-serde-jackson" }
+# 使用 jackson
+micronaut-jackson-databind = { module = "io.micronaut:micronaut-jackson-databind" }
+# hikari 数据源
+micronaut-jdbc-hikari = { module = "io.micronaut.sql:micronaut-jdbc-hikari" }
+# logback
+logback-classic = { module = "ch.qos.logback:logback-classic" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 
-####################################### Other #######################################
-jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainAnnotations" }
-# 缩略图
-thumbnail = { group = "net.coobird", name = "thumbnailator", version = "0.4.20" }
+####################################### database #######################################
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+
+####################################### other #######################################
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrainAnnotations" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
-lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-
-####################################### jackson #######################################
-jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
-# java8 日期支持
-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 
 [bundles]
-quarkus = [
-    "quarkus-rest",
-    "quarkus-jackson",
-    "quarkus-kotlin",
-    "quarkus-kotlin-stdlib",
-    "quarkus-arc",
-    "quarkus-yaml",
-    "quarkus-pg",
-    "quarkus-agroal",
-    "quarkus-jta",
+# ksp
+micronaut-ksp = [
+    "micronaut-http-validation",
 ]
-
-# https://quarkus.io/guides/getting-started-testing
-quarkus-test = [
-    "quarkus-junit5",
-    "quarkus-junit5-mockito",
-    "rest-assured",
+# implementation
+micronaut = [
+    "micronaut-kotlin-runtime",
+    "kotlin-reflect",
+    "kotlin-stdlib-jdk8",
+    "micronaut-jackson-databind",
 ]
-
-jackson = [
-    "jackson-core",
-    "jackson-annotations",
-    "jackson-databind",
-    "jackson-datatype-jsr310",
+# compileOnly
+micronaut-compile = [
+    "micronaut-http-client",
+]
+# runtimeOnly
+micronaut-runtime = [
+    "logback-classic",
+    "jackson-module-kotlin",
+    "micronaut-jdbc-hikari",
 ]
 
 [plugins]
-quarkus = { id = "io.quarkus" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-plugin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
+micronaut-application = { id = "io.micronaut.application", version = "4.4.4" }
+micronaut-aot = { id = "io.micronaut.aot", version = "4.4.4" }

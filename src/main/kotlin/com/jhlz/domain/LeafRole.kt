@@ -1,9 +1,6 @@
 package com.jhlz.domain
 
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.JoinTable
-import org.babyfish.jimmer.sql.ManyToMany
-import org.babyfish.jimmer.sql.Table
+import org.babyfish.jimmer.sql.*
 
 /**
  * @author jhlz
@@ -11,16 +8,22 @@ import org.babyfish.jimmer.sql.Table
  */
 @Entity
 @Table(name = "leaf_role")
-interface LeafRole : BaseID, BaseEntity {
+interface LeafRole : BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
      * 编码
      */
-    val code: String?
+    @Key
+    val roleCode: String
 
     /**
      * 名称
      */
-    val name: String?
+    @Key
+    val roleName: String
 
     /**
      * 1 正常 0 禁用
@@ -31,10 +34,6 @@ interface LeafRole : BaseID, BaseEntity {
      * 排序
      */
     val sortable: Int
-
-    @ManyToMany
-    @JoinTable(name = "leaf_menu_role", joinColumnName = "role_id", inverseJoinColumnName = "menu_id")
-    val menus: List<LeafMenu>
 
     @ManyToMany(mappedBy = "roles")
     val users: List<LeafUser>

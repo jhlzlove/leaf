@@ -1,9 +1,6 @@
 package com.jhlz.domain
 
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.Key
-import org.babyfish.jimmer.sql.OneToMany
-import org.babyfish.jimmer.sql.Table
+import org.babyfish.jimmer.sql.*
 
 /**
  * @author jhlz
@@ -11,27 +8,31 @@ import org.babyfish.jimmer.sql.Table
  */
 @Entity
 @Table(name = "leaf_dept")
-interface LeafDept : BaseEntity, BaseID {
+interface LeafDept : BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
      * 部门名称
      */
     @Key
-    val name: String?
+    val deptName: String
 
     /**
-     * 父级部门 ID
+     * 父部门 id
      */
     val parentId: Long?
 
     /**
-     * 部门领导
+     * 父级列表
      */
-    val leaderId: Long
+    val ancestors: String?
 
     /**
-     * 部门描述
+     * 部门领导 id
      */
-    val description: String?
+    val leaderId: Long?
 
     /**
      * 状态：0正常，1禁用
@@ -43,11 +44,6 @@ interface LeafDept : BaseEntity, BaseID {
      */
     val sortable: Int
 
-    /**
-     * 父级列表
-     */
-    val ancestors: String?
-
     @OneToMany(mappedBy = "dept")
-    val userList: List<LeafUser>
+    val users: List<LeafUser>
 }

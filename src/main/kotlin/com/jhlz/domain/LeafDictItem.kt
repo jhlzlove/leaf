@@ -1,8 +1,6 @@
 package com.jhlz.domain
 
-import org.babyfish.jimmer.sql.Entity
-import org.babyfish.jimmer.sql.IdView
-import org.babyfish.jimmer.sql.ManyToOne
+import org.babyfish.jimmer.sql.*
 
 /**
  * 字典项，与 字典表 是多对一的关系
@@ -11,9 +9,13 @@ import org.babyfish.jimmer.sql.ManyToOne
  * @version x.x.x
  */
 @Entity
-interface LeafDictItem : BaseEntity, BaseID {
+interface LeafDictItem : BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long
+
     /**
-     * 字典 ID
+     * 字典表 id
      */
     @IdView("dict")
     val dictId: Long?
@@ -21,12 +23,12 @@ interface LeafDictItem : BaseEntity, BaseID {
     /**
      * 字典键
      */
-    val label: String?
+    val itemKey: String?
 
     /**
      * 字典值
      */
-    val value: String?
+    val itemValue: String?
 
     /**
      * 状态：0正常，1禁用

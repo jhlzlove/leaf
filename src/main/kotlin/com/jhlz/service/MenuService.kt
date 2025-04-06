@@ -2,8 +2,7 @@ package com.jhlz.service
 
 import com.jhlz.domain.LeafMenu
 import com.jhlz.record.PageQuery
-import jakarta.enterprise.context.ApplicationScoped
-import jakarta.transaction.Transactional
+import jakarta.inject.Singleton
 import org.babyfish.jimmer.Page
 import org.babyfish.jimmer.sql.kt.KSqlClient
 
@@ -11,13 +10,14 @@ import org.babyfish.jimmer.sql.kt.KSqlClient
  * @author jhlz
  * @version x.x.x
  */
-@ApplicationScoped
+@Singleton
 class MenuService(val sqlClient: KSqlClient) {
 
     /**
      * 分页查询
      */
     fun page(page: PageQuery) : Page<LeafMenu> {
+        // val page = PageQuery.create(pageQuery)
         return sqlClient.createQuery(LeafMenu::class) {
             select(table)
         }.fetchPage(page.pageNum, page.pageSize)
@@ -25,12 +25,12 @@ class MenuService(val sqlClient: KSqlClient) {
 
     fun info(id: Long) = sqlClient.findById(LeafMenu::class, id)
 
-    @Transactional
+    // @Transactional
     fun add(menu: LeafMenu) = sqlClient.insert(menu)
 
-    @Transactional
+    // @Transactional
     fun edit(menu: LeafMenu) = sqlClient.save(menu)
 
-    @Transactional
+    // @Transactional
     fun del(id: Long) = sqlClient.deleteById(LeafMenu::class, id)
 }

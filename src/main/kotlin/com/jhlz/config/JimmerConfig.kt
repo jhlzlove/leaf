@@ -1,7 +1,6 @@
 package com.jhlz.config
 
-import io.agroal.api.AgroalDataSource
-import jakarta.enterprise.inject.Produces
+import io.micronaut.context.annotation.Factory
 import jakarta.inject.Singleton
 import org.babyfish.jimmer.sql.dialect.PostgresDialect
 import org.babyfish.jimmer.sql.kt.newKSqlClient
@@ -9,15 +8,16 @@ import org.babyfish.jimmer.sql.runtime.DatabaseValidationMode
 import org.babyfish.jimmer.sql.runtime.DefaultDatabaseNamingStrategy
 import org.babyfish.jimmer.sql.runtime.Executor
 import org.babyfish.jimmer.sql.runtime.SqlFormatter
+import javax.sql.DataSource
 
 /**
  * @author jhlz
- * @version 1.0.0
+ * @version 0.0.1
  */
+@Factory
 class JimmerConfig(
-    private val dataSource: AgroalDataSource
+    val dataSource: DataSource
 ) {
-    @Produces
     @Singleton
     fun sqlClient() = newKSqlClient {
         setConnectionManager {
